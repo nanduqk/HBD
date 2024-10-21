@@ -1,0 +1,7 @@
+/*
+�2010 - 2016 SAP SE or an SAP affiliate company.  All rights reserved.
+ 
+SAP and other SAP products and services mentioned herein as well as their respective logos are trademarks or registered trademarks of SAP SE in Germany and other countries.  Please see http://www.sap.com/corporate-en/legal/copyright/index.epx#trademark for additional trademark information and notices.
+*/
+
+jQuery.sap.declare("com.sap.fioribi.utils.SessionTimeout");var showSessionDialog=function(){var logoffUrl="logoff.jsp";var L_pinger_mainWindow_ExpiredMessage=BILaunchpadApp.localized("session_expired");var L_pinger_title_ExpiredMessage=BILaunchpadApp.localized("session_timeout");var L_dialogsevice_button_OK=BILaunchpadApp.localized("filter_ok");function expiryHandler(){setTimeout(function(){window.location=logoffUrl;ExpiryDialog.close();},0);}var config={dialogType:businessobjects.webutil.fioribi.dialogservice.DialogConstants.TIMEOUT_INFO_DIALOG,message:L_pinger_mainWindow_ExpiredMessage,title:L_pinger_title_ExpiredMessage,button_OK_title:L_dialogsevice_button_OK,fnCallbackMessageBox:expiryHandler,};var ExpiryDialog=businessobjects.webutil.fioribi.dialogservice.DialogService.showDialog(config);ExpiryDialog.open();ExpiryDialog.setEscapeHandler(expiryHandler);};

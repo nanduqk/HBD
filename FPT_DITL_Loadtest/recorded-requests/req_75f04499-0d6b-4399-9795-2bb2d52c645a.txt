@@ -1,0 +1,14 @@
+GET https://fedauth.pg.com/assets/scripts/captcha/captcha-script-loader.js HTTP/2.0
+sec-ch-ua-platform: "Windows"
+user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36
+sec-ch-ua: "Google Chrome";v="129", "Not=A?Brand";v="8", "Chromium";v="129"
+sec-ch-ua-mobile: ?0
+accept: */*
+sec-fetch-site: same-origin
+sec-fetch-mode: no-cors
+sec-fetch-dest: script
+referer: https://fedauth.pg.com/
+accept-encoding: gzip, deflate, br, zstd
+accept-language: en-US,en;q=0.9
+cookie: PF=pokhgZmeUrjbStUsjgmHce
+

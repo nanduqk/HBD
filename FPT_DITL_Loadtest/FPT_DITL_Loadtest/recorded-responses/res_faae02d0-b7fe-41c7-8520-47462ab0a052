@@ -1,0 +1,1 @@
+define("zen.rt.uiframework/legacyfeeding/zen.rt.components.sdkhtml5chart/charts/SDKGenericViz",["zen.rt.uiframework/legacyfeeding/zen.rt.components.sdkhtml5chart/charts/SDKBaseChart"],function(a){a.extend("sap.zen.SDKGenericViz",{isGenericViz:true,setVizId:function(b){this.cvomType=b;}});return sap.zen.SDKGenericViz;});

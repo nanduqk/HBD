@@ -1,0 +1,1 @@
+define("zen.rt.uiframework/legacyfeeding/zen.rt.components.sdkhtml5chart/charts/SDKComb",["zen.rt.uiframework/legacyfeeding/zen.rt.components.sdkhtml5chart/charts/SDKBaseChart"],function(a,b){a.extend("sap.zen.SDKCombinationChart",{initCvomChartType:function(){this.cvomType="viz/combination";}});return sap.zen.SDKCombinationChart;});

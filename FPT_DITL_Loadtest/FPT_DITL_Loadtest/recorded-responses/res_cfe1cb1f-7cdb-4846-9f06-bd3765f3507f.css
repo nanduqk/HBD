@@ -1,0 +1,62 @@
+.sapBiVaReferenceLineDialog .colorButton {
+    height: 24px;
+    width: 40px;
+    display: inline-block;
+    background-color: #ffffff;
+    background-position: center right;
+    background-repeat: no-repeat;
+    border: 1px solid #bfbfbf;
+    box-sizing: border-box;
+    cursor: pointer;
+    margin-top: 5px;  
+    position: relative;
+    top: 5px;
+    left:17px;
+}
+
+.sapBiVaReferenceLineDialog .colorButton>span {
+    height: 16px;
+    width: 16px;
+    display: block;
+    position: relative;
+    top: 3px;
+    left: 3px;
+}
+
+.sapBiVaReferenceLineDialog .colorButton:after {
+    font-family: fpa-icons;
+    content: "\e625";
+    font-size: 15px;
+    color: #676767 !important;
+    line-height: 34px;
+    top: -21px !important;
+    position: relative;
+    left: 24px;
+    font-weight: bolder;
+}
+
+.referenceDialogLabel {
+     line-height:2.3rem;
+}
+.referenceDialogType {
+     line-height: 2.5rem;
+}
+.referencelineRadioButton {
+     margin: 4px 1rem 4px 1rem;
+}
+.referenceLineInput.sapMInputBaseWidthPadding {
+     padding: 4px 1rem 4px 1rem;
+}
+.referenceLineSelect{
+     margin: 0.5rem 1rem 0.5rem 1rem;
+}
+.referencelineCheckBox{
+     margin: 4px 1rem 4px 6px;
+}
+.sapUiSizeCompact .referenceLineSelect .sapMSltLabel {
+     padding-right: 1rem;
+}
+.sapUiSizeCompact .referenceLineComboBox.sapMComboBoxTextField
+{
+     margin: 0.5rem 1rem 0.5rem 1rem;
+}

@@ -1,0 +1,212 @@
+/*
+�2010 - 2016 SAP SE or an SAP affiliate company.  All rights reserved.
+ 
+SAP and other SAP products and services mentioned herein as well as their respective logos are trademarks or registered trademarks of SAP SE in Germany and other countries.  Please see http://www.sap.com/corporate-en/legal/copyright/index.epx#trademark for additional trademark information and notices.
+*/
+
+.BILP-recycleBinToolbar {
+	width: inherit;
+	padding: 0px !important;
+	height: 32px !important;
+	padding-top: 32px !important;
+	/*background-color: #ffffff !important;*/
+	background-color: transparent !important;
+}
+
+.BILP-recycleBinTileContainerMargins {
+	margin-top: 35px;
+	margin-left: 15px;
+	overflow: scroll !important;
+}
+.BILP-recycleBinScrollTileHolder .sapUiLoSplitterH .sapUiLoSplitter{
+	white-space: normal !important;
+}
+.BILP-BICustomTileRecycleBin{
+	width: auto !important;
+    display: inline-block;
+    float: left;
+    margin-top: 5px;
+    margin-left: 2px;
+}
+
+.BILP-recycleBinToolbar>div {
+	padding: 0px !important;
+	margin-right:32px !important;
+}
+.BILP-recycleBinbutton .sapMBtnInner {
+
+    background-color: transparent !important;
+      border: none !important;
+}
+.BILP-recycleBinbutton .sapMBtnInner:hover {
+    background-color: rgba(179,179,179,0.5) !important;
+    
+}
+
+.BILP-recycleBinbutton .sapMBtnInner:active  {
+    background-color: #346187 !important;
+      color: #ffffff !important;
+    
+}
+.BILP-recycleBinbutton .sapMBtnInner:active span {
+    background-color: #346187 !important;
+      color: #ffffff !important;
+    
+}
+.BILP-recycleBinbutton  .sapMBtnCustomIcon:active {
+    color: #ffffff !important;
+}
+    
+.BILP-recycleBinbutton  .sapMBtnCustomIcon{
+   /* color: #346187 !important;*/
+}  
+  .BILP-recyclebinAlign{
+	       margin-left:10px !important;
+		  }
+.BILP-recyclebinview    .sapMBtnCustomIcon{
+text-shadow:none !important;
+       /*color: #346187 */
+      }
+    
+	  
+	 
+	  
+/*
+.BILP-recycleBinalign:hover {
+ background-color:grey !important;
+ border: none !important;
+ }
+*/
+.BILP-detailsIconRecycleBin {
+	
+	margin-right: 8px !important;
+	width: 32px !important;
+	height: 32px !important;
+	margin-left:8px !important;
+}
+
+.BILP-noShadow::before {
+	border-top: transparent !important;
+}
+
+.BILP-noShadow {
+	-webkit-box-shadow: none !important;
+	box-shadow: none !important;
+	padding-top: 8px;
+}
+
+.BILP-RecycleBinHeader {
+	font-size: 16px !important;
+	padding-left: 0 !important;
+	color: #666 !important;
+   text-shadow: 0 1px rgba(255,255,255,0.5) !important;
+
+}
+.BILP-recycleBinPadding{
+padding-left: 30px;
+}
+.BILP-recycleBinTable {
+	margin-top: 42px;
+	margin-bottom: 32px;
+	width: auto !important;
+	cursor:pointer;
+}
+
+.BILP-lastRow {
+	/*background-color: #FFFFFF;*/
+	height: 82vh !important;
+}
+.BILP-lastRows .sapUiLoSplitterContent{
+	
+	width:100% !important;
+} 
+.BILP-Height100Perc{
+	height : 100% !important;
+}
+.BILP-Height100Perc >div{
+	height : 98% !important;
+}
+.BILP-relative >div {
+	position: absolute !important;
+	}
+.BILP-lastRowsHistory {
+	background-color: #FFFFFF;
+	height: 85vh !important;
+}
+.BILP-lastRowsHistory >section>div>section{
+	padding-bottom:90px !important;
+}
+.BILP-lastRowsHistory >section:second-child{
+	padding-bottom:90px !important;
+}
+.BILP-lastRowsSchedule{
+	padding-bottom:90px !important;
+}
+.BILP-historytable .sapMScrollContScroll{
+	padding-top: 2rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+.BILP-detailsIconRecycleBin .sapMBtnCustomIcon {
+   /* color: #346187 !important;*/
+}
+.BILP-recycleBinTable  .sapUiTableRowHidden {
+	cursor:auto !important;
+}
+
+.sapUiTheme-sap_belize_hcb .BILP-RecycleBinHeader {
+	color: #ffffff !important;
+}
+
+.sapUiTheme-sap_belize_hcw .BILP-RecycleBinHeader {
+	color: #000000 !important;
+}
+
+.sapUiTheme-sap_belize_hcb .BILP-refreshBackground {
+	background-color: #000000 !important;
+}
+
+.sapUiTheme-sap_belize_hcw .BILP-refreshBackground {
+	background-color: #FFFFFF !important;
+}
+
+.sapUiTheme-sap_belize .BILP-refreshBackground {
+	background-color: #FFFFFF !important;
+}
+
+.sapUiTheme-sap_belize_plus .BILP-refreshBackground {
+	background-color: #FFFFFF !important;
+}
+
+.sapUiTheme-sap_belize_hcb section #historyPage-cont{
+       		background:#000000;
+ }
+ 
+ .sapUiTheme-sap_belize_plus .BILP-RecycleBinHeader {
+	color: #ffffff !important;
+}
+
+.sapUiTheme-sap_belize_hcb .sapUiTableColHdrCnt { /* History page thick border*/
+	border-bottom-width: 1px;
+}
+
+.sapUiTheme-sap_fiori_3 .BILP-recycleBinbutton .sapMBtnInner, .sapUiTheme-sap_fiori_3 .BILP-recycleBinbutton  .sapMBtnCustomIcon{
+	color: #346187 !important;
+}
+
+.sapUiTheme-sap_fiori_3 .sapMBtnIcon .sapMBtnCustomIcon .sapMBtnInner{
+	color: #32363a !important; 
+}
+
+.sapUiTheme-sap_fiori_3 .BILP-recycleBinbutton .sapMBtnInner:active span{
+	color : #32363a ;
+}
+
+.sapUiTheme-sap_fiori_3 .BILP-recyclebinview .sapMBtnCustomIcon{
+	color:  #d1e8ff !important;
+	border: none !important;
+}
+
+.sapUiTheme-sap_fiori_3_hcw .BILP-recycleBinToolbar {
+	padding-bottom: 4px !important;
+}

@@ -1,0 +1,20 @@
+GET https://hba.na.pg.com:8443/BOE/portal/2302072240/biprwsproxy/biprws/internal/v1/getApplications?pagesize=50&_=1725957967295 HTTP/1.1
+Host: hba.na.pg.com:8443
+Connection: keep-alive
+sec-ch-ua: "Chromium";v="128", "Not;A=Brand";v="24", "Google Chrome";v="128"
+X-SAP-PVL: en_US
+sec-ch-ua-mobile: ?0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36
+Content-Type: application/json;odata=verbose
+Accept: application/json
+x-SAP-logonToken: usalspgsa687.na.pg.com:6400@{3&2=16573267,U3&2v=usalspgsa687.na.pg.com:6400,UP&66=40,U3&68=secSAPR3:HGA~400/ES2044,UP&S9=14995253,U3&qe=100,U3&vz=P5w4APl6gTPJpna30B_iKPyOxhX02xZteuwaTaXvap1cnP4Dv6NUoZEqnXNTnHFB,UP}
+X-Requested-With: XMLHttpRequest
+sec-ch-ua-platform: "Windows"
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: empty
+Referer: https://hba.na.pg.com:8443/BOE/portal/2302072240/FioriBI/main.jsp?service=%2Fcommon%2FappService.do&appKind=InfoView
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
+Cookie: JSESSIONID=8BBB098FF2E5A45B6F9A79BA1B226BC5; InfoViewPLATFORMSVC_COOKIE_CMS=%40webHBA; InfoViewCE_SAPCnt=400; InfoViewPLATFORMSVC_COOKIE_AUTH=secSAPR3; InfoViewCE_SAPSys=HGA; InfoViewPLATFORMSVC_COOKIE_TOKEN=; InfoViewPLATFORMSVC_COOKIE_USR=z0006aLne%3Cj60%40%23%2444
+

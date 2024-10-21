@@ -1,0 +1,577 @@
+/*
+�2010 - 2016 SAP SE or an SAP affiliate company.  All rights reserved.
+ 
+SAP and other SAP products and services mentioned herein as well as their respective logos are trademarks or registered trademarks of SAP SE in Germany and other countries.  Please see http://www.sap.com/corporate-en/legal/copyright/index.epx#trademark for additional trademark information and notices.
+*/
+
+.BILP-categoryScrollPaddings{
+        overflow: scroll !important;
+        white-space: normal !important;
+        height: calc(100vh - 75px - 120px) !important;
+}
+.BILP-BICustomTileCategories{
+        width: auto !important;
+    display: inline-block;
+    /*float: left;*/
+    border: 0.1px;
+    border-style: solid;
+    border-color: #0000002e;
+    margin-top: 5px;
+    margin-left: 5px;
+    margin-right: 2px;
+    /*padding: 2px;*/
+}
+
+.BILP-moreIcon{
+                background-position : -1065px -275px !important;
+}
+.BILP-moreIcon:hover{
+                background-position : -1099px -275px !important;
+}
+.BILP-moreIcon:active{
+                background-position : -1133px -275px !important;
+}
+.BILP-objectLayoutHeader {
+    margin-bottom: -1px;
+}
+
+.BILP-outline{
+    outline:0 none !important;
+}
+.BILP-color1{
+                color: #000000 !important;
+}
+.BILP-listmoreIcon{
+                background-position : -1885px -250px !important;
+                padding-right:10px;
+}
+.BILP-listmoreIcon:hover{
+                background-position : -1919px -250px !important;
+}
+.BILP-listmoreIcon:active{
+                background-position : -1953px -250px !important;
+}
+
+.BILP-moreIconPosition{
+                float: right !important;
+}
+.BILP-popoverIcon{
+                background-position : -1065px -1065 !important;
+                height : 400px;
+}
+.BILP-popoverPosition{
+                margin-left:80%;
+}
+
+.BILP-dialogSize{
+                height:640px !important;
+                width : 512px!important;
+}
+.BILP-ListingTable{
+                background-color : #FFFFFF !important;
+                margin-top: 1px !important;
+                width:99% !important;
+}
+
+.BILP-ListTableText{
+padding-top:8px;
+}
+
+.BILP-ScheduleListTableText{
+padding-left:16px !important;
+}
+
+.BILP-ListHistoryText{
+padding-left:16px !important;
+}
+
+
+.BILP-TableLayout .sapMLIBShowSeparator:focus +.sapMLIBShowSeparator > td
+{
+                border-top-color :none !important;
+}
+.BILP-TableLayout3 .sapMListTblRow:focus{
+                outline : 1px dotted #000000 !important;
+                outline-offset : -1px !important;
+}
+
+
+.BILP-TableLayout2 .sapMLIBShowSeparator:focus > td, .sapMLIBShowSeparator:focus + .sapMLIBShowSeparator > td{
+                                
+                                border-top-style : dotted !important;
+                                border-color: black !important; 
+}
+.BILP-TableLayout4 .sapMListTblCell.sapMListTblCellNoData, .sapMListTblRow>:nth-last-child(2) {
+   padding-right: 16px !important;
+}
+.BILP-TableLayout5 .sapMListTblCell:first-child, .sapMListTblNone:first-child + .sapMListTblCell {
+    padding-left: 16px !important;
+}
+
+.BILP-tableHeader1{
+                width: 100% !important;
+}
+.BILP-categoryDialog {
+    padding-right: 80% !important; 
+}
+.BILP-Cursor{
+    cursor:pointer !important;
+}
+.BILP-Cursor [data-sap-ui-draggable=true]{
+    cursor:pointer !important;
+}
+
+.BILP-categoryPadding {
+                
+                padding-bottom : 0px !important;
+}
+.BILP-categoryPadding16 {
+                padding-top : 22px !important;
+                padding-bottom : 0px !important;
+}
+.BILP-categoryPadding3 {
+                padding-top : 3px  !important;
+                padding-bottom : 0px !important;
+}
+
+.BILP-text {
+                text-decoration:none !important;
+                padding: 5px;
+                color: #000000 !important;
+    font-size: 0.875rem;
+    font-weight: normal;
+}
+
+.BILP-categoryLabel{
+                
+                font-style:regular; 
+                font-size : 14px !important;
+}
+
+/* .BILP-categoryLink{
+                color:white !important;
+} */
+.BILP-categoryType{
+    color:#333333 !important;
+                
+                font-size : 14px !important;             
+}
+.BILP-categoryType .sapMSltLabel{
+                font-size: 14px !important;
+}
+.BILP-listIcon{
+                background-position : -105px -140px !important;
+                }
+.BILP-listIcon:hover{
+                background-position : -138px -140px !important;
+}
+.BILP-listIcon:active{
+                background-position : -172px -140px !important;
+}
+
+.BILP-size32px1{
+                height : 32px !important;
+                width : 200px !important;
+}
+
+.BILP-filterIcon{
+                background-position : -922px -352px !important;
+}
+.BILP-filterIcon:hover{
+                background-position : -955.6px -352px !important;
+}
+.BILP-filterIcon:active{
+                background-position : -988px -352px !important;
+}
+
+
+.BILP-addIcon{
+                background-position : -923px -422px !important;
+                margin-right : 32px ! important;
+}
+.BILP-addIcon:hover{
+                background-position : -956.6px -422px !important;
+}
+.BILP-addIcon:active{
+                background-position : -988px -422px !important;
+}
+
+.BILP-add1Icon{
+                background-position : -922px -252px !important;
+}
+.BILP-add1Icon:hover{
+                background-position : -958px -252px !important;
+}
+.BILP-add1Icon:active{
+                background-position : -988px -252px !important;
+}
+.BILP-Breadcrumb .sapMSltIcon:before {
+   
+    color: #ffffff;
+
+}
+
+//--------------------mobile properties------------------
+
+.mobilePropDialog>.sapUiSizeCompact.sapMDialog>.sapMDialogSection,
+                .sapUiSizeCompact .sapMDialog>.sapMDialogSection {
+                width: 1000px !important;
+}
+
+.mobilePropDialog .sapMDialogScrollCont {
+                padding: 0px !important;
+                overflow-x: hidden;
+}
+
+.mobilePropDialog .sapMDialogScroll {
+                /* height: 792px !important; */
+                min-height: 300px;
+                max-height: 792px;
+}
+
+.mobilePropDialog>.sapUiPopupWithPadding .sapMDialogScrollCont {
+                width: 1000px !important;
+}
+
+.mobilePropDialog {
+                width: 1000px !important;
+}
+
+.mobilePropDialog>header {
+                /*background-color: #f2f6fa !important;*/
+                
+}
+
+.mobilePropDialog .sapMDialogSection {
+                overflow-x: hidden !important;
+                overflow-y: visible !important;
+}
+
+.mobilePropDialog .sapMBar {
+                /*background-color: #eff4f9 !important;*/
+                
+}
+
+.docPropLabel {
+                width: 100%;
+                margin-top: 28px;
+                margin-bottom: 6px;
+                font-size: 1rem;
+                color: #333333;
+                margin-left: 32px;
+}
+
+.vbox {
+                margin-left: 25px;
+}
+
+.vbox label {
+                /* padding-left: 32px; */
+                
+}
+
+.vbox span {
+                padding-bottom: 8px;
+}
+
+.vbox .sapUiCb {
+                outline: none !important;
+                border: none !important;
+}
+
+.mobPropList .sapMLIB {
+                background-color: transparent !important;
+                padding-left: 10px !important;
+                border-bottom: none !important;
+}
+
+.checkTextCombo {
+                margin-left: 25px;
+                /* padding-top: 4px; */
+                width: 100%;
+}
+
+.checkTextCombo .sapMTextAreaInner {
+                width: 60px !important;
+}
+
+.checkTextCombo .sapUiCb>label {
+                padding-left: 32px;
+                padding-right: 10px;
+}
+
+.mobPropTextArea {
+                width: 60px !important;
+                margin-left: 7px !important;
+                margin-right: 7px !important;
+                min-width: 0rem !important;
+				height: 1.625rem !important;
+}
+
+.mobPropTextArea .sapMTextAreaInner {
+                height: 27px !important;
+                overflow: hidden;
+}
+
+.mobPropTextArea .sapMInputBaseInner {
+                position: absolute;
+                top: 0px;
+                color: #666666;
+}
+
+.mobPropTextArea .sapMTextArea>.sapMTextAreaInner {
+                line-height: 22px;
+}
+
+.labelDays {
+                /* margin-left: 8px !important; */
+                margin-top: 8px !important;
+}
+
+.checkTextCombo  .sapMLabel {
+                /* color : black; */
+                
+}
+
+.checkTextCombo .sapUiCb {
+                outline: none !important;
+                border: none !important;
+}
+
+.greyout {
+                color: #dfdfdf !important;
+}
+
+.dynamicPropertiesTable {
+                margin-left: 32px;
+                margin-right: 32px;
+                margin-bottom: 32px;
+}
+
+.dynamicPropertiesTable .sapUiTableCol {
+                /*            outline: none !important; */
+                border: none !important;
+}
+
+.dynamicPropertiesTable .sapUiTableCol:hover {
+                /*background-color: #f7f7f7 !important;*/
+}
+
+.dynamicPropertiesTable .sapUiTableCell {
+                /* outline: none !important; */
+                border: none !important;
+}
+
+.dynamicPropertiesTable .sapUiTableCtrlEmptyMsg {
+                /* color: #757575 !important; */
+                display: none !important;
+}
+
+.dynamicPropertiesTable .sapUiTableTd {
+                /* outline: none !important; */
+                
+}
+
+.dynamicPropertiesTable .sapUiTableColRowHdr {
+                border-right: none !important;
+                /*height: 2.2rem;*/
+}
+
+.dynamicPropertiesTable .sapUiTableRowHdr {
+                border-right: none !important;
+}
+
+.dynamicPropertiesTable .sapUiTableCol {
+                border-right: none !important;
+}
+
+.dynamicPropertiesTable .sapUiTableTd {
+                border-right: none !important;
+}
+/* .dynamicPropertiesTable .sapUiTableColHdrCnt {
+                height: 40px !important;
+}
+.dynamicPropertiesTable .sapUiTableColCell {
+                padding-top: 4px; 
+}
+.dynamicPropertiesTable .sapMTextArea>.sapMTextAreaInner {
+                line-height: 16px !important;
+} */
+.dynamicPropertiesTable .sapMTextAreaInner {
+                height: 27px !important;
+                overflow: hidden !important;
+                outline: none !important;
+}
+/*
+.dynamicPropertiesTable .sapUiTableCell {
+    padding-top: 2px !important;
+    padding-bottom: 2px !important;
+    display: block;
+} */
+.dynamicPropLabel {
+                margin-left: 32px;
+                font-size: 1rem;
+                color: #333333;
+}
+
+.addIcon {
+                position: absolute;
+                margin-top: 0px;
+                display: block !important;
+                margin-left: -23px;
+                color: #666666;
+}
+
+.deleteIcon {
+                position: absolute;
+                margin-top: 0px;
+                z-index: 1;
+                margin-left: -50px;
+                color: #666666;
+}
+
+.addDeleteLayout {
+                width: 100%;
+                margin-top: 21px;
+                cursor: pointer;
+                margin-bottom: 9px;
+}
+
+.addDeleteLayout .sapUiHLayoutChildWrapper {
+                float: right;
+}
+.addDeleteLayout .sapUiHLayoutChildWrapper:first-child {
+                float: left;
+                margin-top: .4rem;
+}
+
+.addDeleteLayout .sapMBtnCustomIcon {
+                color: #346187;
+}
+
+.iconAdd {
+                margin-right: 32px !important;
+                outline: none !important;
+                color: #666666;
+}
+
+.iconDelete {
+                margin-right: 4px;
+}
+
+.iconAdd .sapMBtnDefault {
+                border: none !important;
+    background-color: transparent;
+}
+
+.iconDelete .sapMBtnDefault {
+                border: none !important;
+    background-color: transparent;
+}
+
+.mediumText {
+                font-size: .875rem;
+}
+
+.errorMessageStrip {
+                margin-left: 32px;
+                margin-right: 32px;
+                margin-bottom: 32px;
+                margin-top: -15px;
+}
+
+.dynamicPropertiesTable .sapMInputBaseInner {
+                /* height: 2.5rem !important; */
+                
+}
+
+.dynamicPropertiesTable .sapUiTableCell {
+                /*            height: 3rem !important; */
+                
+}
+.BILP-bdCrumb{
+                margin-top: -5px  !important;
+}
+.ListBoxMaxHeight {
+	max-height: 1.7rem !important;
+}	
+.dynamicPropertiesTable .sapUiTableTd { 
+                /*padding-top: 1rem !important;
+                padding-bottom: 1rem !important;
+                padding-right: 2rem !important;*/
+}
+
+.dynamicPropertiesTable .sapUiTableColRsz {
+                display: none;
+}
+
+.disableDelete .sapMBtnCustomIcon {
+                color: #bfbfbf !important;
+                cursor: auto !important;
+}
+
+.BILPaddiconpadding {
+                padding-right: 10px !important;
+}
+
+.BILP-RecycleBinTablemargin {
+                background-color: #FFFFFF !important;
+                margin-top: 36px !important;
+                margin-bottom: 32px !important;
+                margin-left: 32px !important;
+                margin-right: 32px !important;
+                width: auto !important;
+                cursor:pointer;
+}
+.BILP-RecycleBinTablemargin .sapUiTableRowHidden {
+                cursor:auto !important;
+}
+.BILP-TableCursor {
+                cursor:pointer;
+}
+.BILP-TableCursor .sapUiTableRowHidden {
+                cursor:auto !important;
+}
+//-----------------end mobile prop-------------------
+
+.BILP-sap_belize_hcbfolderPageheaderBGColor .sapMIBar.sapMHeader-CTX{
+	background-color: #000000 !important;
+}
+
+
+.BILP-tableFirstColumnHLayout {
+	width: 80% !important;
+}
+
+.BILP-tableFirstColumnHLayout >div:last-child {
+	display: contents !important;
+}
+
+.sapUiTheme-sap_belize_hcb .addDeleteLayout .sapMBtnCustomIcon {
+	color: #ffffff;
+}
+
+.sapUiTheme-sap_belize_hcb .sapUiTableColHdrCnt { /* Mobile properties page thick table border*/
+	border-bottom-width: 1px;
+}
+
+.sapUiTheme-sap_belize_hcb .BILP-categoryLabel{
+	color: #ffffff;
+}
+
+.sapUiTheme-sap_fiori_3_dark .BILP-categoryLabel{
+	color: #000000;
+}
+
+.BILP-previewBox{
+	padding-left: 62px;
+    padding-top: 2px;
+    margin-bottom: 2px;
+    height: 190px;
+    background-color: #F2F2F2;
+}
+
+.BILP-categoryPadding1 {
+	padding-top : 2px ;
+	padding-bottom : 0px;
+}

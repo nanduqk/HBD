@@ -1,0 +1,153 @@
+.zenFilterBarMHidden {
+	display:none;
+}
+
+.sapUiCompFilterBarBasicArea {
+	padding:0rem 0 0rem 1rem!important	
+}
+
+.zenHideFilterBar {
+	display:none;
+}
+
+.zenFilterBarM.sapUiCompFilterBar {
+	overflow:visible;
+}
+
+.zenControl.zenFilterBarMFilter.sapMNav {
+	overflow:visible;
+	width:auto !important;
+}
+
+.zenControl.zenFilterBarM .sapUiCompFilterBarBasicArea.sapUiCompFilterBarWidth100, .zenControl.zenFilterBarM .sapMPanel{
+	height:90px;
+	padding:0;
+	display:block;
+	white-space:nowrap;
+	padding-bottom:2rem;
+}
+
+.zenControl.zenFilterBarM.zenCustomExpand .sapUiCompFilterBarBasicArea.sapUiCompFilterBarWidth100 {
+	overflow:visible;
+	height:auto;
+	white-space:pre-line;
+	padding-bottom:2rem;
+}
+
+.sapUiSizeCompact .zenControl.zenFilterBarM .sapUiCompFilterBarBasicArea.sapUiCompFilterBarWidth100 {
+	padding-bottom:1rem;	
+}
+
+.sapUiSizeCompact .zenControl.zenFilterBarM.customExpand .sapUiCompFilterBarBasicArea.sapUiCompFilterBarWidth100 {
+	padding-bottom:1rem;
+}
+
+
+.zenFilterBarMFilter.sapzendimensionfilterM .sapzenfilterpanelM-ListItem>.sapMLIBContent>.sapUiContentPadding {
+	
+	padding:0px!important;
+}
+
+.zenFilterBarM.sapUiRespGrid.sapUiRespGridHSpace1>div {
+	width:100%;
+	overflow:visible;
+}
+
+.zenFilterBarMFilter.sapzendimensionfilterM .sapzenfilterpanelM-ListItem {
+	border-bottom:none;
+	background-color:transparent;
+}
+
+.zenFilterBarM .sapUiCompFilterBarToolbar {
+	height:50px;
+	padding-right:2rem;
+}
+
+/****************************************************/ 
+/* Fix clipping of dimensionfilter menu             */
+/****************************************************/ 
+
+.zenFilterBarM .sapUiCompFilterBarBasicArea>div {
+	overflow:visible;
+}
+
+/*********************************************************/ 
+/* Fix clipping of dimensionfilter menu in Filter Dialog */
+/*********************************************************/ 
+ 
+.zenFilterBarDialogOpened .sapUiCompFilterBarDialog .sapUiCompFilterBarGroupTitle .sapUiFormResGridMain>div,
+.zenFilterBarDialogOpened .sapUiCompFilterBarDialog .sapUiCompFilterBarGroupTitle .sapUiRGLContainerCont>.sapUiFormResGridCont>div {
+	overflow:visible;
+}
+
+/****************************************************/ 
+/* Visually simulate disable state BEGIN            */
+/****************************************************/ 
+
+.zenFilterBarM.sapUiLocalBusy .sapUiLocalBusyIndicator {
+	background-color:transparent;
+}
+
+.zenFilterBarM.sapUiLocalBusy .sapUiCompFilterBarToolbar > button {
+	opacity:0.7;
+} 
+
+.zenFilterBarM.sapUiLocalBusy .sapUiLocalBusyIndicatorAnimation {
+	display:none;
+} 
+
+.zenFilterBarM.sapUiLocalBusy .sapMMultiInputBorder {
+	background-color:rgb(235, 235, 228);
+}
+
+/****************************************************/ 
+/* Visually simulate disable state END              */
+/****************************************************/ 
+
+/************************************************************/ 
+/* Temporary solution to hide Header in Filter Dialog BEGIN */ 
+/************************************************************/
+
+.zenFilterBarDialogOpened .sapUiCompFilterBarDialog .sapUiCompFilterBarGroupTitle .sapUiFormTitle {
+	visibility:hidden;
+	height:0px;
+}
+
+.zenFilterBarDialogOpened .sapUiCompFilterBarDialog .sapUiCompFilterBarGroupTitle .sapUiCompFilterBarAddFilterLabel {
+	top:2rem!important;
+	right:1rem!important;
+	position:absolute!important;
+}
+
+.sapUiFormResGrid.sapUiFormBackgrTranslucent>div {
+	background-color: transparent!important;
+}
+
+/************************************************************/ 
+/* Temporary solution to hide Header in Filter Dialog END   */ 
+/************************************************************/
+
+/****************************************************************/ 
+/* Hide filters that don't fit on the first row when collapsed */ 
+/****************************************************************/
+.zenControl.zenFilterBarM .zenFBIhidden {
+	display:none;
+}
+
+.zenControl.zenFilterBarM.zenCustomExpand .zenFBIhidden {
+	display:inline-block;
+}
+
+/****************************************************************/ 
+/* Move the "show More" button to bottom right */ 
+/****************************************************************/
+.zenCustomExpandButton {
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    z-index: 1;
+}
+
+.zenControl.zenFilterBarM.zenFilterBarCompressed .sapUiCompFilterBarHint.sapMText, .zenControl.zenFilterBarM.zenFilterBarCompressed .sapMPanel {
+	display: none;
+}

@@ -1,0 +1,92 @@
+/*
+�2010 - 2016 SAP SE or an SAP affiliate company.  All rights reserved.
+ 
+SAP and other SAP products and services mentioned herein as well as their respective logos are trademarks or registered trademarks of SAP SE in Germany and other countries.  Please see http://www.sap.com/corporate-en/legal/copyright/index.epx#trademark for additional trademark information and notices.
+*/
+
+/*
+©2010 - 2016 SAP SE or an SAP affiliate company.  All rights reserved.
+
+ 
+SAP and other SAP products and services mentioned herein as well as their respective logos are trademarks or registered trademarks of SAP SE in Germany and other countries.  Please see http://www.sap.com/corporate-en/legal/copyright/index.epx#trademark for additional trademark information and notices.
+*/
+
+@CHARSET "ISO-8859-1";
+html,#content{
+	height:100%
+}
+.BILP-displayBlock > div{
+	display:block !important;
+	
+}
+.BILP-displayBlock > div:last-child{
+	display:block !important;
+	
+
+height:100%
+}
+
+.sapUiTheme-sap_belize .BILP-HomepageTabBar>.sapMITH  .sapMITBFilter .sapMITBText,.sapUiTheme-sap_belize .BILP-launchpadLabel,.sapUiTheme-sap_belize .BILP-header,.sapUiTheme-sap_belize .BILP-downLabel,.sapUiTheme-sap_belize .BILP-Label,.sapUiTheme-sap_belize .nameLabel,.sapUiTheme-sap_belize .label{
+	 color: #346187 !important;
+	
+	}
+.sapUiTheme-sap_belize_plus .BILP-HomepageTabBar>.sapMITH .sapMITBFilter .sapMITBText,.sapUiTheme-sap_belize_plus .BILP-launchpadLabel,.sapUiTheme-sap_belize_plus .BILP-header,.sapUiTheme-sap_belize_plus .BILP-downLabel,.sapUiTheme-sap_belize_plus .BILP-Label,.sapUiTheme-sap_belize_plus .nameLabel,.sapUiTheme-sap_belize_plus .label{
+      color: #ffffff !important;
+       
+        
+        
+}
+ .sapUiTheme-sap_belize .SelectionDropDown{
+	 color: #346187 !important;
+
+}
+ .sapUiTheme-sap_belize_plus .SelectionDropDown{
+	 color: #ffffff !important;
+	 	 /* text-shadow: 0 1px rgba(0,0,0,0.5);*/
+}
+
+.sapMITH {
+	border-bottom-color:transparent !important;
+	box-shadow:inset 0 -0.25rem 0 -0.125rem rgba(52,97,135,0.1);
+}
+ .sapUiTheme-sap_belize_plus .sapMBtnIcon{
+	/*color:#fff !important; */
+}
+
+ .sapUiTheme-sap_belize_plus .BILP-homeTabWidth .sapMSlt>.sapMSltLabel,.sapUiTheme-sap_belize_plus .BILP-homeTabWidth .sapMSltArrow{
+	color:white !important
+}
+ .sapUiTheme-sap_belize .BILP-homeTabWidth .sapMSlt>.sapMSltLabel,.sapUiTheme-sap_belize .BILP-homeTabWidth .sapMSltArrow{
+	color: #346187 !important;
+} 
+
+
+
+
+.sapUiTheme-sap_belize .BILP-HomepageTabBar>.sapMITH  .sapMITBFilter .sapMITBText,.sapUiTheme-sap_belize .BILP-launchpadLabel,.sapUiTheme-sap_belize .BILP-header,.sapUiTheme-sap_belize .BILP-downLabel,.sapUiTheme-sap_belize .BILP-Label,.sapUiTheme-sap_belize .nameLabel,.sapUiTheme-sap_belize .label,.sapUiTheme-sap_belize .BILP_WelcomeLabelcolor{
+	 color: #346187 !important;
+	
+	}
+.sapUiTheme-sap_belize_plus .BILP-HomepageTabBar>.sapMITH .sapMITBFilter .sapMITBText,.sapUiTheme-sap_belize_plus .BILP-launchpadLabel,.sapUiTheme-sap_belize_plus .BILP-header,.sapUiTheme-sap_belize_plus .BILP-downLabel,.sapUiTheme-sap_belize_plus .BILP-Label,.sapUiTheme-sap_belize_plus .nameLabel,.sapUiTheme-sap_belize_plus .label,.sapUiTheme-sap_belize_plus.BILP_WelcomeLabelcolor{
+}
+
+.sapUiTheme-sap_belize_plus .BILP-savedialogheader>header{
+	
+	background-color:#3f5161 !important;
+}
+.sapUiTheme-sap_belize .BILP-savedialogheader>header{
+    background-color:#eff4f9 !important;
+}
+.sapUiTheme-sap_belize_plus .BILP-savedialogheader>header>div>div>h1>span{
+	color:#fff !important;
+	text-shadow:none !important;
+}
+.sapUiTheme-sap_belize #shell-shapes ~ header span.sapMBtnInner.sapMToggleBtnPressed .sapMBtnIcon {
+    color: #346187;
+}
+.sapUiTheme-sap_belize_plus .BILP_WelcomeLabelcolor {
+    color: #fff !important;
+}
+
+
+

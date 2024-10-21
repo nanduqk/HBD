@@ -1,0 +1,6985 @@
+/* SAP CVOM 4.0 © <2012-2014> SAP SE. All rights reserved. Build Version 7.21.1-SNAPSHOT, Build context rel-7.21_bychk.3 */
+/* Included Components: common,runtime,builder,chart,contextmenu,feeding,frame,mapbuilder,filterbar,playcontrol,propertyeditor,mappropertyeditor,esricustomserviceselector,switchbar,titleeditor,axisscaleeditor,filtermenu,thumbnail,axissplitter,dropzone,fakedata,propertyrendering,morpher,adhocindicator */
+.viz-controls-common-analysisDraggable {
+
+}
+.viz-controls-common-analysisDraggingToken-classic {
+    overflow: hidden;
+    cursor: move;
+    background: rgba(102, 102, 102, 0.6);
+    border-radius: 3px;
+    display: block;
+    font-weight: bold;
+    padding: 0px 3px 0px 4px;
+    line-height: 22px;
+    width: 178px;
+    z-index: 999999;
+    border: 1px solid #333;
+    box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.3);
+    font-size:12px;
+}
+.viz-controls-common-analysisDraggingToken-classic .viz-controls-common-analysisDraggingToken .viz-controls-common-text-ellipsis {
+    color: #FFF !important;
+}
+.viz-controls-common-analysisDraggingToken-icon {
+    padding: 0;
+    float: right;
+    margin: 0;
+    color: #333;
+    font: inherit;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+    vertical-align: baseline;
+    border-radius: 0;
+    border: 0;
+}
+.viz-controls-common-analysisDraggingToken-classic .viz-controls-common-analysisDraggingToken-icon-dropAccepted,
+.viz-controls-common-analysisDraggingToken-classic .viz-controls-common-analysisDraggingToken-icon-dropAcceptedAsReplacement,
+.viz-controls-common-analysisDraggingToken-classic .viz-controls-common-analysisDraggingToken-icon-dropDenied,
+.viz-controls-common-analysisDraggingToken-classic .viz-controls-common-analysisDraggingToken-icon-dropAsTrash
+{
+    color: white;
+}
+.viz-controls-common-analysisDraggingToken-warn {
+    font-weight: normal;
+    font-size: 14px;
+    color: #FFBD69;
+    float: left;
+    display: inline-block;
+    min-width: 178px;
+}
+.viz-controls-common-analysisDraggingToken-warn-text{
+    display: inline-block;
+    white-space: nowrap;
+    padding: 0px 4px 0px 4px;
+}
+.viz-controls-common-analysisDraggingToken-left-icon {
+    padding: 0;
+    float: left;
+    margin-right: 5px;
+    color: #FFF;
+    font: inherit;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+    vertical-align: baseline;
+    border-radius: 0;
+    border: 0;
+}
+.viz-controls-common-analysisDraggingToken-indicator {
+    display: block;
+}
+.viz-controls-common-analysisDraggingToken-lumira2 {
+    overflow: hidden;
+    cursor: move;
+    background: rgba(230, 242, 249, 0.9);
+    border-radius: 2px;
+    display: block;
+    padding: 0px 6px;
+    line-height: 24px;
+    width: 202px;
+    z-index: 999999;
+    box-shadow: -1px 1px 1px rgba(0,0,0,0.48);
+    font-size:12px;
+}
+.viz-controls-common-analysisDraggingToken-lumira2.viz-controls-common-analysisDraggingToken-measure {
+    background: rgba(230, 242, 249, 0.9);
+}
+.viz-controls-common-analysisDraggingToken-lumira2 .viz-controls-common-text-ellipsis {
+    color: #333333 !important;
+}
+.viz-controls-common-analysisDraggingToken-lumira2 .viz-controls-common-analysisDraggingToken-icon-dropAccepted,
+.viz-controls-common-analysisDraggingToken-lumira2 .viz-controls-common-analysisDraggingToken-icon-dropAcceptedAsReplacement,
+.viz-controls-common-analysisDraggingToken-lumira2 .viz-controls-common-analysisDraggingToken-icon-dropDenied,
+.viz-controls-common-analysisDraggingToken-lumira2 .viz-controls-common-analysisDraggingToken-icon-dropAsTrash
+ {
+    color: #444444;
+}
+
+.viz-controls-common-analysisDraggingToken-lumira2 .viz-controls-common-analysisDraggingToken-info {
+    border-top: 1px solid #0073b8;
+    line-height: 33px;
+}
+
+.viz-controls-common-analysisDraggingToken-classic .viz-controls-common-analysisDraggingToken-info {
+    border-top: 1px solid #ffffff;
+    line-height: 33px;
+}
+
+.viz-controls-common-analysisDraggingToken-msg-text {
+    padding-left: 7px;
+    font-weight: bold
+}.viz-controls-common-feedlist {
+    position: absolute;
+    left : 0;
+    top : 0;
+    width: auto;
+    z-index: 999999;
+}
+.viz-controls-common-feedlist-container {
+    position: absolute;
+    box-shadow: 0 6px 12px 0 rgba(0,0,0,0.3),0 0 2px 0 rgba(0,0,0,0.3);
+    background-color: #ffffff;
+    border-radius: 4px;
+}
+.viz-controls-common-feedlist-container-left {
+    -webkit-animation: viz-controls-common-feedlist_keyframes_left .5s ease-out;
+}
+@-webkit-keyframes viz-controls-common-feedlist_keyframes_left
+{
+    0% {opacity: 0; left: 12px}
+    100% {opacity: 1; left: 0px}
+}
+.viz-controls-common-feedlist-container-right {
+    -webkit-animation: viz-controls-common-feedlist_keyframes_right .5s ease-out;
+}
+@-webkit-keyframes viz-controls-common-feedlist_keyframes_right
+{
+    0% {opacity: 0; left: -12px}
+    100% {opacity: 1; left: 0px}
+}
+.viz-controls-common-feedlist-arrow {
+    background-color: #ffffff;
+    height: 12px;
+    width: 12px;
+    margin: 3px 0 0 3px;
+    position: absolute;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+    display: block;
+    box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.3);
+}
+.viz-controls-common-feedlist-content {
+    position: absolute;
+    background-color: #ffffff;
+    #padding-right: 2px;
+    border-radius: 0.25rem;
+}
+.viz-controls-common-feedlist-content-header {
+    padding: 12px 0px 0px 12px;
+    font-weight: bold;
+    font-size: 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.viz-controls-common-feedlist ul {
+    min-width: 340px;
+    min-height: 200px;
+    padding: 1px;
+    background-color: #ffffff;
+    list-style: none;
+    margin: 0px;
+    display: inline-block;
+    position: absolute;
+    overflow-x: hidden;
+}
+.viz-controls-common-feedlist li {
+    position: relative;
+    line-height: 12px;
+    cursor: pointer;
+    font-size: 12px;
+}
+.viz-controls-common-feedlist-li-button, .viz-controls-common-feedlist-li-hierarchy-indicator {
+    display: block;
+    float: right;
+    position: absolute;
+    top: 50%;
+    margin-top: -8px;
+    border: 1px solid transparent;
+    border-image-source: initial;
+    border-image-slice: initial;
+    border-image-width: initial;
+    border-image-outset: initial;
+    border-image-repeat: initial;
+}
+.viz-controls-common-feedlist-li-hierarchy-indicator {
+    left: 2px;
+    margin-top: -10px;
+}
+.viz-controls-common-feedlist-li-hierarchy-indicator .viz-controls-common-icon {
+    width: 14px;
+    height: 14px;
+    line-height: 16px;
+    font-size: 16px;
+    vertical-align: bottom;
+    display: inline-block;
+}
+.viz-controls-common-feedlist-li-hierarchy-Icon {
+    background-position: 0px -220px;
+    cursor: default;
+}
+.viz-controls-common-feedlist-li-button {
+    right: 15px;
+    cursor: pointer;
+}
+.viz-controls-common-feedlist-li-button-offset {
+    right: 2px;
+}
+.viz-controls-common-feedlist-li-button-close {
+    background-color: #007CC0;
+}
+.viz-controls-common-feedlist li:first-child {
+    padding-top: 3px;
+}
+.viz-controls-common-feedlist li:last-child {
+    margin-bottom: 0px;
+}
+.viz-controls-common-feedlist-li-hierarchy-indicator-focus {
+    background-color: #007CC0;
+}
+.viz-controls-common-feedlist a, .viz-controls-common-feedlist span {
+    margin-left: 38px;
+    display: block;
+    padding: 6px 6px;
+    cursor: pointer;
+    width: 260px;
+}
+.viz-controls-common-feedlist span {
+    padding-left: 45px;
+}
+.viz-controls-common-feedlist-li-a_suffix:after {
+    content: attr(__suffix);
+    position: relative;
+    margin-left: 8px;
+    line-height: 14px;
+    top: 2px;
+    background-color: #f2f2f2;
+    border-radius: 3px;
+    padding: 0 4px;
+    vertical-align: top;
+    display: inline-block;
+    max-width: 100%;
+    color: #666666;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+/*.viz-controls-common-feedlist-content > ul > li:hover, .viz-controls-common-feedlist-content > ul > li:focus {
+    background-color: #e5f2f9;
+}*/
+
+/*.viz-controls-common-feedlist-content > ul > li:hover .viz-controls-common-feedlist-li-hierarchy-Icon {
+    background-position: -17px -220px;
+}*/
+.viz-controls-common-hide-cursor {
+    cursor: none;
+    pointer-events: none;
+}
+.viz-controls-common-feedlist-li-highlight {
+    background-color: #eef5fb;
+}
+.viz-controls-common-feedlist-li-icon-container {
+    position: absolute;
+    top: 4px;
+}
+.viz-controls-common-feedlist .viz-controls-common-feedlist-measures-token{
+    border-bottom: 1px solid #dddddd;
+    height: 32px;
+    line-height:32px;
+    padding-left: 26px;
+    font-family:  Helvetica Neue, Arial, sans-serif;
+    font-size: 12px;
+    color: #333;
+    cursor: pointer;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.viz-controls-common-feedlist-li-icon-dataset {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    cursor: pointer;
+}
+.viz-controls-common-feedlist-li-icon-hierarchy {
+    position: absolute;
+    top: 0px;
+    left: 20px;
+    cursor: pointer;
+}
+.viz-controls-common-feedlist-li-icon-link {
+    position: relative;
+    top: 0px;
+    left: 6px;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+}.classic .viz-controls-common-feeding-view {
+    width: 222px;
+}
+.viz-controls-common-feeding-trellis-view {
+    border:solid 1px rgba(255,255,255,0)!important;
+    margin-bottom: 0!important;
+    width:223px!important;
+}
+.viz-controls-common-feeding-icon {
+    float: left;
+    margin: 9px 10px 0px 4px;
+    font-size: 1.12rem;
+    color: #666666;
+}
+.classic .viz-controls-common-feeding-item {
+    margin-bottom: 12px;
+    position: relative;
+}
+.viz-controls-common-feeding-item-head {
+    overflow: hidden;
+}
+.classic .viz-controls-common-feeding-item-title {
+    margin-bottom: 2px;
+    margin-left: 6px;
+    font-size: 12px;
+    cursor:default;
+}
+.viz-controls-common-feeding-item-content {
+    position: relative;
+}
+.classic .viz-controls-common-feeding-item-list {
+    background-color: #ffffff;
+    border-color: #dddddd;
+    border-style: solid;
+    border-width: 1px;
+    padding: 3px 3px;
+    cursor: pointer;
+    margin: 0 30px 0 5px;
+}
+.classic .viz-controls-common-feeding-item-list_active {
+    border-color: #007CC0;
+}
+.viz-controls-common-feeding-item-ph {
+    height: 24px;
+    position: relative;
+}
+.classic .viz-controls-common-feeding-item-ph-half {
+    height: 12px;
+}
+.viz-controls-common-feeding-item-ph-text {
+    line-height: 24px;
+    display: inline-block;
+    font-family:Arial;
+    font-size: 12px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 100%;
+    color: #DDDDDC;
+    margin: 0 0 0 4px;
+}
+.viz-controls-common-feeding-item-add-icon {
+    background-position: 0px -1417px;
+    position: absolute;
+    top: 9px;
+    right: 9px;
+    cursor: pointer;
+}
+.viz-controls-common-feeding-item-add-icon_active {
+    background-position: -17px -1417px;
+}
+.viz-controls-common-feeding-item-add-icon-highlight {
+    color: #007CC0;
+}
+.viz-controls-common-feeding-card {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    cursor: move;
+    pointer-events: auto;
+}
+.classic .viz-controls-common-feeding-card {
+    margin-bottom: 4px;
+    padding: 0px 3px 0px 4px;
+    color: #FFFFFF;
+    background-color: #666666;
+    background: #666666;
+    border: 1px solid #333;
+    border-radius: 3px;
+    font-weight: bold;
+}
+.viz-controls-common-feeding-measure-card {
+    background-color: transparent;
+}
+.viz-controls-common-feeding-dimension-card {
+    background-color: transparent;
+}
+.viz-controls-common-feeding-card:last-of-type {
+    margin-bottom: 0px;
+}
+.classic .viz-controls-common-feeding-card-text{
+    line-height: 22px;
+    padding: 0 2px 0 0;
+    font-size: 12px;
+    font-weight: bold;
+    margin-right: 2px;
+}
+.viz-controls-common-feeding-action-icon-measure {
+    display: none;
+    cursor: pointer;
+    float: right;
+}
+.viz-controls-common-feeding-mode-icon {
+    cursor: pointer;
+    float: right;
+    margin-right: 23px;
+}
+.classic .viz-controls-common-feeding-action-icon-measure {
+    padding: 3px 1px 0 5px;
+    font-size:14px;
+}
+.viz-controls-common-feeding-action-icon-hierarchy {
+    display: none;
+    float: right;
+    padding: 3px 0 0 5px;
+}
+.viz-controls-common-feeding-action-icon-div {
+    top: 0px;
+    cursor: pointer;
+    display: inline-block;
+    float: right;
+}
+.viz-controls-common-feeding-location-icon-div {
+    padding-top: 5px;
+    padding-right: 2px;
+    display: inline-block;
+    float: right;
+    font-size: 12px;
+}
+.viz-controls-common-feeding-card-measure:hover .viz-controls-common-feeding-action-icon-measure{
+    display: block;
+}
+.viz-controls-common-feeding-card-hierarchy:hover .viz-controls-common-feeding-action-icon-hierarchy{
+    display: block;
+}
+.viz-controls-common-feeding-card-operation-div {
+    top: 0px;
+    cursor: pointer;
+    float: right;
+    display: inline-block;
+}
+.viz-controls-common-feeding-card-operation {
+    display: none;
+    font: inherit;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+    vertical-align: baseline;
+    border-radius: 0;
+    border: 0;
+    cursor: pointer;
+    float: right;
+}
+.classic .viz-controls-common-feeding-card-operation {
+    color: #FFF;
+}
+.classic .viz-controls-common-feeding-card:hover .viz-controls-common-feeding-card-operation {
+    display: block;
+    padding: 3px 1px 0 5px;
+}
+.viz-controls-common-feeding-card_draggingHelper {
+    transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    box-shadow: 2px 2px 1px 1px #444;
+    -webkit-box-shadow: 2px 2px 1px 1px #444;
+}
+.viz-controls-common-feeding-card_draggingHelper_grabbing {
+    cursor: -webkit-grabbing;
+}
+.viz-controls-common-feeding-card_draggingHelper_noDrop {
+}
+.viz-controls-common-feeding-card.viz-controls-common-feeding-card-ghost {
+    background-color: rgba(230, 242, 249, 0.5);
+    border: 0;
+    font-weight: bold;
+    color: #666666;
+}
+.classic .viz-controls-common-feeding-card-ghost {
+    padding: 0 4px 0 5px;
+}
+.viz-controls-common-feeding-drop-indicator {
+    background-color: #74b6e2;
+    border: 0;
+    position: absolute;
+    margin: -4px 0 0 -4px;
+    height: 4px;
+}
+.classic .viz-controls-common-feeding-drop-indicator {
+    width: 185px;
+}
+
+.viz-controls-common-feeding-item-icon-div {
+    width: 19px;
+    float: left;
+    padding: 3px 0 0 0;
+}
+
+.viz-controls-common-feeding-item-icon {
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    cursor: pointer;
+    top: 3px;
+    left: 5px;
+}
+.viz-controls-common-feeding-text-with-icon {
+    float: right;
+    padding: 3px 0 0 0;
+}
+.viz-controls-common-feeding-card-cursor {
+    cursor: default;
+}
+.viz-controls-common-feeding-title-seperator {
+    border-top:1px solid #DFE5EA;
+    margin:0 4px 12px 4px;
+}
+.viz-controls-common-feeding-variance-label {
+    font-size:12px;
+    vertical-align:text-top;
+}
+.viz-controls-common-feeding-variance {
+    margin-left: 6px;
+}
+.lumira{
+    font-family: Arial;
+}
+.lumira2 .viz-controls-common-feeding-view {
+    width: 225px;
+    margin-bottom:12px;
+    border:solid 1px #DFE5EA;
+    border-radius:2px;
+    background-color:white;
+}
+.lumira2 .viz-controls-common-feeding-item {
+    position: relative;
+    padding:0 6px;
+}
+.lumira2 .viz-controls-common-feeding-item-title {
+    font-size: 12px;
+    font-weight: bold;
+    color:#333333;
+    padding:10px 0 10px 4px;
+}
+.lumira2 .viz-controls-common-feeding-item-list {
+    background-color: #ffffff;
+    cursor: pointer;
+    padding-bottom: 6px;
+}
+.lumira2 .viz-controls-common-feeding-item-list_active {
+    border: solid 1px #1670C1;
+}
+.lumira2 .viz-controls-common-feeding-item-ph-half {
+    height: 8px;
+}
+.lumira2 .viz-controls-common-feeding-card {
+    margin-bottom: 2px;
+    color: #333333;
+    border-radius: 2px;
+}
+.lumira2 .viz-controls-common-feeding-measure-card-highlight {
+    background-color: #E6F2F9!important;
+}
+.lumira2 .viz-controls-common-feeding-dimension-card-highlight {
+    background-color: #E6F2F9!important;
+}
+.lumira2 .viz-controls-common-feeding-card-text{
+    line-height: 23px;
+    padding: 0 6px;
+    font-size: 12px;
+}
+.lumira2 .viz-controls-common-feeding-action-icon-measure {
+    padding: 4px 2px 0 4px;
+}
+.lumira2 .viz-controls-common-feeding-card-operation {
+    color: #585858;
+}
+.lumira2 .viz-controls-common-feeding-card:hover .viz-controls-common-feeding-card-operation {
+    display: block;
+    padding: 4px 5px 0 4px;
+}
+.lumira2 .viz-controls-common-feeding-card:hover {
+    background-color: #E6F2F9;
+}
+.lumira2 .viz-controls-common-feeding-drop-indicator {
+    width: 220px;
+}
+.lumira2 .viz-controls-common-feeding-item-icon-div {
+    width:16px;
+    padding: 3px 4px 0 4px;
+    text-align:center;
+}
+.lumira2 .viz-controls-common-feeding-icon-measure {
+    color: #EDA91F;
+    font-size:16px;
+}
+.lumira2 .viz-controls-common-feeding-icon-dimension {
+    color: #008A3B;
+    opacity: 0.8;
+    font-size:16px;
+}
+.lumira2 .viz-controls-common-feeding-location-icon-div {
+    padding-top: 4px;
+    font-size: 16px;
+}
+.lumira2 .viz-controls-common-feeding-item-add-icon {
+    font-size: 1rem;
+    color: #333333;
+}
+.lumira2 .viz-controls-common-feeding-text-with-icon {
+    font-size:16px;
+    padding: 3px 5px 0 0;
+}
+
+html[dir="rtl"] .classic .viz-controls-common-feeding-item-title {
+    margin-right: 6px;
+}@font-face {
+	font-family: 'lumira-icons';
+	src: url('../common/assets/lumira-icons-1.0/lumira-icons.ttf'),
+		 url('../common/assets/lumira-icons-1.0/lumira-icons.eot'); /* IE9+ */
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+    font-family: 'fpa-icons';
+    src: url('../common/assets/fpa-icons/FPA-icons.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Use the following CSS code if you want to use data attributes for inserting your icons */
+[data-icon]:before {
+	font-family: 'lumira-icons';
+	content: attr(data-icon);
+	speak: none;
+}
+
+/* Use the following CSS code if you want to have a class per icon */
+[class*="viz-controls-common-icon-"]:before, [class*=" icon-"]:before {
+	font-family: 'lumira-icons';
+	font-style: normal;
+	speak: none;
+}
+
+@font-face {
+    font-family: 'sap-viz-controls-icons';
+    src: url('../common/assets/sap-icons-2.9/SAP-icons.ttf'),
+         url('../common/assets/sap-icons-2.9/SAP-icons.eot'); /* IE9+ */
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Use the following CSS code if you want to use data attributes for inserting your icons */
+[sap-data-icon]:before {
+    font-family: 'sap-viz-controls-icons';
+    content: attr(sap-data-icon);
+    speak: none;
+}
+
+/* Use the following CSS code if you want to have a class per icon */
+[class*="viz-controls-common-sap-icon-"]:before, [class*=" icon-"]:before {
+    font-family: 'sap-viz-controls-icons';
+    font-style: normal;
+    speak: none;
+}
+.viz-controls-common-icon-circle:before {
+    content: "\e000";
+}
+.viz-controls-common-icon-error:before {
+    content: "\e157";
+}
+.viz-controls-common-icon-add:before {
+    content: "\e172";
+}
+.viz-controls-common-icon-expand:before {
+    content: "\e134";
+}
+.viz-controls-common-icon-restore:before {
+    content: "\e147";
+}
+.viz-controls-common-icon-add-filter:before {
+    content: "\e044";
+}
+.viz-controls-common-icon-clear-filter:before {
+    content: "\e143";
+}
+.viz-controls-common-icon-settings:before {
+    content: "\e192";
+}
+.viz-controls-common-icon-hierarchy:before {
+    content: "\e034";
+}
+.viz-controls-common-icon-circle-configured:before {
+    content: "\e064";
+}
+.viz-controls-common-icon-circle-close:before {
+    content: "\e069";
+}
+.viz-controls-common-icon-geo:before {
+    content: "\e188";
+}
+.viz-controls-common-icon-date:before {
+    content: "\e191";
+}
+.viz-controls-common-icon-plus:before {
+    content: "\e183";
+}
+.viz-controls-common-icon-remove:before {
+    content: "\e184";
+}
+.viz-controls-common-icon-arrow-down:before {
+    content: "\e114";
+}
+.viz-controls-common-icon-checkmark:before {
+    content: "\e176";
+}
+.viz-controls-common-icon-save:before {
+    content: "\e171";
+}
+.viz-controls-common-icon-warning:before {
+    content: "\e158";
+}
+.viz-controls-common-icon-token-replace:before {
+    content: "\e085";
+}
+.viz-controls-common-icon-circle-not-allowed:before {
+    content: "\e070";
+}
+.viz-controls-common-icon-close:before {
+    content: "\e194";
+}
+.viz-controls-common-icon-exclude:before {
+    content: "\e198";
+}
+.viz-controls-common-icon-arrow-right:before {
+    content: "\e116";
+}
+.viz-controls-common-icon-arrow-left:before {
+    content: "\e115";
+}
+.viz-controls-common-icon-arrow-down:before {
+    content: "\e114";
+}
+.viz-controls-common-icon-delete:before{
+    font-family: 'fpa-icons';
+    font-style: normal;
+    speak: none;
+    content: "\e748";
+    font-size: 16px;
+}
+.viz-controls-common-icon-info:before{
+    font-family: 'fpa-icons';
+    content: "\e639";
+    font-size: 14px;
+}
+.viz-controls-common-icon-link:before{
+    font-family: 'fpa-icons';
+    content: "\e672";
+}
+.viz-controls-common-icon-primary-data:before{
+    font-family: 'fpa-icons';
+    content: "\e714";
+}
+.viz-controls-common-icon-geo:before{
+    font-family: 'fpa-icons';
+    content: "\e686";
+}
+
+.viz-controls-common-icon-arrow-up:before {
+    content: "\e113";
+}
+.viz-controls-common-icon-chain:before {
+    content:"\e159";
+}
+.viz-controls-common-icon-tree-hierarchy:before {
+    content:"\e187";
+}
+.viz-controls-common-icon-time-hierarchy:before {
+    content:"\e225";
+}
+.viz-controls-common-icon-primary-dataset:before {
+    content:"\e224";
+}
+.viz-controls-common-icon-hyperlink:before {
+    content:"\e159";
+}
+.viz-controls-common-icon-button {
+    background-color: transparent;
+    cursor: pointer;   
+}
+.viz-controls-common-icon-button:hover {
+    color: #007cc0;
+}
+.viz-controls-common-icon-white:before {
+    color: #ffffff;
+}
+.viz-controls-common-icon-blue:before {
+    color: #007cc0;
+}
+.viz-controls-common-icon-black:before {
+    color: #333;
+}
+.viz-controls-common-icon-black:not(.disable):hover:before{
+    color:#008fd3;
+}
+
+
+.viz-controls-common-sap-icon-tree:before {
+    content: "\e0f4";
+}
+.viz-controls-common-sap-icon-decline:before {
+    content: "\e03e";
+}
+.viz-controls-common-icon-bar-chart:before {
+    content: "\e136";
+}
+.viz-controls-common-icon-images-tab:before {
+    content: "\e137";
+}
+.viz-controls-common-sap-icon-paper-plane:before {
+    content: "\e0cc";
+}
+.viz-controls-common-icon-Text-tab:before {
+    content: "\e138";
+}
+.viz-controls-common-icon-input-controls:before {
+    content: "\e142";
+}
+
+.viz-controls-common-icon-xaxis:before {
+    font-family: "orca";
+    content: "\e663";
+}
+.viz-controls-common-icon-yaxis:before {
+    font-family: "orca";
+    content: "\e664";
+}
+.viz-controls-common-icon-color:before {
+    font-family: "orca";
+    content: "\e6be";
+}
+.viz-controls-common-icon-animation:before {
+    font-family: "orca";
+    content: "\e833";
+}
+.viz-controls-common-icon-geography:before {
+    font-family: "orca";
+    content: "\e686";
+}
+.viz-controls-common-icon-trellis:before {
+    font-family: "orca";
+    content: "\e844";
+}
+.viz-controls-common-icon-columns:before {
+    font-family: "orca";
+    content: "\e646";
+}
+.viz-controls-common-icon-measures:before {
+    font-family: "orca";
+    content: "\e6fe";
+}
+.viz-controls-common-icon-tag:before {
+    font-family: "orca";
+    content: "\e642";
+}
+.viz-controls-common-icon-radar-branches:before {
+    font-family: "orca";
+    content: "\e6fc";
+}
+.viz-controls-common-icon-time-dimension:before {
+    font-family: "orca";
+    content: "\e6e9";
+}
+.viz-controls-common-icon-funnel-values:before {
+    font-family: "orca";
+    content: "\e6ea";
+}
+.viz-controls-common-icon-pc-values:before {
+    font-family: "orca";
+    content: "\e83f";
+}
+.viz-controls-common-icon-value:before {
+    font-family: "orca";
+    content: "\e836";
+}
+.viz-controls-common-icon-geo-dimension:before {
+    font-family: "orca";
+    content: "\e667";
+}
+.viz-controls-common-icon-shape:before {
+    font-family: "orca";
+    content: "\e69b";
+}
+.viz-controls-common-icon-tagcloud-size:before {
+    font-family: "orca";
+    content: "\e83c";
+}
+.viz-controls-common-icon-treemap-size:before {
+    font-family: "orca";
+    content: "\e83d";
+}
+.viz-controls-common-icon-pie-size:before {
+    font-family: "orca";
+    content: "\e841";
+}
+.viz-controls-common-icon-bubble-size:before {
+    font-family: "orca";
+    content: "\e842";
+}
+.viz-controls-common-icon-column-width:before {
+    font-family: "orca";
+    content: "\e837";
+}
+.viz-controls-common-icon-axes:before {
+    font-family: "orca";
+    content: "\e834";
+}
+.viz-controls-common-icon-time-axis:before {
+    font-family: "orca";
+    content: "\e6e9";
+}
+.viz-controls-common-icon-label:before {
+    font-family: "orca";
+    content: "\e835";
+}
+.viz-controls-common-icon-height:before {
+    font-family: "orca";
+    content: "\e738";
+}
+.viz-controls-common-icon-dimensions:before {
+    font-family: "orca";
+    content: "\e83a";
+}
+.viz-controls-common-icon-axis:before {
+    font-family: "orca";
+    content: "\e83b";
+}
+.viz-controls-common-icon-radar-axes:before {
+    font-family: "orca";
+    content: "\e6fc";
+}
+.viz-controls-common-icon-type-measure:before {
+    font-family: "orca";
+    content: "\e6fe";   
+}
+.viz-controls-common-icon-type-date:before {
+    font-family: "orca";
+    content: "\e695";
+}
+.viz-controls-common-icon-type-number:before {
+    font-family: "orca";
+    content: "\e698";
+}
+.viz-controls-common-icon-type-string:before {
+    font-family: "orca";
+    content: "\e68e";
+}
+.viz-controls-common-icon-type-boolean:before {
+    content: "\e031";
+    font-family: 'sap-viz-controls-icons';
+}
+.viz-controls-common-icon-type-geography:before {
+    content: "\e091";
+    font-family: 'sap-viz-controls-icons';
+}
+.viz-controls-common-icon-bottom-axis:before {
+    font-family: "orca";
+    content: "\e82e";
+}
+.viz-controls-common-icon-right-axis:before {
+    font-family: "orca";
+    content: "\e830";
+}
+
+.lumira2 .viz-controls-common-icon-add:before {
+    font-family: "orca";
+    content: "\e80f";
+}
+.lumira2 .viz-controls-common-icon-arrow-right:before {
+    font-family: "orca";
+    content: "\e627";
+}
+.lumira2 .viz-controls-common-icon-arrow-down:before {
+    font-family: "orca";
+    content: "\e625";
+}
+.lumira2 .viz-controls-common-icon-button:hover {
+    color: #1670C1;
+}
+.viz-controls-common-analysisDraggingToken-lumira2 .viz-controls-common-icon-close:before {
+    font-family: "orca";
+    content: "\e615";
+}
+.viz-controls-common-analysisDraggingToken-lumira2 .viz-controls-common-icon-close:before {
+    font-family: "orca";
+    content: "\e615";
+}
+.viz-controls-common-analysisDraggingToken-lumira2 .viz-controls-common-icon-checkmark:before {
+    font-family: "orca";
+    content: "\e614";
+}
+.viz-controls-common-icon-warning:before {
+    font-family: "orca";
+    content: "\e637";
+}.viz-controls-common-menu {
+    position: absolute;
+    z-index: 999999;
+}
+.viz-controls-common-menu-transition {
+    -webkit-transition-duration: .24s;
+    transition-duration: .24s;
+    -webkit-transition-timing-function: ease-out;
+    transition-timing-function: ease-out;
+}
+.viz-controls-common-menu-list {
+    box-shadow: 1px 3px 5px rgba(0, 0, 0, .5);
+    border: 1px solid #7f7f7f;
+    background-color: #ffffff;
+    max-height: 264px;
+    overflow-x: hidden !important;
+}
+.viz-controls-common-menu-list > ul {
+    min-width: 178px;
+    max-width: 365px;
+    background-color: #ffffff;
+    list-style: none;
+    display: inline-block;
+    padding-left: 0px;
+    margin:0px 0px 4px 0px;
+}
+
+.viz-controls-common-menu-list > ul > li {
+    cursor: default;
+    padding: 6px 10px;
+    position: relative;
+    line-height: 12px;
+    height: 12px;
+    font-size: 12px;
+    margin: 4px 0px;
+}
+.viz-controls-common-menu-list > ul > li:last-child {
+    margin-bottom: 0px;
+}
+.viz-controls-common-menu-list-hovered {
+   background-color: #e5f2f9;
+}
+.viz-controls-common-menu-list-prefix-icon-x1 {
+    padding-left: 22px !important;
+}
+.viz-controls-common-menu-list-suffix-icon-x1 {
+    padding-right: 33px !important;
+}
+.viz-controls-common-menu-list-suffix-icon-submenu {
+    position: absolute;
+    right: 9px;
+    top: 4px;
+}
+/*.viz-controls-common-menu-list-hovered .viz-controls-common-menu-list-suffix-icon-submenu {
+    background-position: -102px -362px;
+}*/
+.viz-controls-common-menu-list-selected:before {
+    background-image: url('../common/assets/UVB_SharedSprite2.png');
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: 0px -207px;
+    width: 10px;
+    height: 10px;
+    content: " ";
+    position: absolute;
+    overflow: hidden;
+    top: 50%;
+    margin-top: -5px;
+    left: 6px;
+}
+/*.viz-controls-common-menu-list-hovered:before {
+    background-position: -11px -207px;
+}*/
+
+.viz-controls-common-menu-list-caption {
+
+}
+.viz-controls-common-menu-list-group-splitter {
+    border-style: solid;
+    border-width: 1px 0px 0px 0px;
+    border-color: #ccc;
+    width: 90%;
+    margin: 0px auto;
+}
+.viz-controls-common-menu-list-highlighted {
+    background-color: #585858;
+    color: #ffffff; 
+}
+
+html[dir="rtl"] .viz-controls-common-menu-list > ul {
+    padding-right: 0px!important;
+}.viz-controls-common-text-ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.viz-controls-common-text-noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none;   /* Chrome/Safari/Opera */
+  -khtml-user-select: none;    /* Konqueror */
+  -moz-user-select: none;      /* Firefox */
+  -ms-user-select: none;       /* Internet Explorer/Edge */
+  user-select: none;           /* Non-prefixed version, currently not supported by any browser */
+}
+.viz-controls-common-havanaVXTabSprite16 {
+    background-image: url('../common/assets/UVB_VxtabSprite.png');
+    background-color: transparent;
+    background-repeat: no-repeat;
+    width: 16px;
+    height: 16px;
+}
+.viz-controls-common-havanaVXTabSprite16-mask {
+    -webkit-mask-image: url('../common/assets/UVB_VxtabSprite.png');
+    background-repeat: no-repeat;
+    width: 16px;
+    height: 16px;
+}
+.viz-controls-common-havanaSharedSprite16 {
+    background-image: url('../common/assets/UVB_SharedSprite2.png');
+    background-color: transparent;
+    background-repeat: no-repeat;
+    width: 16px;
+    height: 16px;
+}
+.viz-controls-common-UVBSharedSprite {
+    background-image: url('../common/assets/UVB_SharedSprite.png');
+    background-color: transparent;
+    background-repeat: no-repeat;
+    width: 16px;
+    height: 16px;
+}
+.viz-controls-common-havanaSharedSprite16-mask {
+    background-image: url('../common/assets/UVB_SharedSprite2.png');
+    background-repeat: no-repeat;
+    width: 16px;
+    height: 16px;
+}
+.viz-controls-common-havanaVXTabSprite24 {
+    background-image: url('../common/assets/UVB_VxtabSprite.png');
+    background-color: transparent;
+    background-repeat: no-repeat;
+    width: 24px;
+    height: 24px;
+}
+.viz-controls-common-geography {
+    background-image: url('../common/assets/UVB_SharedSprite.png');
+    background-color: transparent;
+    background-repeat: no-repeat;
+    width: 16px;
+    height: 16px;
+    background-position: 0px -101px;
+}
+.viz-controls-common-popUp {
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+    -webkit-box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+    z-index: 999999;
+}
+@-webkit-keyframes vizControls-common-blur_keyframes
+{
+0% {-webkit-filter: blur(0px);}
+100% {-webkit-filter: blur(4px);}
+}
+.viz-controls-common-blur {
+    -webkit-animation: vizControls-common-blur_keyframes .3s ease-out forwards;
+    /* filter: blur(4px);
+     -o-filter: blur(4px);
+     -ms-filter: blur(4px);
+     -moz-filter: blur(4px);
+     -webkit-filter: blur(4px);*/
+}
+.viz-controls-common-button-cancel:hover {
+    color: #007cc0;
+}
+.viz-controls-common-button {
+    border: 1px solid #BFBFBF;
+    cursor: pointer;
+    background: #FFFFFF;
+
+    /* used for disabled, hover and active states */
+}
+
+.viz-controls-common-button:hover {
+    border: 1px solid #BFBFBF;
+    background: #E5F2F9;
+}
+.viz-controls-common-button:active {
+    border: 1px solid #007CC0;
+    background: #007CC0;
+    color: #FFFFFF;
+}
+.viz-controls-common-scrollable-x {
+    overflow-x: auto !important;
+}
+.viz-controls-common-scrollable-y {
+    overflow-y: auto !important;
+}
+.sapUiDlg .sapUiRb {
+    margin-left: 1px;
+}
+
+@font-face {
+    font-family: 'orca';
+    src: url('../common/assets/orca-icons/enriched-orca-icons.ttf'),
+     url('../common/assets/orca-icons/enriched-orca-icons.eot'); /* IE9+ */
+    font-weight: normal;
+    font-style: normal;
+}
+
+.viz-controls-common-none-mouse-interaction {
+    pointer-events: none;
+}
+.viz-controls-builder-view-list {
+    min-height: 600px;
+}
+.viz-controls-builder-area {
+    min-width: 181px;
+    font: 14px "Helvetica Neue", Arial, Helvetica, sans-serif;
+    color: #585858;
+    /*background-color: #f2f2f2;*/
+    border: 1px solid #dddddd;
+    border-width: 1px 0px 0px 0px;
+    overflow-x: hidden;
+}
+.viz-controls-builder-view-header {
+    background-color: #f2f2f2;
+    border-bottom: 1px solid #dddddd;
+    font-family: Verdana;
+    font-weight: bold;
+    font-size: 14px;
+    padding-bottom: 2px;
+    line-height: 36px;
+    padding-left: 19px;
+    cursor:default;
+}
+.viz-controls-builder-view-item {
+    margin: 0px 8px 0px 8px;
+}
+
+.viz-controls-builder-switcher-container {
+    padding-top: 10px;
+    width: 222px;
+    padding-left: 26px;
+}
+.viz-controls-builder-header {
+    margin-bottom: 10px;
+}
+.viz-controls-builder-header-text {
+    font-size: 12px;
+    font-weight: bold;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    cursor:default;
+    margin-right: 5px;
+}
+.viz-controls-builder-header-value {
+    font-weight: normal;
+    font-size: 12px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    cursor:default;
+}
+
+.viz-controls-builder-blending-container {
+    padding-top: 10px;
+    width: 100%;
+    padding-left: 23px;
+}
+
+html[dir="rtl"]  .viz-controls-builder-switcher-container {
+    padding-right: 26px;
+    padding-left: 0px!important;
+}.viz-controls-chart-area {
+    width: 100%;
+    height: 100%;
+    background-color: #FAFAFA;
+    min-width: 300px;
+    position: relative;
+    z-index: 1;
+}
+.viz-controls-chart-property-zone {
+    position:absolute;
+    cursor: pointer;
+}
+.viz-controls-chart-property-zone:hover {
+    background-color:#DDDDDD;
+    opacity: 0.3;
+}
+.viz-controls-chart-property-zone-selected {
+    border: 1px solid #007CC0;
+    background-color:#DDDDDD;
+    opacity: 0.3;
+}
+.viz-controls-chart-drop-zone {
+    position:absolute;
+    border:1px solid #007CC0;
+    color:#007CC0;
+    cursor: pointer;
+}
+.viz-controls-chart-title-button {
+    float: right;
+    width:16px;
+    height:16px;
+    border-width: 0px;
+    background-color: transparent;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.viz-controls-chart-title-text{
+    float:left;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image:none !important;
+    background:transparent;
+    border-style:none;
+    font-size:16px;
+    font-weight:bold;
+    outline:0;
+    border: none;
+    text-align:center;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: none;
+}
+.viz-controls-chart-setting-icon{
+    background-position: -18px 0px;
+    cursor: pointer;
+    padding: 1px;
+    position:absolute;
+    cursor: pointer;
+    margin-left: 5px;
+    margin-top: 5px;
+}
+.viz-controls-chart-setting-icon:hover {
+    background-position: 0px -248px;
+}
+
+.viz-controls-chart-title-edit{
+   border: 1px solid #007CC0;
+   background-color: #FAFAFA;
+}
+
+.viz-controls-chart-block-layer {
+    background-color: white;
+    opacity: 0.6;
+    filter: alpha(opacity=60);
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: fixed;
+    outline: 0 none;
+    z-index: 28;
+}
+.viz-controls-chart-warning {
+    position: absolute;
+    width: 368px;
+    height: 98px;
+    display: inline-block;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    overflow: hidden;
+    border: 1px solid #1381D2;
+    z-index: 28;
+    font-family: Helvetica, Arial;
+}
+.viz-controls-chart-warning-title {
+    position: absolute;
+    width: 100%;
+    height: 45px;
+    background: white;
+}
+.viz-controls-chart-warning-title-icon {
+    position: absolute;
+    margin: 16px 8px 14px 19px;
+    width: 16px;
+    height: 16px;
+}
+.viz-controls-chart-warning-title-text {
+    position: absolute;
+    font-size: 13px;
+    padding: 16px 0px 14px 43px;
+}
+.viz-controls-chart-warning-info {
+    position: absolute;
+    width: 100%;
+    height: 50px;
+    top: 45px;
+    background: #FAFAFA;
+}
+.viz-controls-chart-warning-info-text {
+    position: absolute;
+    font-size: 11px;
+    padding: 10px 15px 0px 15px;
+}
+.viz-controls-chart-warning-delete-icon {
+    position: absolute;
+    cursor: pointer;
+    top: 2px;
+    right: 1px;
+    margin: 4px;
+}
+.viz-controls-chart-warning-delete-icon:hover {
+    color: #CC1919;
+}
+.viz-controls-chart-warning-separator {
+    position: absolute;
+    border-bottom: solid 1px #dddddd;
+    width: 100%;
+    margin-top:45px;
+}
+
+
+.viz-controls-chart-map-esri-relogon{
+    position: absolute;
+    width: 28px;
+    height: 28px;
+}
+
+.viz-controls-chart-map-no-service {
+    position: absolute;
+    background-color:#ffffff;
+    width: 291px;
+    height: 92px;
+    border: solid 2px #007cc0
+} 
+.viz-controls-chart-map-service-no-service-title{
+    width  :   276px;
+    height :   34px;
+    font-family : Helvetica Neue, Arial, Helvetica, sans-serif;
+    font-size : 13px;
+    color:#424242;
+    padding-left: 15px;
+    padding-top:12px
+}
+.viz-controls-chart-map-service-no-serive-message {
+    width  :   276px;
+    height :   31px;
+    font-family : Helvetica Neue, Arial, Helvetica, sans-serif;
+    font-size : 13px;
+    color:#424242;
+    padding-left: 15px;
+    padding-top: 15px;
+    background-color: #fAfAfA;
+    border-top: solid 1px #F2F2F2 
+    
+}
+
+.viz-controls-chart-map-service-selector {
+    position: absolute;
+    background-color:#ffffff;
+    width: 291px;
+    height: 300px;
+    border: solid 2px #007cc0
+}
+
+.viz-controls-chart-map-service-selector-title{
+    width  :   276px;
+    height :   46px;
+    font-family : Helvetica Neue, Arial, Helvetica, sans-serif;
+    font-size : 13px;
+    line-height: 46px;
+    color:#424242;
+    padding-left: 15px;
+    border-bottom: solid 1px #F2F2F2 
+}
+
+.viz-controls-chart-map-service-selector-footer{
+    width  :   261px;
+    height :   46px;
+    bottom :   0px;
+    position:  absolute;
+    border-top: solid 1px #F2F2F2 
+    margin-left:15px;
+    margin-right:15px;
+}
+
+
+.viz-controls-chart-map-service-selector-services-gallery{
+   margin:0 0 0 2px;
+   width: 100%;
+   background-color: #fAfAfA;
+   border-top:1px solid #F2F2F2;
+   broder-bottom:1px solid #f2f2f2;
+   padding-left:7.5px;
+   padding-right:7.5px;
+   height: 100%;
+}
+.viz-controls-chart-map-service-selector-services-color-panel{
+   padding-left:15px;
+   padding-right:15px;
+   font-family : Helvetica Neue, Arial, Helvetica, sans-serif;
+    font-size : 10px;
+}
+.viz-controls-chart-map-service-selector-services-color-title-group {
+  width:243px;
+  height:15px;
+}
+
+.viz-controls-chart-map-service-selector-services-color-title-label{
+
+ width:150px;
+ height:15px;
+    text-align:left;
+   font-size : 10px;
+   float:left;
+}
+.viz-controls-chart-map-service-selector-services-color-reset{
+
+    background-color : #f7f7f7;
+    width:  90px;
+    height: 15px; 
+    text-align:right;
+    font-size : 10px;
+     float:right;
+     color: blue;
+}
+
+.viz-controls-chart-map-service-selector-services-color-reset:hover{
+    cursor: pointer;
+}
+.viz-controls-chart-map-service-selector-services-gallery-close{
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    margin: 2px;
+    width: 24px;
+    height: 24px;
+    background-image: url('../controls/chart/assets/close.png');
+}
+
+.viz-controls-chart-map-service-selector-services-gallery-close:hover{
+    cursor: pointer;
+}
+
+.viz-controls-chart-map-service-selector-services-item{
+   float:     left;
+   height:    78px;
+   width:     87px;
+   overflow:  hidden;
+}
+
+.viz-controls-chart-map-service-selector-services-item-icon{	
+    height:   48px;
+    width:    72px;
+    overflow: hidden;
+    background-color: #f7f7f7;
+    background-repeat: round;
+    background-size:  contain;
+    border:    2px solid #fff;
+}
+
+.viz-controls-chart-map-service-selector-services-item-title {
+    height:  15px;
+    width:   72px; 
+    line-height: 30px;
+    text-align:left;
+    font-size:10px;
+    font-family : Helvetica Neue, Arial, Helvetica, sans-serif;   
+    font-color: #666666;
+}
+
+.viz-controls-chart-map-service-selector-services-item-icon:hover{
+    border-color:#0091d9;
+    border-style: solid; 
+    border-width: 2px;
+    box-sizing: content-box; 
+}
+
+.viz-controls-chart-map-service-selector-services-item-icon-selected{
+    border-color:#0091d9;
+    border-style: solid; 
+    border-width: 2px;
+    box-sizing: content-box; 
+}
+
+.viz-controls-chart-map-service-selector-button-layer{
+	display: inline-block;
+    background-color : #f7f7f7;
+    float: left;
+    width:  80px;
+    height: 28px; 
+    border-radius: 0px;
+    box-shadow: none;
+    border: 1px solid #BFBFBF;
+    text-align:center;
+    line-height:28px;
+	margin-left:15px;
+}
+
+.viz-controls-chart-map-service-selector-button-layer:hover{
+    background-color : #007cc0;
+    cursor: pointer;
+    color:white;
+}
+
+.viz-controls-chart-map-service-selector-button-confirm{
+    display: inline-block;
+    background-color : #f7f7f7;
+    float: right;
+    width:  80px;
+    height: 28px; 
+    line-height:28px;
+    border-radius: 0px;
+    box-shadow: none;
+    border: 1px solid #BFBFBF;
+    text-align:center;
+
+}
+
+.viz-controls-chart-map-service-selector-button-confirm:hover{
+    background-color : #007cc0;
+    cursor: pointer;
+    color: white;
+}
+
+.viz-controls-chart-map-service-selector-button-done{
+    display: inline-block;
+    background-color : #f7f7f7;
+    float: right;
+    width:  80px;
+    height: 28px; 
+    line-height:28px;
+    border-radius: 0px;
+    box-shadow: none;
+    border: 1px solid #BFBFBF;
+    text-align:center;
+}
+
+.viz-controls-chart-map-service-selector-button-done:hover{
+    background-color : #007cc0;
+    cursor: pointer;
+    color: white;
+}
+
+.viz-controls-chart-map-service-selector-services-panel{
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 283.5px;
+	padding-left:7.5px;
+    background-color : #f7f7f7;
+    min-height:198px;
+    max-height:198px;
+
+}
+.viz-controls-chart-map-service-selector-services-color-radio-group {
+
+	height:15px;
+}
+.viz-controls-chart-map-service-selector-services-color{
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 100%;
+    background-color : #f7f7f7;
+
+}
+.viz-controls-chart-map-service-selector-services-color-field-gradient-start{
+  font-family : Helvetica Neue, Arial, Helvetica, sans-serif; 
+  position : inline-block;
+  margin-top: 5px;
+}
+
+.viz-controls-chart-map-service-selector-services-color-field-gradient-end{
+  font-family : Helvetica Neue, Arial, Helvetica, sans-serif; 
+  position : inline-block;
+  margin-top: 5px;
+}
+.viz-controls-chart-map-service-selector-services-color-field-title{
+    font-family : Helvetica Neue, Arial, Helvetica, sans-serif; 
+    margin-top:10px;
+}
+
+.viz-controls-chart-map-service-selector-services-color-field-selector{
+    font-family : Helvetica Neue, Arial, Helvetica, sans-serif;
+    margin-bottom: 10px;
+}
+
+.viz-controls-chart-map-service-selector-services-color-field-gradient-value-group1{
+  width:100%;
+  height:30px;
+  margin-top:5px;
+}
+
+.viz-controls-chart-map-service-selector-services-color-field-gradient-value-group2{
+  margin-top:5px;
+  width:100%;
+  height:25px;
+}
+.viz-controls-chart-map-service-selector-services-color-field-gradient-colorpicker
+{
+    display: inline-block;
+    left:80px;
+    margin-top:7px;
+    margin-left:6px;
+    top:8px;
+    height:8px;
+    width:8px;
+    border:1px solid #666666;
+   float:left
+}
+
+.viz-controls-chart-map-service-selector-services-color-field-gradient{
+    font-family : Helvetica Neue, Arial, Helvetica, sans-serif;
+    width: 100%;
+}
+
+
+.viz-controls-chart-map-service-selector-services-color-field-gradient-value{
+    font-family : Helvetica Neue, Arial, Helvetica, sans-serif;
+    width: 70px;
+    display: inline-block;
+    left:0px;
+    top:0px;
+    float:left;
+}
+
+
+.viz-controls-contextmenu {
+    position: fixed;
+    z-index: 999999;
+    top: -10000px;
+    display: block;
+    min-width: 80px;
+    border: 1px solid #BFBFBF;
+    background-color: white;
+    cursor: default;
+    outline: none;
+    overflow: hidden;
+    padding: 1px 0;
+    box-shadow: 2px 2px 3px rgba(198,198,198,0.5);
+    -webkit-box-shadow: 2px 2px 3px rgba(198,198,198,0.5);
+    -moz-box-shadow: 2px 2px 3px rgba(198,198,198,0.5);
+}
+.viz-controls-contextmenu-list {
+    padding: 0;
+    margin: 0;
+    display: block;
+    cursor: default;
+    color: #585858;
+    font-size: 12px;
+    font-family: Tahoma, Arial, Helvetica, sans-serif;
+}
+.viz-controls-contextmenu-list > li {
+    margin: 4px 0px;
+    background-color: #ffffff;
+}
+.viz-controls-contextmenu-list-hovered > li:hover,
+.viz-controls-contextmenu-list li.viz-controls-contextmenu-MnuItmOpen {
+    background-color: #e5f2f9;
+}
+.viz-controls-contextmenu-list-hovered .viz-controls-contextmenu-disabled:hover {
+    background-color: inherit;
+}
+.viz-controls-contextmenu-disabled .viz-controls-contextmenu-MnuItmTxt {
+    color: #bfbfbf;
+}
+
+.viz-controls-contextmenu-list .viz-controls-contextmenu-highlighted {
+    background-color: #585858;
+}
+.viz-controls-contextmenu-list-hovered .viz-controls-contextmenu-highlighted:hover {
+    background-color: #585858;
+}
+.viz-controls-contextmenu-highlighted .viz-controls-contextmenu-MnuItmTxt {
+    color: #ffffff;
+}
+
+.viz-controls-contextmenu-MnuItm {
+    display: block;
+    height: 23px;
+    line-height: 21.5px;
+    white-space: nowrap;
+    position: relative;
+    text-align: left;
+}
+.viz-controls-contextmenu-MnuItmTxt {
+    color: #585858;
+    padding-left: 6px;
+    padding-right: 30px;
+    vertical-align: top;
+    overflow: hidden;
+    white-space: nowrap;
+    height: 100%;
+    position: relative;
+    display: inline-block;
+    pointer-events: none;
+}
+.viz-controls-contextmenu-MnuItmIco {
+    padding-right: 2px;
+    width: 20px;
+    vertical-align: top;
+    display: inline-block;
+    overflow: hidden;
+    outline: none;
+    height: 100%;
+    position: relative;
+    pointer-events: none;
+}
+
+.viz-controls-contextmenu-MnuItm-submenu {
+    position: absolute;
+    right: 9px;
+    top: 0px;
+}
+.viz-controls-contextmenu-MnuItmTooltip {
+    opacity: 0;
+    border: 1px solid #BFBFBF;
+    background-color: #F2F2F2;
+    padding: 8px 16px;
+    z-index: 999999;
+    font-size: 12px;
+    width : 220px;
+    white-space: normal;
+    box-shadow: 2px 2px 3px rgba(198,198,198,0.5);
+    -webkit-box-shadow: 2px 2px 3px rgba(198,198,198,0.5);
+    -moz-box-shadow: 2px 2px 3px rgba(198,198,198,0.5);
+}
+.viz-controls-contextmenu-MnuItm-Show, .viz-controls-contextmenu-MnuItm-Hide {
+    padding-left:21px;
+}
+.viz-controls-contextmenu-MnuItm:before {
+    display:none;
+}
+.viz-controls-contextmenu-MnuItmIco-Show:before {
+    display:block;
+}
+.viz-controls-contextmenu-disabled:before {
+    opacity: .4;
+}
+.viz-controls-contextmenu-MnuItmIco-Show:before, .viz-controls-contextmenu-MnuItmIco-Hide:before {
+    content: " ";
+    position: absolute;
+    overflow: hidden;
+    left: 9px;
+}
+.viz-controls-contextmenu-list .viz-controls-common-icon-checkmark:before {
+    content: "\e176";
+}
+.viz-controls-contextmenu-MnuItmIco-Show-Hovered:before {
+    background-position: -11px -207px;
+}
+.viz-controls-contextmenu-MnuItmIco > img {
+    max-width: 16px;
+    max-height: 16px;
+    padding-left: 6px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+.viz-controls-contextmenu-blank-MnuItem {
+    display : block;
+    height : 21.5px;
+    line-height : 21.5px;
+    white-space : nowrap;
+    position : relative;
+    padding : 0px 10px;
+}
+.viz-controls-contextmenu-blank-MnuItmTxt {
+    color: #bfbfbf;
+}
+.viz-controls-contextmenu-MnuItem-separator {
+    border-bottom : 1px solid #e7e7e7;
+    width: 95%;
+    margin: 1px auto;
+}
+.sapMInput.sapMInputBase.sapMInputBaseWidthPadding.viz-controls-contextmenu-Trendline-input {
+    margin-top: 16px;
+    margin-right: 0.5rem;
+    margin-left: 1rem;
+}
+.viz-controls-contextmenu-Trendline-dialog {
+    min-width: 22rem!important;
+}
+.viz-controls-contextmenu-Trendline-label{
+    line-height: 2rem;
+    margin-top: 16px;
+}
+.viz-controls-contextmenu-Trendline-label-forward{
+    margin-left:2rem;
+}
+.viz-controls-feeding-view {
+    min-width: 181px;
+    overflow-x: hidden;
+    padding-top: 5px;
+    padding-bottom: 1px;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.viz-controls-feeding-expand-icon {
+    background-position: -17px -51px;
+    cursor: pointer;
+    margin-left: 5px;
+}
+.classic .viz-controls-feeding-expand-icon{
+    float: left;
+}
+.viz-controls-feeding-collapse-icon {
+    background-position: -34px -51px;
+    cursor: pointer;
+    margin-left: 5px;
+}
+.classic .viz-controls-feeding-collapse-icon {
+    float:left;
+}
+.classic .viz-controls-feeding-collapse-icon {
+    float:left;
+}
+.classic .viz-controls-feeding-title-with-icon {
+    margin-left: 0px; 
+    padding-top:5px;
+}
+
+.viz-controls-feeding-title-without-icon {
+    margin-left: 23px;
+    padding-top:5px;
+}
+.classic .viz-controls-feeding-title-text {
+    font-weight: bold;
+    font-size: 12px;
+    margin-left: 2px;
+}
+.classic .viz-controls-feeding-title-text:hover {
+    cursor:default;
+}
+.viz-controls-feeding-separator {
+    border-style: solid;
+    border-width: 0px 0px 1px 0px;
+    border-color: #dddddd;
+    margin: 4px 18px 10px 25px;
+}
+.classic .viz-controls-feeding-container {
+    display: inline-block;
+    min-height: 60px;
+    margin-left: 19px;
+}
+.viz-controls-feeding-trellis-container {
+    margin-left:0px!important;
+}
+.viz-controls-feeding-trellis-div {
+    border:solid 1px #DFE5EA;
+    margin-left: 16px;
+    width:225px;
+    border-radius:2px;
+    background-color:white;
+}
+.viz-controls-feeding-trellis-div_active {
+    border: solid 1px #1670C1;
+    cursor: pointer;
+}
+.viz-controls-feeding-trellis-seperator {
+    border-top:1px solid #DFE5EA;
+    margin:0 10px 7px 10px;
+}
+.viz-controls-feeding-trellis-title {
+    margin-left:6px;
+}
+.viz-controls-feeding-hichert-pattern{
+    width:13px;
+    height:10px;
+    cursor: pointer;
+    margin-top: 3px;
+}
+.viz-controls-feeding-hichert-pattern-pl{
+    background-image: url("../controls/feeding/assets/PL.svg");
+}
+.viz-controls-feeding-hichert-pattern-py{
+    background-image: url("../controls/feeding/assets/PY.svg");
+}
+.viz-controls-feeding-hichert-pattern-ac{
+    background-image: url("../controls/feeding/assets/AC.svg");
+}
+.viz-controls-feeding-hichert-pattern-fc{
+    background-image: url("../controls/feeding/assets/FC.svg");
+}
+.lumira2 .viz-controls-feeding-expand-icon{
+    float: right;
+    padding:10px 10px 0 0;
+    font-size:0.8rem;
+    color: #333333;
+}
+.lumira2 .viz-controls-feeding-collapse-icon {
+    float:right;
+    padding:10px 10px 0 0;
+    font-size:0.8rem;
+    color: #333333;
+}
+.lumira2 .viz-controls-feeding-title-with-icon {
+    padding-top:0px;
+}
+.lumira2 .viz-controls-feeding-title-text {
+    font-size: 12px;
+    line-height:34px;
+    color:#333333;
+    font-weight:bold;
+}
+.lumira2 .viz-controls-feeding-title-text:hover {
+    cursor:pointer;
+}
+.lumira2 .viz-controls-feeding-container {
+    display: inline-block;
+    margin-left:16px;
+}
+
+html[dir="rtl"]  .viz-controls-feeding-title-without-icon {
+    margin-right: 23px!important;
+}
+
+html[dir="rtl"]  .classic .viz-controls-feeding-container {
+    margin-right: 19px;
+}
+
+html[dir="rtl"]  .classic .viz-controls-feeding-title-with-icon {
+    margin-right: 19px; 
+}
+.viz-controls-frame-editor {
+    position: absolute;
+    width: 760px;
+    height: 460px;
+    -webkit-animation: vizControls-vizFrame-editor_keyframes .3s ease-out forwards;
+}
+@-webkit-keyframes vizControls-vizFrame-editor_keyframes
+{
+0% {opacity: 0;}
+100% {opacity: 1;}
+}
+.viz-controls-frame-editor-main {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    border-style: solid;
+    border-width: 1px;
+    background-color: #ffffff;
+    padding: 12px;
+}
+.viz-controls-frame-editor-header {
+    width: 100%;
+    height: 40px;
+}
+.viz-controls-frame-editor-content {
+    width: 100%;
+    margin-bottom: 24px;
+}
+.viz-controls-frame-editor-content-img {
+    width: 100%;
+}
+.viz-controls-frame-editor-footer {
+    width: 100%;
+}
+.viz-controls-frame-editor-footer-button {
+    width: 80px;
+    height: 28px;
+    margin-right: 6px;
+}
+.viz-controls-frame-editor-close {
+    background-position: 0px -269px;
+    position: absolute;
+    right: 6px;
+    top: 6px;
+    cursor: pointer;
+}
+.viz-controls-frame-editor-close:hover {
+    opacity: .6;
+}/* Only backward compatible for Lumira, Remove it after lumira integrated open_vizframe */
+.viz-controls-frame-area {
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    background-color: #FAFAFA;
+    position: relative;
+    z-index: 1;
+}
+.viz-controls-frame-xlabel {
+    height: 30px;
+    visibility: hidden;
+}
+.viz-controls-frame-xlabel {
+    text-align: center;
+    line-height: 30px;
+}
+.viz-controls-frame-ylabel {
+    float: left;
+    width: 30px;
+    visibility: hidden;
+}
+.viz-controls-frame-ylabel-text {
+    text-align: center;
+    -webkit-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+}
+
+/* Only backward compatible for Lumira, Remove it after lumira integrated open_vizframe */
+.viz-controls-frame-header-filterbar-container {
+    background-color: #FAFAFA;
+    font-size: 12px;
+    font-weight: normal;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    float: left;
+    position: absolute;
+    left: 0px;
+    right: 60px;
+    min-height: 38px;
+    height:99%;
+    margin: 0px;
+    white-space: nowrap;
+}.viz-controls-mapbuilder{
+    color: #585858;
+    height: 100%;
+    width: 250px;
+    font: normal 14px "Helvetica Neue", Helvetica, arial, sans-serif;
+}
+
+.viz-controls-mapbuilder-area{
+    padding-left: 6px;
+    padding-right: 6px;  
+    height: 100%;  
+}
+
+.viz-controls-mapbuilder-section{
+    border-style: solid;
+    border-width: 1px;
+    border-color : #DFE5EA;
+    border-radius: 2px;
+    margin-bottom: 10px;
+    padding-left : 6px;
+    padding-right: 6px;
+}
+
+.viz-controls-mapbuilder-section-expand{
+    padding-bottom: 9px;
+}
+
+.viz-controls-mapbuilder-header{
+    height: 34px;
+    padding-left: 6px;
+    padding-bottom: 2px;
+}
+
+.viz-controls-mapbuilder-add-layer-btn-disabled{
+    opacity: 0.5;
+}
+
+.viz-controls-mapbuilder-add-layer-btn{
+    display: inline-block;
+    width: auto;
+    max-width: 125px;
+    text-overflow: ellipsis;
+    cursor: pointer;
+    font: normal 12px "Helvetica Neue", Helvetica, arial, sans-serif;
+    color: #333;
+    padding-top: 7px;
+    padding-left: 10px;
+    font-weight: bold;
+}
+
+.viz-controls-mapbuilder-add-layer-btn:before{
+    font-family: 'fpa-icons';
+    font-style: normal;
+    speak: none;
+    content: "\e609";
+    font-size: 16px;
+    font-weight: normal;
+    position: relative;
+    right: 10px;
+    top: 3px;
+}
+
+.viz-controls-mapbuilder-add-layer-btn:hover:not(.viz-controls-mapbuilder-add-layer-btn-disabled) {
+    color: #008fd3;
+}
+
+.classic .viz-controls-mapbuilder-add-layer-btn{
+    color: #008fd3;
+    font-weight: normal;
+    padding-top: 6px;
+    padding-left: 5px;
+}
+
+.classic .viz-controls-mapbuilder-add-layer-btn:before{
+        font-family: 'lumira-icons';
+    content: "\e172";
+    right: 5px;
+    top: 2px;
+    color: #007cc0;
+}
+
+.viz-controls-mapbuilder-footer{
+    height: 34px;
+    padding-left: 6px;
+    padding-right: 6px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #DFE5EA;
+    border-radius: 2px
+}
+
+.viz-controls-mapbuilder-footer.viz-controls-mapbuilder-footer-service-imported{
+    border-style: solid;
+    border-width: 1px;
+    border-color: #DFE5EA;
+    border-radius: 2px;
+}
+
+.viz-controls-mapbuilder-footer.viz-controls-mapbuilder-footer-service-imported:hover{
+    border-color: #B0BBC1;
+}
+
+.viz-controls-mapbuilder-footer-text{
+    display : inline-block;
+    width: 90%;
+    height:16px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: pointer;
+    font: bold 12px "Helvetica Neue", Helvetica, arial, sans-serif;
+    color: #333;
+    position: relative;
+    top : 12px;
+    left : 10px;
+}
+.viz-controls-mapbuilder-footer-text:hover{
+    text-decoration:underline;
+    color:#008fd3;
+}
+.viz-controls-mapbuilder-footer-radio{
+    display : inline-block;
+    float:left;
+    cursor: pointer;
+    left:-2px;
+    position: relative;
+    top:8px;
+
+}
+.viz-controls-mapbuilder-footer-radio-text{
+    display : inline-block;
+    float:left;
+    position: relative;
+    font: bold 12px "Helvetica Neue", Helvetica, arial, sans-serif;
+    color: #333;
+    margin-left:5px;
+    top:10px;
+    width: 70%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.viz-controls-mapbuilder-footer-radio-text.disable, .viz-controls-mapbuilder-footer-import.disable, .viz-controls-mapbuilder-footer-delete.disable{
+    cursor: default;
+    opacity: 0.5;
+}
+
+.viz-controls-mapbuilder-section-header{
+    cursor: pointer;
+    height: 34px;
+}
+
+.viz-controls-mapbuilder-footer-plus{
+    display : inline-block;
+    cursor: pointer;
+    position: relative;
+    top : 10px;
+}
+
+.viz-controls-mapbuilder-footer-import{
+    display : inline-block;
+    cursor: pointer;
+    position: relative;
+    top : 9px;
+    float:right;
+}
+
+.viz-controls-mapbuilder-footer-delete{
+    display : inline-block;
+    cursor: pointer;
+    position: relative;
+    top : 9px;
+    float:right;
+    margin-left: 6px;
+}
+
+.viz-controls-mapbuilder-section-block{
+    display : inline-block;
+    vertical-align : top;
+    margin-top : 10px;
+    margin-bottom: 10px;
+    margin-left : 6px;
+    width : 14px;
+    height: 14px
+}
+
+.viz-controls-mapbuilder-section-category-title {
+    display: inline;
+    padding-bottom: 4px;
+    margin-top: 8px;
+}
+
+.viz-controls-mapbuilder-section-category-title-text {
+    display: inline;
+    font : 12px "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #333;
+    font-weight: bold;
+}
+
+.viz-controls-mapbuilder-chartType-icon-title {
+    display: inline;
+    padding-bottom: 4px;
+    margin-top: 8px;
+}
+
+.viz-controls-mapbuilder-chartType-icon-title-text {
+    display : inline;
+    font : 12px "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #333;
+    font-weight: bold;
+}
+
+.viz-controls-mapbuilder-section-setting{
+    float: right;
+    background-repeat: no-repeat;
+    display : inline-block;
+    vertical-align : top;
+    margin-top : 9px;
+}
+
+.viz-controls-mapbuilder-section-icon{
+    display : inline-block;
+    vertical-align : top;
+    margin-top : 8px;
+    margin-bottom: 4px;
+    margin-left : 10px;
+    width : 16px;
+    height: 20px;
+}
+
+.viz-controls-mapbuilder-section-icon-choropleth:before{
+    display : inline-block;
+    vertical-align : top;
+    font-family: 'fpa-icons';
+    font-style: normal;
+    speak: none;
+    content: "\e6db";
+    font-size: 18px;
+}
+
+.viz-controls-mapbuilder-section-icon-bubble:before{
+    display : inline-block;
+    vertical-align : top;
+    font-family: 'fpa-icons';
+    font-style: normal;
+    speak: none;
+    content: "\e70d";
+    font-size: 18px;
+}
+
+.viz-controls-mapbuilder-section-icon-marker:before{
+    display : inline-block;
+    vertical-align : top;
+    font-family: 'fpa-icons';
+    font-style: normal;
+    speak: none;
+    content: "\e6ee";
+    font-size: 18px;
+}
+
+.viz-controls-mapbuilder-section-icon-pie:before{
+    display : inline-block;
+    vertical-align : top;
+    font-family: 'fpa-icons';
+    font-style: normal;
+    speak: none;
+    content: "\e6ae";
+    font-size: 18px;
+}
+
+.viz-controls-mapbuilder-section-header-expand{
+   padding-bottom : 6px;    
+}
+
+.viz-controls-mapbuilder-section-expand{
+    display : inline-block;
+    vertical-align : top;
+    margin-top : 9px;
+    margin-bottom: 4px;
+    width : 16px;
+    height: 16px
+ 
+}
+
+.viz-controls-mapbuilder-section-collapse{
+    display : inline-block;
+    vertical-align : top;
+    margin-top : 9px;
+    margin-bottom: 4px;
+    width : 16px;
+    height: 16px
+ 
+}
+
+.viz-controls-mapbuilder-section-title{
+    font : bold 13px Tahoma, Helvetica, Arial, sans-serif; 
+    color: #333333;
+    height : 20px;
+    display : inline-block;
+    vertical-align : top;
+    margin-top : 9px;
+    margin-left : 4px;
+    width: auto;
+    max-width: 120px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow-x : hidden;
+    overflow-y: hidden
+}
+
+.viz-controls-mapbuilder-section-header-expand .viz-controls-mapbuilder-section-title-editable:hover{
+    border-bottom: 1px solid #1670BF; 
+}
+
+.viz-controls-mapbuilder-section-title-editor{
+    font : bold 13px Tahoma, Helvetica, Arial, sans-serif; 
+    color: #333333;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid #1670BF;
+    outline: none;
+    height: 20px;
+    margin: 6px 0px 0px 4px;
+}
+
+.viz-controls-mapbuilder-header-expand{
+    background-repeat: no-repeat;
+}
+
+.viz-controls-mapbuilder-header-collapse{
+    background-repeat: no-repeat;
+}
+
+.viz-controls-mapbuilder-datapointchooser{
+    width: 100%;
+    margin-top: 8px;
+    margin-bottom: 12px;
+}
+
+.viz-controls-mapbuilder-datapointchooser .viz-controls-mapbuilder-section-title{
+    border-style: none;
+}
+
+.viz-controls-mapbuilder-inline-block{
+    display : inline;
+    position: relative;
+    top: 2px;
+}
+
+.viz-controls-mapbuilder-viztype{
+    margin-left: 4px;
+    width:  32px;
+    height: 32px; 
+    border-radius: 0px;
+    box-shadow: none;
+    border: 1px solid #BFBFBF;
+    background: #f7f7f7;
+    outline: none;
+}
+
+.viz-controls-mapbuilder-viztype:hover {
+    border: 1px solid #BFBFBF;
+    background: #eaeaea;
+    cursor: pointer;
+}
+
+.viz-controls-mapbuilder-datapointchooser .viz-controls-mapbuilder-viztype-selected{  
+    border: 1px solid #007cc0;
+    background: #007cc0;
+}
+
+.viz-controls-mapbuilder-viztype-selected:hover{  
+    border: 1px solid #006ca7;
+    background: #006ca7;
+}
+
+.viz-controls-mapbuilder-viztype-icon {
+    
+}
+
+.viz-controls-mapbuilder-viztype-choropleth:before{
+    font-family: 'fpa-icons';
+    font-style: normal;
+    speak: none;
+    content: "\e6db";
+    font-size: 18px;
+
+}
+
+.viz-controls-mapbuilder-viztype-bubble:before{
+    font-family: 'fpa-icons';
+    font-style: normal;
+    speak: none;
+    content: "\e70d";
+    font-size: 18px;
+}
+
+.viz-controls-mapbuilder-viztype-marker:before{
+    font-family: 'fpa-icons';
+    font-style: normal;
+    speak: none;
+    content: "\e6ee";
+    font-size: 18px;
+}
+
+.viz-controls-mapbuilder-viztype-pie:before{
+    font-family: 'fpa-icons';
+    font-style: normal;
+    speak: none;
+    content: "\e6ae";
+    font-size: 18px;
+}
+
+.viz-controls-mapbuilder-viztype-selected{
+    background-color: #007cc0;
+}
+
+.viz-controls-mapbuilder-viztype-selected .viz-controls-mapbuilder-viztype-icon{
+    color: white;
+    opacity: 0.8;
+}
+
+.viz-controls-mapbuilder-section-container{
+    overflow-y: auto;
+    overflow-x: hidden;
+    bottom:30px;
+}
+
+.viz-controls-mapbuilder-feeding-container {
+    display: inline-block;
+    min-height: 40px;
+    width: 222px;
+}
+
+.lumira2 .viz-controls-mapbuilder-feeding-container {
+    min-height: unset;
+}
+
+.viz-controls-mapbuilder-contextmenu-container{
+    background-color: #FFFFFF;
+    width : 150px;
+    height : auto;
+    opacity: 0.9;
+    border: 1px solid #999999;
+    border-radius:2px;
+    box-shadow: -3px 3px 2px 0px rgba(0, 0, 0, 0.15);
+}
+
+.viz-controls-mapbuilder-contextmenu{
+    height: auto;
+    width: 100%;
+    background-color: #FFFFFF;
+    list-style : none;
+    padding-left : 0px;
+    padding-top : 8px;
+    padding-bottom :8px;
+    margin : 0px;
+}
+
+.viz-controls-mapbuilder-configmenu-container{
+    height: 75px;
+    width: 185px;
+    background-color: #ffffff;
+    list-style : none;
+    border-color:#c6c6c6;
+    border-style: solid; 
+    border-width: 1px;
+    padding-top : 12px;
+    margin : 0px;
+}
+
+.viz-controls-mapbuilder-contextmenu li:hover{
+   cursor: pointer;
+   background-color: #1670c1;
+   color: #ffffff;
+}
+
+.viz-controls-mapbuilder-menuitem{
+   height: 24px;
+   color: #666666;
+}
+.viz-controls-mapbuilder-contextmenu-moveup{
+    height: 16px;
+    background-repeat: no-repeat;
+    display :inline-block;
+    margin-left : 8px;
+    margin-top: 4px;
+    margin-bottom: 4px
+}
+.viz-controls-mapbuilder-contextmenu-movedown{
+    height: 16px;
+    background-repeat: no-repeat;
+    display :inline-block;
+    margin-left : 8px;
+    margin-top: 4px;
+    margin-bottom: 4px
+}
+.viz-controls-mapbuilder-contextmenu-delete{
+    height: 16px;
+    background-repeat: no-repeat;
+    display :inline-block;
+    margin-left : 8px;
+    margin-top: 4px;
+    margin-bottom: 4px
+}
+.viz-controls-mapbuilder-contextmenu-clear{
+    width : 16px;
+    height: 16px;
+    background-image : url('../controls/mapbuilder/assets/clear.png');
+    background-repeat: no-repeat;
+    display :inline-block;
+    margin-left : 8px;
+    margin-top: 4px;
+    margin-bottom: 4px
+}
+
+.viz-controls-mapbuilder-contextmenu-hide{
+    width : 16px;
+    height: 16px;
+    background-image : url('../controls/mapbuilder/assets/hide.png');
+    background-repeat: no-repeat;
+    display :inline-block;
+    margin-left : 16px;
+    margin-top: 5px;
+}
+
+.viz-controls-mapbuilder-contextmenu-show{
+    width : 16px;
+    height: 16px;
+    background-image : url('../controls/mapbuilder/assets/show.png');
+    background-repeat: no-repeat;
+    display :inline-block;
+    margin-left : 16px;
+    margin-top: 5px;
+}
+
+.viz-controls-mapbuilder-contextmenu-rename{
+    width : 16px;
+    height: 16px;
+    background-image : url('../controls/mapbuilder/assets/rename.png');
+    background-repeat: no-repeat;
+    display :inline-block;
+    margin-left : 16px;
+    margin-top: 5px;
+}
+.viz-controls-mapbuilder-contextmenu-choosecolor{
+    width : 16px;
+    height: 16px;
+    background-image : url('../controls/mapbuilder/assets/color.png');
+    background-position: 0px 2px; 
+    background-repeat: no-repeat;
+    display :inline-block;
+    margin-left : 16px;
+    margin-top: 5px;
+}
+.viz-controls-mapbuilder-menutext{
+    padding-left: 8px;
+    display :inline-block;
+    vertical-align: middle;
+    font: normal 12px "Helvetica Neue", Helvetica, Arial, sans-serif;
+    padding-top: 8px;
+    line-height: 0px;
+    height: 12px;
+}
+
+.viz-controls-mapbuilder-contextmenu-action-name{
+   padding-left: 5px;
+   font: normal 14px "Helvetica Neue", Helvetica, arial, sans-serif;
+   color:#666666;
+}
+
+.viz-controls-mapbuilder-contextmenu-action-title{
+   display :inline-block; 
+   padding-left: 5px;
+}
+
+.viz-controls-mapbuilder-contextmenu-action-warning{
+    position: relative;
+    display :inline-block;
+    margin-left : 17px;
+    top:3px;
+}
+.viz-controls-mapbuilder-contextmenu-action-warning:before{
+    font-family: 'fpa-icons';
+    font-style: normal;
+    speak: none;
+    content: "\e638";
+    font-size: 24px;
+    color:#f9a40d;
+}
+
+
+.viz-controls-mapbuilder-contextmenu-action-layer-name{
+    padding-left: 5px;
+    font: bold 12px "Helvetica Neue", Helvetica, arial, sans-serif; 
+}
+
+.viz-controls-mapbuilder-contextmenu-input{
+   margin-left: 15px;  
+}
+
+.viz-controls-mapbuilder-contextmenu-input input{
+    width : 90%;
+    border-color: #dddddd;
+}
+
+.viz-controls-mapbuilder-contextmenu-action{
+    margin-top: 18px;
+}
+
+
+.viz-controls-mapbuilder-contextmenu-action-ok{
+    display: inline-block;
+    background-color : #2a3035;
+    float: right;
+    width:  50%;
+    height: 30px; 
+    border-radius: 0px;
+    box-shadow: none;
+    border: none;
+}
+.viz-controls-mapbuilder-contextmenu-action-ok:hover{
+    background-color : #444e54;
+    cursor: pointer;
+}
+.viz-controls-mapbuilder-contextmenu-action-ok:active{
+    background-color : #1670c1;
+}
+
+.viz-controls-mapbuilder-contextmenu-action-cancel{
+    display: inline-block;
+    float: right;
+    background-color: #009de0;
+    width:  50%;
+    height: 30px; 
+    border-radius: 0px;
+    box-shadow: none;
+    border: none;
+}
+
+.viz-controls-mapbuilder-contextmenu-button-text{
+    color: #ffffff;
+    font-size: 14px;
+}
+.viz-controls-mapbuilder-contextmenu-action-cancel:hover{
+    background-color : #444e54;
+    cursor: pointer;
+}
+.viz-controls-mapbuilder-contextmenu-action-cancel:active{
+    background-color : #1670c1;
+}
+
+.viz-controls-mapbuilder-map-provider {
+    margin-bottom: 12px;    
+}
+
+.viz-controls-mapbuilder-map-style{
+    display : inline-block;
+    width: 105px;
+    height: 95px;
+}
+
+.viz-controls-mapbuilder-map-style-esri-icon{
+    display : inline-block;
+    width: 100px;
+    height: 67px;
+}
+
+.viz-controls-mapbuilder-map-style-esri-topo{
+    
+    background-image : url('../controls/mapbuilder/assets/topo.png');
+    background-repeat: no-repeat;
+}
+
+.viz-controls-mapbuilder-map-style-esri-streets{
+
+    background-image : url('../controls/mapbuilder/assets/streets.png');
+    background-repeat: no-repeat;
+}
+
+.viz-controls-mapbuilder-map-style-esri-national-geographic{
+   
+    background-image : url('../controls/mapbuilder/assets/national-geographic.png');
+    background-repeat: no-repeat;
+}
+
+.viz-controls-mapbuilder-map-style .viz-controls-mapbuilder-map-style-esri-icon-selected{
+    border-color:#0091d9;
+    border-style: solid; 
+    border-width: 1px;
+    box-sizing: border-box; 
+       
+}
+
+.viz-controls-mapbuilder-map-style-esri-satellite{
+   
+    background-image : url('../controls/mapbuilder/assets/satellite.png');
+    background-repeat: no-repeat;
+}
+
+.viz-controls-mapbuilder-property-text{
+    position: relative;
+    height: 13px;
+    font : normal 12px "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #333;
+    top: 0px;
+    left:7px;
+    font-weight:bold;
+}
+
+.viz-controls-mapbuilder-section-sub-title{
+    padding-bottom: 2px;
+}
+
+.viz-controls-mapbuilder-section-sub-title-text{
+    font : normal 12px "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #585858;
+}
+
+.viz-controls-mapbuilder-map-style-title{
+    font : normal 12px "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #585858;
+}
+
+.viz-controls-mapbuilder-footer-plus.viz-controls-common-icon-import:before{
+    font-family: 'fpa-icons';
+    font-style: normal;
+    speak: none;
+    content: "\e618";
+    font-size: 16px;
+}
+.viz-controls-mapbuilder-section-setting.viz-controls-common-icon-settings:before {
+    font-family: 'fpa-icons';
+    font-style: normal;
+    speak: none;
+    content: "\e603";
+    font-size: 16px;
+}
+.viz-controls-mapbuilder-section-setting.viz-controls-common-icon-settings:hover:before{
+    color:#008fd3;
+}
+.viz-controls-mapbuilder-contextmenu-delete.viz-controls-common-icon-circle-close:before {
+    font-family: 'fpa-icons';
+    font-style: normal;
+    speak: none;
+    content: "\e60b";
+    font-size: 16px;
+}
+.viz-controls-mapbuilder-contextmenu-action-ok.viz-controls-common-icon-checkmark:before {
+    content: none;
+}
+.viz-controls-mapbuilder-contextmenu-movedown.viz-controls-common-icon-arrow-down:before {
+    font-family: 'fpa-icons';
+    font-style: normal;
+    speak: none;
+    content: "\e625";
+    font-size: 16px;
+}
+.viz-controls-mapbuilder-contextmenu-moveup.viz-controls-common-icon-arrow-up:before {
+    font-family: 'fpa-icons';
+    font-style: normal;
+    speak: none;
+    content: "\e624";
+    font-size: 16px;
+}
+.viz-controls-mapbuilder-contextmenu-action-cancel.viz-controls-common-sap-icon-decline:before {
+    content: none;
+}
+.viz-controls-mapbuilder-contextmenu-movedown.viz-controls-common-icon-arrow-down:before {
+    font-family: 'fpa-icons';
+    font-style: normal;
+    speak: none;
+    content: "\e625";
+    font-size: 16px;
+}
+.viz-controls-mapbuilder-contextmenu-moveup.viz-controls-common-icon-arrow-up:before {
+    font-family: 'fpa-icons';
+    font-style: normal;
+    speak: none;
+    content: "\e624";
+    font-size: 16px;
+}
+
+.viz-controls-mapbuilder-datasource-container {
+    display: inline-block;
+    min-height: unset;
+    width: 213px;
+    margin-bottom: 10px;
+    border: solid 1px #DFE5EA;
+    border-radius: 2px;
+    background-color: white;
+    padding: 0 6px 2px 6px;
+    cursor: default;
+}
+
+.viz-controls-mapbuilder-title-icon {
+    float: left;
+    margin: 0 10px 0px 4px;
+    position: relative;
+    font-size: 16px;
+}
+
+.viz-controls-mapbuilder-title {
+    color: #333333;
+}
+
+.viz-controls-mapbuilder-datasource-title {
+    padding-top: 10px;
+}
+
+.viz-controls-mapbuilder-datasource-title-text {
+    font-size: 12px;
+    font-weight: bold;
+    display: inline;
+    height: 18px;
+    line-height: 18px;
+    padding: 0 0 10px 0;
+}
+
+.viz-controls-mapbuilder-datasource-card {
+    color: #666666;
+}
+
+.viz-controls-mapbuilder-datasource-card-text {
+    font-size: 12px;
+    height: 18px;
+    line-height: 18px;
+    padding: 0 0 10px 0
+}
+
+.viz-controls-mapbuilder-selection-btn {
+    width: auto;
+    float: right;
+    margin: 8px 5px 0px 0px;
+    position: relative;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.viz-controls-mapbuilder-datasource-selection {
+    display: none;
+}
+
+.viz-controls-mapbuilder-section-title-disable {
+    color: #a6a6a6;
+}
+
+.classic .viz-controls-mapbuilder {
+    width: 235px;
+}
+
+.classic .viz-controls-mapbuilder-area{
+    padding-left: 0px;
+    padding-right: 0px;  
+}
+
+.classic .viz-controls-mapbuilder-section{
+    border-color : #d8d8d8;
+    border-radius: 0px;
+    margin-bottom: 9px;
+    padding-left : 13px;
+    padding-right: 9px;
+}
+
+.classic .viz-controls-mapbuilder-header{
+    height: 30px;
+    padding-left: 13px;
+    padding-bottom: 0px;
+}
+
+.classic .viz-controls-mapbuilder-footer{
+    height: 30px;
+    padding-left: 13px;
+    padding-right: 0px;
+    width:220px;
+}
+
+.classic .viz-controls-mapbuilder-footer-text{
+    height:15px;
+    font: normal 12px "Helvetica Neue", Helvetica, arial, sans-serif;
+    color: #008fd3;
+    top : 8px;
+    left : 5px;
+}
+
+.classic .viz-controls-mapbuilder-footer-text:hover{
+    text-decoration:none;
+    color:#008fd3;
+}
+
+.classic .viz-controls-mapbuilder-footer-radio{
+    top:6px;
+}
+
+.classic .viz-controls-mapbuilder-footer-radio-text{
+    font: normal 12px "Helvetica Neue", Helvetica, arial, sans-serif;
+    margin-left:1px;
+    top:8px;
+}
+
+.classic .viz-controls-mapbuilder-footer-radio-text.disable{
+    color: #A6A6A6;
+    opacity: 1;
+}
+
+.classic .viz-controls-mapbuilder-section-header{
+    height: 30px;
+    margin-top : 4px;
+    margin-bottom: 4px;
+}
+
+.classic .viz-controls-mapbuilder-section-category-title-text{
+    color: #585858;
+    font-weight: normal;
+}
+
+.classic .viz-controls-mapbuilder-chartType-icon-title-text{
+    color: gray;
+    font-weight: normal;
+}
+
+.classic .viz-controls-mapbuilder-section-setting{
+    margin-top : 8px;
+    margin-bottom: 4px;
+    margin-left : 4px;
+    width : 20px;
+    height: 20px
+}
+
+.classic .viz-controls-mapbuilder-section-icon{
+    background-image: url('../controls/mapbuilder/assets/choropleth.png');
+    background-repeat: no-repeat;
+    margin-left : 4px;
+}
+
+.classic .viz-controls-mapbuilder-section-icon-choropleth{
+    background-image: url('../controls/mapbuilder/assets/choropleth.png');
+    background-repeat: no-repeat;
+    display : inline-block;
+    vertical-align : top;
+    margin-top : 8px;
+    margin-bottom: 4px;
+    margin-left : 4px;
+    width : 16px;
+    height: 20px;
+}
+.classic .viz-controls-mapbuilder-section-icon-choropleth:before{
+    content: none;
+}
+
+.classic .viz-controls-mapbuilder-section-icon-bubble{
+    background-image: url('../controls/mapbuilder/assets/bubble.png');
+    background-repeat: no-repeat;
+    display : inline-block;
+    vertical-align : top;
+    margin-top : 8px;
+    margin-bottom: 4px;
+    margin-left : 4px;
+    width : 16px;
+    height: 20px;
+}
+.classic .viz-controls-mapbuilder-section-icon-bubble:before{
+    content: none;
+}
+
+.classic .viz-controls-mapbuilder-section-icon-marker{
+    background-image: url('../controls/mapbuilder/assets/marker.png');
+    background-repeat: no-repeat;
+    display : inline-block;
+    vertical-align : top;
+    margin-top : 8px;
+    margin-bottom: 4px;
+    margin-left : 4px;
+    width : 16px;
+    height: 20px;
+}
+.classic .viz-controls-mapbuilder-section-icon-marker:before{
+    content: none;
+}
+
+.classic .viz-controls-mapbuilder-section-icon-pie{
+    background-image: url('../controls/mapbuilder/assets/pie.png');
+    background-repeat: no-repeat;
+    display : inline-block;
+    vertical-align : top;
+    margin-top : 8px;
+    margin-bottom: 4px;
+    margin-left : 4px;
+    width : 16px;
+    height: 20px;
+}
+.classic .viz-controls-mapbuilder-section-icon-pie:before{
+    content: none;
+}
+
+.classic .viz-controls-mapbuilder-section-header-expand{
+   padding-bottom : 12px;    
+}
+
+.classic .viz-controls-mapbuilder-viztype-icon {
+    width : 16px;
+    height: 16px;
+}
+
+.classic .viz-controls-mapbuilder-viztype-choropleth{
+    background-image: url('../controls/mapbuilder/assets/choropleth.png');
+    background-repeat: no-repeat;
+}
+.classic .viz-controls-mapbuilder-viztype-choropleth:before{
+    content: none;
+}
+
+.classic .viz-controls-mapbuilder-viztype-bubble{
+    background-image: url('../controls/mapbuilder/assets/bubble.png');
+    background-repeat: no-repeat;
+}
+.classic .viz-controls-mapbuilder-viztype-bubble:before{
+    content: none;
+}
+
+.classic .viz-controls-mapbuilder-viztype-marker{
+    background-image: url('../controls/mapbuilder/assets/marker.png');
+    background-repeat: no-repeat;
+}
+.classic .viz-controls-mapbuilder-viztype-marker:before{
+    content: none;
+}
+
+.classic .viz-controls-mapbuilder-viztype-pie{
+    background-image: url('../controls/mapbuilder/assets/pie.png');
+    background-repeat: no-repeat;
+}
+.classic .viz-controls-mapbuilder-viztype-pie:before{
+    content: none;
+}
+
+.classic .viz-controls-mapbuilder-viztype-selected .viz-controls-mapbuilder-viztype-icon{
+    background-position: -17px 0px;
+    opacity: 1;
+}
+
+.classic .viz-controls-mapbuilder-contextmenu-container{
+    width : 140px;
+    border: 1px solid #bfbfbf;
+    border-radius:0px;
+    box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.3); 
+}
+
+.classic .viz-controls-mapbuilder-contextmenu{
+    padding-left : 0px;
+    padding-top : 12px;
+    padding-bottom :12px;
+}
+
+.classic .viz-controls-mapbuilder-configmenu-container{
+    width: 180px;
+    background-color: #f5f5f5;
+    border-color:#bfbfbf;
+    padding-left : 2px;
+    box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.3);
+}
+
+.classic .viz-controls-mapbuilder-contextmenu li:hover{
+   background-color: #e5f2f9;
+   color: #585858;
+}
+
+.classic .viz-controls-mapbuilder-menuitem{
+   height: 30px;
+   color: #585858;
+}
+
+.classic .viz-controls-mapbuilder-contextmenu-moveup{
+    width : 16px;
+    margin-left : 16px;
+    margin-top: 5px;
+    margin-bottom: 0px;
+}
+.classic .viz-controls-mapbuilder-contextmenu-movedown{
+    width : 16px;
+    margin-left : 16px;
+    margin-top: 5px;
+    margin-bottom: 0px;
+}
+.classic .viz-controls-mapbuilder-contextmenu-delete{
+    width : 16px;
+    margin-left : 16px;
+    margin-top: 5px;
+    margin-bottom: 0px;
+}
+.classic .viz-controls-mapbuilder-contextmenu-clear{
+    width : 16px;
+    margin-left : 16px;
+    margin-top: 5px;
+    margin-bottom: 0px;
+}
+
+.classic .viz-controls-mapbuilder-menutext{
+    padding-left: 6px;
+    color: #585858;
+    padding-top: 12px;
+    height: 16px;
+}
+
+.classic .viz-controls-mapbuilder-menuitem:hover .viz-controls-mapbuilder-menutext{
+    color: #585858;     
+}
+
+.classic .viz-controls-mapbuilder-contextmenu-action-name{
+   font: normal 12px "Helvetica Neue", Helvetica, arial, sans-serif;
+   color: #585858;
+}
+
+.classic .viz-controls-mapbuilder-contextmenu-action-warning{
+    width : 16px;
+    height: 16px;
+    background-image : url('../controls/mapbuilder/assets/alert.png');
+    background-repeat: no-repeat;
+    margin-left : 16px;
+    top: 2px;
+}
+.classic .viz-controls-mapbuilder-contextmenu-action-warning:before{
+    content: none;
+}
+
+.classic .viz-controls-mapbuilder-contextmenu-action{
+    margin-left: 34px;
+    margin-top: 12px;
+}
+
+.classic .viz-controls-mapbuilder-contextmenu-action-ok{
+    background-color : #f7f7f7;
+    margin-right: 5px;
+    width:  50px;
+    height: 28px; 
+    border: 1px solid #BFBFBF;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: grey;
+}
+.classic .viz-controls-mapbuilder-contextmenu-action-ok:hover{
+    background-color : #eaeaea;
+}
+.classic  .viz-controls-mapbuilder-contextmenu-action-ok:active{
+    background-color : #eaeaea;
+}
+
+.classic .viz-controls-mapbuilder-contextmenu-action-cancel{
+    background-color: #f7f7f7;
+    margin-right: 15px;
+    width:  50px;
+    height: 28px;
+    border: 1px solid #BFBFBF;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: grey;
+}
+.classic .viz-controls-mapbuilder-contextmenu-action-cancel:hover{
+    background-color : #eaeaea;
+}
+.classic .viz-controls-mapbuilder-contextmenu-action-cancel:active{
+    background-color : #eaeaea;
+}
+
+.classic .viz-controls-mapbuilder-property-text{
+    color: #585858;
+    top: 0px;
+    left:0px;
+    font-weight:normal;
+}
+
+.classic .viz-controls-mapbuilder-footer-plus.viz-controls-common-icon-import:before{
+    color: #007cc0;
+}
+.classic .viz-controls-mapbuilder-footer-plus.viz-controls-common-icon-import.viz-controls-mapbuilder-footer-import:before{
+    color: #333;
+}
+.classic .viz-controls-mapbuilder-footer-plus.viz-controls-common-icon-delete.viz-controls-mapbuilder-footer-delete:before{
+    color: #333;
+}
+.classic .viz-controls-mapbuilder-footer-plus.viz-controls-common-icon-import.viz-controls-mapbuilder-footer-import:hover:before{
+    color: #007cc0;
+}
+.classic .viz-controls-mapbuilder-footer-plus.viz-controls-common-icon-delete.viz-controls-mapbuilder-footer-delete:hover:before{
+    color: #007cc0;
+}
+.classic .viz-controls-mapbuilder-section-setting.viz-controls-common-icon-settings:before {
+    font-family: 'lumira-icons';
+    font-style: normal;
+    speak: none;
+    content: "\e192";
+}
+.classic .viz-controls-mapbuilder-contextmenu-delete.viz-controls-common-icon-circle-close:before {
+    font-family: 'lumira-icons';
+    font-style: normal;
+    speak: none;
+    content: "\e069";
+}
+.classic .viz-controls-mapbuilder-contextmenu-action-ok.viz-controls-common-icon-checkmark:before {
+    content: "\e176";
+}
+.classic .viz-controls-mapbuilder-contextmenu-movedown.viz-controls-common-icon-arrow-down:before {
+    font-family: 'lumira-icons';
+    font-style: normal;
+    speak: none;
+    content: "\e114";
+}
+.classic .viz-controls-mapbuilder-contextmenu-moveup.viz-controls-common-icon-arrow-up:before {
+    font-family: 'lumira-icons';
+    font-style: normal;
+    speak: none;
+    content: "\e113";
+}
+.classic .viz-controls-mapbuilder-contextmenu-action-cancel.viz-controls-common-sap-icon-decline:before {
+    content: "\e03e";
+}
+
+.classic .viz-controls-common-icon-black:before {
+    color: #007cc0;
+}
+
+.classic .viz-controls-mapbuilder-data-selection-btn:before {
+    font-family: 'lumira-icons';
+    font-style: normal;
+    speak: none;
+    content: "\e044";
+}
+
+.classic .viz-controls-mapbuilder-data-selection-btn-disabled {
+    opacity: 0.5;
+}
+
+.classic .viz-controls-mapbuilder-footer.viz-controls-mapbuilder-footer-service-imported{
+    border: none;
+}
+
+.classic .viz-controls-mapbuilder-contextmenu-button-text{
+    display:none;
+}
+
+.classic .viz-controls-mapbuilder-datasource-container {
+    background-color: transparent;
+    border: none;
+}
+
+.classic .viz-controls-mapbuilder-title-icon {
+    display: none;
+}
+
+.classic .viz-controls-common-feeding-title-seperator {
+    display: none;
+}
+
+.classic .viz-controls-mapbuilder-datasource-card {
+    display: none;
+}
+
+.classic .viz-controls-mapbuilder-datasource-selection {
+    display: block;
+}
+
+.classic .viz-controls-mapbuilder-information-container {
+    display: inline-block;
+    background-color: transparent;
+    border: none;
+    min-height: unset;
+    width: 213px;
+    padding: 0 6px 2px 6px;
+    cursor: default;
+}
+
+.classic .viz-controls-mapbuilder-information-title {
+    padding-bottom: 10px;
+}
+
+.classic .viz-controls-mapbuilder-information-title-text {
+    font-size: 12px;
+    font-weight: bold;
+    display: inline;
+    height: 18px;
+    line-height: 18px;
+    padding: 0 0 10px 0;
+}
+
+.classic .viz-controls-mapbuilder-information-item {
+    margin-bottom: 12px;
+    position: relative;
+}
+
+.classic .viz-controls-mapbuilder-information-item-title {
+    margin-bottom: 2px;
+    font-size: 12px;
+    cursor: default;
+}
+
+.classic .viz-controls-mapbuilder-file-selection-btn:before {
+    font-family: 'sap-viz-controls-icons';
+    font-style: normal;
+    speak: none;
+    content: "\e12e";
+}
+
+.sapUiTheme-sap_hcb .viz-controls-mapbuilder {
+    color:#ffffff
+}
+
+.sapUiTheme-sap_hcb .viz-controls-mapbuilder-title {
+    color:#ffffff
+}
+
+.sapUiTheme-sap_hcb .classic .viz-controls-mapbuilder-add-layer-btn {
+    color:#ffffff
+}
+
+.sapUiTheme-sap_hcb .classic .viz-controls-mapbuilder-add-layer-btn:before {
+    color:#ffffff
+}
+
+.sapUiTheme-sap_hcb .classic .viz-controls-common-icon-button:hover {
+    color:#7a5100
+}
+
+.sapUiTheme-sap_hcb .classic .viz-controls-mapbuilder-section-setting.viz-controls-common-icon-settings:hover:before{
+    color:#7a5100
+}
+
+.sapUiTheme-sap_hcb .classic .viz-controls-mapbuilder-file-selection-btn:hover:before {
+    color:#7a5100
+}
+
+.sapUiTheme-sap_hcb .classic .viz-controls-mapbuilder-data-selection-btn:not(.viz-controls-mapbuilder-data-selection-btn-disabled):hover:before {
+    color:#7a5100
+}
+
+.sapUiTheme-sap_hcb .classic .viz-controls-mapbuilder-section-title-editor {
+    border-bottom: 1px solid #ffffff
+}
+
+.sapUiTheme-sap_hcb .classic .viz-controls-mapbuilder-section-title:not(.viz-controls-mapbuilder-section-title-disable) {
+    color:#ffffff
+}
+
+.sapUiTheme-sap_hcb .classic .viz-controls-mapbuilder-section-header-expand .viz-controls-mapbuilder-section-title-editable:hover{
+    border-bottom: 1px solid #ffffff; 
+}
+
+.sapUiTheme-sap_hcb .classic .viz-controls-mapbuilder-section-category-title-text {
+    color:#ffffff
+} 
+
+.sapUiTheme-sap_hcb .classic .viz-controls-mapbuilder-chartType-icon-title-text {
+    color:#ffffff
+}.viz-controls-filterbar-layout {
+    background-color: #FAFAFA;
+    float: left;
+    position: absolute;
+    height: 100%;
+    white-space: nowrap;
+    left: 25px;
+    right:0px;
+}
+.viz-controls-filterbar-filterItems-container {
+    position: absolute;
+    min-height: 38px;
+    min-width: 125px;
+    height:auto;
+    right:0px;
+    left:0px;
+    overflow-x : hidden;
+    top: 4px!important;
+}
+.viz-controls-filterbar-header-plus-container {
+    background-color: transparent;
+    position: absolute;
+    cursor: pointer;
+    top: 8px;
+    left: 3px;
+    width: 24px;
+    height: 24px;
+}
+
+.viz-controls-filterbar-header-plus {
+    margin: 4px;
+    font-size: 16px;
+
+}
+
+.viz-controls-filterbar-header-plus-hover, .viz-controls-filterbar-header-plus-pressed {
+    background-position: -32px -1861px;
+}
+.viz-controls-filterbar-clear-container, .viz-controls-filterbar-clear-container-disabled {
+    cursor: pointer;
+    float: right;
+    position: relative;
+    margin-top: 7px;
+    margin-left: 3px;
+    width: 24px;
+    height: 24px;
+    float: right;
+    font-size: 16px;
+}
+.viz-controls-filterbar-clear-container-disabled {
+    cursor: pointer;
+    font-size: 16px;
+}
+
+
+.viz-controls-filterbar-clear, .viz-controls-filterbar-clear-disabled {
+    background-position: 0px -1836px;
+    background-repeat: no-repeat;
+
+    margin: 4px;
+    font-size: 16px;
+}
+.viz-controls-filterbar-clear-disabled {
+    opacity : 0.5;
+}
+
+.viz-controls-filterbar-description {
+    line-height: 38px;
+    margin-left: 28px;
+    cursor:default;
+}
+
+.viz-controls-filterbar-filter-item {
+    height: 36px;
+    width: 180px;
+    border-radius: 3px;
+    cursor: default;
+}
+
+.viz-controls-filterbar-filter-item {
+    position: relative;
+    float: left;
+    display: inline;
+    margin-left: 10px;
+    margin-top: 1px;
+    background-color: #EFEFEF;
+    color: #333333;
+    border: 1px solid #DDD;
+}
+
+.viz-controls-filterbar-filter-item:hover {
+    background-color: #E5F2F9;
+    color: #007cc0;
+}
+
+.viz-controls-filterbar-filter-item-readonly {
+    background-color: #DCDCDC;
+}
+
+.viz-controls-filterbar-filter-item-readonly:hover {
+    color: #333333;
+}
+
+.viz-controls-filterbar-filter-values-active {
+    cursor: pointer;
+}
+
+.viz-controls-filterbar-filter-exclude {
+    text-decoration: line-through;
+}
+
+.viz-controls-filterbar-global-filter-item {
+    background-color: #DCDCDC;
+}
+
+.viz-controls-filterbar-global-filter-item:hover {
+    background-color: #E5F2F9;
+}
+
+.viz-controls-filterbar-filter-item-text, .viz-controls-filterbar-filter-item-info {
+    padding-left: 10px;
+    line-height: 20px;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.viz-controls-filterbar-filter-item-text {
+    position : absolute;
+    max-width : 180px;
+    padding-left: 0px;
+    left : 10px;
+    top : 0px;
+    margin-right: 0px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+}
+.viz-controls-filterbar-range-filter-item-text {
+    right : 20px;
+}
+.viz-controls-filterbar-range-filter-item-icon-text {
+    left : 30px;
+}
+.viz-controls-filterbar-filter-item-info {
+    position : absolute;
+    padding-left: 0px;
+    top : 0px;
+    margin-right: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+}
+.viz-controls-filterbar-delete-icon {
+    background-position: 0px -288px;
+    position: absolute;
+    cursor: pointer;
+    top: 2px;
+    right: 1px;
+}
+.viz-controls-filterbar-delete-icon:hover {
+    background-position: -18px -288px;
+}
+.viz-controls-filterbar-info-icon {
+    background-position: 0px -1807px;
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    background-repeat: no-repeat;
+    width: 16px;
+    height: 16px;
+}
+.viz-controls-filterbar-info-icon:hover {
+    background-position: -66px -1807px;
+}
+.viz-controls-filterbar-filter-values {
+    padding-left: 10px;
+    display: block;
+    font-size: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    padding-bottom: 3px;
+    text-overflow: ellipsis;
+}
+.viz-controls-filterbar-filter-values {
+    position: absolute;
+    left : 0px;
+    right : 0px;
+    bottom: 0px;
+}
+.viz-controls-filterbar-filter-values-with-icon {
+    display: block;
+    font-size: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    padding-bottom: 3px;
+    text-overflow: ellipsis;
+}
+.viz-controls-filterbar-filter-values-with-icon {
+    position: absolute;
+    left : 30px;
+    right : 0px;
+    bottom: 0px;
+}
+.viz-controls-filterbar-filter-icon {
+    font-size:16px;
+    position: absolute;
+    top: 9px;
+    left: 6px;
+    cursor: pointer;
+}
+.viz-controls-filterbar-icon-div {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    cursor: pointer;
+}
+.viz-controls-filterbar-text-with-icon {
+    margin-left: 30px;
+}
+
+
+.viz-controls-playcontrol-body {
+    height :60px !important;
+}
+
+.viz-controls-playcontrol-playbtn{
+    top : 15px !important;
+    background-color : transparent !important;
+    border-color : transparent !important;
+    box-shadow: none !important;
+    padding : 0px !important;
+    width : 40px !important;
+    height : 40px !important;
+}
+
+.viz-controls-playcontrol-slider .sapUiSliHori.sapUiSli {
+    padding : 0px !important;
+}
+
+.viz-controls-playcontrol-slider {
+    top : 15px !important;
+    left : 45px !important;
+}
+
+.viz-controls-playcontrol-label{
+    font-size : 18px;
+    color : #007cc0;
+    position : absolute;
+    text-overflow : ellipsis;
+    overflow : hidden;
+    white-space:nowrap;
+}.viz-controls-propertyeditor-colorpicker-views-container .sapUiColorPicker-ColorPickerMatrix {
+    background-color: #f2f2f2
+}
+
+.viz-controls-propertyeditor-colorpicker-views-container .sapUiColorPicker-ColorPickerBox {
+    float: left;
+    margin: 5px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #cccccc;
+    position: relative;
+    cursor: crosshair;
+    display: inline-block;
+    width: 105px;
+    height: 105px;
+    background-color: none;
+    background-image: url(img/ColorPicker/GradientBox.png);
+    background-size: 100%;
+    background-image: -webkit-linear-gradient(left,#000000,transparent),-webkit-linear-gradient(top,rgba(255,255,255,0),#ffffff);
+    background-image: -moz-linear-gradient(left,#000000,transparent),-moz-linear-gradient(top,rgba(255,255,255,0),#ffffff);
+    background-image: linear-gradient(left,#000000,transparent),linear-gradient(top,rgba(255,255,255,0),#ffffff);
+    background-image: -ms-linear-gradient(left,#000000,transparent),-ms-linear-gradient(top,rgba(255,255,255,0),#ffffff);
+    -moz-user-select: none;
+    -webkit-user-select: none;
+}
+
+.viz-controls-propertyeditor-colorpicker-views-container .sapUiColorPicker-ColorPickerCircle {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #ffffff;
+    border-radius: 5px
+}
+
+.viz-controls-propertyeditor-colorpicker-views-container .sapUiColorPicker-ColorPickerOldColor {
+    margin-top: 5px;
+    width: 20px;
+    height: 20px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #cccccc;
+    background-color: #ffffff
+}
+
+.viz-controls-propertyeditor-colorpicker-views-container .sapUiColorPicker-ColorPickerNewColor {
+    margin-left: 6px;
+    margin-top: 5px;
+    width: 20px;
+    height: 20px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #cccccc;
+    background-color: #ffffff
+}
+
+.viz-controls-propertyeditor-colorpicker-views-container .sapUiColorPicker-ColorPickerMatrix .sapUiHLayoutChildWrapper {
+    vertical-align: middle
+}
+
+.viz-controls-propertyeditor-colorpicker-views-container .sapUiColorPicker-ColorPickerMatrix .sapUiMltPadRight {
+    padding-right: 0
+}
+
+.viz-controls-propertyeditor-colorpicker-views-container .sapUiColorPicker-ColorPickerMatrix .sapUiMltPadRight .sapUiVlt {
+    padding-left: 5px
+}
+
+.viz-controls-propertyeditor-colorpicker-views-container .sapUiColorPicker-ColorPickerMatrix .sapUiMltPadRight .sapUiVlt.sapUiColorPicker-ColorPickerLastColumn {
+    padding-left: 13px
+}
+
+.viz-controls-propertyeditor-colorpicker-views-container .sapUiColorPicker-ColorPickerInputFieldsRight {
+    margin-top: 5px;
+    margin-left: 2px;
+    margin-right: 4px
+}
+
+.viz-controls-propertyeditor-colorpicker-views-container .sapUiColorPicker-ColorPickerInputFieldsLeft {
+    margin-top: 5px;
+    margin-left: 2px;
+    margin-right: 29px
+}
+
+.viz-controls-propertyeditor-colorpicker-views-container .sapUiColorPicker-ColorPickerLabels {
+    margin-top: 5px;
+    width: 1em
+}
+
+.viz-controls-propertyeditor-colorpicker-views-container .sapUiColorPicker-ColorPickerHexField.sapUiTf:not(.sapUiTfInner) {
+    margin-top: 5px;
+    margin-left: 2px;
+    width: 5em
+}
+
+.viz-controls-propertyeditor-colorpicker-views-container .sapUiColorPicker-ColorPickerSlider.sapUiSliHori .sapUiSliGrip {
+    background-color: transparent;
+    height: 12px;
+    top: -3px
+}
+
+.viz-controls-propertyeditor-colorpicker-views-container .sapUiColorPicker-ColorPickerAlphaSlider.sapUiSliHori .sapUiSliGrip {
+    background-color: transparent;
+    height: 12px;
+    top: -3px
+}
+
+.viz-controls-propertyeditor-colorpicker-views-container .sapUiColorPicker-ColorPickerSlider.sapUiSliHori .sapUiSliGrip:focus {
+    background-color: transparent
+}
+
+.viz-controls-propertyeditor-colorpicker-views-container .sapUiColorPicker-ColorPickerAlphaSlider.sapUiSliHori .sapUiSliGrip:focus {
+    background-color: transparent
+}
+
+.viz-controls-propertyeditor-colorpicker-views-container .sapUiColorPicker-ColorPickerSlider.sapUiSliHori .sapUiSliBar {
+    height: 10px;
+    background-image: url(img/ColorPicker/ColorBar.png);
+    background-size: 100%;
+    background-image: -webkit-linear-gradient(left,#ff0000,#ffff00,#00ff00,#00ffff,#0000ff,#ff00ff,#ff0000);
+    background-image: -moz-linear-gradient(left,#ff0000,#ffff00,#00ff00,#00ffff,#0000ff,#ff00ff,#ff0000);
+    background-image: -ms-linear-gradient(left,#ff0000,#ffff00,#00ff00,#00ffff,#0000ff,#ff00ff,#ff0000);
+    background-image: linear-gradient(left,#ff0000,#ffff00,#00ff00,#00ffff,#0000ff,#ff00ff,#ff0000);
+    background-image: -o-linear-gradient(left,#ff0000,#ffff00,#00ff00,#00ffff,#0000ff,#ff00ff,#ff0000);
+    background-color: none;
+    margin: 0
+}
+
+.viz-controls-propertyeditor-colorpicker-views-container .sapUiColorPicker-ColorPickerAlphaSlider.sapUiSliHori .sapUiSliBar {
+    height: 10px;
+    background-image: url(img/ColorPicker/Alphaslider_BG.png);
+    background-repeat: repeat-x;
+    background-image: -moz-linear-gradient(left,transparent 0,#000000 100%),url(img/ColorPicker/Alphaslider_BG.png);
+    background-image: -webkit-linear-gradient(left,transparent 0,#000000 100%),url(img/ColorPicker/Alphaslider_BG.png);
+    background-image: -o-linear-gradient(left,transparent 0,#000000 100%),url(img/ColorPicker/Alphaslider_BG.png);
+    background-image: -ms-linear-gradient(left,transparent 0,#000000 100%),url(img/ColorPicker/Alphaslider_BG.png);
+    background-image: linear-gradient(to right,transparent 0,#000000 100%),url(img/ColorPicker/Alphaslider_BG.png);
+    background-color: none;
+    margin: 0
+}
+
+.viz-controls-propertyeditor-colorpicker-views-container .sapUiColorPicker-ColorPickerMatrix .sapUiSli.sapUiSliHori {
+    padding: 3px 0 0 0;
+    height: 10px;
+}
+
+.viz-controls-propertyeditor-colorpicker-views-container .sapUiTheme-lumira_simplite .sapUiColorPicker-ColorPickerInputFieldsLeft {
+    margin: 0px;
+    margin-top: 5px;
+    padding-left: 5px;
+}
+
+.viz-controls-propertyeditor-colorpicker-views-container .sapUiRespGridHSpace1>.sapUiRespGridSpanXL12 {
+    width: 100%;
+}
+.viz-controls-propertyeditor-main {
+    padding: 0px;
+}
+.viz-controls-propertyeditor-main .sapMSlt{
+     margin: 0.18rem 0;
+}
+.viz-controls-propertyeditor-title {
+    font-weight: bold;
+    height: auto;
+    line-height: 36px;
+    cursor: default;
+}
+
+.viz-controls-propertyeditor-axis-scale-item {
+    width: 200px;
+}
+
+.viz-controls-propertyeditor-axis-scale-item > .sapMRbB {
+    width: 1.875rem !important;
+}
+
+.viz-controls-propertyeditor-axis-scale-item .sapMLabel {
+    padding-left: 2rem !important;
+}
+
+.viz-controls-propertyeditor-title-splitter {
+    border-bottom: solid 1px #dddddd;
+    margin-bottom: 10px;
+    width: calc(100% - 12px);
+}
+
+div.viz-controls-propertyeditor-title-splitter-legendlayout {
+    border-bottom: solid 1px #dddddd;
+    margin-bottom: 10px;
+    width: calc(100% - 12px);
+}
+
+.viz-controls-propertyeditor-title-splitter-number{
+    border-bottom: solid 1px #dddddd;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    width: calc(100% - 12px);
+}
+
+.viz-controls-propertyeditor-section-selector-container {
+    width: 240px;
+}
+
+.viz-controls-propertyeditor-views-container {
+    padding-bottom: 8px;
+    width: 240px;
+}
+.viz-controls-propertyeditor-views-container .sapMInputBaseInner {
+    font-size: 12px;
+}
+.viz-controls-propertyeditor-series-type-container {
+    padding-top: 16px;
+}
+.viz-controls-propertyeditor-series-type-container .sapUiTfCombo{
+    width: 22ex !important;
+}
+
+.viz-controls-propertyeditor-axis-label-padding-top {
+    padding-top: 4px;
+}
+
+.viz-controls-propertyeditor-number-format-padding-top {
+    padding-top: 8px;
+}
+
+.viz-controls-propertyeditor-list-picker-padding-top {
+    padding-top: 8px;
+}
+
+.viz-controls-propertyeditor-list-picker-padding-bottom {
+    padding-bottom: 8px;
+}
+
+.viz-controls-propertyeditor-views-container-padding-top {
+    padding-top: 5px;
+    overflow: hidden;
+}
+
+.viz-controls-propertyeditor-view-item-row-padding-top {
+    padding-left: 1px;
+}
+
+.viz-controls-propertyeditor-view-label-padding-top {
+    padding-top: 9px;
+}
+
+.viz-controls-propertyeditor-view-item-row-padding-left {
+    padding-left: 1px;
+}
+
+.viz-controls-propertyeditor-view-item-padding-top {
+    padding-top: 2px;
+}
+
+.viz-controls-propertyeditor-slider-padding-top {
+    padding-top: 8px;
+}
+
+.viz-controls-propertyeditor-checkbox-padding-top {
+    padding-top: 4px;
+}
+
+.viz-controls-propertyeditor-view-item-padding-bottom {
+    padding-bottom: 8px;
+}
+
+.viz-controls-propertyeditor-view-item-padding-bottom-small {
+    padding-bottom: 4px;
+}
+
+.viz-controls-propertyeditor-resetButton {
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+}
+
+.viz-controls-propertyeditor-view-item {
+}
+
+.viz-controls-propertyeditor-item-long {
+    width: 175px;
+}
+
+.viz-controls-propertyeditor-item-long .sapMSlt .sapMSltLabel{
+    font-size: 12px;
+}
+
+.viz-controls-propertyeditor-view-item-prefix-suffix .viz-controls-propertyeditor-view-item-cell{
+    padding-right: 20px;
+}
+/*@formatter:off*/
+/* clearfix */
+.viz-controls-propertyeditor-view-item:before,
+.viz-controls-propertyeditor-view-item:after,
+.viz-controls-propertyeditor-view-item-indent1:before,
+.viz-controls-propertyeditor-view-item-indent1:after,
+.viz-controls-propertyeditor-view-item-indent2:before,
+.viz-controls-propertyeditor-view-item-indent2:after {
+    display: table;
+    content: " ";
+}
+.viz-controls-propertyeditor-view-item:after,
+.viz-controls-propertyeditor-view-item-indent1:after,
+.viz-controls-propertyeditor-view-item-indent2:after {
+    clear: both;
+}
+/*@formatter:on*/
+
+.viz-controls-propertyeditor-view-item-indent1 {
+    padding-left: 24px;
+}
+
+.viz-controls-propertyeditor-view-item-indent2 {
+    padding-left: 44px;
+}
+
+.viz-controls-propertyeditor-radio-button-group .sapMLabel {
+    margin-left: 0px;
+}
+
+.viz-controls-propertyeditor-radio-button .viz-controls-propertyeditor-view-item-indent1 {
+    padding-left: 32px;
+}
+
+.viz-controls-propertyeditor-view-item-indent-radio-button {
+    padding-left: 2rem;
+    margin-left: 0;
+}
+
+.viz-controls-propertyeditor-view-item-indent-radio-button .sapMLabel {
+    padding-top: 8px;
+}
+
+.viz-controls-propertyeditor-view-item-row, .viz-controls-propertyeditor-view-item-indent1, .viz-controls-propertyeditor-view-item-indent2 {
+    clear: both;
+}
+.viz-controls-propertyeditor-view-item-row:after {
+    clear: both;
+    display: table;
+    content: " ";
+}
+
+.viz-controls-propertyeditor-view-item-cell {
+    float: left;
+    padding-right: 8px;
+    line-height: 24px;
+    max-width: 100%;
+}
+.viz-controls-propertyeditor-view-item-cell:last-child {
+    padding-right: 0px;
+}
+
+.viz-controls-propertyeditor-view-item-cell-wrap {
+    float: left;
+    padding-right: 8px;
+    line-height: 24px;
+}
+
+.viz-controls-propertyeditor-view-item-cell-wrap:last-child {
+    padding-right: 0px;
+    padding-bottom: 5px;
+}
+
+.viz-controls-propertyeditor-view-item-cell-wrap label {
+    line-height: 22px;
+}
+
+.viz-controls-propertyeditor-shapepicker-container {
+    float: left;
+    width: 70px;
+    border: 1px solid #bfbfbf;
+    background-color: #FFFFFF;
+    height: 20px;
+}
+
+.viz-controls-propertyeditor-waterfall-seriespicker div{
+    width: 168px;
+}
+.viz-controls-propertyeditor-shapepicker-container:hover {
+    border-color: #007CC0;
+}
+
+.viz-controls-propertyeditor-shapepicker-dropdown-arrow {
+    float: right;
+    width: 20px;
+    height: 20px;
+    background-color: transparent;
+    background-position: -2px -360px;
+}
+.viz-controls-propertyeditor-shapepicker-dropdown-arrow:hover {
+    width: 20px;
+    height: 20px;
+    background-color: #007CC0;
+    background-position: -15px -360px;
+    cursor: pointer;
+}
+
+.viz-controls-propertyeditor-shapepicker-shape {
+    float: left;
+    border: none;
+    width: 40px;
+    height: 20px;
+    margin: 0px 5px;
+}
+
+.viz-controls-propertyeditor-shapepicker-list {
+    position: absolute;
+    border: none;
+    margin-top: 24px;
+    width: 100px;
+}
+
+.viz-controls-propertyeditor-shapepicker-list ul {
+    padding: 3px;
+    border: 1px solid #bfbfbf;
+    background-color: #ffffff;
+    list-style: none;
+    margin: 0px;
+    display: inline-block;
+    -webkit-transition: 0.3s ease-out;
+    -moz-transition: 0.3s ease-out;
+    -o-transition: 0.3s ease-out;
+    transition: 0.3s ease-out;
+    position: absolute;
+    box-shadow: 0 4px 17px rgba(0,0,0,0.4);
+    -webkit-box-shadow: 0 4px 17px rgba(0,0,0,0.4);
+}
+.viz-controls-propertyeditor-vizchartview-childcontainer {
+    margin-left: 25px;
+    padding-top: 2px;
+}
+
+.viz-controls-propertyeditor-shapepicker-list li {
+    position: relative;
+    height: 20px;
+}
+
+.viz-controls-propertyeditor-shapepicker-list li:hover {
+    background-color: #e5f2f9;
+}
+
+.viz-controls-propertyeditor-linestylepicker-list {
+    position: absolute;
+    border: none;
+    padding: 1px 0px;
+    margin-top: 24px;
+    z-index: 999;
+}
+
+.viz-controls-propertyeditor-linestylepicker-list ul {
+    padding: 3px 6px;
+    border: 1px solid #bfbfbf;
+    background-color: #ffffff;
+    list-style: none;
+    margin: 0px;
+    display: inline-block;
+    -webkit-transition: 0.3s ease-out;
+    -moz-transition: 0.3s ease-out;
+    -o-transition: 0.3s ease-out;
+    transition: 0.3s ease-out;
+    position: absolute;
+    box-shadow: 0 4px 17px rgba(0,0,0,0.4);
+    -webkit-box-shadow: 0 4px 17px rgba(0,0,0,0.4);
+}
+
+.viz-controls-propertyeditor-linestylepicker-list-li {
+    position: relative;
+    height: 20px;
+    padding-left: 1px;
+}
+
+.viz-controls-propertyeditor-linestylepicker-list-li:hover {
+    background-color: #e5f2f9;
+}
+
+.viz-controls-propertyeditor-linestylepicker-list-li-selected {
+    position: relative;
+    height: 20px;
+    border: 1px solid #000000;
+    background-color: #C6D9F1;
+    padding-right: 1px;
+}
+
+.viz-controls-propertyeditor-linestylepicker-list-shape {
+    float: left;
+    border: none;
+    width: 61px;
+    height: 20px;
+    pointer-events: none;
+}
+
+.viz-controls-propertyeditor-linestyle {
+    height: 48px;
+}
+
+.viz-controls-propertyeditor-slicestyle {
+    height: 48px;
+}
+
+.viz-controls-propertyeditor-donut-chartarea {
+    height: 48px;
+}
+
+.viz-controls-propertyeditor-colorpicker-container {
+    z-index: 999999;
+}
+
+.viz-controls-propertyeditor-colorpicker-colorDiv {
+    height: 5px;
+}
+
+.viz-controls-propertyeditor-colorpicker-choose-button {
+    position: absolute;
+    right: 3px;
+}
+
+.viz-controls-propertyeditor-colorpicker-cancel-button {
+    position: relative;
+    left: 150px;
+}
+
+.viz-controls-propertyeditor-icon {
+    background-image: url('../controls/propertyeditor/assets/UVB_PropertyEditorSprite.png');
+}
+.viz-controls-propertyeditor-colorpicker-background-img {
+    display: inline-block;
+    margin: 4px;
+    width: 16px;
+    height: 16px;
+    background-image: url('../controls/propertyeditor/assets/UVB_PropertyEditorSprite.png');
+    background-repeat: no-repeat;
+    vertical-align: center;
+}
+.viz-controls-propertyeditor-colorpicker-background-color {
+    display: inline-block;
+    margin: 4px 5px;
+    width: 16px;
+    height: 16px;
+    background-repeat: no-repeat;
+    vertical-align: center;
+}
+.viz-controls-propertyeditor-colorpicker-pickercontainer {
+    width: 66px;
+}
+
+.viz-controls-propertyeditor-colorpicker-pickercontainer:hover {
+    cursor: pointer;
+}
+
+.viz-controls-propertyeditor-colorpicker-picker-colorcontainer {
+    width: 80%;
+    height: 4px;
+    margin: auto;
+}
+
+.viz-controls-propertyeditor-colorpicker-views-container {
+    position: absolute;
+    z-index: 999999;
+    background-color: #F2F2F2;
+    border: 1px solid #DAD9D9;
+    box-shadow: 0 4px 17px rgba(0,0,0,0.4);
+    -webkit-box-shadow: 0 4px 17px rgba(0,0,0,0.4);
+}
+
+.viz-controls-propertyeditor-iconpicker-container {
+    width: 76px !important;
+}
+
+.viz-controls-propertyeditor-iconpicker-dropdown-arrow {
+    float: right;
+    width: 20px;
+    height: 20px;
+    background-color: transparent;
+    background-position: -2px -360px;
+}
+
+.viz-controls-propertyeditor-iconpicker-dropdown-arrow:hover {
+    width: 20px;
+    height: 20px;
+    background-color: #007CC0;
+    background-position: -15px -360px;
+    cursor: pointer;
+}
+
+.viz-controls-propertyeditor-iconpicker-icon {
+    float: left;
+    border: none;
+    width: 32px;
+    height: 18px;
+    margin: 3px 5px;
+    overflow: hidden;
+}
+
+.viz-controls-propertyeditor-iconpicker-list {
+    position: absolute;
+    margin-top: 24px;
+    padding: 3px 0px 3px 7px;
+    z-index: 999999;
+    background-color: #FFFFFF;
+    border: 1px solid #DAD9D9;
+    box-shadow: 0 4px 17px rgba(0,0,0,0.4);
+    -webkit-box-shadow: 0 4px 17px rgba(0,0,0,0.4);
+    width: 123px;
+    max-height: 200px;
+    overflow: auto;
+    overflow-x: hidden;
+}
+
+.viz-controls-propertyeditor-iconpicker-list-row {
+    position: relative;
+    height: 29px;
+}
+
+.viz-controls-propertyeditor-iconpicker-list-cell {
+    float: left;
+    width: 25px;
+    height: 25px;
+    margin: 2px;
+}
+
+.viz-controls-propertyeditor-iconpicker-list-cell:hover {
+    background-color: #e5f2f9;
+}
+
+.viz-controls-propertyeditor-iconpicker-list-icon {
+    border: none;
+    width: 25px;
+    height: 25px;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.viz-controls-propertyeditor-input {
+    margin-left: 0px;
+    padding-bottom: 10px;
+}
+
+.viz-controls-propertyeditor-thicknesspicker-dropdown-arrow {
+    position: absolute;
+    right: 0px;
+    width: 20px;
+    height: 20px;
+    background-color: transparent;
+    background-position: -2px -360px;
+}
+.viz-controls-propertyeditor-thicknesspicker-dropdown-arrow:hover {
+    width: 20px;
+    height: 20px;
+    background-color: #007CC0;
+    background-position: -15px -360px;
+    cursor: pointer;
+}
+
+.viz-controls-propertyeditor-thicknesspicker-line {
+    float: left;
+    border: none;
+    width: 56px;
+    height: 20px;
+    margin: 0px 1px;
+    cursor: pointer;
+}
+
+.viz-controls-propertyeditor-widthpicker-container {
+    width: 48px !important;
+}
+
+.viz-controls-propertyeditor-thicknesspicker-container {
+    width: 76px !important;
+}
+
+.viz-controls-propertyeditor-thicknesspicker-container:hover {
+    border-color: #007CC0;
+}
+
+.viz-controls-propertyeditor-thicknesspicker-list {
+    position: absolute;
+    border: none;
+    padding: 1px 0px;
+    margin-top: 24px;
+    z-index: 1;
+}
+
+.viz-controls-propertyeditor-thicknesspicker-list ul {
+    width: 110px;
+    padding: 3px 10px;
+    border: 1px solid #bfbfbf;
+    background-color: #ffffff;
+    list-style: none;
+    margin: 0px;
+    display: inline-block;
+    -webkit-transition: 0.3s ease-out;
+    -moz-transition: 0.3s ease-out;
+    -o-transition: 0.3s ease-out;
+    transition: 0.3s ease-out;
+    position: absolute;
+    box-shadow: 0 4px 17px rgba(0,0,0,0.4);
+    -webkit-box-shadow: 0 4px 17px rgba(0,0,0,0.4);
+}
+
+.viz-controls-propertyeditor-thicknesspicker-list li {
+    clear: left;
+    float: left;
+}
+
+.viz-controls-propertyeditor-thicknesspicker-list-line-container, .viz-controls-propertyeditor-thicknesspicker-list-line-container-selected {
+    vertical-align: middle;
+    padding-left: 2px;
+    float: left;
+    width: 105px;
+    height: 22px;
+    margin: auto;
+}
+
+.viz-controls-propertyeditor-thicknesspicker-list-line-container-selected {
+    border: 1px solid #000000;
+    background-color: #C6D9F1;
+    margin-left: -1px;
+}
+
+.viz-controls-propertyeditor-thicknesspicker-list-line-container:hover {
+    background-color: #e5f2f9;
+}
+
+.viz-controls-propertyeditor-thicknesspicker-list-line {
+    width: 48px;
+    margin: auto;
+}
+
+.viz-controls-propertyeditor-listpicker {
+   clear: both;
+}
+
+.viz-controls-propertyeditor-numformatpicker {
+   height: 34px;
+}
+
+.viz-controls-propertyeditor-listpicker-dropdown {
+    width: 6em;
+}
+
+.viz-controls-propertyeditor-formatpicker-dropdown {
+    width: 5em;
+}
+
+.viz-controls-propertyeditor-alignmentpicker-button {
+    float: left;
+    margin-right: 8px;
+    width: 32.2px;
+    height: 23px;
+    text-align: center;
+    border: 1px solid #bfbfbf;
+    cursor: pointer;
+    padding-top: 2px;
+}
+.viz-controls-propertyeditor-alignmentpicker-button:hover {
+    border-color: #007CC0;
+}
+.viz-controls-propertyeditor-alignmentpicker-unselected-left, .viz-controls-propertyeditor-alignmentpicker-unselected-center, .viz-controls-propertyeditor-alignmentpicker-unselected-right {
+    background-color: #f9f7f7;
+    background-repeat: no-repeat;
+}
+.viz-controls-propertyeditor-alignmentpicker-selected-left, .viz-controls-propertyeditor-alignmentpicker-selected-center, .viz-controls-propertyeditor-alignmentpicker-selected-right {
+    background-color: #007CC0;
+    background-repeat: no-repeat;
+}
+.viz-controls-propertyeditor-alignmentpicker-unselected-left {
+    background-position: 1px -55px;
+}
+.viz-controls-propertyeditor-alignmentpicker-unselected-center {
+    background-position: 1px -95px;
+}
+.viz-controls-propertyeditor-alignmentpicker-unselected-right {
+    background-position: 1px -133px;
+}
+.viz-controls-propertyeditor-alignmentpicker-selected-left {
+    background-position: 1px -75px;
+}
+.viz-controls-propertyeditor-alignmentpicker-selected-center {
+    background-position: 1px -114px;
+}
+.viz-controls-propertyeditor-alignmentpicker-selected-right {
+    background-position: 1px -151px;
+}
+.viz-controls-propertyeditor-alignmentpicker-unselected-left:before{
+    font-family: 'orca';
+    speak: none;
+    font-size: 20px;
+    font-weight: normal;
+    content: '\e651';
+}
+.viz-controls-propertyeditor-alignmentpicker-selected-left:before{
+    font-family: 'orca';
+    speak: none;
+    font-size: 20px;
+    font-weight: normal;
+    content: '\e651';
+    color: white;
+}
+.viz-controls-propertyeditor-alignmentpicker-unselected-center:before{
+    font-family: 'orca';
+    speak: none;
+    font-size: 20px;
+    font-weight: normal;
+    content: '\e652';
+}
+.viz-controls-propertyeditor-alignmentpicker-selected-center:before{
+    font-family: 'orca';
+    speak: none;
+    font-size: 20px;
+    font-weight: normal;
+    content: '\e652';
+    color: white;
+}
+.viz-controls-propertyeditor-alignmentpicker-unselected-right:before{
+    font-family: 'orca';
+    speak: none;
+    font-size: 20px;
+    font-weight: normal;
+    content: '\e653';
+}
+.viz-controls-propertyeditor-alignmentpicker-selected-right:before{
+    font-family: 'orca';
+    speak: none;
+    font-size: 20px;
+    font-weight: normal;
+    content: '\e653';
+    color: white;
+}
+
+.viz-controls-propertyeditor-spin {
+    position: relative;
+    padding-right: 18px;
+    box-shadow: 0 1px 0 rgba(255,255,255,0.5);
+    width: 42px;
+    height: 26px;
+}
+
+.viz-controls-propertyeditor-spin-input {
+    position: absolute;
+    width: 100%;
+    height: 26px;
+    display: block;
+    color: rgb(64,64,64);
+    font-family: inherit;
+    font-size: 11px;
+    box-shadow: 0 2px 2px rgba(0,0,0,0.03125) inset;
+}
+
+.viz-controls-propertyeditor-spin-input .sapUiTfStd {
+    text-indent: 7px;
+}
+
+.viz-controls-propertyeditor-spin-upButton {
+    position: absolute;
+    display: block;
+    top: 3px;
+    right: 1px;
+    width: 12px;
+    height: 10px;
+    border: 2px solid rgb(224,224,224);
+    background: rgb(248,248,248);
+    cursor: pointer;
+}
+
+.viz-controls-propertyeditor-spin-downButton {
+    position: absolute;
+    display: block;
+    right: 1px;
+    bottom: -2px;
+    width: 12px;
+    height: 10px;
+    border: 2px solid rgb(224,224,224);
+    background: rgb(248,248,248);
+    cursor: pointer;
+}
+
+.viz-controls-propertyeditor-spin-upButton-content {
+    display: block;
+    width: 12px;
+    height: 10px;
+    background-position: -4px -42px;
+    background-repeat: no-repeat;
+}
+
+.viz-controls-propertyeditor-spin-downButton-content {
+    display: block;
+    width: 12px;
+    height: 10px;
+    background-position: -4px -25px;
+    background-repeat: no-repeat;
+}
+.viz-controls-propertyeditor-colorpicker-views-container {
+    width: 192px;
+    border: 1px solid #bfbfbf !important;
+    box-sizing: border-box;
+    padding: 11px 11px 0px 11px !important;
+    background-color: #ffffff!important;
+}
+.viz-controls-propertyeditor-colorpicker-views-container.geocolorpicker-views-container {
+    width: auto;
+    padding: 11px 11px 11px 11px !important;
+}
+.viz-controls-propertyeditor-colorpicker-views-container .sapUiUx3TPArrow {
+    display: none;
+}
+.viz-controls-propertyeditor-colorpicker-views-container .sapUiUx3TPContent {
+    margin: 0;
+}
+.viz-controls-propertyeditor-colorpicker-views-container .colorButton {
+    width: 16px;
+    height: 16px;
+    border-radius: 0;
+    margin: 0 0 3px 3px;
+    padding: 1px;
+    background: none;
+    box-shadow: initial !important;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    border: 1px solid rgb(191, 191, 191) !important;
+}
+.viz-controls-propertyeditor-colorpicker-views-container .colorButton:hover {
+    box-shadow: initial !important;
+    cursor: pointer;
+}
+.viz-controls-propertyeditor-colorpicker-views-container .colorButton:nth-child(9n+1) {
+    margin-left: 0;
+}
+.viz-controls-propertyeditor-colorpicker-views-container .sapUiBtnS.sapUiBtnStd:hover,
+.viz-controls-propertyeditor-colorpicker-views-container .sapUiBtnS.sapUiBtnStd.sapUiBtnStdHover,
+.viz-controls-propertyeditor-colorpicker-views-container .sapUiBtnS.sapUiBtnStd:focus,
+.viz-controls-propertyeditor-colorpicker-views-container .sapUiBtnS.sapUiBtnStd.sapUiBtnStdFocus {
+  background-image: none;
+}
+.viz-controls-propertyeditor-colorpicker-views-container .colorButtonSelected {
+    border: 1px solid #009DE0 !important;
+}
+
+.viz-controls-propertyeditor-colorpicker-views-container .sapUiToggleBtn {
+    background-image: url('../controls/propertyeditor/assets/ComboBoxArrow_regular_fold.png') !important;
+    background-color: transparent !important;
+    border: 2px solid rgba(0,0,0,0) !important;
+    color: #666 !important;
+    font-weight: normal !important;
+    padding-left: 20px;
+    background-repeat: no-repeat !important;
+    box-shadow: initial !important;
+    background-position: 0px 2px !important;
+    height: 24px;
+    margin-bottom: 5px;
+}
+
+.viz-controls-propertyeditor-colorpicker-views-container .sapUiToggleBtn:hover {
+    height: 24px;
+}
+.viz-controls-propertyeditor-colorpicker-views-container .sapUiToggleBtnPressed {
+    background-image: url('../controls/propertyeditor/assets/ComboBoxArrow_regular.png') !important;
+    border: 2px solid rgba(0, 143, 211,0.1) !important;
+}
+.viz-controls-propertyeditor-colorpicker-views-container .noColorText {
+    color: #666 !important;
+    font-weight: normal!important;
+    display: inline;
+    padding: 3px;
+    cursor: pointer;
+}
+.viz-controls-propertyeditor-colorpicker-views-container .recentColorLabel {
+    font-size: 10px!important;
+    color: #666!important;
+}
+.viz-controls-propertyeditor-colorpicker-views-container .recentColorsContainer {
+    height: 20px;
+}
+
+.viz-controls-propertyeditor-colorpicker-views-container .noColorText:hover {
+    color: red !important;
+}
+/*
+ * Styling sap.ui.commons.ColorPicker so that it looks completely different
+ */
+.viz-controls-propertyeditor-colorpicker-views-container .sapUiColorPicker-ColorPickerMatrix {
+    height: 278px;
+    background: none;
+    display: none;
+}
+.viz-controls-propertyeditor-colorpicker-views-container .visible .sapUiColorPicker-ColorPickerMatrix {
+    display: block;
+}
+.viz-controls-propertyeditor-colorpicker-views-container .sapUiColorPicker-ColorPickerBox {
+    height: 166px;
+    width: 166px;
+    margin: 0;
+}
+.viz-controls-propertyeditor-colorpicker-views-container .sapUiColorPicker-ColorPickerSlider .sapMSliderInner {
+    height: 10px;
+    background-image: url(img/ColorPicker/ColorBar.png);
+    background-size: 100%;
+    background-image: -webkit-linear-gradient(left,#ff0000,#ffff00,#00ff00,#00ffff,#0000ff,#ff00ff,#ff0000);
+    background-image: -moz-linear-gradient(left,#ff0000,#ffff00,#00ff00,#00ffff,#0000ff,#ff00ff,#ff0000);
+    background-image: -ms-linear-gradient(left,#ff0000,#ffff00,#00ff00,#00ffff,#0000ff,#ff00ff,#ff0000);
+    background-image: linear-gradient(left,#ff0000,#ffff00,#00ff00,#00ffff,#0000ff,#ff00ff,#ff0000);
+    background-image: -o-linear-gradient(left,#ff0000,#ffff00,#00ff00,#00ffff,#0000ff,#ff00ff,#ff0000);
+    background-color: none;
+    margin: 0;
+}
+.viz-controls-propertyeditor-colorpicker-views-container .sapUiColorPicker-ColorPickerAlphaSlider .sapMSliderInner {
+    height: 10px;
+    background-image: url(../controls/propertyeditor/assets/Alphaslider_BG.png);
+    background-repeat: repeat-x;
+    background-image: -moz-linear-gradient(left,transparent 0,#000000 100%),url(../controls/propertyeditor/assets/Alphaslider_BG.png);
+    background-image: -webkit-linear-gradient(left,transparent 0,#000000 100%),url(../controls/propertyeditor/assets/Alphaslider_BG.png);
+    background-image: -o-linear-gradient(left,transparent 0,#000000 100%),url(../controls/propertyeditor/assets/Alphaslider_BG.png);
+    background-image: -ms-linear-gradient(left,transparent 0,#000000 100%),url(../controls/propertyeditor/assets/Alphaslider_BG.png);
+    background-image: linear-gradient(to right,transparent 0,#000000 100%),url(../controls/propertyeditor/assets/Alphaslider_BG.png);
+    background-color: none;
+    margin: 0
+}
+.viz-controls-propertyeditor-colorpicker-views-container .sapUiRespGrid.sapUiRespGridVSpace1>div {
+    margin: 0;
+    padding: 0;
+}
+.viz-controls-propertyeditor-colorpicker-views-container .sapUiRespGrid.sapUiRespGridHSpace1>div {
+    margin: 0;
+    padding: 0;
+}
+.viz-controls-propertyeditor-colorpicker-views-container .sapUiRespGrid.sapUiRespGridHSpace1 {
+    padding: 0;
+    min-width: 100px;
+}
+.viz-controls-propertyeditor-colorpicker-views-container .sapMSliderProgress {
+    display : none;
+}
+.viz-controls-propertyeditor-colorpicker-views-container .sapUiRespGridMedia-Std-Desktop.sapUiRespGridHSpace1>.sapUiRespGridSpanL12 {
+    width: 100%;
+}
+.viz-controls-propertyeditor-colorpicker-views-container .sapUiHLayout.sapUiHLayoutNoWrap {
+    font-size: 12px;
+}
+.viz-controls-propertyeditor-colorpicker-views-container .sapUiColorPicker-ColorPickerMatrix .sapMLabel {
+    color: #000000;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 12px;
+}
+.viz-controls-propertyeditor-colorpicker-views-container .sapUiColorPicker-ColorPickerHexField {
+    width: 45% !important;
+}
+.viz-controls-propertyeditor-colorpicker-views-container .sapUiColorPicker-ColorPickerMatrix .sapMInputBaseInner {
+    font-size: 12px;
+}
+.viz-controls-propertyeditor-colorpicker-views-container .sapUiColorPicker-ColorPickerInputFieldsLeft {
+    margin-right: 0px;
+}
+
+/* this style is for slider bar */
+.viz-controls-propertyeditor-view-item-slider-container {
+    height: 56px;
+}
+
+.viz-controls-propertyeditor-views-slider-container .sapUiSliHori.sapUiSli {
+    padding-top: 0px;
+    vertical-align: bottom;
+}
+
+.viz-controls-propertyeditor-views-slider-container .sapUiSliHori>.sapUiSliR {
+    margin-left: 0px;
+}
+
+.viz-controls-propertyeditor-views-slider-container .sapMSlider {
+    padding-top: 0.6em;
+}
+
+/*@formatter:off*/
+.viz-controls-propertyeditor-main .sapUiCb,
+.viz-controls-propertyeditor-main .sapUiLbl,
+.viz-controls-propertyeditor-main .sapUiTriCb,
+.viz-controls-propertyeditor-main .sapUiTf {
+    font-size: 12px !important;
+    text-overflow: ellipsis;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+
+.viz-controls-propertyeditor-main .sapUiRb {
+    font-size: 12px !important;
+    text-overflow: ellipsis;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    line-height: normal;
+}
+
+.viz-controls-propertyeditor-chartarea-layoutbtn .sapUiBtn {
+    font-size: 12px !important;
+    text-overflow: ellipsis;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+    border: 1px solid #BFBFBF !important;
+    color: #666 !important;
+    background: #ffffff;
+    /* Old browsers */
+
+    background: -moz-linear-gradient(top, #ffffff 80%, #f2f2f2 100%);
+    /* FF3.6+ */
+
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(80%, #ffffff), color-stop(100%, #f2f2f2)) !important;
+    /* Chrome,Safari4+ */
+
+    background: -webkit-linear-gradient(top, #ffffff 80%, #f2f2f2 100%) !important;
+    /* Chrome10+,Safari5.1+ */
+
+    background: -o-linear-gradient(top, #ffffff 80%, #f2f2f2 100%);
+    /* Opera 11.10+ */
+
+    background: -ms-linear-gradient(top, #ffffff 80%, #f2f2f2 100%);
+    /* IE10+ */
+
+    background: linear-gradient(to bottom, #ffffff 80%, #f2f2f2 100%);
+    /* W3C */
+}
+
+.viz-controls-propertyeditor-chartarea-layoutbtn .sapUiBtn:hover {
+    border: 1px solid #BFBFBF !important;
+    color: #666 !important;
+    -webkit-box-shadow: 0px 1px 0px 1px rgba(0, 0, 0, 0.1) !important;
+    box-shadow: 0px 1px 0px 1px rgba(0, 0, 0, 0.1) !important;
+    background: #f2f2f2;
+    /* Old browsers */
+
+    background: -moz-linear-gradient(top, #f2f2f2 8%, #fafafa 100%);
+    /* FF3.6+ */
+
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(8%, #f2f2f2), color-stop(100%, #fafafa)) !important;
+    /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #f2f2f2 8%, #fafafa 100%) !important;
+    /* Chrome10+,Safari5.1+ */
+
+    background: -o-linear-gradient(top, #f2f2f2 8%, #fafafa 100%);
+    /* Opera 11.10+ */
+
+    background: -ms-linear-gradient(top, #f2f2f2 8%, #fafafa 100%);
+    /* IE10+ */
+
+    background: linear-gradient(to bottom, #f2f2f2 8%, #fafafa 100%);
+    /* W3C */
+}
+
+.viz-controls-propertyeditor-main .sapUiCb,
+.viz-controls-propertyeditor-main .sapUiTriCb,
+.viz-controls-propertyeditor-main .sapUiLbl {
+    vertical-align: middle;
+}
+
+/*@formatter:on*/
+
+.viz-controls-propertyeditor-fixpicker-container {
+    height: 40px;
+}
+
+.viz-controls-propertyeditor-fixpicker-fix {
+    width: 76px;
+}
+.viz-controls-propertyeditor-fontpicker {
+    padding-top: 1px;
+}
+
+.viz-controls-propertyeditor-fontpicker-family {
+    width: 76px;
+}
+.viz-controls-propertyeditor-fontpicker-size {
+    width: 66px;
+}
+.viz-controls-propertyeditor-fontpicker-color {
+    float: left;
+    margin: 0px 0px 8px 0px;
+    height: 24px;
+    width: 24px;
+    line-height: normal;
+}
+.viz-controls-propertyeditor-fontpicker-toggle-button {
+    min-width: 2.14rem;
+    font-weight: bold;
+}
+.viz-controls-propertyeditor-fontpicker-toggle-button div{
+    border-radius: 0px;
+}
+
+.viz-controls-propertyeditor-main button:not(.sapUiSegButtonSelected .viz-controls-propertyeditor-rotatebutton-container) {
+  height: 24px;
+  width: 24px;
+  padding: 0;
+  background-color: #f7f7f7 !important;
+  background-image: none !important;
+  background-repeat: no-repeat !important;
+  background-position: center center !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  border: 1px solid #bfbfbf !important;
+}
+
+.viz-controls-propertyeditor-rotatebutton-container span:before{
+    font-family: 'orca';
+    speak: none;
+    font-size: 20px;
+    font-weight: normal;
+    content: '\e73a';
+}
+
+.viz-controls-propertyeditor-main .sapUiSegmentedButton button {
+  height: 24px;
+  width: 24px;
+  padding: 0;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  border: 1px solid #bfbfbf !important;
+}
+
+.viz-controls-propertyeditor-main .sapUiTfStd {
+  height: 24px;
+  padding: 0 20px 0 0;
+  background-color: #f7f7f7 !important;
+  background-image: none !important;
+  background-repeat: no-repeat !important;
+  background-position: center center !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  border: 1px solid #bfbfbf !important;
+  color: #333;
+}
+.viz-controls-propertyeditor-main .sapUiTfInner {
+  background: none;
+  padding-left: 7px !important;
+}
+.viz-controls-propertyeditor-main .sapUiTfComboIcon {
+  width: 18px;
+  height: 22px;
+  background-position: center right;
+}
+.viz-controls-propertyeditor-main .sapUiTfDsbl {
+  border-color: #dfdfdf;
+}
+
+.viz-controls-propertyeditor-main .sapUiRb:focus,
+.viz-controls-propertyeditor-main .sapUiCb:focus {
+  outline: 0px !important;
+}
+.viz-controls-propertyeditor-main button.sapUiToggleBtnPressed {
+  background-color: #007cc0 !important;
+}
+
+/*override the background-color setting in viz-controls-propertyeditor-main .sapUiTfStd */
+.viz-controls-propertyeditor-fixpicker-input .sapUiTfStd {
+    text-indent: 7px;
+    background-color: #ffffff !important
+}
+/* this style is for viz property editor collapse function */
+.viz-controls-propertyeditor-collapse {
+    width: 176px;
+    height: 24px;
+}
+
+.viz-controls-propertyeditor-expand-icon {
+    float:left;
+    background-position: -22px -51px;
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+.viz-controls-propertyeditor-collapse-icon {
+    float:left;
+    background-position: -40px -51px;
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+.viz-controls-propertyeditor-title-text {
+    line-height: 24px;
+    height: 24px;
+    font-weight: bold;
+}
+
+.viz-controls-propertyeditor-title-text .sapUiLbl {
+    font-size: 12px !important;
+    color: #444444 !important;
+}
+
+.viz-controls-propertyeditor-section-selector-container .sapUiTf {
+    font-size: 12px !important;
+}
+
+.viz-controls-propertyeditor-main .sapUiRb>label,
+.viz-controls-propertyeditor-main .sapUiCb>label {
+    font-size: 12px;
+}
+
+.viz-controls-propertyeditor-main .sapUiTriCbLbl,
+.viz-controls-propertyeditor-main .sapUiRb>label,
+.viz-controls-propertyeditor-main .sapUiCb>label,
+.viz-controls-propertyeditor-main .sapUiLbl {
+    color: #666;
+}
+
+.viz-controls-propertyeditor-main .sapUiCb[aria-disabled="true"] > label {
+    color: #999;
+}
+
+.sapUiLbxStd>ul>.sapUiLbxIDis {
+    background-color: transparent !important;
+}
+.viz-controls-propertyeditor-view-item-row .sapUiSliHori.sapUiSli{
+    padding-top: 9px;
+}
+
+.viz-controls-propertyeditor-type-percentage-radio-group,
+.viz-controls-propertyeditor-type-normal-radio-group {
+    height: 96px !important;
+}
+
+.viz-controls-propertyeditor-type-pie-radio-group {
+    height: 120px !important;
+}
+
+.viz-controls-propertyeditor-legendalignmentpicker {
+    margin-top: 5px;
+}
+
+.viz-controls-propertyeditor-wrap-text-warning-icon {
+    padding-top: 4px;
+    margin-left: -9px;
+    font-size: 16px;
+}
+
+.viz-controls-propertyeditor-main .sapMCbBg.sapMCbMark.viz-mixed:before{
+    content: "\e17b";
+    font-family: "SAP-icons";
+    color: #007cc0;
+}
+
+/****font stay the same ****/
+.viz-controls-propertyeditor-main .sapMSltLabel {
+    font-size: 12px;
+    font-size: .75rem;
+}
+
+.viz-controls-propertyeditor-main .sapMLabel {
+    font-size: 12px;
+    font-size: .75rem;
+}
+
+.viz-controls-propertyeditor-view-item-row .sapMCb {
+    height: 1.8rem;
+    max-width: 100%
+}
+
+.viz-controls-propertyeditor-item-left {
+    float:left;
+    margin-top:8px;
+}
+
+.viz-controls-propertyeditor-item-left-picker {
+    float:left;
+}
+
+.viz-controls-propertyeditor-item-right {
+    float: right;
+}
+
+.viz-controls-propertyeditor-main .sapMCb{
+    left: -0.5rem;
+}
+
+.viz-controls-propertyeditor-main .sapMRb{
+    left: -0.45rem;
+}
+
+.viz-controls-propertyeditor-radio-button-group {
+    width: 200px;
+}
+
+.viz-controls-propertyeditor-radio-button-group > .sapMRbB {
+    width: 1.875rem !important;
+}
+
+.sapUiTheme-sap_hcb .sapUiLayoutAbs {
+    font-size: 16px;
+}
+
+.sapUiTheme-sap_hcb .viz-controls-propertyeditor-colorpicker-views-container {
+    background-color: #000000!important;
+}
+
+.sapUiTheme-sap_hcb .viz-controls-propertyeditor-colorpicker-views-container .noColorText {
+    color: #f2f2f2 !important;
+}
+
+.sapUiTheme-sap_hcb .viz-controls-propertyeditor-colorpicker-views-container .recentColorLabel {
+    color: #f2f2f2!important;
+}
+
+html[dir="rtl"] .viz-controls-propertyeditor-view-item-cell {
+    float: right!important;
+    padding-right: 0px;
+    padding-left: 8px;
+}
+
+html[dir="rtl"] .viz-controls-propertyeditor-view-item-cell:last-child {
+    padding-left: 0px;
+}
+
+html[dir="rtl"] .viz-controls-propertyeditor-view-item-cell-wrap {
+    float: right!important;
+    padding-right: 0px;
+    padding-left: 8px;
+}
+
+html[dir="rtl"] .viz-controls-propertyeditor-view-item-cell-wrap:last-child {
+    padding-left: 0px;
+}
+
+html[dir="rtl"] .viz-controls-propertyeditor-item-left-picker {
+    float:right!important;
+}
+
+html[dir="rtl"] .viz-controls-propertyeditor-item-right {
+    float:left!important;
+}
+
+html[dir="rtl"] .viz-controls-propertyeditor-item-left {
+    float:right!important;
+}
+
+html[dir="rtl"]  .viz-controls-propertyeditor-vizchartview-childcontainer {
+    margin-left: 0px!important;
+}
+
+html[dir="rtl"]  .viz-controls-propertyeditor-view-item-indent1 {
+    padding-left: 0px!important;
+    padding-right: 24px!important;
+}
+
+html[dir="rtl"]  .viz-controls-propertyeditor-view-item-indent2 {
+    padding-left: 0px!important;
+    padding-right: 44px!important;
+}
+
+html[dir="rtl"]  .viz-controls-propertyeditor-spin-input {
+    width: 72%!important;
+}
+
+html[dir="rtl"]  .viz-controls-propertyeditor-alignmentpicker-button {
+    float: right!important;
+    margin-left: 8px;
+    margin-right: 0px;
+}
+
+html[dir="rtl"]  .viz-controls-propertyeditor-iconpicker-icon {
+    float: right!important;
+}
+
+html[dir="rtl"]  .viz-controls-app-side-container {
+    margin-right: 10px!important;
+}
+
+html[dir="rtl"]  .viz-controls-propertyeditor-linestylepicker-list ul {
+    position: relative!important;
+}.viz-controls-map-propertyeditor-main .viz-controls-propertyeditor-listpicker-dropdown {
+    width: 10em;
+}
+
+.viz-controls-map-propertyeditor-main .viz-controls-propertyeditor-section-selector-container {
+    width: 240px;
+}
+.viz-controls-map-propertyeditor-main .viz-controls-propertyeditor-views-container{
+    width: 240px;
+}
+
+.viz-controls-map-propertyeditor-section-setting{
+    margin-top : 8px;
+    margin-bottom: 4px;
+    margin-left : 4px;
+    width : 20px;
+    height: 20px
+}
+
+.viz-controls-map-propertyeditor-section-icon{
+    background-image: url('../controls/mapbuilder/assets/choropleth.png');
+    background-repeat: no-repeat;
+    margin-left : 4px;
+}
+
+.viz-controls-map-propertyeditor-section-icon-choropleth{
+    background-image: url('../controls/mapbuilder/assets/choropleth.png');
+    background-repeat: no-repeat;
+    display : inline-block;
+    vertical-align : top;
+    margin-top : 8px;
+    margin-bottom: 4px;
+    margin-left : 4px;
+    width : 16px;
+    height: 20px;
+}
+.viz-controls-map-propertyeditor-section-icon-choropleth:before{
+    content: none;
+}
+
+.viz-controls-map-propertyeditor-section-icon-bubble{
+    background-image: url('../controls/mapbuilder/assets/bubble.png');
+    background-repeat: no-repeat;
+    display : inline-block;
+    vertical-align : top;
+    margin-top : 8px;
+    margin-bottom: 4px;
+    margin-left : 4px;
+    width : 16px;
+    height: 20px;
+}
+.viz-controls-map-propertyeditor-section-icon-bubble:before{
+    content: none;
+}
+
+.viz-controls-map-propertyeditor-section-icon-marker{
+    background-image: url('../controls/mapbuilder/assets/marker.png');
+    background-repeat: no-repeat;
+    display : inline-block;
+    vertical-align : top;
+    margin-top : 8px;
+    margin-bottom: 4px;
+    margin-left : 4px;
+    width : 16px;
+    height: 20px;
+}
+.viz-controls-map-propertyeditor-section-icon-marker:before{
+    content: none;
+}
+
+.viz-controls-map-propertyeditor-section-icon-pie{
+    background-image: url('../controls/mapbuilder/assets/pie.png');
+    background-repeat: no-repeat;
+    display : inline-block;
+    vertical-align : top;
+    margin-top : 8px;
+    margin-bottom: 4px;
+    margin-left : 4px;
+    width : 16px;
+    height: 20px;
+}
+.viz-controls-map-propertyeditor-section-icon-pie:before{
+    content: none;
+}
+
+
+ .viz-controls-map-propertyeditor-viztype-icon {
+    width : 16px;
+    height: 16px;
+}
+
+.viz-controls-map-propertyeditor-file-selection-btn:before {
+    font-family: 'sap-viz-controls-icons';
+    font-style: normal;
+    speak: none;
+    content: "\e12e";
+}
+
+.viz-controls-map-propertyeditor-file-selection-btn{
+    display: inline-block;
+    cursor: pointer;
+    margin-top: 3px;
+    margin-bottom: 2px;
+    width : 16px;
+    height: 20px;
+}
+.viz-controls-map-propertyeditor-label-fontweight {
+    padding-left: 0px;
+}
+.viz-controls-map-propertyeditor-label-fontweight .sapMLabel{
+    font-weight: bolder;
+}
+
+.viz-controls-map-propertyeditor-view-input{
+    padding-bottom: 0px;
+}
+
+.viz-controls-map-propertyeditor-view-item-colorpalette-row{
+    width: 175px;
+    max-width: 100%;
+}
+.viz-controls-map-propertyeditor-view-label-padding-top{
+    padding-left: 0px;
+    padding-top: 8px;
+}
+
+.viz-controls-map-propertyeditor-geo-icon-list{
+    padding-bottom: 8px;
+}
+.map-service-dialog-color{
+    border-top: 0.0625rem solid #e4e4e4 !important;
+}
+.sapUiSizeCompact .sapMPageFooter.sapMIBar.map-service-dialog-color {
+    height: auto;
+    line-height: normal;
+}
+.map-service-dialog-color .sapMBarMiddle {
+    height: auto;
+}
+.sapUiSizeCompact .sapMPageFooter.sapMIBar.map-service-dialog-color .sapMBarPH {
+    height: auto;
+    padding: 0
+}
+.map-service-dialog-color .sapMILILabel {
+    flex-grow: 0;
+}
+.map-service-dialog-color-width {
+    width: 100% !important;
+}
+img.map-service-dialog-image-border{
+    border: 1px solid transparent;
+    width: calc(100% - 2px);
+}
+img.map-service-dialog-image-border:hover,img.map-service-dialog-image-border:focus, 
+img.map-service-dialog-image-border.map-service-dialog-image-selected{
+   border: 1px solid #1670c1; 
+}
+.map-service-dialog-grid-content {
+    width: 10.5rem;
+    margin-left: 1rem;
+    margin-right:1rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+.map-service-dialog-scroll-content .sapMDialogScrollCont{
+    height: 100% !important;
+    padding: 0 !important; 
+}
+.viz-controls-switchbar-dropDownList {
+    position: absolute;
+    top : 0px;
+    width: auto;
+    z-index: 999999;
+}
+.viz-controls-switchbar-dropDownList-container {
+    position: absolute;
+    transition: opacity .3s ease-out, top .3s ease-out;
+    -moz-transition: opacity .3s ease-out, top .3s ease-out; /* Firefox 4 */
+    -webkit-transition: opacity .3s ease-out, top .3s ease-out; /* Safari and Chrome */
+    -o-transition: opacity .3s ease-out, top .3s ease-out; /* Opera */
+    opacity: 0;
+    top: 0px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    border: 1px solid #DAD9D9;
+    background-color: #ffffff;
+}
+.viz-controls-switchbar-dropDownList-arrow {
+    height: 24px;
+    width: 24px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    border: 1px solid #DAD9D9;
+    background-color: #ffffff;
+    position: absolute;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+.viz-controls-switchbar-dropDownList-content {
+    background-color: #FFF;
+    box-shadow: 0px 0px 0px 0px rgba(0, 143, 211, 0.15);
+    border: 0px solid #DAD9D9;
+    -webkit-box-shadow: inset 0px 0px 0px 0px rgba(0, 143, 211, 0.15);
+    border-radius: 5px;
+    width: 1000px;
+    position: absolute;
+    padding: 2px 7px;
+}
+.viz-controls-switchbar-chart-list-header {
+
+    margin: 2px 8px 2px 2px;
+    padding: 12px 1px 1px 4px;
+    font-size: 12px;
+    font-weight: bold;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.viz-controls-switchbar-chart-list-container {
+    padding: 0px;
+    background-color: #ffffff;
+    list-style: none;
+    display: inline-block;
+    margin: 0px;
+    width: auto!important;
+}
+.viz-controls-switchbar-dropDownList li {
+    width: auto;
+    white-space: nowrap;
+}
+.viz-controls-switchbar-dropDownList-chart-list {
+    line-height: 32px;
+    cursor: pointer;
+    overflow: hidden;
+}
+.viz-controls-switchbar-dropDownList-chart-list-float {
+    float: left;
+    width: 24px;
+    height: 24px;
+}
+.viz-controls-switchbar-dropDownList-chart-list:hover {
+    background-color: #E5F2F9;
+    color: #585858;
+}
+.viz-controls-switchbar-dropDownList-chart-list-selected {
+    background-color: #007CC0;
+    color: #ffffff;
+}
+.viz-controls-switchbar-dropDownList-chart-text {
+    padding: 12px 1px 1px 12px;
+    font-size: 12px;
+    font-weight: normal;
+}
+.viz-controls-switchbar-chart-list-header {
+    padding: 6px 0px 6px 0px;
+    font-size: 12px;
+    display: inline-block;
+    font-weight: normal;
+    cursor: default;
+}
+.viz-controls-switchbar-chart-list-icon {
+    margin-top: 5px;
+    margin-right: 8px;
+}
+
+.sapUiTheme-sap_hcb .viz-controls-switchbar-chart-list-header {
+    margin: 2px 2px 2px 2px!important;
+    padding: 6px 0px 6px 0px!important;
+    height: 16px!important;
+}
+
+.sapUiTheme-sap_hcb .viz-controls-switchbar-chart-list-container {
+    padding: 30px 6px 4px 6px!important
+}
+
+.sapUiTheme-sap_hcb .viz-controls-switchbar-chart-list-container li.chartList {
+    padding: 4px 8px 4px 8px!important
+}
+.viz-controls-switchbar-view {
+    width: 100%;
+    height: 100%;
+    min-width: 141px;
+    position: relative;
+}
+.viz-controls-switchbar-switcher-container {
+    position: relative;
+}
+.viz-controls-switchbar-switcher {
+    position: absolute;
+    width: 56px;
+    height: 32px;
+    border-radius: 0px;
+}
+.viz-controls-switchbar-chart {
+    background-color: #ffffff;
+    border: 1px solid #bfbfbf;
+}
+.viz-controls-switchbar-chart:last-child {
+    margin-right: 0px;
+}
+/* Do not replace old class when selected, just add new one*/
+.viz-controls-switchbar-chart-selected {
+    border: 1px solid #007CC0;
+    background-color:#007cc0;
+}
+
+/* In DS, conflict with ui5 css file /zen/crosstab/themes/sap_bluecrystal/library.css
+   Add 'important' to avoid conflict
+*/
+.viz-controls-switchbar-switcher-container > .viz-controls-switchbar-chart {
+    float: none !important;
+    margin-right: 0px !important;
+    margin-bottom: 0px !important;
+    position: absolute !important;
+}
+
+.viz-controls-switchbar-switcher-container > .viz-controls-switchbar-chart-selected {
+    float: none !important;
+    margin-right: 0px !important;
+    margin-bottom: 0px !important;
+    position: absolute !important;
+}
+
+.viz-controls-switchbar-chart:hover {
+    border: 1px solid #BFBFBF;
+
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(8%, #f2f2f2), color-stop(100%, #fafafa));
+}
+.viz-controls-switchbar-chart-text {
+    padding: 12px 1px 1px 12px;
+    font-size: 12px;
+    font-weight: normal;
+}
+.viz-controls-switchbar-chart-icon-wrapper {
+    width: 37px;
+    height: 34px;
+    float: left;
+}
+.viz-controls-switchbar-chart-icon {
+    width: 24px;
+    height: 24px;
+    float: left;
+    margin: 4px 8px 6px 5px;
+}
+
+.viz-controls-switchbar-chart-icon-dual-stacked-combination {
+    background-position: 0px -1362px;
+}
+.viz-controls-switchbar-chart-icon-dual-stacked-combination-white {
+    background-position: -44px -1362px;
+}
+.viz-controls-switchbar-chart-icon-dual-stacked-combination-grey {
+    background-position: -88px -1362px;
+}
+
+.viz-controls-switchbar-chart-icon-time-line {
+    background-image: url('../controls/switchbar/assets/TimeLine_color.svg');
+}
+.viz-controls-switchbar-chart-icon-time-line-white {
+    background-image: url('../controls/switchbar/assets/TimeLine_white.svg');
+}
+.viz-controls-switchbar-chart-icon-time-line-grey {
+    background-position: -88px -1254px;
+}
+
+.viz-controls-switchbar-chart-icon-time-column {
+    background-position: 0px -1426px;
+}
+.viz-controls-switchbar-chart-icon-time-column-white {
+    background-position: -44px -1426px;
+}
+.viz-controls-switchbar-chart-icon-time-column-grey {
+    background-position: -88px -1426px;
+}
+ 
+.viz-controls-switchbar-chart-icon-time-scatter {
+    background-image: url('../controls/switchbar/assets/TimeScatter_color.svg');
+}
+.viz-controls-switchbar-chart-icon-time-scatter-white {
+    background-image: url('../controls/switchbar/assets/TimeScatter_white.svg');
+}
+.viz-controls-switchbar-chart-icon-time-scatter-grey {
+    background-position: -88px -1536px;
+}
+ 
+.viz-controls-switchbar-chart-icon-time-bubble {
+    background-image: url('../controls/switchbar/assets/TimeBubble_color.svg');
+}
+.viz-controls-switchbar-chart-icon-time-bubble-white {
+    background-image: url('../controls/switchbar/assets/TimeBubble_white.svg');
+}
+.viz-controls-switchbar-chart-icon-time-bubble-grey {
+    background-position: -88px -1476px;
+}
+
+.viz-controls-switchbar-chart-icon-hichert-bar {
+    background-image: url('../controls/switchbar/assets/HichertBar_color.svg');
+}
+.viz-controls-switchbar-chart-icon-hichert-bar-white {
+    background-image: url('../controls/switchbar/assets/HichertBar_white.svg');
+}
+.viz-controls-switchbar-chart-icon-hichert-bar-grey {
+    background-position: -88px -1621px;
+}
+
+.viz-controls-switchbar-chart-icon-hichert-column {
+    background-image: url('../controls/switchbar/assets/HichertColumn_color.svg');
+}
+.viz-controls-switchbar-chart-icon-hichert-column-white {
+    background-image: url('../controls/switchbar/assets/HichertColumn_white.svg');
+}
+.viz-controls-switchbar-chart-icon-hichert-column-grey {
+    background-position: -88px -1581px;
+}
+
+.viz-controls-switchbar-chart-icon-mekko {
+    background-image: url('../controls/switchbar/assets/Marimekko_color.svg');
+}
+
+.viz-controls-switchbar-chart-icon-100-mekko {
+    background-position: 0px -1203px;
+}
+.viz-controls-switchbar-chart-icon-crosstab {
+    background-position: 0px -1176px;
+}
+.viz-controls-switchbar-chart-icon-number {
+    background-image: url('../controls/switchbar/assets/NumericPoint_color.svg');
+}
+.viz-controls-switchbar-chart-icon-column {
+    background-image: url('../controls/switchbar/assets/Column_color.svg');
+}
+.viz-controls-switchbar-chart-icon-stacked-column {
+    background-image: url('../controls/switchbar/assets/StackedColumn_color.svg');
+}
+.viz-controls-switchbar-chart-icon-dual-column {
+    background-position: 0px -68px;
+}
+.viz-controls-switchbar-chart-icon-3D-column {
+    background-position: 0px -102px;
+}
+.viz-controls-switchbar-chart-icon-line {
+    background-image: url('../controls/switchbar/assets/Line_color.svg');
+}
+.viz-controls-switchbar-chart-icon-area {
+    background-image: url('../controls/switchbar/assets/StackedArea_color.svg');
+}
+.viz-controls-switchbar-chart-icon-combination {
+    background-position: 0px -204px;
+}
+.viz-controls-switchbar-chart-icon-dual-line {
+    background-position: 0px -238px;
+}
+.viz-controls-switchbar-chart-icon-dual-combination {
+    background-position: 0px -272px;
+}
+.viz-controls-switchbar-chart-icon-pie {
+    background-image: url('../controls/switchbar/assets/Pie_color.svg');
+}
+.viz-controls-switchbar-chart-icon-donut {
+    background-image: url('../controls/switchbar/assets/Doughnnut_color.svg');
+}
+.viz-controls-switchbar-chart-icon-pie-with-depth {
+    background-position: 0px -374px;
+}
+.viz-controls-switchbar-chart-icon-geo-bubble {
+    background-position: 0px -408px;
+}
+.viz-controls-switchbar-chart-icon-geo-choropleth {
+    background-position: 0px -442px;
+}
+.viz-controls-switchbar-chart-icon-geo-pie {
+    background-position: 0px -476px;
+}
+.viz-controls-switchbar-chart-icon-geo-map {
+    background-position: 0px -510px;
+}
+.viz-controls-switchbar-chart-icon-scatter {
+    background-image: url('../controls/switchbar/assets/ScatterPlot_color.svg');
+}
+.viz-controls-switchbar-chart-icon-bubble {
+    background-image: url('../controls/switchbar/assets/Bubble_color.svg');
+}
+.viz-controls-switchbar-chart-icon-scatter-matrix {
+    background-position: 0px -612px;
+}
+.viz-controls-switchbar-chart-icon-heatmap {
+    background-image: url('../controls/switchbar/assets/HeatMap_color.svg');
+}
+.viz-controls-switchbar-chart-icon-treemap {
+    background-image: url('../controls/switchbar/assets/TreeMap_color.svg');
+}
+.viz-controls-switchbar-chart-icon-table {
+    background-position: 0px -714px;
+}
+.viz-controls-switchbar-chart-icon-radar {
+    background-image: url('../controls/switchbar/assets/Radar_color.svg');
+}
+.viz-controls-switchbar-chart-icon-bullet {
+    background-image: url('../controls/switchbar/assets/Bullet_color.svg');
+}
+.viz-controls-switchbar-chart-icon-boxplot {
+    background-image: url('../controls/switchbar/assets/BoxPlot_color.svg');
+}
+.viz-controls-switchbar-chart-icon-waterfall {
+    background-image: url('../controls/switchbar/assets/Waterfall_color.svg');
+}
+.viz-controls-switchbar-chart-icon-tag-cloud {
+    background-image: url('../controls/switchbar/assets/TagCloud_color.svg');
+}
+.viz-controls-switchbar-chart-icon-tree {
+    background-image: url('../controls/switchbar/assets/Tree_color.svg');
+}
+.viz-controls-switchbar-chart-icon-network {
+    background-image: url('../controls/switchbar/assets/Network_color.svg');
+}
+.viz-controls-switchbar-chart-icon-funnel {
+    background-image: url('../controls/switchbar/assets/Funnel_color.svg');
+}
+.viz-controls-switchbar-chart-icon-pc {
+    background-image: url('../controls/switchbar/assets/ParallelCoordinates_color.svg');
+}
+.viz-controls-switchbar-chart-icon-extension {
+    background-image: url('../controls/switchbar/assets/Extension_color.svg');
+}
+.viz-controls-switchbar-chart-icon-bar {
+    background-image: url('../controls/switchbar/assets/Bar_color.svg');
+}
+.viz-controls-switchbar-chart-icon-stacked-bar {
+    background-image: url('../controls/switchbar/assets/StackedBar_color.svg');
+}
+.viz-controls-switchbar-chart-icon-dual-bar {
+    background-position: 0px -1122px;
+}
+.viz-controls-switchbar-chart-icon-stacked-combination {
+    background-position: 0px -1312px;
+}
+.viz-controls-switchbar-chart-icon-stacked-waterfall {
+    background-image: url('../controls/switchbar/assets/StackedWaterfall_color.svg');
+}
+.viz-controls-switchbar-chart-icon-stacked-waterfall-white {
+    background-image: url('../controls/switchbar/assets/StackedWaterfall_white.svg');
+}
+.viz-controls-switchbar-chart-icon-mekko-white {
+    background-image: url('../controls/switchbar/assets/Marimekko_white.svg');
+}
+.viz-controls-switchbar-chart-icon-100-mekko-white {
+    background-position: -44px -1203px;
+}
+.viz-controls-switchbar-chart-icon-crosstab-white {
+    background-position: -44px -1176px;
+}
+.viz-controls-switchbar-chart-icon-number-white {
+    background-image: url('../controls/switchbar/assets/NumericPoint_white.svg');
+}
+.viz-controls-switchbar-chart-icon-column-white {
+    background-image: url('../controls/switchbar/assets/Column_white.svg');
+}
+.viz-controls-switchbar-chart-icon-stacked-column-white {
+    background-image: url('../controls/switchbar/assets/StackedColumn_white.svg');
+}
+.viz-controls-switchbar-chart-icon-dual-column-white {
+    background-position: -44px -68px;
+}
+.viz-controls-switchbar-chart-icon-3D-column-white {
+    background-position: -44px -102px;
+}
+.viz-controls-switchbar-chart-icon-line-white {
+    background-image: url('../controls/switchbar/assets/Line_white.svg');
+}
+.viz-controls-switchbar-chart-icon-area-white {
+    background-image: url('../controls/switchbar/assets/StackedArea_white.svg');
+}
+.viz-controls-switchbar-chart-icon-combination-white {
+    background-position: -44px -204px;
+}
+.viz-controls-switchbar-chart-icon-dual-line-white {
+    background-position: -44px -238px;
+}
+.viz-controls-switchbar-chart-icon-dual-combination-white {
+    background-position: -44px -272px;
+}
+.viz-controls-switchbar-chart-icon-pie-white {
+    background-image: url('../controls/switchbar/assets/Pie_white.svg');
+}
+.viz-controls-switchbar-chart-icon-donut-white {
+    background-image: url('../controls/switchbar/assets/Doughnnut_white.svg');
+}
+.viz-controls-switchbar-chart-icon-pie-with-depth-white {
+    background-position: -44px -374px;
+}
+.viz-controls-switchbar-chart-icon-geo-bubble-white {
+    background-position: -44px -408px;
+}
+.viz-controls-switchbar-chart-icon-geo-choropleth-white {
+    background-position: -44px -442px;
+}
+.viz-controls-switchbar-chart-icon-geo-pie-white {
+    background-position: -44px -476px;
+}
+.viz-controls-switchbar-chart-icon-geo-map-white {
+    background-position: -44px -510px;
+}
+.viz-controls-switchbar-chart-icon-scatter-white {
+    background-image: url('../controls/switchbar/assets/ScatterPlot_white.svg');
+}
+.viz-controls-switchbar-chart-icon-bubble-white {
+    background-image: url('../controls/switchbar/assets/Bubble_white.svg');
+}
+.viz-controls-switchbar-chart-icon-scatter-matrix-white {
+    background-position: -44px -612px;
+}
+.viz-controls-switchbar-chart-icon-heatmap-white {
+    background-image: url('../controls/switchbar/assets/HeatMap_white.svg');
+}
+.viz-controls-switchbar-chart-icon-treemap-white {
+    background-image: url('../controls/switchbar/assets/TreeMap_white.svg');
+}
+.viz-controls-switchbar-chart-icon-table-white {
+    background-position: -44px -714px;
+}
+.viz-controls-switchbar-chart-icon-radar-white {
+    background-image: url('../controls/switchbar/assets/Radar_white.svg');
+}
+.viz-controls-switchbar-chart-icon-bullet-white {
+    background-image: url('../controls/switchbar/assets/Bullet_white.svg');
+}
+.viz-controls-switchbar-chart-icon-boxplot-white {
+    background-image: url('../controls/switchbar/assets/BoxPlot_white.svg');
+}
+.viz-controls-switchbar-chart-icon-waterfall-white {
+    background-image: url('../controls/switchbar/assets/Waterfall_white.svg');
+}
+.viz-controls-switchbar-chart-icon-tag-cloud-white {
+    background-image: url('../controls/switchbar/assets/TagCloud_white.svg');
+}
+.viz-controls-switchbar-chart-icon-tree-white {
+    background-image: url('../controls/switchbar/assets/Tree_white.svg');
+}
+.viz-controls-switchbar-chart-icon-network-white {
+    background-image: url('../controls/switchbar/assets/Network_white.svg');
+}
+.viz-controls-switchbar-chart-icon-funnel-white {
+    background-image: url('../controls/switchbar/assets/Funnel_white.svg');
+}
+.viz-controls-switchbar-chart-icon-pc-white {
+    background-image: url('../controls/switchbar/assets/ParallelCoordinates_white.svg');
+}
+.viz-controls-switchbar-chart-icon-extension-white {
+    background-image: url('../controls/switchbar/assets/Extension_white.svg');
+}
+.viz-controls-switchbar-chart-icon-bar-white {
+    background-image: url('../controls/switchbar/assets/Bar_white.svg');
+}
+.viz-controls-switchbar-chart-icon-stacked-bar-white {
+    background-image: url('../controls/switchbar/assets/StackedBar_white.svg');
+}
+.viz-controls-switchbar-chart-icon-dual-bar-white {
+    background-position: -44px -1122px;
+}
+.viz-controls-switchbar-chart-icon-stacked-combination-white{
+    background-position: -44px -1312px;
+}
+.viz-controls-switchbar-chart-icon-mekko-grey {
+    background-position: -88px -1721px;
+}
+.viz-controls-switchbar-chart-icon-100-mekko-grey {
+    background-position: -88px -1203px;
+}
+.viz-controls-switchbar-chart-icon-crosstab-grey {
+    background-position: -88px -1176px;
+}
+.viz-controls-switchbar-chart-icon-number-grey {
+    background-position: -88px -1149px;
+}
+.viz-controls-switchbar-chart-icon-column-grey {
+    background-position: -88px 0px;
+}
+.viz-controls-switchbar-chart-icon-stacked-column-grey {
+    background-position: -88px -34px;
+}
+.viz-controls-switchbar-chart-icon-dual-column-grey {
+    background-position: -88px -68px;
+}
+.viz-controls-switchbar-chart-icon-3D-column-grey {
+    background-position: -88px -102px;
+}
+.viz-controls-switchbar-chart-icon-line-grey {
+    background-position: -88px -136px;
+}
+.viz-controls-switchbar-chart-icon-area-grey {
+    background-position: -88px -170px;
+}
+.viz-controls-switchbar-chart-icon-combination-grey {
+    background-position: -88px -204px;
+}
+.viz-controls-switchbar-chart-icon-dual-line-grey {
+    background-position: -88px -238px;
+}
+.viz-controls-switchbar-chart-icon-dual-combination-grey {
+    background-position: -88px -272px;
+}
+.viz-controls-switchbar-chart-icon-pie-grey {
+    background-position: -88px -306px;
+}
+.viz-controls-switchbar-chart-icon-donut-grey {
+    background-position: -88px -340px;
+}
+.viz-controls-switchbar-chart-icon-pie-with-depth-grey {
+    background-position: -88px -374px;
+}
+.viz-controls-switchbar-chart-icon-geo-bubble-grey {
+    background-position: -88px -408px;
+}
+.viz-controls-switchbar-chart-icon-geo-choropleth-grey {
+    background-position: -88px -442px;
+}
+.viz-controls-switchbar-chart-icon-geo-pie-grey {
+    background-position: -88px -476px;
+}
+.viz-controls-switchbar-chart-icon-geo-map-grey {
+    background-position: -88px -510px;
+}
+.viz-controls-switchbar-chart-icon-scatter-grey {
+    background-position: -88px -544px;
+}
+.viz-controls-switchbar-chart-icon-bubble-grey {
+    background-position: -88px -578px;
+}
+.viz-controls-switchbar-chart-icon-scatter-matrix-grey {
+    background-position: -88px -612px;
+}
+.viz-controls-switchbar-chart-icon-heatmap-grey {
+    background-position: -88px -646px;
+}
+.viz-controls-switchbar-chart-icon-treemap-grey {
+    background-position: -88px -680px;
+}
+.viz-controls-switchbar-chart-icon-table-grey {
+    background-position: -88px -714px;
+}
+.viz-controls-switchbar-chart-icon-radar-grey {
+    background-position: -88px -748px;
+}
+.viz-controls-switchbar-chart-icon-bullet-grey {
+    background-position: -88px -1670px;
+}
+.viz-controls-switchbar-chart-icon-boxplot-grey {
+    background-position: -88px -782px;
+}
+.viz-controls-switchbar-chart-icon-waterfall-grey {
+    background-position: -88px -816px;
+}
+.viz-controls-switchbar-chart-icon-tag-cloud-grey {
+    background-position: -88px -850px;
+}
+.viz-controls-switchbar-chart-icon-tree-grey {
+    background-position: -88px -884px;
+}
+.viz-controls-switchbar-chart-icon-network-grey {
+    background-position: -88px -918px;
+}
+.viz-controls-switchbar-chart-icon-funnel-grey {
+    background-position: -88px -952px;
+}
+.viz-controls-switchbar-chart-icon-pc-grey {
+    background-position: -88px -986px;
+}
+.viz-controls-switchbar-chart-icon-extension-grey {
+    background-position: -88px -1020px;
+}
+.viz-controls-switchbar-chart-icon-bar-grey {
+    background-position: -88px -1054px;
+}
+.viz-controls-switchbar-chart-icon-stacked-bar-grey {
+    background-position: -88px -1088px;
+}
+.viz-controls-switchbar-chart-icon-dual-bar-grey {
+    background-position: -88px -1122px;
+}
+.viz-controls-switchbar-chart-icon-stacked-combination-grey{
+    background-position: -88px -1312px;
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 2),
+only screen and (min-device-pixel-ratio: 2) {
+
+    .viz-controls-switchbar-chart-icon {
+        width: 48px;
+        height: 48px;
+        transform: scale(.5, .5);
+        transform-origin: 0% 0%;
+        -webkit-transform: scale(.5, .5);
+        -webkit-transform-origin: 0% 0%;        
+        -ms-transform: scale(.5, .5);
+        -ms-transform-origin: 0% 0%;
+        -moz-transform: scale(.5, .5);
+        -moz-transform-origin: 0% 0%;
+        -o-transform: scale(.5, .5);
+        -o-transform-origin: 0% 0%;
+    }
+
+    .viz-controls-switchbar-chart-icon-time-line {
+        background-image: url('../controls/switchbar/assets/TimeLine_color.svg');
+    }
+    .viz-controls-switchbar-chart-icon-time-line-white {
+        background-image: url('../controls/switchbar/assets/TimeLine_white.svg');
+    }
+    .viz-controls-switchbar-chart-icon-time-line-grey {
+        background-position: -388px -2031px;
+    }
+
+    .viz-controls-switchbar-chart-icon-time-column {
+        background-position: -172px -2335px;
+    }
+    .viz-controls-switchbar-chart-icon-time-column-white {
+        background-position: -280px -2335px;
+    }
+    .viz-controls-switchbar-chart-icon-time-column-grey {
+        background-position: -388px -2335px;
+    }
+     
+    .viz-controls-switchbar-chart-icon-time-scatter {
+        background-image: url('../controls/switchbar/assets/TimeScatter_color.svg');
+    }
+    .viz-controls-switchbar-chart-icon-time-scatter-white {
+        background-image: url('../controls/switchbar/assets/TimeScatter_white.svg');
+    }
+    .viz-controls-switchbar-chart-icon-time-scatter-grey {
+        background-position: -388px -2546px;
+    }
+     
+    .viz-controls-switchbar-chart-icon-time-bubble {
+        background-image: url('../controls/switchbar/assets/TimeBubble_color.svg');
+    }
+    .viz-controls-switchbar-chart-icon-time-bubble-white {
+        background-image: url('../controls/switchbar/assets/TimeBubble_white.svg');
+    }
+    .viz-controls-switchbar-chart-icon-time-bubble-grey {
+        background-position: -388px -2436px;
+    }
+
+    .viz-controls-switchbar-chart-icon-dual-stacked-combination {
+        background-position: -172px -2225px;
+    }
+    .viz-controls-switchbar-chart-icon-dual-stacked-combination-white {
+        background-position: -280px -2225px;
+    }
+    .viz-controls-switchbar-chart-icon-dual-stacked-combination-grey {
+        background-position: -388px -2225px;
+    }
+
+    .viz-controls-switchbar-chart-icon-stacked-combination {
+        background-position: -172px -2126px;
+    }
+    .viz-controls-switchbar-chart-icon-stacked-combination-white{
+        background-position: -280px -2126px;
+    }
+    .viz-controls-switchbar-chart-icon-stacked-combination-grey{
+        background-position: -388px -2126px;
+    }
+    
+    .viz-controls-switchbar-chart-icon-hichert-bar {
+        background-image: url('../controls/switchbar/assets/HichertBar_color.svg');
+    }
+    .viz-controls-switchbar-chart-icon-hichert-bar-white {
+        background-image: url('../controls/switchbar/assets/HichertBar_white.svg');
+    }
+    .viz-controls-switchbar-chart-icon-hichert-bar-grey {
+        background-position: -388px -2707px;
+    }
+    
+    .viz-controls-switchbar-chart-icon-hichert-column {
+        background-image: url('../controls/switchbar/assets/HichertColumn_color.svg');
+    }
+    .viz-controls-switchbar-chart-icon-hichert-column-white {
+        background-image: url('../controls/switchbar/assets/HichertColumn_white.svg');
+    }
+    .viz-controls-switchbar-chart-icon-hichert-column-grey {
+        background-position: -388px -2629px;
+    }
+    
+    .viz-controls-switchbar-chart-icon-crosstab {
+        background-position: -172px -1067px;
+    }
+    .viz-controls-switchbar-chart-icon-number {
+        background-image: url('../controls/switchbar/assets/NumericPoint_color.svg');
+    }
+    .viz-controls-switchbar-chart-icon-column {
+        background-image: url('../controls/switchbar/assets/Column_color.svg');
+    }
+    .viz-controls-switchbar-chart-icon-stacked-column {
+        background-image: url('../controls/switchbar/assets/StackedColumn_color.svg');
+    }
+    .viz-controls-switchbar-chart-icon-dual-column {
+        background-position: -172px -116px;
+    }
+    .viz-controls-switchbar-chart-icon-3D-column {
+        background-position: -172px -174px;
+    }
+    .viz-controls-switchbar-chart-icon-line {
+        background-image: url('../controls/switchbar/assets/Line_color.svg');
+    }
+    .viz-controls-switchbar-chart-icon-area {
+        background-image: url('../controls/switchbar/assets/StackedArea_color.svg');
+    }
+    .viz-controls-switchbar-chart-icon-combination {
+        background-position: -172px -350px;
+    }
+    .viz-controls-switchbar-chart-icon-dual-line {
+        background-position: -172px -406px;
+    }
+    .viz-controls-switchbar-chart-icon-dual-combination {
+        background-position: -172px -454px;
+    }
+    .viz-controls-switchbar-chart-icon-pie {
+        background-image: url('../controls/switchbar/assets/Pie_color.svg');
+    }
+    .viz-controls-switchbar-chart-icon-donut {
+        background-image: url('../controls/switchbar/assets/Doughnnut_color.svg');
+    }
+    .viz-controls-switchbar-chart-icon-pie-with-depth {
+        background-position: -172px -621px;
+    }
+    .viz-controls-switchbar-chart-icon-geo-bubble {
+        background-position: -172px -669px;
+    }
+    .viz-controls-switchbar-chart-icon-geo-choropleth {
+        background-position: -172px -725px;
+    }
+    .viz-controls-switchbar-chart-icon-geo-pie {
+        background-position: -172px -777px;
+    }
+    .viz-controls-switchbar-chart-icon-geo-map {
+        background-position: -172px -835px;
+    }
+    .viz-controls-switchbar-chart-icon-mekko {
+        background-image: url('../controls/switchbar/assets/Marimekko_color.svg');
+    }
+    .viz-controls-switchbar-chart-icon-100-mekko {
+        background-position: -172px -1960px;
+    }
+    .viz-controls-switchbar-chart-icon-scatter {
+        background-image: url('../controls/switchbar/assets/ScatterPlot_color.svg');
+    }
+    .viz-controls-switchbar-chart-icon-bubble {
+        background-image: url('../controls/switchbar/assets/Bubble_color.svg');
+    }
+    .viz-controls-switchbar-chart-icon-scatter-matrix {
+        background-position: -172px -891px;
+    }
+    .viz-controls-switchbar-chart-icon-heatmap {
+        background-image: url('../controls/switchbar/assets/HeatMap_color.svg');
+    }
+    .viz-controls-switchbar-chart-icon-treemap {
+        background-image: url('../controls/switchbar/assets/TreeMap_color.svg');
+    }
+    .viz-controls-switchbar-chart-icon-table {
+        background-position: -172px -1067px;
+    }
+    .viz-controls-switchbar-chart-icon-radar {
+        background-image: url('../controls/switchbar/assets/Radar_color.svg');
+    }
+    .viz-controls-switchbar-chart-icon-bullet {
+        background-image: url('../controls/switchbar/assets/Bullet_color.svg');
+    }
+    .viz-controls-switchbar-chart-icon-boxplot {
+        background-image: url('../controls/switchbar/assets/BoxPlot_color.svg');
+    }
+    .viz-controls-switchbar-chart-icon-waterfall {
+        background-image: url('../controls/switchbar/assets/Waterfall_color.svg');
+    }
+    .viz-controls-switchbar-chart-icon-tag-cloud {
+        background-image: url('../controls/switchbar/assets/TagCloud_color.svg');
+    }
+    .viz-controls-switchbar-chart-icon-tree {
+        background-image: url('../controls/switchbar/assets/Tree_color.svg');
+    }
+    .viz-controls-switchbar-chart-icon-network {
+        background-image: url('../controls/switchbar/assets/Network_color.svg');
+    }
+    .viz-controls-switchbar-chart-icon-funnel {
+        background-image: url('../controls/switchbar/assets/Funnel_color.svg');
+    }
+    .viz-controls-switchbar-chart-icon-pc {
+        background-image: url('../controls/switchbar/assets/ParallelCoordinates_color.svg');
+    }
+    .viz-controls-switchbar-chart-icon-extension {
+        background-image: url('../controls/switchbar/assets/Extension_color.svg');
+    }
+    .viz-controls-switchbar-chart-icon-bar {
+        background-image: url('../controls/switchbar/assets/Bar_color.svg');
+    }
+    .viz-controls-switchbar-chart-icon-stacked-bar {
+        background-image: url('../controls/switchbar/assets/StackedBar_color.svg');
+    }
+    .viz-controls-switchbar-chart-icon-dual-bar {
+        background-position: -172px -1748px;
+    }
+    .viz-controls-switchbar-chart-icon-crosstab-white {
+        background-position: -280px -1067px;
+    }
+    .viz-controls-switchbar-chart-icon-number-white {
+        background-image: url('../controls/switchbar/assets/NumericPoint_white.svg');
+    }
+    .viz-controls-switchbar-chart-icon-column-white {
+        background-image: url('../controls/switchbar/assets/Column_white.svg');
+    }
+    .viz-controls-switchbar-chart-icon-stacked-column-white {
+        background-image: url('../controls/switchbar/assets/StackedColumn_white.svg');
+    }
+    .viz-controls-switchbar-chart-icon-dual-column-white {
+        background-position: -280px -116px;
+    }
+    .viz-controls-switchbar-chart-icon-3D-column-white {
+        background-position: -280px -174px;
+    }
+    .viz-controls-switchbar-chart-icon-line-white {
+        background-image: url('../controls/switchbar/assets/Line_white.svg');
+    }
+    .viz-controls-switchbar-chart-icon-area-white {
+        background-image: url('../controls/switchbar/assets/StackedArea_white.svg');
+    }
+    .viz-controls-switchbar-chart-icon-combination-white {
+        background-position: -280px -350px;
+    }
+    .viz-controls-switchbar-chart-icon-dual-line-white {
+        background-position: -280px -406px;
+    }
+    .viz-controls-switchbar-chart-icon-dual-combination-white {
+        background-position: -280px -454px;
+    }
+    .viz-controls-switchbar-chart-icon-pie-white {
+        background-image: url('../controls/switchbar/assets/Pie_white.svg');
+    }
+    .viz-controls-switchbar-chart-icon-donut-white {
+        background-image: url('../controls/switchbar/assets/Doughnnut_white.svg');
+    }
+    .viz-controls-switchbar-chart-icon-pie-with-depth-white {
+        background-position: -280px -621px;
+    }
+    .viz-controls-switchbar-chart-icon-geo-bubble-white {
+        background-image: url('../controls/switchbar/assets/Bubble_white.svg');
+    }
+    .viz-controls-switchbar-chart-icon-geo-choropleth-white {
+        background-position: -280px -725px;
+    }
+    .viz-controls-switchbar-chart-icon-geo-pie-white {
+        background-position: -280px -777px;
+    }
+    .viz-controls-switchbar-chart-icon-geo-map-white {
+        background-position: -280px -835px;
+    }
+    .viz-controls-switchbar-chart-icon-mekko-white {
+        background-position: -281px -2858px;
+    }
+    .viz-controls-switchbar-chart-icon-100-mekko-white {
+        background-position: -280px -1960px;
+    }
+    .viz-controls-switchbar-chart-icon-scatter-white {
+        background-image: url('../controls/switchbar/assets/ScatterPlot_white.svg');
+    }
+    .viz-controls-switchbar-chart-icon-bubble-white {
+        background-image: url('../controls/switchbar/assets/Bubble_white.svg');
+    }
+    .viz-controls-switchbar-chart-icon-scatter-matrix-white {
+        background-position: -280px -891px;
+    }
+    .viz-controls-switchbar-chart-icon-heatmap-white {
+        background-image: url('../controls/switchbar/assets/HeatMap_white.svg');
+    }
+    .viz-controls-switchbar-chart-icon-treemap-white {
+        background-image: url('../controls/switchbar/assets/TreeMap_white.svg');
+    }
+    .viz-controls-switchbar-chart-icon-table-white {
+        background-position: -280px -1067px;
+    }
+    .viz-controls-switchbar-chart-icon-radar-white {
+        background-image: url('../controls/switchbar/assets/Radar_white.svg');
+    }
+    .viz-controls-switchbar-chart-icon-bullet-white {
+        background-image: url('../controls/switchbar/assets/Bullet_white.svg');
+    }
+    .viz-controls-switchbar-chart-icon-boxplot-white {
+        background-image: url('../controls/switchbar/assets/BoxPlot_white.svg');
+    }
+    .viz-controls-switchbar-chart-icon-waterfall-white {
+        background-image: url('../controls/switchbar/assets/Waterfall_white.svg');
+    }
+    .viz-controls-switchbar-chart-icon-tag-cloud-white {
+        background-image: url('../controls/switchbar/assets/TagCloud_white.svg');
+    }
+    .viz-controls-switchbar-chart-icon-tree-white {
+        background-image: url('../controls/switchbar/assets/Tree_white.svg');
+    }
+    .viz-controls-switchbar-chart-icon-network-white {
+        background-image: url('../controls/switchbar/assets/Network_white.svg');
+    }
+    .viz-controls-switchbar-chart-icon-funnel-white {
+        background-image: url('../controls/switchbar/assets/Funnel_white.svg');
+    }
+    .viz-controls-switchbar-chart-icon-pc-white {
+        background-image: url('../controls/switchbar/assets/ParallelCoordinates_white.svg');
+    }
+    .viz-controls-switchbar-chart-icon-extension-white {
+        background-image: url('../controls/switchbar/assets/Extension_white.svg');
+    }
+    .viz-controls-switchbar-chart-icon-bar-white {
+        background-image: url('../controls/switchbar/assets/Bar_white.svg');
+    }
+    .viz-controls-switchbar-chart-icon-stacked-bar-white {
+        background-image: url('../controls/switchbar/assets/StackedBar_white.svg');
+    }
+    .viz-controls-switchbar-chart-icon-dual-bar-white {
+        background-position: -280px -1748px;
+    }
+    .viz-controls-switchbar-chart-icon-crosstab-grey {
+        background-position: -388px -1067px;
+    }
+    .viz-controls-switchbar-chart-icon-number-grey {
+        background-position: -388px -1800px;
+    }
+    .viz-controls-switchbar-chart-icon-column-grey {
+        background-position: -388px 0px;
+    }
+    .viz-controls-switchbar-chart-icon-stacked-column-grey {
+        background-position: -388px -58px;
+    }
+    .viz-controls-switchbar-chart-icon-dual-column-grey {
+        background-position: -388px -116px;
+    }
+    .viz-controls-switchbar-chart-icon-3D-column-grey {
+        background-position: -388px -174px;
+    }
+    .viz-controls-switchbar-chart-icon-line-grey {
+        background-position: -388px -232px;
+    }
+    .viz-controls-switchbar-chart-icon-area-grey {
+        background-position: -388px -292px;
+    }
+    .viz-controls-switchbar-chart-icon-combination-grey {
+        background-position: -388px -350px;
+    }
+    .viz-controls-switchbar-chart-icon-dual-line-grey {
+        background-position: -388px -406px;
+    }
+    .viz-controls-switchbar-chart-icon-dual-combination-grey {
+        background-position: -388px -454px;
+    }
+    .viz-controls-switchbar-chart-icon-pie-grey {
+        background-position: -388px -504px;
+    }
+    .viz-controls-switchbar-chart-icon-donut-grey {
+        background-position: -388px -562px;
+    }
+    .viz-controls-switchbar-chart-icon-pie-with-depth-grey {
+        background-position: -388px -621px;
+    }
+    .viz-controls-switchbar-chart-icon-geo-bubble-grey {
+        background-position: -388px -669px;
+    }
+    .viz-controls-switchbar-chart-icon-geo-choropleth-grey {
+        background-position: -388px -725px;
+    }
+    .viz-controls-switchbar-chart-icon-geo-pie-grey {
+        background-position: -388px -777px;
+    }
+    .viz-controls-switchbar-chart-icon-geo-map-grey {
+        background-position: -388px -835px;
+    }
+    .viz-controls-switchbar-chart-icon-mekko-grey {
+        background-position: -389px -2858px;
+    }
+    .viz-controls-switchbar-chart-icon-100-mekko-grey {
+        background-position: -388px -1960px;
+    }
+    .viz-controls-switchbar-chart-icon-scatter-grey {
+        background-position: -388px -1904px;
+    }
+    .viz-controls-switchbar-chart-icon-bubble-grey {
+        background-position: -388px -1848px;
+    }
+    .viz-controls-switchbar-chart-icon-scatter-matrix-grey {
+        background-position: -388px -891px;
+    }
+    .viz-controls-switchbar-chart-icon-heatmap-grey {
+        background-position: -388px -947px;
+    }
+    .viz-controls-switchbar-chart-icon-treemap-grey {
+        background-position: -388px -1005px;
+    }
+    .viz-controls-switchbar-chart-icon-table-grey {
+        background-position: -388px -1067px;
+    }
+    .viz-controls-switchbar-chart-icon-radar-grey {
+        background-position: -388px -1125px;
+    }
+    .viz-controls-switchbar-chart-icon-bullet-grey {
+        background-position: -388px -2783px;
+    }
+    .viz-controls-switchbar-chart-icon-boxplot-grey {
+        background-position: -388px -1177px;
+    }
+    .viz-controls-switchbar-chart-icon-waterfall-grey {
+        background-position: -388px -1235px;
+    }
+    .viz-controls-switchbar-chart-icon-tag-cloud-grey {
+        background-position: -388px -1293px;
+    }
+    .viz-controls-switchbar-chart-icon-tree-grey {
+        background-position: -388px -1347px;
+    }
+    .viz-controls-switchbar-chart-icon-network-grey {
+        background-position: -388px -1403px;
+    }
+    .viz-controls-switchbar-chart-icon-funnel-grey {
+        background-position: -388px -1461px;
+    }
+    .viz-controls-switchbar-chart-icon-pc-grey {
+        background-position: -388px -1519px;
+    }
+    .viz-controls-switchbar-chart-icon-extension-grey {
+        background-position: -388px -1578px;
+    }
+    .viz-controls-switchbar-chart-icon-bar-grey {
+        background-position: -388px -1635px;
+    }
+    .viz-controls-switchbar-chart-icon-stacked-bar-grey {
+        background-position: -388px -1691px;
+    }
+    .viz-controls-switchbar-chart-icon-dual-bar-grey {
+        background-position: -388px -1748px;
+    }
+}
+.viz-controls-switchbar-dropdown-arrow {
+    float: left;
+    background-color: transparent !important;
+}
+.viz-controls-switchbar-dropdown-arrow-icon {
+    margin: 8px 2px 10px 3px;
+}
+.viz-controls-switchbar-chart-selected .viz-controls-switchbar-dropdown-arrow-icon {
+    color: #ffffff;
+}
+.viz-controls-switchbar-chart-selected .viz-controls-switchbar-splitter {
+    background-color: #ffffff;
+}
+.viz-controls-switchbar-splitter {
+    height: 74%;
+    width: 1px;
+    position: absolute;
+    background-color: #bfbfbf;
+    left: 38px;
+    top: 13%;
+    visibility: hidden;
+}
+.viz-controls-switchbar-switcher:hover .viz-controls-switchbar-splitter {
+    visibility: visible;
+}
+.sapUiTheme-sap_hcb .viz-controls-switchbar-switcher:hover .viz-controls-switchbar-dropdown-arrow {
+    border-left:solid 1px #fff;
+    border-right:none!important;
+    left:auto;
+}
+.viz-controls-switchbar-lumira2 {
+    overflow-x: hidden;
+}
+
+.viz-controls-switchbar-lumira2-container {
+    position: relative;
+    display: flex;
+    font-family: Arial;
+}
+div#INSERT_CHART_TABSTRIP_tf1--header {
+  display: none;
+}
+
+.viz-controls-switchbar-lumira2-left {
+    position: absolute;
+    left: 0;
+    width: 180px;
+    overflow: auto;
+    height: 100%;
+    font-size: 14px ;
+    color: #666666;
+    border-right: solid 1px #E4E4E4;
+    min-height:360px;
+}
+
+.viz-controls-switchbar-lumira2-left > .group {
+    box-sizing: border-box;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    cursor: default;
+    font-size: 12px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    border: 1px solid #EFEFEF;
+    border-color: transparent;
+}
+
+.viz-controls-switchbar-lumira2-left > .group > .text {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.viz-controls-switchbar-lumira2-left > .group:hover {
+    border: 1px solid #EFEFEF;
+    background-color: #F6F7F8;
+}
+
+
+.viz-controls-switchbar-lumira2-left > .group-selected:hover {
+    color: #1670C1;
+    font-weight: bold;
+    border: 1px solid #DFECF7;
+    border-left-width: 4px;
+    border-left-style: solid;
+    border-left-color: #1670C1;
+    background-color: #EFF5FB;
+}
+
+.viz-controls-switchbar-lumira2-left > .group-selected {
+    color: #1670C1;
+    font-weight: bold;
+    border: 1px solid #DFECF7;
+    border-left-width: 4px;
+    border-left-style: solid;
+    border-left-color: #1670C1;
+    background-color: #EFF5FB;
+}
+
+.viz-controls-switchbar-lumira2-left > .group > .icon {
+    position: relative;
+    width: 18px;
+    height: 18px;
+    margin-right: 10px;
+    margin-left: 10px;
+    vertical-align:middle;
+    border-width: 0;
+    bottom:2px;
+}
+
+.viz-controls-switchbar-lumira2-left > .group-selected > .icon {
+    margin-left: 7px;
+}
+
+.viz-controls-switchbar-lumira2-left > .group > .icon-basic:before {
+    font-family: 'orca';
+    speak: none;
+    font-size: 18px;
+    content: '\e802';
+    font-weight: normal;
+}
+.viz-controls-switchbar-lumira2-left > .group > .icon-column:before {
+    font-family: 'orca';
+    speak: none;
+    font-size: 18px;
+    content: '\e664';
+    font-weight: normal; 
+}
+.viz-controls-switchbar-lumira2-left > .group > .icon-line_area:before {
+    font-family: 'orca';
+    speak: none;
+    font-size: 18px;
+    content: '\e65b';
+    font-weight: normal;    
+}
+.viz-controls-switchbar-lumira2-left > .group > .icon-pie:before {
+    font-family: 'orca';
+    speak: none;
+    font-size: 18px;
+    content: '\e6ae';
+    font-weight: normal;    
+}
+.viz-controls-switchbar-lumira2-left > .group > .icon-dots:before {
+    font-family: 'orca';
+    speak: none;
+    font-size: 18px;
+    content: '\e804';
+    font-weight: normal;
+}
+.viz-controls-switchbar-lumira2-left > .group > .icon-number:before {
+    font-family: 'orca';
+    speak: none;
+    font-size: 18px;
+    content: '\e698';
+    font-weight: normal;
+}
+.viz-controls-switchbar-lumira2-left > .group > .icon-tile:before {
+    font-family: 'orca';
+    speak: none;
+    font-size: 18px;
+    content: '\e805';
+    font-weight: normal;
+}
+.viz-controls-switchbar-lumira2-left > .group > .icon-table:before {
+    font-family: 'orca';
+    speak: none;
+    font-size: 18px;
+    content: '\e6af';
+    font-weight: normal;   
+}
+.viz-controls-switchbar-lumira2-left > .group > .icon-geo:before {
+    font-family: 'orca';
+    speak: none;
+    font-size: 18px;
+    content: '\e667';
+    font-weight: normal;    
+}
+.viz-controls-switchbar-lumira2-left > .group > .icon-timeseries:before {
+    font-family: 'orca';
+    speak: none;
+    font-size: 18px;
+    content: '\e801';
+    font-weight: normal;    
+}
+.viz-controls-switchbar-lumira2-left > .group > .icon-others:before {
+    font-family: 'orca';
+    speak: none;
+    font-size: 18px;
+    content: '\e809';
+    font-weight: normal;
+}
+.viz-controls-switchbar-lumira2-left > .group > .icon-extension:before {
+    font-family: 'orca';
+    speak: none;
+    font-size: 18px;
+    content: '\e634';
+    font-weight: normal;    
+}
+
+.viz-controls-switchbar-lumira2-left > .group-selected > .icon-basic:before {
+    color: #1670C1;
+}
+.viz-controls-switchbar-lumira2-left > .group-selected > .icon-column:before {
+    color: #1670C1;
+}
+.viz-controls-switchbar-lumira2-left > .group-selected > .icon-bar:before {
+    color: #1670C1;
+}
+.viz-controls-switchbar-lumira2-left > .group-selected > .icon-line_area:before {
+    color: #1670C1;
+}
+.viz-controls-switchbar-lumira2-left > .group-selected > .icon-pie:before {
+    color: #1670C1;
+}
+.viz-controls-switchbar-lumira2-left > .group-selected > .icon-dots:before {
+    color: #1670C1;
+}
+.viz-controls-switchbar-lumira2-left > .group-selected > .icon-tile:before {
+    color: #1670C1;
+}
+.viz-controls-switchbar-lumira2-left > .group-selected > .icon-table:before {
+    color: #1670C1;
+}
+.viz-controls-switchbar-lumira2-left > .group-selected > .icon-geo:before {
+    color: #1670C1;
+}
+.viz-controls-switchbar-lumira2-left > .group-selected > .icon-timeseries:before {
+    color: #1670C1;
+}
+.viz-controls-switchbar-lumira2-left > .group-selected > .icon-others:before {
+    color: #1670C1;
+}
+.viz-controls-switchbar-lumira2-left > .group-selected > .icon-extension:before {
+    color: #1670C1;
+}
+
+.viz-controls-switchbar-lumira2-right {
+    padding: 0 13px;
+    position: absolute;
+    display: flex;
+    flex-wrap: wrap;
+    color: #333333;
+    font-size: 10px ;
+    left: 180px;
+    width: 270px;
+    height: 100%;
+    min-height:360px;
+    align-content: flex-start;
+}
+
+.viz-controls-switchbar-lumira2-right > .chart {
+    box-sizing: border-box;
+    width: 80px;
+    height: 80px;
+    margin: 0 10px 10px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: default;
+    border-radius: 8px;
+    border: 2px solid #bfbfbf;
+    border-color: transparent;
+    padding-top: 8px;
+}
+
+.viz-controls-switchbar-lumira2-right > .chart:nth-child(3n) {
+    margin-right: 0;
+}
+
+.viz-controls-switchbar-lumira2-right > .chart-selected {
+    border: 2px solid #bfbfbf;
+    border-color: #086EC4;
+    background-color: #F2F6F9;
+}
+
+.viz-controls-switchbar-lumira2-right > .chart > .icon {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    margin-top: 0px;
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+.viz-controls-switchbar-lumira2-right > .chart > .switchbar-title {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    text-align: center;
+    vertical-align:middle;
+    justify-content:center;
+    align-items:center;
+    padding: 4px 0 0 0;
+    font-size: 11px;
+    width: 80px;
+}
+
+.viz-controls-switchbar-lumira2-right > .chart > .icon-number {
+    background-image: url('../controls/switchbar/assets/NumericPoint.svg');
+}
+.viz-controls-switchbar-lumira2-right > .chart > .icon-column {
+    background-image: url('../controls/switchbar/assets/Column.svg');
+}
+.viz-controls-switchbar-lumira2-right > .chart > .icon-stacked-column {
+    background-image: url('../controls/switchbar/assets/StackedColumn.svg');
+}
+.viz-controls-switchbar-lumira2-right > .chart > .icon-3D-column {
+    background-image: url('../controls/switchbar/assets/3DColumn.svg');
+}
+.viz-controls-switchbar-lumira2-right > .chart > .icon-line {
+    background-image: url('../controls/switchbar/assets/LineChart.svg');
+}
+.viz-controls-switchbar-lumira2-right > .chart > .icon-area {
+    background-image: url('../controls/switchbar/assets/StackedArea.svg');
+}
+.viz-controls-switchbar-lumira2-right > .chart > .icon-pie {
+    background-image: url('../controls/switchbar/assets/PieChart.svg');
+}
+.viz-controls-switchbar-lumira2-right > .chart > .icon-donut {
+    background-image: url('../controls/switchbar/assets/Donut.svg');
+}
+.viz-controls-switchbar-lumira2-right > .chart > .icon-pie-with-depth {
+    background-image: url('../controls/switchbar/assets/3DPie.svg');
+}
+.viz-controls-switchbar-lumira2-right > .chart > .icon-mekko {
+    background-image: url('../controls/switchbar/assets/Marimekko.svg');
+}
+.viz-controls-switchbar-lumira2-right > .chart > .icon-100-mekko {
+    background-image: url('../controls/switchbar/assets/Marimekko.svg');
+}
+.viz-controls-switchbar-lumira2-right > .chart > .icon-scatter {
+    background-image: url('../controls/switchbar/assets/ScatterPlot.svg');
+}
+.viz-controls-switchbar-lumira2-right > .chart > .icon-bubble {
+    background-image: url('../controls/switchbar/assets/Bubble.svg');
+}
+.viz-controls-switchbar-lumira2-right > .chart > .icon-heatmap {
+    background-image: url('../controls/switchbar/assets/HeatMap.svg');
+}
+.viz-controls-switchbar-lumira2-right > .chart > .icon-table {
+    background-image: url('../controls/switchbar/assets/Tabel.svg');
+}
+.viz-controls-switchbar-lumira2-right > .chart > .icon-treemap {
+    background-image: url('../controls/switchbar/assets/TreeMap.svg');
+}
+.viz-controls-switchbar-lumira2-right > .chart > .icon-radar {
+    background-image: url('../controls/switchbar/assets/Radar.svg');
+}
+.viz-controls-switchbar-lumira2-right > .chart > .icon-boxplot {
+    background-image: url('../controls/switchbar/assets/BoxPlot.svg');
+}
+.viz-controls-switchbar-lumira2-right > .chart > .icon-waterfall {
+    background-image: url('../controls/switchbar/assets/Waterfall.svg');
+}
+.viz-controls-switchbar-lumira2-right > .chart > .icon-tag-cloud {
+    background-image: url('../controls/switchbar/assets/TagCloud.svg');
+}
+.viz-controls-switchbar-lumira2-right > .chart > .icon-tree {
+    background-image: url('../controls/switchbar/assets/Tree.svg');
+}
+.viz-controls-switchbar-lumira2-right > .chart > .icon-network {
+    background-image: url('../controls/switchbar/assets/Network.svg');
+}
+.viz-controls-switchbar-lumira2-right > .chart > .icon-funnel {
+    background-image: url('../controls/switchbar/assets/Funnel.svg');
+}
+.viz-controls-switchbar-lumira2-right > .chart > .icon-pc {
+    background-image: url('../controls/switchbar/assets/ParallelCoordinates.svg');
+}
+.viz-controls-switchbar-lumira2-right > .chart > .icon-bar {
+    background-image: url('../controls/switchbar/assets/Bar.svg');
+}
+.viz-controls-switchbar-lumira2-right > .chart > .icon-stacked-bar {
+    background-image: url('../controls/switchbar/assets/StackedBar.svg');
+}
+.viz-controls-switchbar-lumira2-right > .chart > .icon-time-line {
+    background-image: url('../controls/switchbar/assets/TimeSeriesLine.svg');
+}
+.viz-controls-switchbar-lumira2-right > .chart > .icon-time-column {
+    background-image: url('../controls/switchbar/assets/TimeSeriesColumn.svg');
+}
+.viz-controls-switchbar-lumira2-right > .chart > .icon-time-scatter {
+    background-image: url('../controls/switchbar/assets/TimeSeriesScatter.svg');
+}
+.viz-controls-switchbar-lumira2-right > .chart > .icon-time-bubble {
+    background-image: url('../controls/switchbar/assets/TimeSeriesBubble.svg');
+}
+.viz-controls-switchbar-lumira2-right > .chart > .icon-geo {
+    background-image: url('../controls/switchbar/assets/GeoMap.svg');
+}
+.viz-controls-switchbar-lumira2-right > .chart > .icon-default {
+    background-image: url('../controls/switchbar/assets/Extension.svg');
+}
+.viz-controls-axis-scale-editor-close {
+    position: absolute;
+    cursor: pointer;
+    border-style:none;
+    border-width:0px;
+    color: #666666;
+}
+
+.viz-controls-axis-scale-editor-close:hover {
+    color: #CC1919;
+}
+
+.viz-controls-axis-scale-editor-input-field {
+	margin-left: 2rem !important;
+}
+
+.viz-controls-axis-scale-editor-padding-top {
+	padding-top: 10px;
+}
+
+.viz-controls-axis-scale-editor-dialog .sapMLabel{
+    line-height: 2rem;
+}
+
+.viz-controls-axis-scale-editor-label {
+    line-height: 2rem;
+}
+
+.sapUiTheme-lumira_simplite .viz-controls-axis-scale-editor-dialog .sapMDialogScrollCont {
+    padding: 1rem;
+}.viz-controls-filtermenu {
+    display: none;
+    z-index: 100;
+    position: absolute;
+    border: 1px solid #96a8c3;
+    background-color: #f2f2f2;
+    cursor: default;
+    outline: none;
+    overflow: hidden;
+    height: 40px;
+    padding-left: 10px;
+    padding-right: 10px;
+    box-shadow: 5px 5px 10px rgba(0,0,0,0.5);
+    -webkit-box-shadow: 5px 5px 10px rgba(0,0,0,0.5);
+    -moz-box-shadow: 5px 5px 10px rgba(0,0,0,0.5);
+}
+.viz-controls-filtermenu > div {
+    float: left;
+    cursor: pointer;
+    height: 30px;
+    margin-right: 15px;
+    margin-top: 5px;
+}
+.viz-controls-filtermenu > div:last-child {
+    margin-right: 0px;
+}
+.viz-controls-filtermenu > div:hover {
+    background-color: #007CC0 ;
+    color: #ffffff;
+}
+.viz-controls-filtermenu > div > div {
+    float: left;
+    margin: 8px 5px 8px 5px;
+}
+.viz-controls-filtermenu > div > div:first-child {
+    margin: 8px 0px 0px 5px;
+}
+.viz-controls-filtermenu-exclude-icon {
+    background-position: 0px -269px;
+}
+.viz-controls-filtermenu > div:hover .viz-controls-frame-filtermenu-exclude-icon {
+    background-position: -17px -269px;
+}
+.viz-controls-filtermenu-filter-icon {
+    background-position: 0px -286px;
+}
+.viz-controls-filtermenu > div:hover .viz-controls-frame-filtermenu-filter-icon {
+    background-position: -17px -286px;
+}.viz-controls-axissplitter-axis {
+    position: absolute;
+    width : 6px;
+    height: 6px;
+}
+.viz-controls-axissplitter-resizehelper-mask {
+    position: absolute;
+    z-index:99;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.1;
+    background-color: rgba(0,0,0,0); /* Fix for IE10 */
+}
+.viz-controls-axissplitter-resizehelper {
+    position: absolute;
+    border : 1px dashed #007dc3;
+    overflow: hidden;
+    z-index: 99;
+}.viz-controls-adhoc-frame-popover {
+    width: 555px;
+    height: 300px;
+    background-color: #FAFAFA;
+    display:flex;
+}
+.viz-controls-adhoc-frame-popover-vizframe {
+    width: 380px;
+    height: 300px;
+    background-color: #FAFAFA;
+    position: relative;
+    z-index: 1;
+    float: left;
+}
+
+.viz-controls-adhoc-frame-popover-summary {
+    float:left;
+    width: 140px;
+    height: 300px;
+    /* position: relative; */
+}
+
+.viz-controls-adhoc-frame-popover-summary-content ul {
+    padding-left: 0;
+}
+
+.viz-controls-adhoc-frame-popover-summary-content li {
+    list-style: none;
+    padding-left: 0;
+    margin: 2px 0px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.viz-controls-adhoc-frame-popover-summary-content li:first-child {
+    border-bottom: 1px solid gray;
+    padding-bottom: 4px;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+.viz-controls-adhoc-frame-popover-summary-content {
+    width: 130px;
+    padding-left: 0px;
+    font-size: 12px;
+    position: absolute;
+    bottom:0px;
+}
+
+.viz-controls-adhoc-frame-popover-more {
+    float:left;
+    padding: 0 4px;
+    height: 300px;
+    font-size: 14px;
+}
+.viz-controls-adhoc-frame-popover-more-label {
+    margin-top: 150px;
+}

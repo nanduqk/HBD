@@ -1,0 +1,876 @@
+/*
+�2010 - 2016 SAP SE or an SAP affiliate company.  All rights reserved.
+ 
+SAP and other SAP products and services mentioned herein as well as their respective logos are trademarks or registered trademarks of SAP SE in Germany and other countries.  Please see http://www.sap.com/corporate-en/legal/copyright/index.epx#trademark for additional trademark information and notices.
+*/
+
+/*
+�2010 - 2016 SAP SE or an SAP affiliate company.  All rights reserved.
+ 
+SAP and other SAP products and services mentioned herein as well as their respective logos are trademarks or registered trademarks of SAP SE in Germany and other countries.  Please see http://www.sap.com/corporate-en/legal/copyright/index.epx#trademark for additional trademark information and notices.
+*/
+
+.sapUxAPObjectPageLayout-Std-Tablet .sapUxAPObjectPageHeaderContent:only-child, .sapUxAPObjectPageLayout-Std-Desktop .sapUxAPObjectPageHeaderContent:only-child, .sapUxAPObjectPageHeaderContent{
+	padding : 0rem !important;  /* this css we are no where using, hence hardcoded the pading here to reduce the space between object page layout and the m.bar*/
+}
+.BILP-tableFooter {
+  justify-content: center;
+  border-bottom: none;
+}
+.BILP-width{
+width:260px !important;
+}
+.BILP-width1{
+width:360px !important;
+}
+.BILP-width2{
+width:300px !important;
+}
+.BILP-browseBtn {
+  padding-left: 0.5rem !important;
+}
+.BILP-cloudDriveDetailsHeading {
+  padding-top: 2rem;
+  padding-bottom: 0.3rem;
+}
+.BILP-SchedulePage{
+  height: 800px !important;
+    width: 130vh;
+}
+.BILP-ExampleHours{
+  margin-top: 8px;
+  margin-left: 4px;
+    text-align: left;
+}
+.BILP-StartEndHours{  
+  margin-left: 4px !important;
+}
+.BILP-AllReportsLabel{
+  font-size: 18px;
+    color: #333333 ;
+    margin-left: 45px !important;
+} 
+.BILP-objectContainer  .sapUxAPObjectPageContainer + div{
+  background-color: transparent !important;
+}
+.BILP-headerBackground .sapUxAPObjectPageNavigation {
+  background-color: transparent !important;
+}
+.BILP-scrollMargin{
+  margin-top : 47px !important;
+}
+.BILP-NoItemsText {
+    text-align: left;
+    font-size: 1rem;
+    /*margin-left: 10%;*/
+    margin-top: 1%;
+  color : #346187 !important;
+  font-family : Arial,Helvetica,sans-serif;
+  font-weight : normal;
+}
+ /* #shell-shapes{
+    background-image:url('../images/background.png') !important; 
+    background-size:  100% 100%;
+    background-repeat: no-repeat;
+}  */
+.BILP-listmoreIcon{
+    background-position : -1885px -250px !important;
+    padding-right:10px;
+}
+.BILP-listmoreIcon:hover{
+    background-position : -1919px -250px !important;
+}
+.BILP-listmoreIcon:active{
+    background-position : -1953px -250px !important;
+}
+.sapUiRespGrid.sapUiRespGridHSpace1 {
+    padding: 0rem;
+    margin-top: 0%;
+}
+
+/* div#__section1-innerGrid{
+    padding: 0 0.5rem;
+    margin-top: -2%;
+} */
+/*div#__layout0-spacer{
+  background: transparent;
+}*/
+/*#__page13, #__page21{
+    height: -webkit-x-available !important;
+    margin-right: 2%;
+}*/
+#listPage {
+   margin-left: 3% ; 
+}
+#tilePage{
+   margin-left: 3% ;
+}
+.BILP-pageHeight{
+    height : 100vh; 
+    overflow-x:hidden !important;
+    overflow-y: hidden !important;
+}
+.homesection .BILP-pageHeight{
+height : 25vh; 
+overflow-x:hidden !important;
+    overflow-y: hidden !important;
+}
+.favsection .BILP-pageHeight{
+height : 25vh; 
+overflow-x:hidden !important;
+    overflow-y: hidden !important;
+}
+.recentlysection .BILP-pageHeight{
+height : 25vh; 
+overflow-x:hidden !important;
+    overflow-y: hidden !important;
+}
+.recentlyrun .BILP-pageHeight{
+height : 25vh; 
+overflow-x:hidden !important;
+    overflow-y: hidden !important;
+}
+.appsection .BILP-pageHeight{
+height : 25vh; 
+overflow-x:hidden !important;
+    overflow-y: hidden !important;
+}
+
+.sapUiTheme-sap_fiori_3 .BILP-transparent{
+  background-color: #354a5f !important;
+}
+
+.sapContrastPlus .sapMTB.sapMTB-Transparent-CTX{
+  background-color: transparent !important;
+}
+
+.sapUiTheme-sap_fiori_3_dark .BILP-transparent{
+  background-color: #354a5f !important;
+}
+
+.sapUiTheme-sap_fiori_3_hcb .BILP-transparent{
+  background-color: #000000 !important;
+}
+
+.sapUiTheme-sap_fiori_3_hcw .BILP-transparent{
+  background-color: #ffffff !important;
+}
+
+.BILP-transparent{
+      background-color:transparent !important;
+}
+.BILP-bordershadow1{
+  /*text-shadow:none !important;*/
+}
+.BILP-ScrollPadding{
+ margin-top: -4px !important;
+}
+.BILP-transparent .sapMITBContent{
+      background-color:transparent !important;
+}
+.BILP-scheduleTable{
+  width:80% !important;
+  padding-right:0px !important;
+  vertical-align: baseline !important;
+}
+.BILP-tablePadding{
+  padding-left:60px !important;
+}
+.BILP-Height100Perc{
+  height:100% !important;
+}
+.BILP-ShowAllPageHeight100Perc{
+  height:99% !important;
+  width: 96.9% !important;
+}
+.BILP-headerShadow::before{
+      border-top:transparent !important;
+}
+.BILP-breadcrumb{
+  height: 2rem !important;
+    line-height: 1rem !important;
+    margin-left: 5px !important;
+}
+.BILP-Calendar{
+    display: block !important;
+    padding: 0px !important;
+    padding-top: 24px !important;
+    padding-bottom:20px !important;
+    margin-left: 12px;
+    overflow-x: auto!important;
+    overflow-y: auto !important;
+}
+
+.BILP-TextSchedulePrev {
+  padding-top: 15px !important;
+    padding-left: 30px !important;
+    padding-right:10px !important;
+}
+.BILP-TextScheduleNext {
+  padding-top: 15px !important;
+    padding-left: 30px !important;
+
+}
+.BILP-ScheduleButton{
+  /*width: 230px;*/
+  margin-left: 10px !important;
+  /*margin-right:32px !important;*/
+}
+
+.BILP-headerShadow .sapMBarContainer{
+  height:2.5rem !important; /* here default value of height from library.css is 3rem to reduce the m.bar height giving 2.5 rem */
+  /* padding-right: 33px !important; */
+  visibility: visible !important;
+  /*left: auto !important;*/
+  width: auto !important;
+
+}
+
+.BILP-ieheaderdropdown{
+  /*left: 55% !important;
+  position: fixed;*/
+  position: fixed !important;
+    margin-left: -80px !important;
+}
+
+.BILP-headerdropdown{
+    position: fixed !important;
+    margin-left: 70px;
+}
+
+
+.LabelMiddle {
+    left: 47% !important;
+    position: fixed;
+      width: 9.5%;
+    
+}
+
+.BILP-headerShadow .sapMBarMiddle .sapMBarContainer {
+  position: static !important;
+  margin-right: 4px;
+}
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+/* IE Browser code */
+/*.BILP-MBarAlignment  .sapMBarMiddle{
+  right: 50% !important;
+  position: -ms-device-fixed !important;
+  left: auto !important;
+}*/
+.BILP-ieheaderdropdown{
+  /*left: 50% !important;*/
+  top: 6px !important;  
+}
+}
+.BILP-Padding40 .sapMBarContainer{
+  padding-right:32px !important;
+}
+.BILP-noShadow::before{
+      border-top:transparent !important;
+}
+
+.BILP-tabBottomSlab .BILP-height60 .sapMITBSelected>.sapMITBContentArrow {
+    border-bottom-color: #FFFFFF !important;  
+    height: 0.7rem !important;
+    border-bottom: 2px solid transparent;
+    }
+.BILP-overridingPadding{
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+.BILP-aboutdialogfont{
+  font-style:regular !important; 
+  font-size : 14px !important;
+}
+.BILP-headerShadow{
+      -webkit-box-shadow:none !important;
+      box-shadow:none !important;
+      height:2.5rem !important; /* here default value of height from library.css is 3rem to reduce the m.bar height giving 2.5 rem */
+     /* padding-top: 8px; */
+     /* padding-bottom: 20px !important; */
+      
+}
+#homePage-cont{
+  height: auto !important;
+}
+
+.BILP-launchpadbackground.BILP-pagetop-Banner .sapMPageSubHeader+#homePage-cont{
+	top: 0rem !important;
+}
+
+.BILP-launchpadbackground.BILP-pageTop .sapMPageHeader+#homePage-cont, .BILP-launchpadbackground.BILP-pageTop .sapMPageHeader+.sapMPageSubHeader+#homePage-cont {
+top: 2.5rem !important;
+}
+
+.BILP-launchpadbackground.BILP-pagetop-Banner .sapMPageHeader+#homePage-cont, .BILP-launchpadbackground.BILP-pagetop-Banner .sapMPageHeader+.sapMPageSubHeader+#homePage-cont {
+top: 4rem !important;
+}
+.BILP-tabBottomSlab .BILP-height60 .sapMITBSelected>.sapMITBContentArrow{
+  border-bottom: 2px solid !important;
+}
+
+.BILP-noShadow{
+    -webkit-box-shadow:none !important;
+      box-shadow:none !important;
+      padding-top: 8px;
+}
+
+.BILP-docPopupIcon{
+      background-position : -1064px -400px !important;
+}
+
+.BILP_DocCloseIconSize{
+    width: 32px;
+    height: 25px;
+}
+.BILP-tabLinePosition{
+    margin-top: 13px !important;
+    margin-right: 13px !important;
+    margin-bottom: 13px !important;
+    margin-left: 13px !important;
+}
+
+.BILP-height54 .sapMBarContainer{
+      height:54px;
+      margin-left:21px !important;
+	  /*left: 0px !important;*/
+}
+
+
+
+.BILP-homeTabWidth{
+      /*width : 74% !important;
+      margin-left:13% !important
+       padding-top:21px;*/
+}
+
+.BILP-tabLabel .BILP-height60 .sapMITBText{
+      font-size:18px;
+      /* padding-left:16px;
+      padding-right:16px;
+      padding-bottom:14px; */
+ }
+.size80px{
+      height:80px;
+      width:80px;
+}
+
+.BILP-Webi {
+  background-position: -1075px -490px !important;
+}
+
+.BILP-Webi:hover {
+  background-position: -1075px -490px !important;
+}
+
+.BILP-Webi:active {
+  background-position: -1075px -490px !important;
+}
+
+.BILP-floatLeft-parent div{
+      float:left;
+}
+.BILP-bottomPadding{
+      padding-bottom:15px;
+      margin:0px;
+}
+.BILP-bottomPadding .sapUiCalMonthView{
+     width:50% !important;
+}
+
+.BILP-CalMonthView .sapUiCalMonthView {
+    width: 50% !important;
+}
+
+.BILP-calrowHieght{
+height:300px !important;
+padding-left:16px !important;
+width: 39rem !important;
+}
+.BILP-calrowHieght .sapUiCalHead {
+    
+    width: 88% !important;
+    margin-left: -70px !important;
+}
+
+
+.BILP-calrowHieght .sapUiCalContent {
+   
+    width: 86% !important;
+}
+
+.BILP-rightMargin8{
+      margin-right: 8px;
+}
+.BILP-leftMargin8{
+      margin-left: 8px;
+}
+
+.BILP-hMargin16{
+      margin-left:0px;
+      margin-right:0px;
+}
+.BILP-hmargin32{
+      margin-left:32px;
+      margin-right:0px;
+}
+.BILP-noMargin .sapMITBTextOnly .sapMITBFilter{
+      margin:0px !important;
+}
+.BILP-noHMargin .sapMITBHead{
+      /* margin-bottom: 13px; !important; */
+      margin-left: 0;
+      margin-top: 13px;
+      padding: 0px;
+      margin-right: 0px;
+}
+.BILP-noHMargin .sapMITBScrollContainer {
+  margin-left:0px !important;
+}
+.BILP-tableTextTruncation .sapMText{
+      width: 100% !important;
+      overflow: hidden !important;
+      white-space: nowrap !important;
+      text-overflow: ellipsis !important;   
+}
+
+.BILP-tableTextTruncationhistory .sapMText {
+    overflow: hidden !important;
+    white-space: nowrap !important;
+    text-overflow: ellipsis !important;
+}
+.BILP-height60{
+      height:60px;
+}
+.BILP-tabBorderColor{
+      border-bottom: 0px solid rgb(64,95,122);
+}
+.BILP-tabBorderColor .sapMITBContent{
+/* margin-top:6px !important; */
+}
+.BILP-tabBorderShadow{
+                border-bottom: #ffffff !important;
+              /*  box-shadow: inset 0 -0.25rem 0 -0.125rem #8aa7bd  !important; */
+                margin-right:32px !important;
+                margin-left:32px !important;
+                
+}
+.BILP-sideHomeLayout{
+      height: 100%;
+      width: 100%;
+      /*padding-top: 20px !important;*/
+      padding-right:42px !important;
+      padding-bottom:32px;
+}
+.BILP-sideHomeLayout .sapMFlexItem:nth-child(1){
+      width:100% !important;
+      height: 98% !important;
+}
+.BILP-popover .sapMLabel{
+      color:  #666666 !important;
+      font-size:12px;
+}
+.BILP-Scrollbar{
+    height: 100% !important;
+}
+/*Change for global scrollbar*/
+
+::-webkit-scrollbar-thumb {
+   
+    background-color: #b2b2b2 !important;
+}
+::-webkit-scrollbar-thumb:hover{
+  background-color:#ababab !important;
+}
+.BILP-headerShadow .sapMBarLeft{
+  padding-left:0px !important;
+  max-width: 40% !important;
+  
+}
+.BILP-headerShadow .sapMBarRight{
+    margin-right:10px !important;
+}
+.BILP-tabBorderShadow .sapMITBText{
+  
+  /*text-shadow:none !important; */
+}
+.BILP-WidthIE{
+  width:900vh;
+  
+}
+.BILP-lastRows{
+  background-color:#FFFFFF;
+  height:85vh !important;
+}
+.BILP-lastRows>section>div{
+  height:98% !important;
+}
+
+.BILP-commonTableStyle >thead{
+  background-color: #f7f7f7 !important;
+}
+
+.BILP-commonTableStyle{
+  /*border: 1px solid  #e2e2e2 !important;*/
+  border-bottom: 0px !important;
+}
+
+.BILP-commonTableStyle >tbody{
+  background-color: #ffffff !important;
+}
+/* .BILPPadding_8 .sapUiMnu{
+  padding:8px !important;
+} */
+.BILPPadding_8{
+  padding:8px 0 8px 0   !important;
+  /*color: #346187 !important;*/
+}   
+
+.BILPPadding_8 .sapUiMnuItm:active .sapUiMnuItmTxt{
+  color: #fff !important;
+}
+.BILPPadding_8 .sapUiMnuItmTxt{
+  /*color: #346187 !important;*/
+}
+
+
+ .sapMSelectList{
+  padding:8px;
+}
+.sapMSelectListItem{
+  padding-left:8px;
+  padding-right:8px;
+}
+.sapMSelectListItemBase{
+  /*color:#346187;*/
+}  
+ 
+.BILP_align{
+  vertical-align: middle !important;
+  /* margin-top: -2px !important; */
+}
+.BILP_Iconalign{
+  vertical-align: middle !important;
+   margin-top: 4px !important;
+  /* margin-left: -9px !important; */
+   text-align: left;
+}
+.BILP_alignLeft .sapMListTbl{
+  padding-left: 8px !important;
+}
+.BILP-nav-hidden.sapMNavItem.sapMNavItemHidden {
+   height:0px !important; width:0px !important;
+   display:block !important;
+}
+.BILP-Opacity{
+   
+  opacity: 1 !important;
+}
+.BILP-ListBox>label{
+  outline:none !important;
+}
+.BILP-headerShadow .sapMSltLabel{
+  padding-left:2px !important;
+  
+} 
+::-webkit-scrollbar:horizontal {
+     height: 0.75rem !important;
+}
+/* ::-webkit-scrollbar-track:horizontal {
+    // border-radius: 5px !important;
+} */
+::-webkit-scrollbar-thumb:horizontal {
+    border-radius: 5px !important;
+    background-color: #b2b2b2 !important;
+}
+::-webkit-scrollbar-thumb:horizontal:hover{
+  background-color:#ababab !important;
+}
+.BILP-history .sapMScrollContScroll{
+  padding-top: 2rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    
+}
+
+.BILP-link{
+  color: #0070b1;
+  text-decoration: none !important;
+}
+
+.BILP-link:hover {
+    text-decoration: underline !important;
+}
+/*Checkbox removal in events tab and adding folder Icon*/
+.BILP-noCbSel .sapMCbBg.sapMCbMark {
+    border: none !important;
+    background-image:url('../images/folder-icon-2.png') !important;
+    background-repeat: no-repeat !important;
+    height: 1rem !important;
+    width: 1rem !important;
+}
+.BILP-treePadding{
+  padding-left:15px !important;
+}
+.BILP-scheduletoolbar{
+  margin-right:32px !important;
+}
+.BILP-EventsSearch{
+    margin-left: 21px !important;
+    margin-bottom: 8px !important;
+    width: 96%;
+}
+.BILP-eventsPadding{
+margin-left:4px !important;
+}
+.BILP-treetable .sapUiTableCnt .sapUiTableCCnt .sapUiTableCtrlScr .sapUiTableCtrlCnt .sapUiTableCtrl .sapUiTableCell  .sapUiTableTreeIcon {
+padding-top:6px !important;
+}
+.BILP-Padding-left34{
+  padding-left: 34px;
+}
+.BILP-margin-right24{
+    margin-right: 24px !important;
+    }
+.BILP-margin-right32{
+margin-right:40px !important;
+}
+.BILP-margin-left32{
+margin-left:40px !important;
+}
+#historyPage-cont{
+  background:#FFFFFF;
+}
+.BILP-WhiteBackColor{
+  background:#FFFFFF;
+}
+.BILP-Refreshicon .sapMBar{
+   box-shadow:none !important;
+}
+
+.BILP-Refreshicon .sapMBtnInner {
+   background-color: transparent !important; 
+      border: none !important;
+}
+.BILP-Refreshicon .sapMBtnInner:hover {
+    background-color: rgba(179,179,179,0.5) !important;
+    
+}
+
+.BILP-Refreshicon .sapMBtnInner:active  {
+    background-color: #346187 !important;
+      color: #ffffff !important;
+    
+}
+.BILP-Refreshicon .sapMBtnInner:active span {
+    background-color: #346187 !important;
+      color: #ffffff !important;
+    
+}
+.BILP-Refreshicon  .sapMBtnCustomIcon:active {
+    color: #ffffff !important;
+}
+    
+.BILP-Refreshicon  .sapMBtnCustomIcon{
+    /*color: #346187*/
+} 
+
+.BILP-HistoryTablemargin{
+  background-color: #FFFFFF !important;
+    width: auto !important;
+  margin: 0px 32px 0 32px;
+  cursor:pointer;
+  }
+.BILP-refreshBackground{
+   background-color: #FFFFFF !important;
+   box-shadow:none !important;
+   border:none !important;
+   }
+.BILP-no-overflow{
+  overflow:hidden !important;
+}
+.BILP-popOverBox .sapMListTblHeader  .sapMLabel {
+  box-sizing: border-box;
+  display: inline-block;
+    vertical-align: top;
+  white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  text-align: center;
+  
+  /*padding-left: 3.5rem;*/
+}
+
+.BILP-popOverBox .sapMLabel{
+  
+      padding-top: 5px;
+}
+.BILP-cellNoData .sapMListTblCellNoData {
+    padding-right: 4rem;
+}
+.BILP_SchedulePadding {
+      margin-left: -16px;
+    padding-right: 16px;
+    height:98% !important;
+}
+.sapUiTheme-sap_belize_plus .BILP-tabBorderShadow
+{
+box-shadow: inset 0 -0.25rem 0 -0.125rem rgba(255,255,255,0.1);
+}
+.BILP-HstyFooter{
+  z-index:5 !important; 
+}
+.BILP-HistoryTablemargin .sapUiTableRowHidden {
+  cursor:auto !important;
+}
+.BILP-Eventpadding
+{
+padding-top:1rem !important;
+}
+
+.BILP-borderline .sapMPanel>.sapMPanelHdr,.BILP-borderline .sapMPanelContent:not(.sapMPanelBGTransparent),.BILP-borderline .sapMPanelWrappingDiv,.BILP-borderline .sapMPanelWrappingDivTb {
+    border-bottom-color: transparent !important;
+}
+
+.BILP-history-refreshpadding{
+  margin-right:26px !important;
+}
+
+.BILP-historyTitlePadding{
+  padding-left:30px;
+}
+.BILP-ScheduleRefreshPadding{
+    margin-right: 16px !important;
+}
+.BILP-tableTextTruncationhistory  .sapUiHLayout{
+     overflow: hidden !important;
+     white-space: nowrap !important;
+     text-overflow: ellipsis !important;    
+}
+.BILP-tableTextTruncationhistory .sapUiHLayoutChildWrapper {
+     white-space: nowrap;
+     display: initial !important;
+    vertical-align: top;
+    text-overflow: ellipsis;
+}
+.BILP-favIcon
+{
+cursor:pointer;
+}
+
+html[data-sap-ui-browser^="ff"].sap-desktop .sapMBarContainer {
+    display: inline-flex;
+    align-items: center;
+} 
+
+.BILP-dialogPanelWithDelete .sapMPanelBGTranslucent {
+    overflow-y: overlay;
+}
+.BILP-ActionSetSectionBlock {
+    min-height: 0rem;
+}
+
+.BILP-simple-page .sapUxAPObjectPageHeaderIdentifier {
+    padding-left: 1.5rem !important;
+}
+
+.BILP-simple-page .sapUxAPObjectPageHeaderTitleTextWrappable {
+    font-size: 1.2rem !important;
+}
+
+.BILP-simple-page-margin-left {
+    margin-left: 1.5rem !important;
+}
+.BILP-simple-page-margin-right {
+    margin-right: 1.5rem !important;
+}
+.BILP-simple-page-margin-top {
+    margin-top: 15px !important;
+}
+.BILP-simple-page-margin-bottom {
+    margin-bottom: 10px !important;
+}
+
+.BILP-more {
+    text-align: center;
+    padding-bottom: 1rem !important;
+}
+
+.BILP-more .part1 {
+    font-size: 1.1rem !important;
+}
+
+.BILP-more .part2 {
+    font-size: 0.9rem !important;
+}
+
+.BILP-publication-viewer .sapMPanelContent{
+    padding: 0px !important;
+}
+.BILP-transparent-headertable-table .sapUiTableExt .sapMBar{
+    background-color: transparent !important;
+}
+.sapMGT:focus {
+    outline: 1px dotted #000000;
+    outline-offset: -1px;
+}
+
+.BILP-sap_belize_hcbTextColor {
+    text-align: left;
+    font-size: 1rem;
+    /*margin-left: 10%;*/
+    margin-top: 1%;
+  color : #ffffff !important;
+  font-family : Arial,Helvetica,sans-serif;
+  font-weight : normal;
+}
+
+.BILP-sap_belize_hcbBackgroundColor {
+  background-color: #000000;
+}
+
+.sapUiTheme-sap_belize_hcb .BILP-NoItemsText {
+  color : #ffffff !important;
+}
+
+.sapUiTheme-sap_belize_hcw .BILP-NoItemsText {
+  color : #000000 !important;
+}
+
+.sapUiTheme-sap_belize_hcb .BILP-refreshBackground {
+  background-color: #000000 !important;
+}
+
+.sapUiTheme-sap_belize_hcw .BILP-refreshBackground {
+  background-color: #FFFFFF !important;
+}
+
+.sapUiTheme-sap_fiori_3_dark  .BILP-AllReportsLabel{
+  color : #ffffff ;
+}
+.BITrigger{
+	margin-top: 10px;
+}
+.BILP-inbox-properties-content{
+  margin: 20px;
+}
+.BILP-inbox-properties-content-item{
+  margin-bottom: 20px;
+  display: flex;
+  align-items: flex-start;
+  box-sizing: border-box;
+}
+.BILP-inbox-properties-content-item>:nth-child(1){
+  flex: 0 0 40% !important;
+}
+.BILP-inbox-properties-content-item>:nth-child(2){
+  flex: 0 0 60% !important;
+}
+.BISensitivity{
+	padding-left: 3rem;
+}
+.BILP-SensitivityDialog {
+	width: 450px !important;
+	overflow-y: hidden !important;
+}

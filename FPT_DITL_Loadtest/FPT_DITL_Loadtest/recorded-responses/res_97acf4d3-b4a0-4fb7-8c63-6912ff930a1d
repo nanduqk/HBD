@@ -1,0 +1,618 @@
+/*
+�2010 - 2016 SAP SE or an SAP affiliate company.  All rights reserved.
+ 
+SAP and other SAP products and services mentioned herein as well as their respective logos are trademarks or registered trademarks of SAP SE in Germany and other countries.  Please see http://www.sap.com/corporate-en/legal/copyright/index.epx#trademark for additional trademark information and notices.
+*/
+
+/*
+ï¿½2010 - 2016 SAP SE or an SAP affiliate company.  All rights reserved.
+ 
+SAP and other SAP products and services mentioned herein as well as their respective logos are trademarks or registered trademarks of SAP SE in Germany and other countries.  Please see http://www.sap.com/corporate-en/legal/copyright/index.epx#trademark for additional trademark information and notices.
+*/
+jQuery.sap.declare("com.sap.fioribi.modules.treetable.util.TreeTableConfigurationUtil");
+jQuery.sap.require("com.sap.fioribi.modules.treetable.util.TreeTableDialogUtil");
+jQuery.sap.require("com.sap.fioribi.modules.treetable.helper.TreeTableConstant");
+
+/*
+ * Use 'this' variable carefully in this file, as method will be called for different configuration
+ */
+com.sap.fioribi.modules.treetable.util.TreeTableConfigurationUtil = function(pageName) {
+	this.constant = new com.sap.fioribi.modules.treetable.helper.TreeTableConstant();
+	this.mAccessToken = null;
+	this.pageName = pageName;
+	
+	this.defaultView = this.constant.LIST_VIEW; //Default view is list view
+	this.initialRootFolderId = "";
+	this.initialRootCategoryId = "";
+	this.initialRootFolderName = "";
+	this.pagePreferenceModel = sap.ui.getCore().getModel("pagePrefModel");
+	
+	//Remove actionType and copyMove action as and when we switch the pages. By default they should be empty
+	BILaunchpadApp.setActionType("");
+	BILaunchpadApp.setCopyMoveAction("");
+	
+	if(BILaunchpadApp.getLandingPageFlag() || (BILaunchpadApp.getselecthometab()=="customPage" || BILaunchpadApp.getselecthometab()=="customGroup")){
+		// At this level only checking if its tile view or not is sufficient (as which page to initialize will be done by the caller of corresponding page)
+		if(BILaunchpadApp.getLisitngType() == "tileview"){
+			this.defaultView = this.constant.GRID_VIEW;
+		}
+		this.initialRootFolderId = this.pagePreferenceModel.selectedfoldercuid; //Selected folder from preference page
+		this.initialRootFolderName = this.pagePreferenceModel.selectedfoldername;
+	}
+	if(BILaunchpadApp.getselecthometab()== "categoriesTab"){
+		this.initialRootCategoryId = this.pagePreferenceModel.selectedcategorycuid; //Selected category from preference page
+	}
+	BILaunchpadApp.setLandingPageFlag(false);
+};
+
+com.sap.fioribi.modules.treetable.util.TreeTableConfigurationUtil.prototype.setAccessToken = function(accessToken){
+	this.mAccessToken = accessToken;
+};
+
+com.sap.fioribi.modules.treetable.util.TreeTableConfigurationUtil.prototype._fireRestCall = function(surl, successCallback, failureCallback){ //failureCallback is optional
+	if(surl == undefined || surl == null || surl.trim().length == 0){
+		return;
+	}
+	var handleSuccess = $.proxy(function(response) {
+		// To enable or disable the arrow icon based on the flag "haschildren"
+		if (response && response.entries != undefined) {
+			for (let index = 0; index < response.entries.length; index++) {
+				const element = response.entries[index];
+				element.__metadata = {};
+				if(element.haschildren === 'false') {
+					element.__metadata = '';
+				}
+			}
+		}
+		successCallback(response);
+		sap.ui.core.BusyIndicator.hide();//We have MessageToast for Refresh operation
+		/*setTimeout(function() { //Adding a delay to hide busy indicator as in refresh page scenario, it hides very soon giving end user an impression that nothing happens
+			sap.ui.core.BusyIndicator.hide(); 
+		}, 100);*/
+	},this);
+	
+	var handleFailure = function(xhr, ajaxOptions, thrownError) {
+		if(failureCallback != undefined){
+			failureCallback();
+		}
+		else{
+			if(xhr.message){
+				sap.m.MessageBox.error(xhr.message);
+			}
+			else{
+				alert(BILaunchpadApp.localized("Folder_List_error")); //TODO: Give generic error
+			}
+		}
+		sap.ui.core.BusyIndicator.hide();
+	};
+	
+	var reqDispatcher = new RequestDispatcher();
+	var request = {
+		surl: surl,
+		bAsync: false,
+		reqType: "GET",
+		successHandler: handleSuccess,
+		errorHandler: handleFailure,
+		headers: {
+			"Accept": "application/json",
+			"Content-Type": "application/json;odata=verbose"
+		}
+	};
+	
+	if(this.mAccessToken == null || this.mAccessToken == undefined){
+		//For Making call to biprws
+		request.headers["x-SAP-logonToken"] = BILaunchpadApp.getlogonToken(); 
+		request.headers["X-SAP-PVL"] = BILaunchpadApp.getPreferredViewingLocale();
+	}
+	else{
+		request.headers["Authorization"] = "Bearer " + this.mAccessToken; // for making call to cloud rest endpoint
+	}
+	
+	sap.ui.core.BusyIndicator.show(0);
+	reqDispatcher.sendRequest(request);
+};
+
+com.sap.fioribi.modules.treetable.util.TreeTableConfigurationUtil.prototype.getNodeChildern = function(uiOptions, surl, callback){
+	//In case of Node Expand (i.e. expanding tree we don't want any sort/Filter and Pagination query
+	if(uiOptions.actionType != this.constant.NODE_EXPAND){
+		var pageSize = (uiOptions.pageSize != undefined)? uiOptions.pageSize : BILaunchpadApp.getPageSizeLimit();
+		var pageNumber = uiOptions.pageNumber;
+		var parameterUrl = "";
+
+		if(uiOptions.reloadAllPage){
+			//Reload all currently loaded page
+			pageSize = pageSize * pageNumber;
+			pageNumber = 1;
+		}
+		parameterUrl += "&page="+pageNumber+"&pagesize=" + pageSize;
+		
+		//Add Sort data in URL
+		if(uiOptions.sortData.id != undefined){
+			if(uiOptions.sortData.order != undefined && uiOptions.sortData.order == "Ascending"){
+				parameterUrl += "&sort=+"+uiOptions.sortData.id;
+			}
+			else{
+				parameterUrl += "&sort=-"+uiOptions.sortData.id;
+			}
+		}
+		//Add Filter data is URL
+		for (var key in uiOptions.filterData) {
+			if (uiOptions.filterData.hasOwnProperty(key)) {
+				var filterKey = key;
+				if(key == 'type'){
+					filterKey = 'typefilter'; //Backend RESTend point identify 'type' as 'typefilter'
+				}
+				else if(key == 'kind'){
+					filterKey = 'kindfilter'; //Backend RESTend point identify 'type' as 'typefilter'
+				}
+				parameterUrl += "&" + filterKey + "=" + uiOptions.filterData[key];
+			}
+		}
+		if(parameterUrl.length != 0){
+			parameterUrl = parameterUrl.substring(1); //To skip 1st '&' from final parameterUrl
+			surl += (!surl.includes("?"))? "?" : "&"; //Add '?' if there are no parameter already available else add '&' for next parameter
+			surl += parameterUrl;
+		}
+	}
+	
+	this._fireRestCall(surl, $.proxy(function(response){
+		var hasNextPage = false;
+		if(uiOptions.actionType != this.constant.NODE_EXPAND){ //hasNextPage will not make sense in Node Expand case so ignore it
+			var pageSize = BILaunchpadApp.getPageSizeLimit();
+			if(uiOptions.reloadAllPage){
+				pageSize = pageSize * uiOptions.pageNumber;
+			}
+			if(response.entries != undefined && response.entries.length == pageSize){
+				hasNextPage = true;
+			}
+		}
+		// To enable or disable the arrow icon based on the flag "haschildren"
+		if (response && response.entries != undefined) {
+			for (let index = 0; index < response.entries.length; index++) {
+				const element = response.entries[index];
+				element.__metadata = {};
+				if(element.haschildren === 'false') {
+					element.__metadata = '';
+				}
+			}
+		}
+		callback(response.entries, hasNextPage);
+	},this));
+};
+
+//TODO: Delete this function after modifying pagePreferenenceModel 
+com.sap.fioribi.modules.treetable.util.TreeTableConfigurationUtil.prototype.getColumnNameAsPerPagePreferenceModel = function(columnName){
+	if(columnName == "updated"){
+		columnName = "lastupdated"; //preference model is storing it as lastupdated
+	}
+	if(columnName == "owner"){
+		columnName = "createdby"; //preference model is storing it as createdby
+	}
+	if(columnName == "created"){
+		columnName = "createdon"; //preference model is storing it as createdon
+	}
+	if(columnName == "lastRun"){
+		columnName = "lastrun"; //preference model is storing it as lastrun (With small 'r')
+	}
+	if(columnName == "favorite"){
+		columnName = "myfavorites"; //preference model is storing it as myfavorites
+	}
+	if(columnName == "kind"){
+		columnName = "type"; //preference model is storing it as type
+	}
+	if(columnName == "path"){
+		columnName = "locationcategories"; //preference model is storing it as type
+	}
+	return columnName;
+};
+
+com.sap.fioribi.modules.treetable.util.TreeTableConfigurationUtil.prototype.getColumnNameAsPerPagePreferenceModelForSchedulePage = function(columnName) {
+	if (columnName == "uistatus") {
+		columnName = "statusschedule";
+	}
+	if (columnName == "updated") {
+		columnName = "instancetimeschedule";
+	}
+	if (columnName == "endtime") {
+		columnName = "recurrenceendtimeschedule";
+	}
+	if (columnName == "subscription") {
+		columnName = "subscriptionschedule";
+	}
+	if (columnName == "owner") {
+		columnName = "createdby";
+	}
+	if (columnName == "created") {
+		columnName = "createdon";
+	}
+	if (columnName == "lastRun") {
+		columnName = "lastrun";
+	}
+	if (columnName == "kind") {
+		columnName = "type";
+	}
+	
+	return columnName;
+};
+com.sap.fioribi.modules.treetable.util.TreeTableConfigurationUtil.prototype.isColumnVisible = function(columnName){
+	if(columnName == "name"){
+		return true;// by default name and favorite are always visible
+	}
+	if (this.pageName == "schedule" || this.pageName == "history") {
+		columnName = this.getColumnNameAsPerPagePreferenceModelForSchedulePage(columnName);
+	}else{
+		columnName = this.getColumnNameAsPerPagePreferenceModel(columnName);
+	}
+	return (this.pagePreferenceModel[columnName] != undefined)? this.pagePreferenceModel[columnName] : true; //By Default given column is visible  
+};
+
+com.sap.fioribi.modules.treetable.util.TreeTableConfigurationUtil.prototype.getColumnWidth = function(columnName){
+	if(this.pagePreferenceModel['useadministratorsettings']){
+		if(columnName == "name"){
+			return "250px"; //To make default size of Column Title longer than any other column
+		}
+		else if(columnName == "favorite"){
+			return "65px"; //To make default size of Column favorite shorter than any other column
+		}
+		return ""; //In case of "Use administrator setting", even though the width data are stored in "pagePreferenceModel", we have to ignore it.
+	}
+	columnName = this.getColumnNameAsPerPagePreferenceModel(columnName);
+	return (this.pagePreferenceModel[columnName+"_width"] != undefined)? this.pagePreferenceModel[columnName+"_width"] : ""; //By Default don't set any width 
+};
+
+com.sap.fioribi.modules.treetable.util.TreeTableConfigurationUtil.prototype.createColumnStructure = function(metaDataStructure, columnNameArray, columnNameSort, columnNameFilter){
+	for(var i=0; i<columnNameArray.length; i++){
+		var hasSort = (columnNameSort.indexOf(columnNameArray[i]) > -1);
+		var hasFilter = (columnNameFilter.indexOf(columnNameArray[i]) > -1);
+
+		//Refer TreeTableOData.js's columnStructure for possible configurable option of column
+		var column = {
+				columnId : columnNameArray[i],
+				displayName : BILaunchpadApp.localized("col_"+columnNameArray[i]),
+				isVisible: this.isColumnVisible(columnNameArray[i]),
+				width: this.getColumnWidth(columnNameArray[i]),
+				hasSort: hasSort,
+				hasFilter: hasFilter,
+		}
+		metaDataStructure.columns.push(column);
+	}
+};
+
+com.sap.fioribi.modules.treetable.util.TreeTableConfigurationUtil.prototype.contextActionHandler = function(oCurrentObject, actionSource, currView){
+	oCurrentObject.isOneClick = false;
+	com.sap.fioribi.components.actionpanel.ActionPanelController.prototype.setCurrentObject(oCurrentObject);
+	
+	/** Sample actionlist json structure
+	var oActionList = {
+		actions: [] //this in turns can have actions array, which is nothing but submenu
+	};*/
+	
+	var oActionList = {}; 
+	var getCafFailedList = function(xhr, ajaxOptions, thrownError) {
+		sap.m.MessageBox.error(xhr.message);
+	};
+	var getCafSuccessList = function(response) {
+		oActionList.actions = response.entries;
+		if(oActionList.actions.length == 0){
+			//In case we don't get any action from backed show error message, TODO: Check if this is really required.
+			sap.m.MessageToast.show(BILaunchpadApp.localized("Client_Actions_Rights_message"));
+		}
+	};
+	
+	var request = {
+		bAsync: false,
+		successHandler: getCafSuccessList,
+		errorHandler: getCafFailedList,
+		headers: {
+			"x-SAP-logonToken": BILaunchpadApp.getlogonToken(),
+			"X-SAP-PVL": BILaunchpadApp.getProductLocale(),// caf actions menu translation is should based on product locale 
+			Accept: "application/json",
+			"Content-Type": "application/json;odata=verbose",
+		}
+	};
+	if(this.pageName != this.constant.FOLDERS_PAGE){
+		//Don't perform emptying of currentObject in case of folders page as it required parent Object (i.e. current node displayed on table control) for others page if nothing is selected then nothing should be send
+		if(actionSource == this.constant.GLOBAL_CAF_ACTION && !(oCurrentObject instanceof Array)){
+			oCurrentObject = []; // In case if its a GLOBAL CAF action then it must be selected from the list of table and if there is no item selected then it should be Empty (Required in Paste action and recyclebin action, where global CAF action is enable even if no item is selected)
+		}
+	}
+	if (oCurrentObject instanceof Array) {
+		var reqBody = {
+			entries: []
+		};
+		for (var i = 0; i<oCurrentObject.length; i++) {
+			var jsonItem = oCurrentObject[i];
+			reqBody.entries.push({
+				id: jsonItem.id
+			});
+		}
+		request.reqType = "POST";
+		request.surl = BILaunchpadApp.getWebServiceBaseURL() + "/internal/v1/infoobjects/clientactions?application=bing"+"&docType="+oCurrentObject.type;
+		request.data = JSON.stringify(reqBody);
+	} else {
+		request.reqType = "GET";
+		request.surl = BILaunchpadApp.getWebServiceBaseURL() + "/internal/v1/infoobjects/" + oCurrentObject.id + "/clientactions?application=bing"+"&docType="+oCurrentObject.type;
+	}
+	
+	if (oCurrentObject.container != null || oCurrentObject.container != undefined) {
+		request.surl = request.surl + "&container=" + oCurrentObject.container;
+	}
+	else if(BILaunchpadApp.getContainer() != ""){
+		request.surl = request.surl + "&container=" + BILaunchpadApp.getContainer();
+	}
+	
+	if (BILaunchpadApp.getActionType() != "") {
+		request.surl = request.surl + "&actiontype=" + BILaunchpadApp.getActionType();
+	}
+	if (BILaunchpadApp.getCopyMoveAction() != "") {
+		request.surl = request.surl + "&mcaction=" + BILaunchpadApp.getCopyMoveAction();
+	}
+	
+	var reqDispatcher = new RequestDispatcher();
+	reqDispatcher.sendRequest(request);
+	return oActionList;
+};
+
+com.sap.fioribi.modules.treetable.util.TreeTableConfigurationUtil.prototype.actionSelectionHandler = function(selectedAction, currView){
+	var currentPageName = this.pageName;
+	if(selectedAction.techname == 'cut'){
+		//In case of cut action store the currentNodePath, and we need to refresh this path as well in tree node once paste is performed
+		BILaunchpadApp.setCutNodePath(currView.controller.currSelectedNodePath);
+	}
+	
+	var cafActionCallback = function(){
+		//TODO: All method in this class is used by different action handler (like copyHandler/cutHandler/PasteHandler/CreateFolderHandler/etc hence writing function in this class to match that API, need to rework here by modifying corresponding handler
+		this.currObject = com.sap.fioribi.components.actionpanel.ActionPanelController.prototype.getCurrentObject();
+		if(this.currObject == null || this.currObject == undefined){
+			this.currObject = []; //In case current object is null or undefined few action handler throw exception, so making it as an empty arry in case of null.
+			com.sap.fioribi.components.actionpanel.ActionPanelController.prototype.setCurrentObject(this.currObject);
+		}
+		this.tab = currentPageName;
+		if(this.currObject != null && this.currObject != undefined){
+			this.currObject.tab = currentPageName; //TODO: this is bad design we should not add tab in currentObject but few of CAF handler required this infromation, so providing that infromation for now, once we refactored all Local/Global CAF action this has to be removed
+		}
+		
+		var currentFolderNode = currView.getCurrentFolderNode(); //Current Folder node is nothing but the node which is selected from the left tree
+		if(currentFolderNode != undefined){
+			this.currentParentID = currentFolderNode.cuid; // Get cuid of current folder node
+			this.name = currentFolderNode.name; //needed by "UploadDocument.fragment.js"
+		}
+		this.dialogUtil = new com.sap.fioribi.modules.treetable.util.TreeTableDialogUtil();
+		this._setFavoriteInSelectedObject = function(state){
+			if(Array.isArray(this.currObject)){
+				for(var i=0; i<this.currObject.length;i++){
+					this.currObject[i].favorite = state;
+				}
+			}
+			else{
+				this.currObject.favorite = state;
+			}
+			currView.controller.reloadTableNode();
+		}
+		
+		this.getShowFoldersOnAfterDelete = function() {
+			currView.controller.reloadTableNode();
+		};
+		this.getShowFoldersInTreeOnAfterDelete = function() {
+			currView.controller.reloadTreeNode();
+		};
+		
+		this.getShowAll = function(){
+			currView.controller.reloadTableNode();
+		};
+		this.getRecent = function(){
+			currView.controller.reloadTableNode();
+		};
+		this.getDocuments = function(){
+			currView.controller.reloadTableNode();
+		};
+		this.getCategories = function(){
+			currView.controller.reloadTableNode();
+		};
+		this.getFavorites = function(){
+			currView.controller.reloadTableNode();
+		};
+		this.getMyRecentlyRun = function(){
+			currView.controller.reloadTableNode();
+		};
+		this.getRecentBIW = function(){
+			currView.controller.reloadTableNode();
+		};
+		
+		this.getShowFoldersOnAfterMarkAsFavorite = function() {
+			this._setFavoriteInSelectedObject("true");
+		};
+		this.getShowFoldersOnAfterRemoveFromFavorite = function() {
+			this._setFavoriteInSelectedObject("false");
+		};
+		this.getShowcategoryOnAfterMarkAsFavorite = function() {
+			this._setFavoriteInSelectedObject("true");
+		};
+		this.getShowcategoryOnAfterRemoveFromFavorite = function() {
+			this._setFavoriteInSelectedObject("false");
+		};
+		
+		this.getShowallFavoritesRecentOnAfterFavoriteSelectmodel = function(){
+			this._setFavoriteInSelectedObject("true");
+		}
+		this.getShowallFavoritesRecentOnAfterRemoveFromFavoriteSelectmodel = function() {
+			this._setFavoriteInSelectedObject("false");
+		};
+		this.getMyRecentlyRun = function() {
+			var x=10;
+		};
+		
+		//Required by copyHandler/cutHandler/PasteHandler/PasteShortcutHandler
+		this.getView = $.proxy(function(){
+			var temp = {
+				oAddIcon: {
+					setEnabled : $.proxy(function(value){
+						//In case the value is false then disable global CAF action only if Move operation is performed (CopyMoveAction is set to empty in case of move operation)
+						if(value || BILaunchpadApp.getCopyMoveAction() == ""){ 
+							currView.enableGlobalCafAction(value); //To enable/disable the global CAF action if cut/copy/paste action is performed
+						}
+					},this)
+				}
+			};
+			return temp;
+		},this);
+		
+		//Required by PasteHandler.js and UploadDocumenthandler.js
+		this.updateTable = $.proxy(function(currentParentId){
+			currView.controller.reloadTreeNode();
+			currView.controller.reloadTableNode();
+			if(BILaunchpadApp.getCutNodePath() != ""){
+				//In case of cut-paste, this code will be executed, so we have to refresh cut tree node as well along with current node refresh
+				currView.controller.reloadTreeNode(BILaunchpadApp.getCutNodePath());
+				BILaunchpadApp.setCutNodePath("");
+			}
+		},this);
+		
+		//Required by CreateFolderHandler.js
+		this.dialogCreate = function(){
+			this.dialogUtil.createFolderDialog(currView.getCurrentFolderNode(), function(){
+				currView.controller.reloadTreeNode();
+				currView.controller.reloadTableNode();
+			});
+		};
+		
+		//Required by Recycle Bin after restore table reload
+		this.reloadPage = function() {
+			currView.controller.reloadTableNode();
+		}
+		//Start - Required by UploadDocumenthandler.js and UploadDocument.fragment.js
+		//TODO: Revisit this code and optimize (Code optimization needed in UploadDocument.fragment.js file) 
+		this.uploadFileModel = new sap.ui.model.json.JSONModel();
+	    var ofile = {
+	        entries: []
+	    };
+	    this.uploadFileModel.setData(ofile);
+	    this.Upload = function(file, cuid, name1, desc, key_words, oFileUpload, use_cr_strings, retain_cr_data, createcopy) {
+	    	return this.dialogUtil.Upload(file, cuid, name1, desc, key_words, oFileUpload, use_cr_strings, retain_cr_data, createcopy);
+	    };
+		this.dialogupload = function(){
+			//TODO: write new code and stop using CategoriesController
+			var oFolderController = this;
+			jQuery.sap.require("com.sap.fioribi.caf.categories.platform.CategoriesHandler");
+		    var oCategoriesController = new com.sap.fioribi.caf.categories.platform.CategoriesController();
+		    var oControllers = [oFolderController, oCategoriesController];
+		    this.fileUploadDialog = sap.ui.jsfragment("com.sap.fioribi.caf.UploadDocument.platform.UploadDocument", oControllers);
+		    oCategoriesController.getPreferencesRootTree(this.fileUploadDialog);
+		    sap.ui.core.BusyIndicator.hide();
+		    this.fileUploadDialog.open();
+		    this.fileUploadDialog.addStyleClass("BILP-createDialog");
+		};
+		//End - Required by UploadDocumenthandler.js and UploadDocument.fragment.js
+		
+		//Start - Required by CreateHyperlinkHandler.js and Hyperlink.fragment.js
+		//TODO: Revisit this code and optimize (Code optimization needed in Hyperlink.fragment.js files) 
+		this.createHyperlink = function(title_hyperlink, description_hyperlink, keywords_hyeprlink, url_hyeprlink) {
+			return this.dialogUtil.createHyperlink(this, title_hyperlink, description_hyperlink, keywords_hyeprlink, url_hyeprlink);
+		};
+		this.dialogHyperlink = function(){
+			//TODO: write new code and stop using CategoriesController
+			var oFolderController = this;
+		    jQuery.sap.require("com.sap.fioribi.caf.categories.platform.CategoriesHandler");
+		    var oCategoriesController = new com.sap.fioribi.caf.categories.platform.CategoriesController();
+		    var oControllers = [oFolderController, oCategoriesController];
+		    this.hyperlinkDialog = sap.ui.jsfragment("com.sap.fioribi.caf.CreateHyperlink.platform.Hyperlink", oControllers);
+		    oCategoriesController.getPreferencesRootTree(this.hyperlinkDialog);
+		    sap.ui.core.BusyIndicator.hide();
+		    this.hyperlinkDialog.open();
+		    this.hyperlinkDialog.addStyleClass("BILP-createDialog");
+		};
+		//End - Required by CreateHyperlinkHandler.js and Hyperlink.fragment.js
+	};
+	
+	var cafActionCallbackForFolderPage = new cafActionCallback();
+	
+	if (selectedAction.actionname === "create_category") { //Only for create category there is a different flow compare to other CAF action
+		var typeParent = selectedAction.type;
+		createCategoryPage = new com.sap.fioribi.components.categories.CreateCategoryContainer(typeParent);
+        createCategoryPage.oController.setParentController(cafActionCallbackForFolderPage, typeParent);
+        createCategoryPage.getUI();
+	}
+	else{
+		com.sap.fioribi.components.actionpanel.ActionPanelController.prototype.setParentController(cafActionCallbackForFolderPage);
+		if (selectedAction.actionname === "copy_opendoc_link") {
+			com.sap.fioribi.components.actionpanel.ActionPanelController.prototype.copyOpenDocUrl(selectedAction);
+		}
+		else{
+			com.sap.fioribi.components.actionpanel.ActionPanelController.prototype.peformAction(selectedAction);
+		}
+	}
+};
+
+com.sap.fioribi.modules.treetable.util.TreeTableConfigurationUtil.prototype.docSelectActionHandler = function(oCurrentObject, currView){	
+	if(this.pageName === "inbox") {
+		var oCafObject = {
+            techname: BILaunchpadApp.oConstants.VIEW
+        };
+    }
+    else {
+		var ActionList = this.contextActionHandler(oCurrentObject);
+		var oCafObject = {
+			techname: ActionList.actions[0].techname
+		};
+    }
+    oCurrentObject.isOneClick = true; //TODO: Check what this statement really does
+    com.sap.fioribi.components.actionpanel.ActionPanelController.prototype.setCurrentObject(oCurrentObject);
+    this.actionSelectionHandler(oCafObject, currView);    
+};
+
+com.sap.fioribi.modules.treetable.util.TreeTableConfigurationUtil.prototype.favoriteHandler = function(oCurrentObject,favFlag,currView){
+	if (BILaunchpadApp.oBILaunchpadUtil.isViewSupported(oCurrentObject.fav)) {
+		var oTechname=BILaunchpadApp.oConstants.MARK_AS_FAVORITE;
+		if(favFlag) {//If FavFlag is true then perform remove favorite Action
+			oTechname=BILaunchpadApp.oConstants.REMOVE_FROM_FAVORITE;
+		}
+        var oCafObject = {
+            techname:oTechname
+        };
+        oCurrentObject.isOneClick = true; //TODO: Check what this statement really does
+        com.sap.fioribi.components.actionpanel.ActionPanelController.prototype.setCurrentObject(oCurrentObject);
+    	this.actionSelectionHandler(oCafObject, currView);
+    }
+};
+
+com.sap.fioribi.modules.treetable.util.TreeTableConfigurationUtil.prototype.customColumnForStatus = function(contextPath, currView){
+	//Here 'this' context is of corresponding configurationPage. Currently it is been used by SchedulePageConfiguration.js and HistoryPageConfiguration.js
+	BILaunchpadApp.includeStyleSheet("com/sap/fioribi/modules/treetable/css/TreeTable.css");
+	var statusColumnControlTemplate = new sap.m.FlexBox({
+		renderType: sap.m.FlexRendertype.Bare,
+		items: [
+			new sap.ui.core.Icon({
+				size: "1rem",
+				src: {
+					path: "tableData>iconstatus",
+					formatter: $.proxy(function(status) {
+						return this.treeTableIcon.statusIcon(status);
+					},this)
+				},
+				color: {
+					path: "tableData>iconstatus",
+					formatter: $.proxy(function(status) {
+						return this.treeTableIcon.statusColor(status);
+					},this)
+				}
+			}).addStyleClass("BILP-StatusIconPadding"),
+			new sap.m.Link({
+				text: "{tableData>uistatus}",
+				tooltip: BILaunchpadApp.localized("instance_details"),
+				press: $.proxy(function(oEvent) {
+					var bindingContext = oEvent.getSource().mBindingInfos.text.binding.oContext;
+					if(bindingContext != undefined){ //Basically this check is required to ignore right click when it is performed on empty row
+						var tableSelectedNode = bindingContext.getModel().getProperty(bindingContext.sPath); //TODO: Find better way to get the binding context
+						BILaunchpadApp.setContainer(BILaunchpadApp.oConstants.SCHEDULE_CONTAINER);
+						com.sap.fioribi.components.actionpanel.ActionPanelController.prototype.setCurrentObject(tableSelectedNode);
+						var selectedAction = { techname: BILaunchpadApp.oConstants.DETAILS };
+						this.configUtil.actionSelectionHandler(selectedAction, currView);
+					}
+				},this)
+			})
+		]
+	})
+	return statusColumnControlTemplate;
+};
+
+

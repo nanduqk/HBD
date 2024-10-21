@@ -1,0 +1,1541 @@
+/*
+�2010 - 2016 SAP SE or an SAP affiliate company.  All rights reserved.
+ 
+SAP and other SAP products and services mentioned herein as well as their respective logos are trademarks or registered trademarks of SAP SE in Germany and other countries.  Please see http://www.sap.com/corporate-en/legal/copyright/index.epx#trademark for additional trademark information and notices.
+*/
+
+jQuery.sap.declare({modName : "com.sap.fioribi.modules.treetable.control.TreeTableView",    type : "view"});
+
+jQuery.sap.require({modName: "com.sap.fioribi.modules.common.BILPView",type: "view"});
+jQuery.sap.require("sap.ui.core.IconPool");
+jQuery.sap.require("com.sap.fioribi.modules.treetable.helper.TreeTableUtil"); 
+jQuery.sap.require("com.sap.fioribi.modules.treetable.helper.TreeTableIcon");
+jQuery.sap.require("com.sap.fioribi.modules.treetable.helper.TreeTableConstant");
+
+com.sap.fioribi.modules.treetable.control.TreeTableView = function(arg) {
+	this.mSettings = arg.settings;
+	this.oBreadCrumbs;
+	this.treeTableUtil = new com.sap.fioribi.modules.treetable.helper.TreeTableUtil();
+	this.treeTableIcon = new com.sap.fioribi.modules.treetable.helper.TreeTableIcon();
+	this.constant = new com.sap.fioribi.modules.treetable.helper.TreeTableConstant();
+	this.isEditMode = false;
+	
+	com.sap.fioribi.modules.common.BILPView.apply(this, arguments);
+};
+
+com.sap.fioribi.modules.treetable.control.TreeTableView.prototype = jQuery.sap.newObject(com.sap.fioribi.modules.common.BILPView.prototype);
+
+com.sap.fioribi.modules.treetable.control.TreeTableView.prototype.getControllerName = function() {
+	return "com.sap.fioribi.modules.treetable.control.TreeTableController";
+};
+
+com.sap.fioribi.modules.treetable.control.TreeTableView.prototype.setSplitterHeight = function () {
+	//Rerender SplitterLayout only if the current page is Treetable based pages.
+	if (this.pageSid==undefined || this.pageSid == BILaunchpadApp.getNavContainer().getCurrentPage().sId) {
+		setTimeout(function () {
+			var mainViewHeight = this.oLayout.$().height();
+			var mainToolbarHeight = this.breadCrumHeader ? this.breadCrumHeader.$().height() : 0;//this.getViewDom("mainToolbar").clientHeight;
+			var height = mainViewHeight - mainToolbarHeight;
+			this.splitterLayout.setHeight(height + "px")
+		}.bind(this), 100);
+	}
+}
+
+com.sap.fioribi.modules.treetable.control.TreeTableView.prototype.createContent = function(oController) {
+	this.controller = oController;
+	BILaunchpadApp.includeStyleSheet("com/sap/fioribi/modules/treetable/css/TreeTable.css");
+	
+	this.oLayout = new sap.m.VBox({
+		width: "100%",
+		height:"100%",
+	});
+	
+	if(this.mSettings.hasBreadcrumb){
+		this.createBreadCrumHeader();
+		this.oLayout.addItem(this.breadCrumHeader);
+	}
+	
+	this.splitterLayout = new sap.ui.layout.Splitter({});
+	
+	if(this.mSettings.hasTree){
+		this.createTree();
+		this.splitterLayout.addContentArea(this.oFolderTree);
+	}
+	
+	if(this.mSettings.hasTable){
+		this.oSideLayout = new sap.m.VBox({
+			width: "100%",
+			height:"100%"
+		});
+		
+		this.createTable();
+		this.oSideLayout.addItem(this.oTable);
+		if(this.mSettings.breadCrumbData.hasGridListAction){
+			this.createTileView();
+			this.oSideLayout.addItem(this.oTileContainer);
+			//Default view is list view but if configured than make default view as grid view
+			if(this.mSettings.defaultViewType == this.constant.GRID_VIEW){
+				this.switchGridTileView();
+			}
+		}
+		this.splitterLayout.addContentArea(this.oSideLayout);
+	}
+	this.oLayout.addItem(this.splitterLayout);
+	if(this.mSettings.breadCrumbData.hasEditAction){
+		this.oPage = new sap.m.Page({
+	        footer: [],
+	        showFooter: false,
+	        showHeader:false
+	    });
+		this.oPage.addContent(this.oLayout);
+		this.editHomePageFooter = new sap.m.Bar();
+		this.editHomePageFooter.addContentRight(this.saveButton);
+	    this.oPage.setFooter(this.editHomePageFooter);
+		return this.oPage;
+	}else{
+		return this.oLayout;
+	}
+	
+};
+
+com.sap.fioribi.modules.treetable.control.TreeTableView.prototype.switchGridTileView = function(){
+	if(this.mSettings.breadCrumbData.hasGridListAction){
+		if (this.gridTileButton.getIcon() =="sap-icon://grid") {
+			this.gridTileButton.setIcon("sap-icon://list");
+			this.gridTileButton.setTooltip(BILaunchpadApp.localized("list_view"));
+			this.oTable.setVisible(false);
+			this.oTileContainer.setVisible(true);
+		} else {
+			this.gridTileButton.setIcon("sap-icon://grid");
+			this.gridTileButton.setTooltip(BILaunchpadApp.localized("grid_view"));
+			this.oTable.setVisible(true);
+			this.oTileContainer.setVisible(false);
+		}
+		this.clearSelection();
+	}
+};
+
+com.sap.fioribi.modules.treetable.control.TreeTableView.prototype.createBreadCrumHeader = function() {
+	var linkTemplate = new sap.m.Link({
+		text: "{bc_name}",
+		href: "javascript:void(0)",
+		customData: this.createCustomIdentifier({
+			path:"bc_name",
+			formatter: function(fValue) {
+				return "link-"+ fValue;
+			}
+		}),
+		press: $.proxy(function(oEvent) {
+			var currNodeSelected = oEvent.getSource().getModel().getProperty(oEvent.getSource().getBindingContext().getPath());
+			this.controller.nodeSelectionAction(currNodeSelected.bc_path, true);  //2nd argument true, means clear sort and filter
+		}, this)
+	});
+
+	this.oBreadCrumbs = new sap.m.Breadcrumbs({
+		visible: true
+	}).addStyleClass("BILP-breadCrumbPadding sapContrastPlus");
+	this.oBreadCrumbs.bindAggregation("links", {
+		path: "/",
+		template: linkTemplate
+	});
+
+	this.autoRefreshButton = new sap.m.Button({
+		icon: "sap-icon://restart", //"sap-icon://stop"
+		visible: this.mSettings.breadCrumbData.hasAutoRefreshAction,
+		tooltip: BILaunchpadApp.localized("auto_refresh_tooltip"),
+		type:sap.m.ButtonType.Transparent,
+		customData: this.createCustomIdentifier("autoRefreshButton"),
+		press: $.proxy(function(oEvent){
+			if (this.autoRefreshButton.getIcon() == "sap-icon://restart") {
+				this.controller.isAutoRefreshEnable = true;
+				this.controller._autoRefreshTable();
+				sap.m.MessageToast.show(BILaunchpadApp.localized("auto_refresh_on")); 
+				this.autoRefreshButton.setIcon("sap-icon://stop");
+			} else {
+				this.controller.isAutoRefreshEnable = false;
+				sap.m.MessageToast.show(BILaunchpadApp.localized("auto_refresh_off"));
+				this.autoRefreshButton.setIcon("sap-icon://restart");
+			}
+		},this)
+	}).addStyleClass("sapUiSizeCompact sapContrastPlus");
+	
+	this.refreshButton = new sap.m.Button({
+		icon: "sap-icon://refresh",
+		visible: this.mSettings.breadCrumbData.hasRefreshAction,
+		tooltip: BILaunchpadApp.localized("refresh"),
+		type:sap.m.ButtonType.Transparent,
+		customData: this.createCustomIdentifier("refreshButton"),
+		press: $.proxy(function(oEvent){
+			this.controller.nodeSelectionAction(this.controller.currSelectedNodePath, false); //2nd argument false, means don't clear sort and filter
+			sap.m.MessageToast.show(BILaunchpadApp.localized("Successfully_Refreshed"));
+		},this)
+	}).addStyleClass("sapUiSizeCompact sapContrastPlus");
+	
+	this.editButton = new sap.m.Button({
+		icon: "sap-icon://edit",
+		visible: this.mSettings.breadCrumbData.hasEditAction,
+		tooltip: BILaunchpadApp.localized("edit"),
+		type:sap.m.ButtonType.Transparent,
+		customData: this.createCustomIdentifier("editButton"),
+		press: $.proxy(function(oEvent){
+			this.controller.nodeSelectionAction(this.controller.currSelectedNodePath); //Reload the page in case of Edit mode (this will remove all sort/filter as well)
+			this.oPage.setShowFooter(true);
+			this.editMode();
+			this.editButton.setEnabled(false);
+		},this)
+	}).addStyleClass("sapUiSizeCompact sapContrastPlus");
+	
+	this.saveButton = new sap.m.Button({
+		text: BILaunchpadApp.localized("Done"),
+		visible: this.mSettings.breadCrumbData.hasEditAction,
+		type:sap.m.ButtonType.Transparent,
+		customData: this.createCustomIdentifier("saveButton"),
+		press: $.proxy(function(oEvent){			
+			if(this.mSettings.breadCrumbData.editAction != undefined){
+				this.mSettings.breadCrumbData.editAction.saveHandler(this.oTable.getModel("tableData").getData()); 
+			}
+			this.editButton.setEnabled(true);
+			this.oPage.setShowFooter(false);
+			this.nonEditMode();
+		},this)
+	}).addStyleClass("sapUiSizeCompact sapContrastPlus");
+
+	this.addButton = new sap.m.Button({
+		icon: "sap-icon://add",
+		visible: this.mSettings.breadCrumbData.hasCreateAction,
+		tooltip: BILaunchpadApp.localized("text_Add"),
+		type:sap.m.ButtonType.Transparent,
+		customData: this.createCustomIdentifier("addButton"),
+		press: $.proxy(function(oEvent){
+			var tableSelectedNodes = this.getSelectedNodes();
+			this.getContextActions(this.constant.ADD_ACTION, tableSelectedNodes, oEvent.getSource());
+		},this)
+	}).addStyleClass("sapUiSizeCompact sapContrastPlus");
+
+	this.downloadButton =  new sap.m.Button({
+		icon: "sap-icon://download",
+		visible: this.mSettings.breadCrumbData.hasDownloadAction,
+		type:sap.m.ButtonType.Transparent,
+		tooltip: BILaunchpadApp.localized("exportToExcel"),
+		customData: this.createCustomIdentifier("downloadButton"),
+        press: $.proxy(function(oEvent) {
+        	this.controller.exportTableAsExcel();
+        },this)
+	}).addStyleClass("sapUiSizeCompact sapContrastPlus");
+
+	this.globalActionButton = new sap.m.Button({
+		icon: "sap-icon://overflow",
+		visible: this.mSettings.breadCrumbData.hasGlobalContextAction,
+		tooltip: BILaunchpadApp.localized("more"),
+		type:sap.m.ButtonType.Transparent,
+		enabled: false,
+		customData: this.createCustomIdentifier("globalActionButton"),
+		press: $.proxy(function(oEvent){
+			var tableSelectedNodes = this.getSelectedNodes();
+			this.getContextActions(this.constant.GLOBAL_CAF_ACTION, tableSelectedNodes, oEvent.getSource());
+		},this)
+	}).addStyleClass("sapUiSizeCompact sapContrastPlus");
+
+	this.gridTileButton = new sap.m.Button({
+		icon: "sap-icon://grid",
+		visible: this.mSettings.breadCrumbData.hasGridListAction,
+		type:sap.m.ButtonType.Transparent,
+		customData: this.createCustomIdentifier("gridTileSwitchButton"),
+		press: $.proxy(function(oEvent){
+			this.switchGridTileView();
+		},this)
+	}).addStyleClass("sapUiSizeCompact sapContrastPlus")
+	
+	this.buttonHbox=new sap.m.HBox({
+		width:"25%",
+		justifyContent:sap.m.FlexJustifyContent.End,
+		wrap:sap.m.FlexWrap.Wrap,
+		items:[
+		   this.autoRefreshButton,
+	       this.refreshButton,
+	       this.addButton,
+	       this.downloadButton,
+	       this.globalActionButton,
+		   this.editButton,
+	       this.gridTileButton
+       ]
+	}).addStyleClass("BILP-PaddingHbox");
+
+	var headerControl;
+	if(this.mSettings.breadCrumbData.breadCrumbHeader) {
+		headerControl =  new sap.m.Text({
+			text: this.mSettings.breadCrumbData.breadCrumbHeader
+		}).addStyleClass('BILP-table-breadcrum-label sapContrastPlus') ;
+	} 
+	/* based on breadcrumbheaderprefix showing the prefix text with breadcrumb */
+	else if(this.mSettings.breadCrumbData.breadCrumbPrefix) {
+		headerControl = new sap.m.HBox({
+			items: [
+			new sap.m.Text({
+				text: this.mSettings.breadCrumbData.breadCrumbPrefix
+			}).addStyleClass('BILP-table-breadcrum-label sapContrastPlus'),
+			this.oBreadCrumbs.addStyleClass('BILP-breadcrumb-prefix')
+		   ]
+		})
+	}
+	else {
+		 headerControl = this.oBreadCrumbs;
+	}
+	this.breadCrumHeader = new sap.m.OverflowToolbar({
+		height:"35px",
+		visible: this.mSettings.hasBreadcrumb,
+		content: [
+			headerControl, 
+			new sap.m.ToolbarSpacer({}), 
+			this.buttonHbox
+		]
+	}).addStyleClass("BILP-toolBarColor");
+	this.breadCrumHeader.addAriaLabelledBy(headerControl);
+};
+
+com.sap.fioribi.modules.treetable.control.TreeTableView.prototype.createTree = function() {
+	var handleTreeSelected = $.proxy(function(oEvent) {
+		// tree selection required when table present 
+		if(this.mSettings.hasTable) {
+			var eventParameterContext = oEvent.getSource().getSelectedContexts()[0];
+			this.controller.nodeExpandAction(eventParameterContext.sPath);
+			this.controller.nodeSelectionAction(eventParameterContext.sPath, true);  //2nd argument true, means clear sort and filter
+		}
+	}, this);
+
+	var handleTreeToggleOpen = $.proxy(function(oEvent) {
+		if(oEvent.mParameters.expanded){ //Load data only if the action is expanded
+			var eventParameterContext = oEvent.getParameters().itemContext;
+			this.controller.nodeExpandAction(eventParameterContext.sPath, true); //2nd argument is for force load
+		}
+	}, this);
+	
+	this.oFolderTree = new sap.m.Tree({
+		enableScrolling : true,
+		mode: sap.m.ListMode.SingleSelectMaster,
+		toggleOpenState: handleTreeToggleOpen,
+		select: handleTreeSelected,
+		customData: this.createCustomIdentifier("treeControl"),
+		layoutData: new sap.ui.layout.SplitterLayoutData({
+			size: this.mSettings.splitterCustomSize || "18%",
+			resizable: true
+		})
+	}).addStyleClass("BILP-treeBox BILP-TreePadding sapUiSizeCompact");
+
+	if(this.mSettings.hasDragNDrop){
+		var dragDropConfig = this.handleTreeDragDropConf();
+		for(var i=0; i<dragDropConfig.length; i++){
+			this.oFolderTree.insertDragDropConfig(dragDropConfig[i]);
+		}
+	}
+	var acceptedTreeKind = this.mSettings.treeData.kindList;
+	
+	this.nodeTemplate = new sap.m.StandardTreeItem({
+		title: "{treeData>"+this.mSettings.bindingPath.nodeName+"}",
+		tooltip : "{treeData>"+this.mSettings.bindingPath.nodeName+"}",
+		data : "{treeData>"+this.mSettings.bindingPath.nodeType+"}",
+		customData: this.createCustomIdentifier({
+			path:"treeData>"+this.mSettings.bindingPath.nodeName,
+			formatter: function(fValue) {
+				return "treeItem-"+ fValue;
+			}
+		}),
+		visible: {
+			path:"treeData>"+this.mSettings.bindingPath.nodeType,
+			formatter: $.proxy(function(fValue) {
+				//To find the type in the accepted kind list with case insensitive
+				//If it is found in accepted kind than show that object
+				return this.treeTableUtil.findInArray(acceptedTreeKind, fValue);
+			},this)
+		},
+		icon : {
+			path: "treeData>"+this.mSettings.bindingPath.nodeType,
+			formatter: $.proxy(function(fValue){
+				return this.treeTableIcon.getSAPUI5Icon(fValue)
+			},this)
+		}
+	}).addStyleClass("BILP-TreeTopBottomPadding sapUiSizeCompact BILP-folder-tree-list-item");
+	this.oFolderTree.bindItems("treeData>/"+this.mSettings.bindingPath.nodeChildren, this.nodeTemplate);
+};
+
+// Once the cell is selected from the table (or) tile selection happens this function should be called to perform the operation
+com.sap.fioribi.modules.treetable.control.TreeTableView.prototype.handleItemSelect = function(eventParameterContext){
+	if(eventParameterContext == undefined || this.isEditMode){ //Basically this check is required to ignore right click when it is performed on empty row and skil all action for Edit mode
+		return;
+	}
+	
+	// for given selected item in table find corresponding entry in tree
+	var acceptedTreeKind = [];
+	if(this.mSettings.treeData && this.mSettings.treeData.kindList){
+		acceptedTreeKind = this.mSettings.treeData.kindList; //get list of accepted kind to display in tree
+	}
+	var tableSelectedNode = eventParameterContext.getModel().getProperty(eventParameterContext.sPath);
+	var tableSelectedNodeType = tableSelectedNode[this.mSettings.bindingPath.nodeType];
+	var tableSelectedNodeId = tableSelectedNode[this.mSettings.bindingPath.nodeId];
+	
+	if(acceptedTreeKind.includes(tableSelectedNodeType)){
+		var currTreeNodeChildren = this.getCurrentFolderNode()[this.mSettings.bindingPath.nodeChildren];
+		if(currTreeNodeChildren != undefined){
+			for(var i=0; i<currTreeNodeChildren.length; i++){
+				if(currTreeNodeChildren[i][this.mSettings.bindingPath.nodeId] == tableSelectedNodeId){
+					var newSelectedPath = this.controller.currSelectedNodePath + "/" + this.mSettings.bindingPath.nodeChildren + "/" + i;
+					this.controller.nodeExpandAction(newSelectedPath);
+					this.controller.nodeSelectionAction(newSelectedPath, true);  //2nd argument true, means clear sort and filter
+					break;
+				}
+			}
+		}
+	}
+	else{
+		//Action to be performed on document selection.
+		if(this.mSettings.docSelectActionHandler != undefined){
+			var tableSelectedNode = eventParameterContext.getModel().getProperty(eventParameterContext.sPath);
+			this.mSettings.docSelectActionHandler(tableSelectedNode, this);
+		}
+	}
+};
+
+com.sap.fioribi.modules.treetable.control.TreeTableView.prototype.getImageIconControl = function(){
+	var typePath = "tableData>"+this.mSettings.bindingPath.nodeType;
+	var isIconAvailableInSAPUI5Lib = $.proxy(function(sType){ //TO check if icon is available in SAPUI5 Library or not
+		//To find the type in the accepted list with case insensitive
+		return this.treeTableUtil.findInArray(this.treeTableIcon.types, sType);
+	},this);
+	
+	var sapui5Icon = new sap.ui.core.Icon({
+		customData: this.createCustomIdentifier("sapui5Icon"),
+		src :{
+			path: typePath,
+			formatter: $.proxy(function(type){
+				return isIconAvailableInSAPUI5Lib(type)? this.treeTableIcon.getSAPUI5Icon(type) : null;
+			},this)
+		},
+		color: {
+			path: typePath,
+			formatter: $.proxy(function(type){
+				return isIconAvailableInSAPUI5Lib(type)? this.treeTableIcon.getIconColour(type) : "";
+			},this)
+		},
+		size : "1.1rem",
+		height:{
+			path: typePath,
+			formatter: function(type){
+				return isIconAvailableInSAPUI5Lib(type)? "28px" : "0px";
+			}
+		},
+		width:{
+			path: typePath,
+			formatter: function(type){
+				return isIconAvailableInSAPUI5Lib(type)? "28px" : "0px";
+			}
+		},
+		tooltip:{
+			path: typePath,
+			formatter: function(type){
+				return type;
+			}
+		},
+		decorative :false,
+	}).addStyleClass("BILP-TableColumnIconAligment");
+	
+	if (this.mSettings.hasSingleClickAction) {
+		sapui5Icon.addStyleClass("BILP-treeTableCursor")
+	}
+	
+	var boIcon = new sap.m.Image({ // for BO specific document get icon from icons-with-type.png 
+		customData: this.createCustomIdentifier("boIcon"),
+		height: {
+			path: typePath,
+			formatter: function(type){
+				return isIconAvailableInSAPUI5Lib(type)? "0px" : "28px"
+			}
+		},
+		width: {
+			path: typePath,
+			formatter: function(type){
+				return isIconAvailableInSAPUI5Lib(type)? "0px" : "28px";
+			}
+		},
+		src: {
+			path: typePath,
+			formatter: $.proxy(function(type){
+				return isIconAvailableInSAPUI5Lib(type)? "" : this.treeTableIcon.getImagePath();
+			},this)
+		},
+		backgroundRepeat: "no-repeat",
+		backgroundSize: "initial",
+		mode: sap.m.ImageMode.Background,
+		backgroundPosition: {
+			path: typePath,
+			formatter: $.proxy(function(type){
+				return isIconAvailableInSAPUI5Lib(type)? "" : this.treeTableIcon.getImagePosition(type);
+			},this)
+		},
+	});
+	
+	if (this.mSettings.hasSingleClickAction) {
+		boIcon.addStyleClass("BILP-treeTableCursor")
+	}
+	
+	return [sapui5Icon, boIcon];
+};
+
+com.sap.fioribi.modules.treetable.control.TreeTableView.prototype.createTable = function() {
+	var selectionMode = sap.ui.table.SelectionMode.Single; //Default mode to be single selection
+	if(this.mSettings.tableData.selectionMode == 'single'){
+		selectionMode = sap.ui.table.SelectionMode.Single;
+	}
+	else if(this.mSettings.tableData.selectionMode == 'multi'){
+		selectionMode = sap.ui.table.SelectionMode.Multi;
+	}
+	
+	this.oTable = new sap.ui.table.Table({
+		height: "100%",
+		width: "100%",
+		selectionMode: selectionMode,
+		alternateRowColors: true,
+		visibleRowCountMode:"Auto",
+		enableColumnReordering: true,
+		fixedColumnCount: 1, //To Fix first column so that horizontal scroll will not hide the first column.
+		customData: this.createCustomIdentifier("tableControl"),
+		cellClick: $.proxy(function(oEvent) {
+			var eventParameterContext = oEvent.getParameters().rowBindingContext;
+			//Providing new feature for LocalAction and Favorite Column to perform respective action on-click of column cell
+			var customDataArray = oEvent.getParameters().cellControl.getCustomData();
+			var customData;
+			for(var i=0; i<customDataArray.length; i++){
+				if(customDataArray[i].getProperty("key") == "ttc-id"){
+					customData = customDataArray[i].getProperty("value");
+					break;
+				}
+			}
+
+			if(customData.startsWith("TableCell-contextAction-")){
+				var bindingContext = oEvent.getSource().getBinding().getContexts()[oEvent.mParameters.rowIndex];
+				if(bindingContext != undefined){ //Basically this check is required to ignore right click when it is performed on empty row
+					oEvent.getSource().setSelectedIndex(oEvent.mParameters.rowIndex); //On right click select the corresponding row if nothing is selected
+					var tableSelectedNode = bindingContext.getModel().getProperty(bindingContext.sPath);
+					this.getContextActions(this.constant.LOCAL_CAF_ACTION, tableSelectedNode, oEvent.getParameters().cellControl);
+					this.oTable.setContextMenu(this.actionMenu);
+				}
+			}
+			else if(customData.startsWith("TableCell-favorite-")) {
+				if(!this.isEditMode){  //Skip all action in edit mode
+					var bindingContext = oEvent.getSource().getBinding().getContexts()[oEvent.mParameters.rowIndex];
+					var tableSelectedNode = bindingContext.getModel().getProperty(bindingContext.sPath);
+					if(oEvent.getParameters().cellControl.getIcon()=="") {//Cell control means Favorite Icon Button. If it is visible then favorite flag is set to true
+						this.mSettings.favoriteHandler(tableSelectedNode,false,this);
+					}
+					else {
+						this.mSettings.favoriteHandler(tableSelectedNode,true,this);
+					}
+				}
+			}
+			else {
+				this.handleItemSelect(eventParameterContext);
+			}
+		}, this),
+		layoutData: new sap.m.FlexItemData({growFactor: 1}),
+		rowSelectionChange: $.proxy(function(oEvent){
+			this.enableGlobalCafAction();
+		},this),
+		sort: $.proxy(function(oEvent){
+			var eventParameters = oEvent.mParameters;
+			if(!(this.mSettings.tableData.useUISort == undefined || this.mSettings.tableData.useUISort)){
+				//If useUISort is set to false then we have to stop the UI sort behaviour (and sorting will be taken care by backend itself, so show the result as it is in UI)
+				oEvent.preventDefault();
+				this.clearSort();
+				eventParameters.column.setSorted(true); //when we call preventDefault(), the icon on column header is also not shown, hence we have to specifically set it
+				eventParameters.column.setSortOrder(eventParameters.sortOrder);
+			}
+			
+			this.controller.uiOptions.sortData.id = eventParameters.column.getSortProperty();
+			this.controller.uiOptions.sortData.order = eventParameters.sortOrder; // eventParameters.column.getSortOrder(); -> this function is not returning right value, it returns older order selected
+			this.controller.nodeSortFilterAction();
+		},this),
+		filter: $.proxy(function(oEvent){
+			var eventParameters = oEvent.mParameters;
+			var id = eventParameters.column.getFilterProperty();
+			var value = eventParameters.value.trim(); //eventParameters.column.getFilterValue() -> this function is not returning right value, it returns older value entered in filter box
+			
+			if(!(this.mSettings.tableData.useUIFilter == undefined || this.mSettings.tableData.useUIFilter)){
+				//If useUIFilter is set to false then we have to stop the UI filter behaviour (and filtering will be taken care by backend itself, so show the result as it is in UI)
+				oEvent.preventDefault(); //We have to prevent default behaviour as, we are using backend filter, the data which we receive from backend has to be displayed as it is (in case of "pdf" document display type is "adobe acrobat", so searching with "adobe" key will return "pdf", but UI will filter it and will not be displayed, hence preventDefault )
+				eventParameters.column.setFiltered(value.length != 0); //when we call preventDefault(), the icon on column header is also not shown, hence we have to specifically set it
+				eventParameters.column.setFilterValue(value);
+			}
+			
+			if(value.length != 0){
+				this.controller.uiOptions.filterData[id] = value;
+			}
+			else{
+				delete this.controller.uiOptions.filterData[id];
+			}
+			this.controller.nodeSortFilterAction();
+		},this),
+		beforeOpenContextMenu:$.proxy(function(oControlEvent){
+			if(this.oTable.getSelectedIndices().length>1){
+				var tableSelectedNodes = this.getSelectedNodes();
+				this.getContextActions(this.constant.GLOBAL_CAF_ACTION, tableSelectedNodes, oControlEvent.getSource());
+				this.oTable.setContextMenu(this.actionMenu);
+			}
+			else{
+				var bindingContext = oControlEvent.getSource().getBinding().getContexts()[oControlEvent.mParameters.rowIndex];
+				if(bindingContext != undefined){ //Basically this check is required to ignore right click when it is performed on empty row
+					oControlEvent.getSource().setSelectedIndex(oControlEvent.mParameters.rowIndex); //On right click select the corresponding row if nothing is selected
+					var tableSelectedNode = bindingContext.getModel().getProperty(bindingContext.sPath);
+					this.getContextActions(this.constant.LOCAL_CAF_ACTION, tableSelectedNode, oControlEvent.getSource());
+					this.oTable.setContextMenu(this.actionMenu);
+				}
+			}
+		},this)
+	}).addStyleClass("sapUiSizeCompact");
+	
+	if (this.mSettings.hasSingleClickAction) {
+		this.oTable.addStyleClass("BILP-treeTableCursor")
+	}
+	
+	if(this.mSettings.hasDragNDrop){
+		var dragDropConfig = this.handleTableDragDropConf();
+		for(var i=0; i<dragDropConfig.length; i++){
+			this.oTable.insertDragDropConfig(dragDropConfig[i]);
+		}
+	}
+
+	this.oTable.bindColumns('tableMeta>/columns', $.proxy(function(sId, oContext) {
+		var sContextObject = oContext.getObject();
+		var sColumnId = sContextObject.columnId;
+		var sCustomControl = sContextObject.customControl;
+
+		var tableColumn = new sap.ui.table.Column({
+			label: {
+				path: "tableMeta>displayName",
+				parts: [{ path: 'tableMeta>columnId' }, { path: 'tableMeta>displayName' }],
+				formatter: function(name, displayName){
+					if(name == "favorite"){
+						return new sap.ui.commons.Label({icon : "sap-icon://favorite"}).addStyleClass("BILP-favoriteIconPosition");
+					}
+					else{
+						return displayName;
+					}
+				}
+			},
+			tooltip: "{tableMeta>displayName}",
+			visible: "{tableMeta>isVisible}",
+			resizable: true,
+			width: "{tableMeta>width}",
+			sorted: {
+				parts: [{ path: 'tableMeta>columnId' }, { path: 'tableMeta>sorted' }, { path: 'tableMeta>sortOrder' }],
+				formatter: $.proxy(function(colId, sorted, sortOrder) {
+					if(sorted != undefined && sortOrder != undefined){
+						tableColumn.setSortOrder(sortOrder);
+						this.controller.uiOptions.sortData.id = colId;
+						this.controller.uiOptions.sortData.order = sortOrder;
+						return sorted;
+					}
+					return false;
+				},this)
+			},
+			customData: this.createCustomIdentifier({
+				path:"tableMeta>displayName",
+				formatter: function(fValue) {
+					return "tableColumn-"+ fValue;
+				}
+			}),
+			filterProperty: {
+				parts: [{ path: 'tableMeta>hasFilter' }, { path: 'tableMeta>columnId' }],
+				formatter: function(hasFilter, columnId){
+					if(hasFilter){
+						return columnId;
+					}
+				}
+			},
+			sortProperty: {
+				parts: [{ path: 'tableMeta>hasSort' }, { path: 'tableMeta>columnId' }],
+				formatter: function(hasSort, columnId){
+					if(hasSort){
+						return columnId;
+					}
+				}
+			}
+		});
+		
+		var controlTemplate;
+		if(sCustomControl != null && typeof sCustomControl === "function"){
+			controlTemplate = sCustomControl("tableData>" + sColumnId, this);
+		}
+		else if (sColumnId=="name"){ //name will be hard coded, in future we may have to include other column header like 'title' etc
+			var sapui5OrBoIcon = this.getImageIconControl();
+			
+			var textField = new sap.m.Text({
+				text: "{tableData>" + sColumnId + "}",
+				tooltip: "{tableData>" + sColumnId + "}",
+				wrapping: false
+			}).addStyleClass("BILP-TableCellCustom");
+			
+			if (this.mSettings.hasSingleClickAction) {
+				textField.addStyleClass("BILP-treeTableCursor")
+			}
+
+			controlTemplate=new sap.ui.layout.HorizontalLayout({
+				content: [sapui5OrBoIcon, textField]
+			}).addStyleClass("BILP-HorizontalLayoutWidth");
+		}
+		else if(sColumnId=="favorite"){ //favorite is hard coded to have custom control for given column name
+			controlTemplate  = new sap.m.Button({
+				icon :{
+					path: "tableData>" + sColumnId,
+					formatter: function(favFlag){
+						return (favFlag == 'true')? "sap-icon://favorite":"";
+					}
+				},
+				tooltip:{
+					path: "tableData>" + sColumnId,
+					formatter: function(favFlag){
+						if(favFlag == 'true'){
+							return BILaunchpadApp.localized("tooltip_for_remove_from_favorites");
+						}
+						else {
+							return BILaunchpadApp.localized("tooltip_for_mark_as_favorite");
+						}
+					}
+				},
+				type:sap.m.ButtonType.Transparent,
+				press:$.proxy(function (oEvent) {
+					if(!this.isEditMode){ //Skip all action in edit mode
+						var bindingContext = oEvent.getSource().getParent().getRowBindingContext();
+						var tableSelectedNode = bindingContext.getModel().getProperty(bindingContext.sPath);
+						if(oEvent.getSource().getIcon()==""){
+							this.mSettings.favoriteHandler(tableSelectedNode,false,this);
+						}
+						else{
+							this.mSettings.favoriteHandler(tableSelectedNode,true,this);
+						}
+					}
+				},this)
+			}).addStyleClass("sapUiSizeCompact BILP-favoriteIconMargin");
+		}
+		else if(sColumnId=="contextAction")
+		{
+			tableColumn.setResizable(false);
+			tableColumn.setAutoResizable(false);
+			controlTemplate = new sap.m.Button({
+				icon: "sap-icon://overflow",
+				tooltip: "",
+				type:sap.m.ButtonType.Transparent,
+				press:$.proxy(function (oEvent) {
+					var bindingContext = oEvent.getSource().getParent().getRowBindingContext();
+					var tableSelectedNode = bindingContext.getModel().getProperty(bindingContext.sPath);
+					this.getContextActions(this.constant.LOCAL_CAF_ACTION, tableSelectedNode, oEvent.getSource());
+				},this)
+			}).addStyleClass("sapUiSizeCompact BILP-contextButtonAlign");
+		}
+		/* added extra coloumn for bi inbox mail read and unread coloumn */
+		else if(sColumnId=="read") {
+			controlTemplate  = new sap.ui.core.Icon({
+				src :{
+					path: "tableData>" + sColumnId,
+					formatter: (typePath) => typePath ? "sap-icon://email-read":"sap-icon://email"
+				},
+				tooltip:{
+					path: "tableData>" + sColumnId,
+					formatter: (favFlag) => favFlag ? BILaunchpadApp.localized("tooltip_for_mail_read"):BILaunchpadApp.localized("tooltip_for_mail_unread")
+				},
+				backgroundRepeat: "no-repeat",
+				backgroundSize: "initial",
+				mode: sap.m.ImageMode.Background
+			}).addStyleClass("sapUiSizeCompact BILP-favoriteIconMargin");
+		}
+		else if(sColumnId==this.mSettings.bindingPath.nodeType){
+			controlTemplate = new sap.m.Text({
+				text : {
+					parts: ["tableData>" + sColumnId, "tableData>reportenginetype"],  //TODO: Currently we are hard coding type to differentiate between different CrystalReport type
+					formatter: $.proxy(function(columnId, reportEngineType) {
+						var finalId = this.treeTableUtil.getCustomType(columnId, reportEngineType);
+						controlTemplate.setTooltip(finalId);
+						return finalId;
+					},this)
+				},
+				tooltip: "{tableData>" + sColumnId + "}",
+				wrapping: false
+			});
+		}
+		else{
+			controlTemplate = new sap.m.Text({
+				text: "{= ${tableData>" + sColumnId + "} || 'Empty'}", // as arialabelby is not associated with sap.m.Text so adding text as empty and hiding from css 
+				tooltip: "{tableData>" + sColumnId + "}",
+				wrapping: false,
+				customData: [
+					new sap.ui.core.CustomData({
+						key: "ttc-cell-hide",
+						writeToDom: true,
+						value: "{= !${tableData>" + sColumnId + "} ? 'true' : 'false'}"
+					})
+				]
+			});
+		}
+		
+		var cellIdentifierData = new sap.ui.core.CustomData(this.createCustomIdentifier({
+			path:"tableData>name",
+			formatter: function(docOrFolderName) {
+				return "TableCell-" + sColumnId + "-" + docOrFolderName;
+			}
+		}));
+		controlTemplate.addCustomData(cellIdentifierData);
+		
+	    const customData = new sap.ui.core.CustomData({
+			key : "ttc-row",
+			writeToDom : true
+		});
+		customData.bindProperty('value', {
+			path: "tableData>read" ,
+			formatter: function (value) {
+				if (value === false) {
+					return value = 'bold';
+				} 
+				return '';
+			}
+		});
+		controlTemplate.addCustomData(customData);
+		
+		if (this.mSettings.hasSingleClickAction) {
+			controlTemplate.addStyleClass("BILP-treeTableCursor")
+		}
+		
+		tableColumn.setTemplate(controlTemplate);
+		return tableColumn;
+	},this));
+	this.oTable.bindRows("tableData>/"+this.mSettings.bindingPath.nodeChildren);
+	
+	this.tableMoreButton = this.createMoreButton();
+	this.footerToolbar = new sap.m.Toolbar({
+		design: sap.m.ToolbarDesign.Transparent,
+		content: [this.tableMoreButton]
+	}).addStyleClass("BILP-treetableFooter");
+	this.oTable.setFooter(this.footerToolbar);
+};
+
+com.sap.fioribi.modules.treetable.control.TreeTableView.prototype.enableGlobalCafAction = function(forceEnable){
+	if(forceEnable != undefined){
+		this.globalActionButton.setEnabled(forceEnable);
+	}
+	else if(!this.isEditMode){
+			this.globalActionButton.setEnabled(this.oTable.getSelectedIndices().length > 0); //Enable global action only if selection is there
+	}
+};
+
+com.sap.fioribi.modules.treetable.control.TreeTableView.prototype.enableGlobalAddAction = function(forceEnable){
+	if(forceEnable != undefined){
+		this.addButton.setEnabled(forceEnable);
+	}
+	else{
+		this.addButton.setEnabled(true); //Enable global Add action by default
+	}
+};
+
+com.sap.fioribi.modules.treetable.control.TreeTableView.prototype.enableEditAction = function(forceEnable){
+	this.editButton.setEnabled(forceEnable);
+};
+
+com.sap.fioribi.modules.treetable.control.TreeTableView.prototype.enableAllActionsOnPage = function(enable){
+	this.isEditMode = !enable;
+	var oColumns = this.oTable.getColumns();
+	$(oColumns).each(function(i) {
+		var oMenu = oColumns[i].getMenu();
+		oMenu.setEnabled(enable);
+	});
+};
+
+com.sap.fioribi.modules.treetable.control.TreeTableView.prototype.clearSort = function(){
+	this.controller.uiOptions.sortData = {};
+	
+	var oListBinding = this.oTable.getBinding();
+	if (oListBinding) {
+		oListBinding.aSorters = null;
+		oListBinding.sSortParams = null;
+	}
+	
+	var tableColumns = this.oTable.getColumns();
+	for(var i=0; i<tableColumns.length; i++){
+		if(tableColumns[i].getSorted()){ // Don't remove this condition - for some reason removing this condition is causing performance issue
+			tableColumns[i].setSorted(false);
+		}
+	}
+};
+
+com.sap.fioribi.modules.treetable.control.TreeTableView.prototype.clearFilter = function(){
+	this.controller.uiOptions.filterData = {};
+	
+	var oListBinding = this.oTable.getBinding();
+	if (oListBinding) {
+		oListBinding.aFilters = null;
+		oListBinding.sFilterParams = null;
+	}
+	
+	var tableColumns = this.oTable.getColumns();
+	for(var i=0; i<tableColumns.length; i++){
+		if(tableColumns[i].getFiltered()){ // Don't remove this condition - for some reason removing this condition is causing performance issue
+			tableColumns[i].setFiltered(false);
+			tableColumns[i].filter("");
+		}
+	}
+};
+
+com.sap.fioribi.modules.treetable.control.TreeTableView.prototype.clearSortFilter = function(){
+	this.clearSort();
+	this.clearFilter();
+};
+
+com.sap.fioribi.modules.treetable.control.TreeTableView.prototype.createMoreButton = function(){
+	var moreButton = new sap.m.Button({
+		text: BILaunchpadApp.localized("more"),
+		type: sap.m.ButtonType.Transparent,
+		customData: this.createCustomIdentifier("moreButtonForPagination"),
+		press: $.proxy(function (oEvent) {
+			this.controller.nodePaginationAction();
+		},this)
+	});
+	return moreButton;
+};
+
+com.sap.fioribi.modules.treetable.control.TreeTableView.prototype.createActionPanel = function() {
+	var $this = this;
+	var createMenu = function(sPath){
+		var actionMenu = new sap.ui.unified.Menu({
+			items: [new sap.ui.unified.MenuItem({
+				text: {
+					parts: [sPath],
+					formatter: function(list) {
+						var actions = this.getModel().getProperty(sPath);
+						if (actions == null || actions.length == 0) {
+							this.getParent().destroy();
+							return;
+						} else {
+							for (var i = 0; i<actions.length; i++) {
+								var subPath = sPath+i;
+								var subMenuItems = new sap.ui.unified.MenuItem({
+									text: "{"+subPath+"/"+$this.mSettings.bindingPath.actionNodeDisplay+"}",
+									customData: [new sap.ui.core.CustomData({
+							            key: "path",
+							            value: subPath
+							        }),$this.createCustomIdentifier({
+										path: subPath+"/"+$this.mSettings.bindingPath.actionNodeDisplay,
+										formatter: function(fValue) {
+											return "menuItem-"+ fValue;
+										}
+									})],
+									select: function(oEvent) {
+										if (oEvent.getSource().getSubmenu() == null) {
+											//sap.ui.core.BusyIndicator.show(0); //Showing and hiding of the busy indicator should be taken care by corresponding action handler 
+											setTimeout($.proxy(function() {
+												var selectedAction = this.getModel().getProperty(this.data('path'));
+												$this.clearSelection(); //To clear the selection in table after the corresponding CAF action is performed
+												$this.mSettings.actionSelectionHandler(selectedAction, $this);
+												//sap.ui.core.BusyIndicator.hide(); //(Providing it here, hides indicator when still some action is pending from action handler for few case (Example: Remove from favorite)
+											}, this), 10);
+										}
+									},
+									submenu: createMenu(subPath+"/"+$this.mSettings.bindingPath.actionNode+"/")
+								});
+								this.getParent().addItem(subMenuItems);
+							}
+							this.destroy();
+							return subMenuItems;
+						}
+					}
+				}
+			})]
+		});
+		return actionMenu;
+	};
+	
+	this.actionMenu = createMenu("/"+this.mSettings.bindingPath.actionNode+"/");
+};
+
+com.sap.fioribi.modules.treetable.control.TreeTableView.prototype.getContextActions = function(actionSource, selectedNodes, buttonControl){
+	if(this.isEditMode){
+		return; //Skip all action in edit mode
+	}
+	var objData = [];
+	if(!($.isEmptyObject(selectedNodes))){
+		objData = selectedNodes; //It can be an array (in case of multiple selection global action) or single entry (for right click action)
+	}
+	else{
+		objData = this.getCurrentFolderNode(); //This is the folder which is currently selected in the tree view. 
+	}
+	
+	if(actionSource == this.constant.ADD_ACTION){
+		objData = this.getCurrentFolderNode(); // In case of Add action always store current Node as default, basically ignore selected item from table
+	}
+    
+	var actionListData = this.mSettings.contextActionHandler(objData, actionSource, this); // Get list of CAF Action for the selected nodes.
+	if(actionListData != undefined && actionListData != null){
+		var menuModel = new sap.ui.model.json.JSONModel();
+		menuModel.setProperty("/",actionListData);
+
+		this.createActionPanel(); // create this.actionMenu
+		this.actionMenu.setModel(menuModel);
+		
+		if(this.oTable.sId != buttonControl.sId)
+		{
+			//TODO: For tile control context action is not appearing, hence adding the timeout to get the menu. Find better way to fix this without using timeout
+			setTimeout($.proxy(function() {
+				if (this.actionMenu.getItems().length > 0) {
+					var eDock = sap.ui.core.Popup.Dock;
+					this.actionMenu.open(false, buttonControl, eDock.BeginTop, eDock.BeginBottom, buttonControl);
+				}
+			}, this), 10);
+		}
+	}
+};
+
+com.sap.fioribi.modules.treetable.control.TreeTableView.prototype.handleTableDragDropConf = function() {
+	var dragConf = new sap.ui.core.dnd.DragInfo({
+		groupName : "table2tree",
+		sourceAggregation : "rows"
+	});
+
+	var dropConf = new sap.ui.core.dnd.DropInfo({
+		groupName : "tree2table",
+		targetAggregation : 'rows',
+		drop : $.proxy(this.onDrop,this)
+	});
+
+	var dragDropConf = new sap.ui.core.dnd.DragDropInfo({
+		sourceAggregation : 'rows',
+		targetAggregation : 'rows',
+		dragStart : this.onDragStart,
+		drop : $.proxy(this.onDrop,this)
+	});
+
+	return [ dragConf, dropConf, dragDropConf ];
+};
+
+com.sap.fioribi.modules.treetable.control.TreeTableView.prototype.handleTreeDragDropConf = function() {
+    var dragConf = new sap.ui.core.dnd.DragInfo({
+        groupName: "tree2table",
+        sourceAggregation: "items"
+    });
+    
+    var dropConf = new sap.ui.core.dnd.DropInfo({
+        groupName: "table2tree",
+        targetAggregation: 'items',
+        drop: $.proxy(this.onDrop,this)
+    });
+    
+    var dragDropConf = new sap.ui.core.dnd.DragDropInfo({
+        sourceAggregation: 'items',
+        targetAggregation: 'items',
+        dragStart: this.onDragStart,
+        drop: $.proxy(this.onDrop,this)
+    });
+    
+    return [dragConf, dropConf, dragDropConf];
+};
+
+com.sap.fioribi.modules.treetable.control.TreeTableView.prototype.onDragStart = function(oEvent){
+    var sourceControl = oEvent.getSource().getParent();
+    var oDragSession = oEvent.getParameter("dragSession");
+    var oDraggedItem = oEvent.getParameter("target");
+    var oDraggedItemContexts = [];
+    
+    if(sourceControl instanceof sap.m.Tree){
+    	oDraggedItemContexts.push(oDraggedItem.getItemNodeContext().context);
+    }
+    else if(sourceControl instanceof sap.ui.table.Table){
+        var aSelectedIndices = sourceControl.getSelectedIndices();
+        if (aSelectedIndices.length > 0) {
+            for (var index = 0; index < aSelectedIndices.length; index++) {
+            	oDraggedItemContexts.push(sourceControl.getContextByIndex(aSelectedIndices[index]));
+            }
+        } else {
+        	oDraggedItemContexts.push(oDraggedItem.getRowBindingContext());
+        }
+    }
+    else if(sourceControl instanceof sap.f.GridContainer){
+    	oDraggedItemContexts.push(oDraggedItem.oBindingContexts.tableData)
+    }
+    
+    oDragSession.setComplexData("hierarchyMaintenance", {
+        draggedItemContexts: oDraggedItemContexts
+    });
+};
+
+com.sap.fioribi.modules.treetable.control.TreeTableView.prototype.onDrop = function(oEvent){
+    var sourceControl = oEvent.getSource().getParent();
+    var oDragSession = oEvent.getParameter("dragSession");
+    var oDroppedItem = oEvent.getParameter("droppedControl");
+    var oDraggedItemContexts = oDragSession.getComplexData("hierarchyMaintenance").draggedItemContexts;
+    
+    var oNewParentContext;
+    if(sourceControl instanceof sap.m.Tree){
+        oNewParentContext = oDroppedItem.getItemNodeContext().context;
+    }
+    else if(sourceControl instanceof sap.ui.table.Table){
+        oNewParentContext = oDroppedItem.getRowBindingContext();
+    }
+    
+    var newParentObject = oNewParentContext.getProperty(oNewParentContext.getPath());
+    var acceptedTreeKind = this.mSettings.treeData.kindList;
+    if(this.treeTableUtil.findInArray(acceptedTreeKind, newParentObject.type)){
+        if(oDraggedItemContexts.length > 0){
+            var selectedObjects = [];
+            for(var index = 0; index < oDraggedItemContexts.length; index++){
+                var bindingItems = oDraggedItemContexts[index];
+                if(typeof(bindingItems.getPath) == 'function'){
+                    selectedObjects.push(bindingItems.getProperty(bindingItems.getPath()));
+                }else{
+                    selectedObjects.push(bindingItems);
+                }
+            }
+            
+            sap.m.MessageBox.show(BILaunchpadApp.localized("move_proceed"), {
+                icon: sap.m.MessageBox.Icon.WARNING,
+                title: BILaunchpadApp.localized("move_header"),
+                actions: [sap.m.MessageBox.Action.YES, sap.m.MessageBox.Action.NO],
+                emphasizedAction: sap.m.MessageBox.Action.YES,
+                onClose: $.proxy(function(sAction) {
+                    if(sAction == sap.m.MessageBox.Action.YES){
+                    	if(this.mSettings.dragDropHandler != undefined){
+            				this.mSettings.dragDropHandler(selectedObjects, newParentObject, this);
+            			}
+                    }
+                },this)
+            });
+        }
+    }
+};
+
+com.sap.fioribi.modules.treetable.control.TreeTableView.prototype.clearSelection = function(){
+	this.oTable.clearSelection();
+};
+
+com.sap.fioribi.modules.treetable.control.TreeTableView.prototype.getSelectedNodes = function(){
+	var selectedIndices = this.oTable.getSelectedIndices();
+	var tableSelectedNodes = [];
+	var tableModelData = this.oTable.getModel('tableData').getData()[this.mSettings.bindingPath.nodeChildren];
+	for(var i=0; i<selectedIndices.length; i++){
+		var selectedIndex = selectedIndices[i];
+		var selectedNode = tableModelData[selectedIndices[i]];
+		tableSelectedNodes.push(selectedNode);
+	}
+	return tableSelectedNodes;
+};
+
+com.sap.fioribi.modules.treetable.control.TreeTableView.prototype.getCurrentFolderPath = function(){
+	return this.controller.getBreadCrumPath();
+};
+
+com.sap.fioribi.modules.treetable.control.TreeTableView.prototype.getCurrentFolderNode = function(){
+	return this.controller.getCurrentSelectedNode(); //CurrentSelectedNode is nothing but the node which is selected from the left tree
+};
+
+com.sap.fioribi.modules.treetable.control.TreeTableView.prototype.createTileView = function(){
+	
+	this.scrollContainerFBox= new sap.f.GridContainer({
+		height:"90%",
+		width: "100%",
+		layout : new sap.f.GridContainerSettings({
+            rowSize:"176px",  // 176px is the size of the generic tile, in small mode it is 148px
+            columnSize:"176px",
+            gap:"8px"
+        })
+	});
+
+	this.scrollContainerFBox.bindAggregation("items","tableData>/"+this.mSettings.bindingPath.nodeChildren,
+			$.proxy(function(sId, oContext) {
+				var sContextObject = oContext.getObject();
+				var type = sContextObject[this.mSettings.bindingPath.nodeType];
+
+				if(type == "PersonalCategory" || type=="Category") {
+					return this.getCategoryTile();
+				}
+				else {
+					return this.getDefaultTile();
+				}
+			},this)
+	);
+	
+	var gridLayout = new sap.ui.layout.Grid({
+		containerQuery: true,
+		defaultSpan: "XL12 L12 M12 S12",
+		width: "100%",
+		content: [new sap.ui.layout.VerticalLayout({
+			width: "100%",
+			content:[this.scrollContainerFBox]
+		}).addStyleClass("gridWrapper")]
+	});
+	
+	this.tileMoreButton = this.createMoreButton();
+	var moreButtonFBox= new sap.m.FlexBox({
+		height:"10%",
+		justifyContent:sap.m.FlexJustifyContent.Center,
+		items:[this.tileMoreButton]
+	});
+	
+	this.oTileContainer = new sap.m.VBox({
+		visible: false,
+		items: [gridLayout, moreButtonFBox]
+	});
+};
+
+com.sap.fioribi.modules.treetable.control.TreeTableView.prototype.editMode = function(){
+	this.enableAllActionsOnPage(false); //Disable all actions like Sort/Filter/localCAF/globalCAF/etc on all column in case of edit workflow
+	var onDrop = $.proxy(function(oEvent){
+		var oDragSession = oEvent.getParameter("dragSession");
+		var oDraggedItemContexts = oDragSession.getComplexData("hierarchyMaintenance").draggedItemContexts;
+
+		if(oDraggedItemContexts.length > 0){
+			var sourceControl = oEvent.getSource().getParent();
+			var oDragged = oEvent.getParameter("draggedControl");
+			var oDropped = oEvent.getParameter("droppedControl");
+			
+			var iDropPosition = (this.gridTileButton.getIcon() == "sap-icon://list")? sourceControl.indexOfItem(oDropped) : sourceControl.indexOfRow(oDropped);
+			if (oEvent.getParameter("dropPosition") === "After") {
+				iDropPosition++;
+			}
+			
+			var modelData = oDraggedItemContexts[0].getModel().getData();
+			var modelDataNode = modelData[this.mSettings.bindingPath.nodeChildren];
+			
+			//store all selected dragged item(s) in selectedObjects[] array 
+			var selectedObjects = [];
+			var selectedIndex = [];
+			for(var index = 0; index < oDraggedItemContexts.length; index++){
+				var bindingItems = oDraggedItemContexts[index];
+				if(typeof(bindingItems.getPath) == 'function'){
+					var bindingPathArray = bindingItems.getPath().split("/");
+					var indexInModel = bindingPathArray[bindingPathArray.length-1];
+					selectedIndex.push(indexInModel);
+					selectedObjects.push(bindingItems.getProperty(bindingItems.getPath()));
+				}else{
+					selectedObjects.push(bindingItems);
+				}
+			}
+			
+			//To change dropped location, if drop location is one of the dragged item (in that case make new drop location as next non selected item from the list)
+			for(var i=0; i<selectedIndex.length; i++){
+				if(iDropPosition == selectedIndex[i]){
+					iDropPosition++; //If current drop location item is also selected, make next item as drop location and re-iterate it to check if next item is also selected or not
+				}
+			}
+			var beforeItemNode = modelDataNode[iDropPosition];
+			
+			//Removing all selected dragged item(s) from the list
+			for(var i=selectedIndex.length-1; i>=0; i--){
+				modelDataNode.splice(selectedIndex[i], 1); 
+			}
+			
+			var insertPosition = modelDataNode.length;
+			if(beforeItemNode != undefined){ //If beforeItemNode is 'undefined' it means item(s) are dropped after last element 
+				//It means that items are dropped in between existing element
+				for(var i=0; i<modelDataNode.length; i++){
+					if(modelDataNode[i].id == beforeItemNode.id){
+						insertPosition = i;
+						break;
+					}
+				}
+			}
+			
+			//Adding all selected dragged item(s) back in dropped location
+			for(var i=selectedObjects.length-1; i>=0; i--){
+				modelDataNode.splice(insertPosition, 0, selectedObjects[i]);
+			}
+			
+			oDraggedItemContexts[0].getModel().setData(modelData);
+			this.clearSelection();
+		}
+	},this)
+
+	//Edit mode for table container
+	if(this.oTable.getDragDropConfig().length == 0){
+		this.oTable.addDragDropConfig(new sap.ui.core.dnd.DragDropInfo({
+			sourceAggregation : 'rows',
+			targetAggregation : 'rows',
+			dropPosition: sap.ui.core.dnd.DropPosition.Between,
+			dragStart: this.onDragStart,
+			drop: onDrop
+		}));
+	}
+
+	//Edit mode for tile container
+	if(this.scrollContainerFBox.getDragDropConfig().length == 0){
+		this.scrollContainerFBox.addDragDropConfig(new sap.ui.core.dnd.DragDropInfo({
+			sourceAggregation: 'items',
+			targetAggregation: 'items',
+			dropPosition: sap.ui.core.dnd.DropPosition.Between,
+			dropLayout: sap.ui.core.dnd.DropLayout.Horizontal,
+			dragStart: this.onDragStart,
+			drop: onDrop
+		}));
+	}
+};
+
+com.sap.fioribi.modules.treetable.control.TreeTableView.prototype.nonEditMode = function(){
+	this.enableAllActionsOnPage(true); //Enable all Sort/Filter/localCAF/globalCAF/etc on all column once we save the edit workflow
+	this.scrollContainerFBox.destroyDragDropConfig();
+	this.oTable.destroyDragDropConfig();
+};
+
+com.sap.fioribi.modules.treetable.control.TreeTableView.prototype.moreButtonVisible = function(isVisible){
+	if(this.tableMoreButton != undefined){
+		this.tableMoreButton.setVisible(isVisible);
+	}
+	if(this.tileMoreButton != undefined){
+		this.tileMoreButton.setVisible(isVisible);
+	}
+};
+
+com.sap.fioribi.modules.treetable.control.TreeTableView.prototype.refreshTable = function(){	
+	this.controller.nodeSortFilterAction();
+};
+
+//Adding custom data in HTML DOM for identifying control which will be helpful in writing automation test case
+com.sap.fioribi.modules.treetable.control.TreeTableView.prototype.createCustomIdentifier = function(idValue){
+	return { 
+		key:"ttc-id",
+		value:idValue,
+		writeToDom: true
+	}
+};
+
+com.sap.fioribi.modules.treetable.control.TreeTableView.prototype.getCategoryTile = function(){
+	var cancelTilePress = false;
+
+	//START - Row will contain Label and Favorite Icon
+	var CategoryLabelFBox= new sap.m.FlexBox({
+		width:"50%",
+		items:[new sap.m.Text({
+			text:"{tableData>"+this.mSettings.bindingPath.nodeName+"}"
+		}).addStyleClass("BILP-tileheaderColor BILP-CategoryLabelFontSize")]
+	}).addStyleClass("sapUiTinyMarginTop");
+
+	var categoryFavIconFBox=new sap.m.FlexBox({
+		width:"50%",
+		justifyContent:sap.m.FlexJustifyContent.End,
+		items:[new sap.ui.core.Icon({
+			src: "sap-icon://favorite",
+			customData: this.createCustomIdentifier("favIcon"),
+			color:"#FFFFFF",
+			visible: {
+				path:"tableData>"+this.mSettings.bindingPath.tileNodeIsFavorite,
+				formatter: $.proxy(function(fValue) {
+					return (fValue == 'true')? true: false;
+				},this)
+			},
+			press:$.proxy(function (oEvent) {
+				if(!this.isEditMode){ //Skip all action in edit mode
+					cancelTilePress = true; // This will cancel the press event on parent tile if button is pressed.
+					this.favIconPressEvent(oEvent);
+				}
+			},this)
+		}).addStyleClass("sapUiSizeCompact sapUiTinyMarginEnd sapUiTinyMarginTop BILP-favIconPadding")]
+	});
+	//END - Row will contain Label and Favorite Icon
+
+	//START - Row will contain Kind Icon,Label and Action Button
+	var CategorykindLabelFBox= new sap.m.FlexBox({
+		width:"80%",
+		height: "20%",
+		items:[new sap.ui.layout.HorizontalLayout({
+			content: [new sap.m.FlexBox({
+				width:"50%",
+				items:[new sap.ui.core.Icon({
+					src: "sap-icon://tag",
+					color:"#FFFFFF",
+				}).addStyleClass("sapUiTinyMarginTop sapUiTinyMarginEnd")]
+			}), new sap.m.Text({
+				text:"{tableData>"+this.mSettings.bindingPath.nodeType+"}"
+			}).addStyleClass("sapUiTinyMarginTop BILP-tileheaderColor")]
+		})]
+	});
+
+	var categoryActionButtonFBox=new sap.m.FlexBox({
+		width:"20%",
+		justifyContent:sap.m.FlexJustifyContent.End,
+		items:[new sap.ui.core.Icon({
+			src: "sap-icon://overflow",
+			//tooltip: BILaunchpadApp.localized("More_Actions_Tooltip"),TO-DO :Tooltip is not working
+			customData: this.createCustomIdentifier("localActionButton"),
+			color:"#FFFFFF",
+			visible: this.mSettings.tableData.hasContextAction, //Note this is not a binding
+			press:$.proxy(function (oEvent) {
+				if(!this.isEditMode){ //Skip all action in edit mode
+					cancelTilePress = true; // This will cancel the press event on parent tile if button is pressed.
+					this.actionButtonPressEvent(oEvent);
+				}
+			},this)
+		}).addStyleClass("sapUiTinyMarginEnd sapUiTinyMarginTop BILP-favIconPadding_cat")]
+	});
+	//END - Row will contain Kind Icon,Label and Action Button
+
+	var categoryLabelandFavIconBox = new sap.m.HBox({
+		height:"50%",
+		items: [CategoryLabelFBox, categoryFavIconFBox]
+	});
+
+	var categorykindLabelAndActionBox = new sap.m.HBox({
+		height:"50%",
+		alignItems:sap.m.FlexAlignItems.End,
+		items: [CategorykindLabelFBox, categoryActionButtonFBox]
+	});
+
+	var oBICustomTile = new sap.m.GenericTile({
+		customData: this.createCustomIdentifier({
+			path:"tableData>"+this.mSettings.bindingPath.nodeName,
+			formatter: function(fValue) {
+				return "genericTile-"+ fValue;
+			}
+		}),
+		backgroundImage:{
+			parts: [{path: "tableData>"+this.mSettings.bindingPath.nodeType}, { path: 'tableData>imagepath' }],
+			formatter: $.proxy(function(type, imagepath) {
+				if(imagepath=="" && type=="Category") {
+					return "com/sap/fioribi/images/corporate-category.png";
+				}
+				else if(imagepath=="" && type=="PersonalCategory") {
+					return "com/sap/fioribi/images/personal-category.png";
+				}
+				else {
+					return imagepath;
+				}
+			},this)
+		},
+		frameType:sap.m.FrameType.TwoByOne,
+		//sizeBehavior: sap.m.TileSizeBehavior.Small, //TODO: context click (3 dots) options is very sensitive and difficult to click in time. -fix it.
+		press: $.proxy(function(oEvent) {
+			if(!cancelTilePress){
+				var bindingContext = oEvent.getSource().oBindingContexts.tableData;
+				this.handleItemSelect(bindingContext);
+			}
+			cancelTilePress = false;
+		}, this),
+		tileContent: [new sap.m.TileContent({
+			content: new sap.m.VBox({
+				items: [categoryLabelandFavIconBox,categorykindLabelAndActionBox]
+			}),
+		}).addStyleClass("BILP-tileContentBackgroundColor")
+		],
+		layoutData:new sap.f.GridContainerItemLayoutData({
+			minRows:1,
+			columns:2,
+		})
+	}).addStyleClass("sapUiTinyMargin");
+
+	return oBICustomTile;
+};
+
+com.sap.fioribi.modules.treetable.control.TreeTableView.prototype.getDefaultTile = function(){
+	var cancelTilePress = false;
+
+	//START - Row will contain Kind Icon and Favorite Icon
+	var kindIconFBox= new sap.m.FlexBox({
+		width:"50%",
+		items:[this.getImageIconControl()]
+	}).addStyleClass("sapUiTinyMarginTop");	
+
+	var favIconFBox=new sap.m.FlexBox({
+		width:"50%",
+		justifyContent:sap.m.FlexJustifyContent.End,
+		items:[new sap.ui.core.Icon({
+			src: "sap-icon://favorite",
+			customData: this.createCustomIdentifier("favIcon"),
+			visible: {
+				path:"tableData>"+this.mSettings.bindingPath.tileNodeIsFavorite,
+				formatter: $.proxy(function(fValue) {
+					return (fValue == 'true')? true: false;
+				},this)
+			},
+			press:$.proxy(function (oEvent) {
+				if(!this.isEditMode){ //Skip all action in edit mode
+					cancelTilePress = true; // This will cancel the press event on parent tile if button is pressed.
+					this.favIconPressEvent(oEvent);
+				}
+			},this)
+		}).addStyleClass("sapUiSizeCompact sapUiTinyMarginEnd sapUiTinyMarginTop BILP-favIconPadding")]
+	});
+	//END - Icon Row will contain Kind Icon and Favorite Icon
+
+	//START - Row will contain Kind Label and Action button
+	var kindLabelFBox= new sap.m.FlexBox({
+		width:"80%",
+		height: "20%",
+		items:[new sap.m.Text({
+			text: "{tableData>"+this.mSettings.bindingPath.nodeType+"}"
+		})]
+	}).addStyleClass("sapUiTinyMarginBottom");
+
+	var actionButtonFBox=new sap.m.FlexBox({
+		width:"20%",
+		justifyContent:sap.m.FlexJustifyContent.End,
+		items:[new sap.ui.core.Icon({
+			src: "sap-icon://overflow",
+			//tooltip: BILaunchpadApp.localized("More_Actions_Tooltip"), TO-DO :Tooltip is not working
+			customData: this.createCustomIdentifier("localActionButton"),
+			visible: this.mSettings.tableData.hasContextAction, //Note this is not a binding
+			press:$.proxy(function (oEvent) {
+				if(!this.isEditMode){ //Skip all action in edit mode
+					cancelTilePress = true; // This will cancel the press event on parent tile if button is pressed.
+					this.actionButtonPressEvent(oEvent);
+				}
+			},this)
+		}).addStyleClass("sapUiTinyMarginEnd sapUiTinyMarginTop BILP-favIconPadding")]
+	});
+	//END - Row will contain Kind Label and Action button
+
+	var kindAndFavIconBox = new sap.m.HBox({
+		height:"50%",
+		items: [kindIconFBox, favIconFBox]
+	});
+
+	var kindLabelAndActionBox = new sap.m.HBox({
+		height:"50%",
+		alignItems:sap.m.FlexAlignItems.End,
+		items: [kindLabelFBox, actionButtonFBox]
+	});
+
+	var oBICustomTile = new sap.m.GenericTile({
+		header:"{tableData>"+this.mSettings.bindingPath.nodeName+"}",
+		subheader:"{tableData>"+this.mSettings.bindingPath.tileNodeDescription+"}",
+		customData: this.createCustomIdentifier({
+			path:"tableData>"+this.mSettings.bindingPath.nodeName,
+			formatter: function(fValue) {
+				return "genericTile-"+ fValue;
+			}
+		}),
+		frameType:sap.m.FrameType.OneByOne,
+		//sizeBehavior: sap.m.TileSizeBehavior.Small, //TODO: context click (3 dots) options is very sensitive and difficult to click in time. -fix it.
+		press: $.proxy(function(oEvent) {
+			if(!cancelTilePress){
+				var bindingContext = oEvent.getSource().oBindingContexts.tableData;
+				this.handleItemSelect(bindingContext);
+			}
+			cancelTilePress = false;
+		}, this),
+		tileContent: [new sap.m.TileContent({
+			content: new sap.m.VBox({
+				items: [kindAndFavIconBox, kindLabelAndActionBox]
+			}),
+		})
+		],
+		layoutData:new sap.f.GridContainerItemLayoutData({
+			minRows:1,
+			columns:1,
+		})
+	}).addStyleClass("sapUiTinyMargin");
+
+	return oBICustomTile;
+};
+
+com.sap.fioribi.modules.treetable.control.TreeTableView.prototype.favIconPressEvent = function(oEvent){
+	var bindingContext = oEvent.getSource().oPropagatedProperties.oBindingContexts.tableData; // oEvent.getSource().getBindingContext() is undefined, so we have to access the binding context in this way
+	var tableSelectedNode = bindingContext.getModel().getProperty(bindingContext.sPath);
+	this.mSettings.favoriteHandler(tableSelectedNode,true,this);
+};
+
+com.sap.fioribi.modules.treetable.control.TreeTableView.prototype.actionButtonPressEvent = function(oEvent){
+	var bindingContext = oEvent.getSource().oPropagatedProperties.oBindingContexts.tableData; // oEvent.getSource().getBindingContext() is undefined, so we have to access the binding context in this way
+	var tableSelectedNode = bindingContext.getModel().getProperty(bindingContext.sPath);
+	this.getContextActions(this.constant.LOCAL_CAF_ACTION, tableSelectedNode, oEvent.getSource());
+};
+

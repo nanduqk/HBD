@@ -1,0 +1,7 @@
+/*
+�2010 - 2016 SAP SE or an SAP affiliate company.  All rights reserved.
+ 
+SAP and other SAP products and services mentioned herein as well as their respective logos are trademarks or registered trademarks of SAP SE in Germany and other countries.  Please see http://www.sap.com/corporate-en/legal/copyright/index.epx#trademark for additional trademark information and notices.
+*/
+
+jQuery.sap.declare("com.sap.fioribi.components.categories.CreateCategoryContainer");jQuery.sap.require({modName:"com.sap.fioribi.components.categories.CreateCategoryView",type:"view"});jQuery.sap.require({modName:"com.sap.fioribi.components.categories.CreateCategoryController",type:"controller"});jQuery.sap.require("com.sap.fioribi.modules.common.BILPContainer");com.sap.fioribi.components.categories.CreateCategoryContainer=function(typeParent){this.oView=new com.sap.fioribi.components.categories.CreateCategoryView({viewName:"com.sap.fioribi.components.categories.CreateCategoryView",typeParent:typeParent});this.oController=this.oView.getController();};com.sap.fioribi.components.categories.CreateCategoryContainer.prototype=jQuery.sap.newObject(com.sap.fioribi.modules.common.BILPContainer.prototype);com.sap.fioribi.components.categories.CreateCategoryContainer.prototype.setPageInfo=function(parentCuid){this.oController.setParentCuid(parentCuid);};

@@ -1,0 +1,17 @@
+GET https://hba.na.pg.com:8443/BOE/portal/2302072240/PlatformServices/sapui5/resources/sap/ui/core/themes/base/fonts/SAP-icons.woff2 HTTP/1.1
+Host: hba.na.pg.com:8443
+Connection: keep-alive
+Origin: https://hba.na.pg.com:8443
+sec-ch-ua-platform: "Windows"
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36
+sec-ch-ua: "Google Chrome";v="129", "Not=A?Brand";v="8", "Chromium";v="129"
+sec-ch-ua-mobile: ?0
+Accept: */*
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: font
+Referer: https://hba.na.pg.com:8443/BOE/portal/2302072240/PlatformServices/sapui5/resources/sap/ui/core/themes/sap_belize/library.css
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
+Cookie: JSESSIONID=DCB62031EB375EBED9E2FAC1F657ACF2; InfoViewPLATFORMSVC_COOKIE_TOKEN=
+

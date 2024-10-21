@@ -1,0 +1,133 @@
+
+
+.download .sapMBtnInner {	
+	-webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0px;
+  font-size: 12px !important;
+  text-decoration: none !important;
+   outline: none !important;
+   background: none !important;
+   color: #688BA9;
+   
+}
+.download .sapMFocusable{
+	   outline: none !important;
+} 
+
+/* Custom CSS */
+.stepActive  { 
+	background-color: #00B0F0; 
+}
+
+.stepInactive  { 
+	background-color: #0070C0; 
+}
+
+.actionItems {
+	background-color: #EFF4F9;
+}
+
+/* Custom CSS */
+.sapzenfilterpanelM * .sapUiVlt.sapUiContentPadding {
+    padding: 0rem;
+}
+ .sapMListBGSolid .sapMLIB {
+    background: transparent;
+}
+
+.sapzenfilterpanelM * .sapUiVlt.sapUiContentPadding {
+    padding: 0rem;
+}   
+    
+.sapMLIB {
+    border-bottom: 0px solid #e5e5e5;
+}   
+
+.sapzenfilterpanelM * .sapMTitleStyleAuto {
+    padding-top: 4px;
+    padding-left: 2px;
+}   
+
+/*************************************************************************************/
+/*Prompt
+/*-************************************************************************************/
+
+
+.sapMPageEnableScrolling > div:first-child > ul >li:first-child[class="sapMCLI sapMLIB sapMLIB-CTX sapMLIBFocusable sapMLIBShowSeparator sapMLIBTypeInactive sapzenfilterpanelM-ListItem"]
+{
+
+height: 380px;
+margin-bottom: -127px;
+
+}
+
+.sapMPageEnableScrolling > div:first-child > ul >li:first-child[class="sapMCLI sapMLIB sapMLIB-CTX sapMLIBFocusable sapMLIBShowSeparator sapMLIBTypeInactive sapzenfilterpanelM-ListItem"]::before
+
+{
+
+visibility: visible;
+width: 600px;
+line-height: 30px;
+position: absolute;
+top: 2px;
+color: #346187;
+left: -0.05px;
+font-size: 0.87rem;
+content: "Security Scope: Plant/Warehouse/ESS users see data for their entire site including Base, PGP, JVs, Exports, Focus, Enterprise, Other. Global & Regional BU/CFT/SMO users see data based on their business unit (Management Profit Center)." 
+}
+
+
+.sapMPageEnableScrolling > div:first-child > ul >li:first-child[class="sapMCLI sapMLIB sapMLIB-CTX sapMLIBFocusable sapMLIBShowSeparator sapMLIBTypeInactive sapzenfilterpanelM-ListItem"]::after
+
+{
+
+visibility: visible;
+width: 600px;
+line-height: 30px;
+position: absolute;
+top: 90px;
+color: #346187;
+left: -0.05px;
+font-size: 0.87rem;
+content: " Input TM and RE site codes to view total Plant costs, where applicable " ;
+
+}
+
+.butn .sapMBtnInner {	
+	 -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0px;
+   color: #ffffff !important;
+  font-size: 0.72rem !important;
+  background: #00b0f0 !important;
+  text-decoration: none !important;
+   outline: none !important;
+     border: solid #00b0f0 1px !important;
+}
+.butn .sapMFocusable{
+	   outline: none !important;
+}    
+
+.butninactive .sapMBtnInner {	
+	 -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0px;
+   color: #ffffff !important;
+  font-size: 0.72rem !important;
+  background: #0070C0 !important;
+  text-decoration: none !important;
+   outline: none !important;
+     border: solid #0070C0 1px !important;
+}
+.butninactive .sapMFocusable{
+	   outline: none !important;
+} 
+.sapzencrosstab-HeaderCellDefault {
+    background-color: #ffffff;
+
+}
+
+.CrosstabDimensions .sapzencrosstab-Title{
+    font-size: 0px;
+}

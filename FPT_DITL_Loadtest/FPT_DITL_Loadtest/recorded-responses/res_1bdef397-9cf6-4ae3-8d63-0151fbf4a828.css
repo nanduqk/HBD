@@ -1,0 +1,72 @@
+
+
+.download .sapMBtnInner {	
+	-webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0px;
+  font-size: 12px !important;
+  text-decoration: none !important;
+   outline: none !important;
+   background: none !important;
+   color: #688BA9;
+   
+}
+.download .sapMFocusable{
+	   outline: none !important;
+} 
+
+/* Custom CSS */
+.stepActive  { 
+	background-color: #00B0F0; 
+}
+
+.stepInactive  { 
+	background-color: #0070C0; 
+}
+
+.actionItems {
+	background-color: #EFF4F9;
+}
+
+/* Custom CSS */
+.sapzenfilterpanelM * .sapUiVlt.sapUiContentPadding {
+    padding: 0rem;
+}
+ .sapMListBGSolid .sapMLIB {
+    background: transparent;
+}
+
+.sapzenfilterpanelM * .sapUiVlt.sapUiContentPadding {
+    padding: 0rem;
+}   
+    
+.sapMLIB {
+    border-bottom: 0px solid #e5e5e5;
+}   
+
+.sapzenfilterpanelM * .sapMTitleStyleAuto {
+    padding-top: 4px;
+    padding-left: 2px;
+}   
+
+
+.butn .sapMBtnInner {	
+	 -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0px;
+   color: #ffffff !important;
+  font-size: 0.72rem !important;
+  background: #00b0f0 !important;
+  text-decoration: none !important;
+   outline: none !important;
+     border: solid #00b0f0 1px !important;
+}
+.butn .sapMFocusable{
+	   outline: none !important;
+}    
+
+.sapzencrosstab-HeaderCellDefault {
+    background-color: #ffffff;
+
+}
+

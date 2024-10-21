@@ -1,0 +1,13 @@
+POST https://o167200.ingest.sentry.io:443/api/5368154/envelope/ HTTP/1.1
+X-Sentry-Auth: Sentry sentry_version=7,sentry_client=Sentry/3.12.1,sentry_key=c021f659c0244f1dae481372236bf7ff,sentry_timestamp=1700747185
+Accept: application/json
+Content-Encoding: gzip
+Host: o167200.ingest.sentry.io
+Content-Length: 261
+Expect: 100-continue
+Accept-Encoding: gzip, deflate
+Connection: Keep-Alive
+
+{"sdk":{"name":"Sentry","version":"3.12.1"}}
+{"type":"session","length":284}
+{"sid":"9c6b8b8143ee476ebba804870eb6c70e","did":"cc622ce0-06a7-4e7f-8014-6df7af8bbfa8","init":true,"started":"2023-11-23T13:46:25.4246562+00:00","timestamp":"2023-11-23T13:46:25.4256553+00:00","seq":0,"duration":0,"errors":0,"attrs":{"release":"22.4.1.62","environment":"Production"}}

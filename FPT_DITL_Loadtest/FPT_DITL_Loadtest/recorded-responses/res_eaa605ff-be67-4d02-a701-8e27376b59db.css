@@ -1,0 +1,198 @@
+@font-face {
+    font-family: 'orca';
+    src: url('../assets/orca-icons/enriched-orca-icons.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.zen-cfsettings-ruleseteditdialog {
+}
+.zen-cfsettings-ruleseteditdialog .name-row {
+    margin: 0 1rem;
+}
+
+.zen-cfsettings-ruleseteditdialog .sapMDialogStretchContent {
+    padding: 22px 45px;
+}
+.zen-cfsettings-ruleseteditdialog .colorPickerButton {
+    width: 54px;
+    display: inline-block;
+    box-sizing: border-box;
+    cursor: pointer;
+    position: relative;
+}
+.zen-cfsettings-ruleseteditdialog .colorPickerButton.sapMSltDisabled {
+    cursor: default;
+}
+.zen-cfsettings-ruleseteditdialog .colorPickerButton > span {
+    height: 16px;
+    width: 16px;
+    display: block;
+    position: relative;
+    top: 3px;
+    left: 3px;
+}
+.zen-cfsettings-ruleseteditdialog .colorPickerButton:after {
+    font-family: SAP-icons;
+    content: "\e1ef";
+    font-size: 16px;
+    line-height: 34px;
+    top: -21px;
+    position: relative;
+    left: 30px;
+    color: #666666;
+}
+.sapUiTheme-sap_bluecrystal .zen-cfsettings-ruleeditor .sapMLabel,
+.sapUiTheme-sap_hcb .zen-cfsettings-ruleeditor .sapMLabel,
+.sapUiTheme-sap_belize .zen-cfsettings-ruleeditor .sapMLabel {
+    margin: .5em 0 0 0;
+}
+.zen-cfsettings-ruleeditor .sapMLabel.label-style {
+    max-width: 7rem;
+}
+.zen-cfsettings-ruleeditor .sapMLabel.label-symbol {
+    max-width: 6rem;
+}
+.zen-cfsettings-ruleeditor .sapMLabel.label-fillcolor {
+    max-width: 6rem;
+}
+.zen-cfsettings-ruleeditor .sapMLabel.hint-for-crosstab {
+    max-width: 4.2rem;
+}
+.sapUiTheme-lumira_simplite .zen-cfsettings-ruleeditor .font-style-button .sapMBtnIcon{
+    font-size: 1rem;
+}
+.sapUiTheme-lumira_simplite .zen-cfsettings-ruleeditor .sapMBtnEmphasized {
+    background: #009de0;
+}
+.sapUiTheme-lumira_simplite .zen-cfsettings-ruleeditor .sapMBtnEmphasized .sapMBtnIcon {
+    color: white;
+}
+.sapUiTheme-lumira_simplite .zen-cfsettings-ruleseteditdialog .rulelist-panel-toolbar.sapMTB {
+    border-bottom: 1px solid #ccc;
+}
+.sapUiTheme-sap_bluecrystal .ruleeditor-condition-row.right .sapMLabel,
+.sapUiTheme-sap_hcb .ruleeditor-condition-row.right .sapMLabel,
+.sapUiTheme-sap_belize .ruleeditor-condition-row.right .sapMLabel,
+.sapUiTheme-sap_bluecrystal .zen-cfsettings-ruleseteditdialog .name-row .sapMLabel,
+.sapUiTheme-sap_hcb .zen-cfsettings-ruleseteditdialog .name-row .sapMLabel,
+.sapUiTheme-sap_belize .zen-cfsettings-ruleseteditdialog .name-row .sapMLabel{
+    margin: .5em .5rem 0 0;
+}
+.zen-cfsettings-ruleseteditdialog .applyformatting-row {
+    padding: 0 .5rem;
+}
+.sapUiTheme-lumira_simplite .zen-cfsettings-ruleseteditdialog .applyformatting-row .sapMCb {
+    margin-right: 0;
+}
+.zen-cfsettings-ruleseteditdialog .rulelist-panel {
+    margin-top: 26px;
+}
+.zen-cfsettings-ruleseteditdialog .applyformatting-panel {
+    margin-top: 26px;
+}
+.zen-cfsettings-ruleseteditdialog .sapMPanelContent {
+    border-bottom: none;
+    padding: 15px 0;
+}
+.conditionalFormattingFormatPreview {
+    height: 1.625rem;
+    line-height: 24px;
+    width: 118px;
+    overflow: hidden;
+    border: #ddd 1px solid;
+    margin: 0.25em 0;
+    box-shadow: none !important;
+    font-family: 'Helvetica Neue', Arial;
+    color: #666;
+    font-weight: normal;
+    cursor: default;
+}
+.zen-cfsettings-ruleeditor {
+    padding: 6px 0.25rem 6px 1rem;
+}
+.zen-cfsettings-ruleeditor.highlight4edit {
+    background: rgba(195, 195, 195, 0.1);
+}
+.sapUiTheme-sap_hcb .zen-cfsettings-ruleeditor.highlight4edit {
+    background: transparent;
+}
+.zen-cfsettings-ruleeditor .symbollevel-select .sapMSltLabel {
+    padding-left: 1rem;
+    margin-left: 3px;
+}
+.zen-cfsettings-ruleeditor .sapMBtn .sapMBtnInner {
+    border-radius: 0;
+}
+.sapUiTheme-lumira_simplite .sapUiSizeCompact .zen-cfsettings-ruleeditor .sapMSlt {
+    margin-left: 0;
+    margin-right: 0;
+}
+.sapUiTheme-lumira_simplite .sapUiSizeCompact .zen-cfsettings-ruleeditor .sapMInputBaseWidthPadding {
+    padding-left: 0;
+    padding-right: 0;
+}
+.ruleeditor-condition-row.left .sapMFlexItem {
+    margin-left: 4px;
+    margin-right: 4px;
+}
+.ruleeditor-condition-row.left .sapMFlexItem:first-child {
+    margin-left: 0;
+}
+.ruleeditor-condition-row.left .sapMFlexItem:last-child {
+    margin-right: 0;
+}
+.rulelist-panel .rulelist-panel-toolbar .sapMBtnInner:not(.sapMBtnActive),
+.ruleeditor-condition-row.right .sapMBtnInner:not(.sapMBtnActive):not(.sapMBtnEmphasized) {
+    border: none;
+    background: transparent;
+}
+
+.sapUiTheme-sap_belize .sapMFlexBoxJustifyStart>.ruleeditor-format-row.center {
+    margin-left: 8px;
+}
+.ruleeditor-format-row .hint-for-crosstab-icon,
+.ruleeditor-format-row .hint-for-crosstab.sapMLabel{
+    font-size: 11px;
+    margin-top: .5rem;
+}
+.sapUiTheme-lumira_simplite .ruleeditor-format-row .hint-for-crosstab-icon {
+    margin-top: 1rem;
+}
+.sapUiTheme-lumira_simplite .ruleeditor-format-row .hint-for-crosstab.sapMLabel{
+    margin-top: .15rem;
+}
+.ruleeditor-format-row .sapMFlexItem {
+    margin-left: 2px;
+    margin-right: 2px;
+}
+.ruleeditor-format-row .sapMFlexItem:first-child {
+    margin-left: 0;
+}
+.ruleeditor-format-row .sapMFlexItem:last-child {
+    margin-right: 0;
+}
+.zen-cfsettings-operand-input {
+}
+
+.zen-cfsettings-operand-input .ValueTextField {
+    display: inline-block;
+    cursor: text;
+    background-image: none;
+}
+
+.zen-cfsettings-operand-input .ValueTextField .sapMInputBaseInner {
+
+}
+
+.zen-cfsettings-operand-input .OperandInputMargin{
+    margin-left: 8px;
+}
+html[dir="rtl"] .zen-cfsettings-operand-input .OperandInputMargin{
+    margin-left: 0px;
+    margin-right: 8px;
+}
+.rulelist-panel-toolbar.sapMTB-Transparent-CTX .sapMTitle.sapMTitleTB {
+    font-size: .875rem;
+    font-weight: bold;
+}

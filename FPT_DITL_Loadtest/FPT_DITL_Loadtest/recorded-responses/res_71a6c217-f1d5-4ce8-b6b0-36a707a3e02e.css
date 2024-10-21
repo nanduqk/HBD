@@ -1,0 +1,107 @@
+/*
+�2010 - 2016 SAP SE or an SAP affiliate company.  All rights reserved.
+ 
+SAP and other SAP products and services mentioned herein as well as their respective logos are trademarks or registered trademarks of SAP SE in Germany and other countries.  Please see http://www.sap.com/corporate-en/legal/copyright/index.epx#trademark for additional trademark information and notices.
+*/
+
+@CHARSET "ISO-8859-1";
+
+.BILP-floatLeft{
+	float:left;
+}
+.imageSrc{
+	background-image:url('../images/AllImages.png') !important;
+}
+.BILP-size32px{
+	width:32px;
+	height:32px;
+}
+.BILP-size54px{
+	width:54px;
+	height:54px;
+}
+
+.BILP-searchIcon{
+	background-position : -1555px -207px !important;
+	padding-right: 7px !important;
+}
+.BILP-searchIcon:hover{
+	background-position : -1611px -207px !important;
+}
+.BILP-searchIcon:active{
+	background-position : -1667px -207px !important;
+}
+.BILP-appIcon{
+	background-position : -1555px -40px !important;
+}
+.BILP-appIcon:hover{
+	background-position : -1611px -40px !important;
+}
+.BILP-appIcon:active{
+	background-position : -1667px -40px !important;
+}
+.BILP-notificationIcon{
+	background-position : -1555px -320px !important;
+}
+.BILP-notificationIcon:hover{
+	background-position : -1611px -320px !important;
+}
+.BILP-notificationIcon:active{
+	background-position : -1667px -320px !important;
+}
+.BILP-userIcon{
+	background-position : -1557px -95px !important;
+}
+.BILP-homeIcon {
+    background-position: -1557px -264px !important;
+}
+
+.BILP-arrowIcon{
+	background-position : -105px -73px !important;
+}
+.BILP-arrowIcon:hover{
+	background-position : -138px -73px !important;
+}
+.BILP-arrowIcon:active{
+	background-position : -172px -73px !important;
+}
+.BILP-tileIcon{
+	background-position : -105px -208px !important;
+}
+.BILP-tileIcon:hover{
+	background-position : -138px -208px !important;
+}
+.BILP-tileIcon:active{
+	background-position : -172px -208px !important;
+}
+.BILP-tileIconActive{
+	background-position : -172px -208px !important;
+}
+.BILP-listIcon{
+	background-position : -105px -140px !important;
+}
+.BILP-listIcon:hover{
+	background-position : -138px -140px !important;
+}
+.BILP-listIcon:active{
+	background-position : -172px -140px !important;
+}
+.BILP-listIconActive{
+	background-position : -172px -140px !important;
+}
+
+.BILP-addIcon{
+	background-position : -105px -276px !important;
+}
+.BILP-addIcon:hover{
+	background-position : -138px -276px !important;
+}
+.BILP-addIcon:active{
+	background-position : -172px -276px !important;
+}
+.sapUiTheme-sap_fiori_3 .BILP-searchIcon .sapMBtnIcon{
+	color: #d1e8ff !important;
+}
+.sapUiTheme-sap_fiori_3  .BILP-homeIcon .sapMBtnIcon{
+	color: #d1e8ff !important;
+}

@@ -1,0 +1,20 @@
+GET https://hba.na.pg.com:8443/BOE/portal/2302072240/biprwsproxy/biprws/internal/v1/folders/FoycQAAOTgkAJMMAAACHzdTwAFBWtjah/children?encodepath=true&page=1&pagesize=50&_=1725948064589 HTTP/1.1
+Host: hba.na.pg.com:8443
+Connection: keep-alive
+sec-ch-ua: "Chromium";v="128", "Not;A=Brand";v="24", "Google Chrome";v="128"
+X-SAP-PVL: en_US
+sec-ch-ua-mobile: ?0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36
+Content-Type: application/json;odata=verbose
+Accept: application/json
+x-SAP-logonToken: usalspgsa687.na.pg.com:6400@{3&2=16567689,U3&2v=usalspgsa573.na.pg.com:6400,UP&66=40,U3&68=secSAPR3:HGA~400/ES2039,UP&S9=14995249,U3&qe=100,U3&vz=wPF1yTGTqbyoQwOKjzIxbnw_TlhbGBp84WM.PU.h6z3MteG3N2dyXJIR1ijjopap,UP}
+X-Requested-With: XMLHttpRequest
+sec-ch-ua-platform: "Windows"
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: empty
+Referer: https://hba.na.pg.com:8443/BOE/portal/2302072240/FioriBI/main.jsp?service=%2Fcommon%2FappService.do&appKind=InfoView
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
+Cookie: JSESSIONID=B55AE38F0DFF6ED1CE742A3883410F75; InfoViewPLATFORMSVC_COOKIE_CMS=%40webHBA; InfoViewCE_SAPCnt=400; InfoViewPLATFORMSVC_COOKIE_AUTH=secSAPR3; InfoViewCE_SAPSys=HGA; InfoViewPLATFORMSVC_COOKIE_USR=z0006aLne%3Cm6%3D%40%23%2444; InfoViewPLATFORMSVC_COOKIE_TOKEN=
+

@@ -1,0 +1,1 @@
+define(["zen.rt.uiframework/inputcontrol/InputControlSegmentRenderer"],function(a){var b=sap.m.SegmentedButton.extend("sap.m.InputControlSegmentedButton",{renderer:a});return b;},true);

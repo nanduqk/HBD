@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<snippet_collection>
+<snippet id="sapbi_snippet___JAVASCRIPTHEADER" type="JAVASCRIPT"><![CDATA[sapbi_page.m_required_sdk_versions = {};
+sapbi_page.m_required_biBundles = {"zen.rt.components.crosstab": "bundles/zen/rt/components/crosstab","zen.rt.components.dynamicmenu.menubuilders": "bundles/zen/rt/components/dynamicmenu/menubuilders","zen.rt.components.dynamicmenu.builders": "bundles/zen/rt/components/dynamicmenu/builders"};
+sapbi_addRequired([]);
+sapbi_page.m_requestIdValue = "2";
+sapbi_page.m_WaitForPhase2 = false;
+]]></snippet>
+<snippet id="sapbi_snippet___JAVASCRIPTBODY" type="HTML"><![CDATA[<div id="sapbi_snippet___JAVASCRIPTBODY"></div>]]></snippet>
+<snippet id="sapbi_snippet_ROOT" type="JSON"><![CDATA[{"delta":[{"component":{"id":"TEXTPLANT","type":"TEXT_COMPONENT","pureId":"TEXTPLANT","scope":"","width":"auto","height":"auto","leftmargin":"\x2d40","rightmargin":"100","topmargin":"10","bottommargin":"0","cssclass":"","showLoadingState":false,"content":{"control":{"type":"textfield","id":"TEXTPLANT_tf1","tooltip":"","style":"STANDARD","cssStyle":"","onclick":"","text":{"_v":"Plant\x3a\x20U011"}}}}},{"component":{"id":"TEXTSUB","type":"TEXT_COMPONENT","pureId":"TEXTSUB","scope":"","width":"auto","height":"auto","leftmargin":"\x2d45","rightmargin":"80","topmargin":"10","bottommargin":"0","cssclass":"","showLoadingState":false,"content":{"control":{"type":"textfield","id":"TEXTSUB_tf1","tooltip":"","style":"STANDARD","cssStyle":"","onclick":"","text":{"_v":""}}}}},{"component":{"id":"TEXTCAT","type":"TEXT_COMPONENT","pureId":"TEXTCAT","scope":"","width":"auto","height":"auto","leftmargin":"\x2d55","rightmargin":"91","topmargin":"10","bottommargin":"0","cssclass":"","showLoadingState":false,"content":{"control":{"type":"textfield","id":"TEXTCAT_tf1","tooltip":"","style":"STANDARD","cssStyle":"","onclick":"","text":{"_v":""}}}}},{"component":{"id":"TEXTTDC","type":"TEXT_COMPONENT","pureId":"TEXTTDC","scope":"","width":"auto","height":"auto","leftmargin":"\x2d60","rightmargin":"80","topmargin":"10","bottommargin":"0","cssclass":"","showLoadingState":false,"content":{"control":{"type":"textfield","id":"TEXTTDC_tf1","tooltip":"","style":"STANDARD","cssStyle":"","onclick":"","text":{"_v":""}}}}}]}]]></snippet>
+</snippet_collection>

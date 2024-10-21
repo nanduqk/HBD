@@ -1,0 +1,18 @@
+POST https://hba.na.pg.com:8443/BOE/portal/2302072240/LumiraWebApp/zen?zenLogoff&sap-sessioncmd=USR_ABORT&sap-ext-sid=3c2598a2a17f4ae2a5d80403974d83eb&SESSION_RESOURCE_ID=z000I1L%5CV@%5DB43EK7Cj?ho2WL%5B%5D?YVZ;lddOQ5P00 HTTP/1.1
+Host: hba.na.pg.com:8443
+Connection: keep-alive
+Content-Length: 0
+sec-ch-ua: "Google Chrome";v="119", "Chromium";v="119", "Not?A_Brand";v="24"
+sec-ch-ua-mobile: ?0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36
+sec-ch-ua-platform: "Windows"
+Accept: */*
+Origin: https://hba.na.pg.com:8443
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: empty
+Referer: https://hba.na.pg.com:8443/BOE/portal/2302072240/LumiraWebApp/view.faces?cafWebSesInit=true&bttoken=MDAwREY7XUZJa1E0aGU6OWhmaGFONFFmOVNUTDE0NzAEQ&opendocTarget=infoviewOpenDocFrame&appKind=InfoView&service=%2FInfoView%2Fcommon%2FappService.do&loc=en_US&pvl=en_US&ctx=standalone&actId=8023&objIds=7786592&containerId=undefined&pref=maxOpageUt%3D200%3BmaxOpageC%3D10%3Btz%3DEurope%2FLondon%3BmUnit%3Dinch%3BshowFilters%3Dtrue%3BsmtpFrom%3Dtrue%3BpromptForUnsavedData%3Dtrue%3B&app=BING&defaultView=true
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Cookie: JSESSIONID=7A577A2889A0872A741A7858B934B79C; InfoViewPLATFORMSVC_COOKIE_CMS=%40webHBA; InfoViewCE_SAPSys=HGA; InfoViewCE_SAPCnt=400; InfoViewPLATFORMSVC_COOKIE_AUTH=secSAPR3; InfoViewPLATFORMSVC_COOKIE_TOKEN=; InfoViewPLATFORMSVC_COOKIE_USR=z0006aLnf5n61%40%23%2444
+

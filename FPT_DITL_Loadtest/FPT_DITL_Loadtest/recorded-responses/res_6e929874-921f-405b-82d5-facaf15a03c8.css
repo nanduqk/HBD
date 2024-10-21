@@ -1,0 +1,832 @@
+/*
+�2010 - 2016 SAP SE or an SAP affiliate company.  All rights reserved.
+ 
+SAP and other SAP products and services mentioned herein as well as their respective logos are trademarks or registered trademarks of SAP SE in Germany and other countries.  Please see http://www.sap.com/corporate-en/legal/copyright/index.epx#trademark for additional trademark information and notices.
+*/
+
+/*
+�2010 - 2016 SAP SE or an SAP affiliate company.  All rights reserved.
+ 
+SAP and other SAP products and services mentioned herein as well as their respective logos are trademarks or registered trademarks of SAP SE in Germany and other countries.  Please see http://www.sap.com/corporate-en/legal/copyright/index.epx#trademark for additional trademark information and notices.
+*/
+
+@CHARSET "ISO-8859-1";
+
+
+.BILP-launchpadLabel .sapMBtnInner{
+/*	color:  #ffffff !important;*/
+	font-family: Helvetica;
+	font-size:18px;
+}
+
+.BILP-homeSearchBar {
+	display: none;
+	width: auto;
+	vertical-align: middle;
+}
+
+.BILP-homeSearchBar .BILP-searchLayout {
+	padding: 0px;
+	
+}
+
+.BILP-iconHover .sapMBtnHoverable{
+	border-radius:100% !important;
+}
+
+.BILP-HomepageTabBar{
+	height: inherit !important;
+	overflow: auto;
+}
+#FioriHomePage>div{
+	height:100%
+}
+#BILP_home_container{
+overflow:inherit !important;
+position: relative;	
+}
+.BILP_home_container >div>section{
+height: 100% !important;	
+}
+/*.BILP-Objectoverflow, .sapMPage>section{
+  overflow:hidden;
+  margin-left:0px;
+  }*/
+
+#homePage .sapMPage{
+    isolation:auto !important;
+}
+
+.BILP-homepageheadertext .sapUxAPAnchorBarUpperCase .sapUxAPAnchorBarButton {
+    text-transform: none;
+}
+canvas~header .sapMBarContainer.sapMBarRight{
+    margin-right:1.9rem
+}
+canvas~header .sapMBarContainer.sapMBarRight .BILP-homeSearchBar{
+    margin-right:0.5rem;
+}
+.footertext .sapMTileCntFtrTxt {
+    display: block!important;
+  }
+ /* .tilelayout{
+    display: block!important; 
+  }*/
+ .homepagesection .sapUxAPObjectPageSectionTitle,.tilesHeaderLbl{ /* section2-title, #__section4-title, #__section6-title*/
+    font-family: "72",Arial,Helvetica,sans-serif !important;
+    font-size: 18px !important;
+    font-weight: normal !important;
+    color: #346187;
+    border-bottom: none !important;
+    text-transform: none !important;
+    text-shadow: none !important;
+}
+.homepageheader .sapUxAPObjectPageSectionHeader{ 
+border-bottom: none;           
+    /*margin-top:-5% !important;*/
+}
+.apppheader .sapUxAPObjectPageSectionHeader{
+   /* margin-top: -5% !important;*/
+}
+.homeborder .sapUxAPObjectPageSectionHeader{
+  border-bottom: none; 
+  border-top: none;  
+}
+.homepagesubsection .sapUxAPObjectPageSubSection{ 
+/* margin-top: 1% !important; 
+margin-bottom: -4% !important; */
+background: transparent; 
+outline-style: none !important ;
+/*height:24vh !important;*/
+}
+.objectlayoutsubsec .sapUxAPObjectPageSubSection{
+margin-top: -4%!important;
+    margin-left: 10px;
+	outline-style: none !important ;
+    /*margin-right: 50px;*/
+}
+
+.objectlayoutsubsecMargin .sapUxAPBlockContainerDesktop{
+padding: 1rem 1rem 0rem 2rem !important;
+}
+.objectContainer .sapUxAPObjectPageWrapper{ 
+  background: transparent !important;
+}
+.objectAnchorBar .sapUxAPAnchorBar.sapMTB{
+  background: transparent;
+}
+.FavFooter .sapMBtnContent{
+    color: black;
+    text-decoration: none !important;
+    text-shadow: none !important; 
+    background-color: #ffffff;
+    /*margin-left: -12px;
+    margin-right: 30px;*/
+	margin-right: 2px;
+    width: 1300px;
+}
+.FavFooterPadding .sapMBtnInner.sapMBtnText{
+	padding-right: 0 !important;
+	justify-content: flex-start !important;
+}
+
+/*.sapMPageEnableScrolling{
+    height: 100%
+}*/
+.Footer{
+   background-color: transparent !important;
+   /* border-top: #eff4f9!important;*/
+   width:100%;
+   border-bottom: 0px solid #cccccc !important;
+   margin-left: -4px !important;
+}
+
+.FooterHome{
+     height: 39vh !important;
+}
+
+
+
+
+/*Fiori User Settings Behavious*/
+
+ 
+.soShow{ 
+position:relative; 
+cursor:pointer; 
+z-index:3; 
+width:100%; 
+height:100% 
+} 
+/*Me area heDER*/ 
+@media screen and (min-width: 1920px) 
+{ 
+#userSettingsPage>div { 
+    padding-left: 9rem; 
+    padding-right: 9rem; 
+} 
+} 
+@media screen and (min-width: 1280px), screen and (min-width: 1440px), screen and (min-width: 1600px) 
+{ 
+#userSettingsPage>div { 
+    padding-left: 6rem; 
+    padding-right: 9rem; 
+} 
+} 
+@media screen and (min-width: 601px), screen and (min-width: 1024px) 
+{ 
+#userSettingsPage>div { 
+    padding-left: 3rem; 
+    padding-right: 6rem; 
+} 
+} 
+ 
+ 
+#userSettingsPage>div { 
+    box-sizing: border-box; 
+    margin-top: 2rem; 
+} 
+/*END*/ 
+ 
+ 
+/*LEFT PANE CONTAINER*/ 
+ 
+#userSettingsPage.expand { 
+    overflow-y: auto; 
+    height: 100%; 
+    float:left;
+    display:block; 
+ visibility:visible;
+} 
+#userSettingsPage { 
+    height: inherit; 
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    vertical-align: top; 
+visibility:hidden;
+transition: visibility 0.47s ease-out;
+} 
+#userSettingsPage.expand { 
+    position: relative; 
+    z-index: 1; 
+    display:inline-block; 
+} 
+@media screen and (min-width: 601px), screen and (min-width: 1024px) 
+{ 
+#userSettingsPage { 
+    width: 36rem; 
+} 
+} 
+@media screen and (min-width: 1280px), screen and (min-width: 1440px), screen and (min-width: 1600px) 
+{ 
+#userSettingsPage { 
+    width: 47rem; 
+} 
+} 
+@media screen and (min-width: 1920px) 
+{ 
+#userSettingsPage { 
+    width: 50rem; 
+} 
+} 
+/*END*/ 
+ 
+ 
+/*MEDIUM PANE CONTAINER*/ 
+ 
+ #FioriHomePage { 
+    display: block; 
+    position: absolute; 
+    top: 0; 
+    width: 100%; 
+    height: 100%; 
+   /* transform: translateX(0) translateY(0) translateZ(0); */
+} 
+ 
+ @media screen and (max-width: 600px) 
+{ 
+#BILP_home_container { 
+    left: 37rem; 
+} 
+#FioriHomePage{
+	left: -37rem;
+}
+#userSettingsPage>div{
+    /* overflow-x: !important; */
+    min-width: 370px;
+    }
+}
+@media screen and (min-width: 601px), screen and (min-width: 1024px) 
+{ 
+#BILP_home_container { 
+    left: 36rem; 
+} 
+#FioriHomePage{
+	left: -36rem;
+}
+} 
+@media screen and (min-width: 1280px), screen and (min-width: 1440px), screen and (min-width: 1600px) 
+{ 
+#BILP_home_container { 
+    left: 47rem; 
+} 
+#FioriHomePage{
+	left: -47rem;
+}
+} 
+ 
+ 
+@media screen and (min-width: 1920px) 
+{ 
+#BILP_home_container {
+    left: 50rem;
+} 
+#FioriHomePage{
+	left: -50rem;
+}
+} 
+/*END*/ 
+ 
+#BILP_home_container>div.backLeft { 
+    pointer-events: none; 
+} 
+ 
+ 
+#BILP_home_container>div {
+      /*       height: 100% !important;
+      height: inherit; 
+      transition: transform 0.27s ease-out;
+       transition-delay: 0.20s;  */
+
+      } 
+@media screen and (min-width: 601px) 
+{ 
+#BILP_home_container.shrink>div {
+    transform: translateX(-12.5%) translateY(0) translateZ(0) scale(0.8);
+    transition: transform 0.34s ease-out;
+    transition-delay: 0.14s;
+} 
+} 
+/*END*/ 
+/*VPCENTER>DIV>DIV*/ 
+ 
+ 
+ 
+ 
+
+#FioriHomePage{
+
+/* transform: translateX(0px) translateY(0px) translateZ(0px);*/
+ transition: initial;
+ width:100% !important;
+ height: 100%;
+ overflow: visible !important;
+ transition: transform 0.47s;
+ -webkit-backface-visibility: visible;
+ -webkit-perspective-origin: 100% 100%;
+ display: block;
+ position: absolute;
+ -webkit-perspective: 3rem;
+ /*will-change: left,right,transform;*/
+ transition: 0.47s ease-out;
+} 
+#FioriHomePage.LeftPanelOpen{ 
+ left: 0rem; 
+ 
+ 
+ transform: translateX(0px) translateY(0px) translateZ(0px); 
+ transition: 0.47s ease-out; 
+}
+
+.soShow{
+	position:relative;
+	cursor:pointer;
+	z-index:3;
+	width:100%;
+	height:100%
+}
+
+/**/
+.BILP_logo {
+	padding: 10px;
+    max-height: 2.5rem;
+    max-width: 6rem;
+    vertical-align: middle !important;
+    position: relative;
+}
+
+#user-icon .sapMToggleBtnPressed,#home-icon .sapMToggleBtnPressed,#notification-icon .sapMToggleBtnPressed{
+     background-color:transparent !important;
+    border-color: transparent !important;
+    color: initial;
+    text-shadow: none;
+}
+
+#notification-icon-content{
+	/*color: #346187;	*/
+}
+
+.BILP_User .sapMLabel{
+	font-size: 1rem;
+	color: #346187;
+	padding-left: 2rem;
+	min-width: 2rem;
+	max-width: 12rem;
+	/*text-shadow: 0 1px 0 #ffffff;*/
+	opacity: 0.5;
+}
+.BILP_WelcomeLabelcolor {
+
+    font-size: 1rem;
+	padding-left: 1px; /*2rem*/
+	min-width: 2rem;
+	max-width: 12rem;
+	/* text-shadow: 0 1px 0 rgba(255,255,255,0.5) ; */
+}
+.BILP-closeButton .sapMBtnInner {
+
+    background-color: transparent !important;
+      border: 0px !important;
+	  padding-top:1px !important;
+	 /* margin-left:10px !important;*/
+	  }
+.BILP-closeButton .sapMBtnInner:hover {
+
+    background-color: inherit !important;
+	/*margin-top:2px !important;*/
+     /* border: none !important;*/
+	/* margin-left:10px !important;*/
+	  }
+.BILP-closeButton  .sapMBtnCustomIcon{
+
+      color: inherit !important;
+	  padding-top:1px !important;
+     /*margin-left:10px !important;*/
+	      margin-bottom: 0px;
+		  }
+.BILP-Allign  .sapMBtnDefault {
+		margin-right: 10px !important;
+}
+.BILP-AllignAddCat .sapMBtnDefault  {
+    margin-right: -21px
+}
+/* 
+.BILP-notificationBG{
+	background-color: #d3d7d9;
+} */
+
+.BILP-notificationDetailTitlePage .sapMBar{
+	background-color: #d3d7d9 !important;
+	font-weight: bold !important;
+	
+}
+.BILP-notificationDetailPage{
+	padding: 30px;
+}
+
+.BILP-Disclaimer-Content{
+	margin-left: 12px; 
+}
+
+.headerTextFont.sapUxAPAnchorBar .sapUxAPAnchorBarButton .sapMBtnInner .sapMBtnContent, .sapUxAPAnchorBar .sapUxAPAnchorBarButton .sapMBtnInner .sapMBtnIcon {
+    height: 2.8rem;
+    line-height: 3rem;
+    font-size: 18px;
+   /* color: #346187 !important;*/
+}
+.BILP-homepageIcons .sapUiIcon{
+	line-height: 2.5rem;
+}
+
+.BILP-sap_belize_hcbTextFontColor.sapUxAPAnchorBar .sapUxAPAnchorBarButton .sapMBtnInner .sapMBtnContent, .sapUxAPAnchorBar .sapUxAPAnchorBarButton .sapMBtnInner .sapMBtnIcon {
+    height: 2.8rem;
+    line-height: 3rem;
+    font-size: 18px;
+    color: #ffffff;
+}
+
+.BILP-sap_belize_hcbTextColor .sapUxAPObjectPageSectionTitle{
+    color: #ffffff;  
+}
+
+.BILP-sap_belize_hcbBackgroundColor {
+	background-color: #000000;
+}
+
+.sapUiTheme-sap_belize_hcb .sapUxAPObjectPageSectionHeader{
+	background-color: #000000;
+}
+
+.sapUiTheme-sap_belize_hcw .sapUxAPObjectPageSectionHeader{
+	background-color: #ffffff;
+}
+
+.sapUiTheme-sap_belize_hcb .sapUxAPObjectPageSectionTitle{
+    color: #ffffff;  
+}
+
+.sapUiTheme-sap_belize_hcw .sapUxAPObjectPageSectionTitle{
+    color: #000000;  
+}
+.BILP-NoItemsButtonHomePage .sapMBtnContent {
+	padding-left: 0.5rem !important;
+    text-align: left !important;
+    font-size: 1rem !important;   
+	color : #346187;
+	font-family : Arial,Helvetica,sans-serif !important;;
+	font-weight : normal !important;
+	background :transparent !important;
+}
+
+.BILP-NoItemsTextHomePage {
+    text-align: left;
+    font-size: 1rem;
+    margin-top: 1%;
+	color : #346187;
+	font-family : Arial,Helvetica,sans-serif;
+	font-weight : normal;
+}
+
+.sapUiTheme-sap_belize_hcb .BILP-NoItemsTextHomePage{
+    color: #ffffff;  
+}
+
+.sapUiTheme-sap_belize_hcw .BILP-NoItemsTextHomePage{
+    color: #000000;  
+}
+
+.sapUiTheme-sap_belize_hcw .BILP-AllReportsLabel{
+	color:#000000 !important;
+}
+
+.sapUiTheme-sap_belize_hcb .BILP-AllReportsLabel{
+	color:#ffffff !important;
+}
+
+.sapUiTheme-sap_belize_hcb .headerTextFont.sapUxAPAnchorBar .sapUxAPAnchorBarButton .sapMBtnInner .sapMBtnContent {
+	color: #ffffff !important;
+}
+
+.sapUiTheme-sap_belize_hcw .headerTextFont.sapUxAPAnchorBar .sapUxAPAnchorBarButton .sapMBtnInner .sapMBtnContent{
+	color: #000000 !important;
+}
+
+.sapUiTheme-sap_belize_hcb .sapUxAPAnchorBar .sapUxAPAnchorBarButton .sapMBtnInner .sapMBtnIcon {
+	color: #ffffff !important;
+}
+
+.sapUiTheme-sap_belize_hcw .sapUxAPAnchorBar .sapUxAPAnchorBarButton .sapMBtnInner .sapMBtnIcon {
+	color: #000000 !important;
+}
+
+.sapUiTheme-sap_belize_plus .FavFooter .sapMBtnContent{
+	color: #333;
+}
+
+.sapUiTheme-sap_belize_hcb .FavFooter .sapMBtnContent{
+	color: #ffffff !important;
+	background-color: #000000;
+	border-style: solid;
+	border-width: thin;
+}
+	
+.sapUiTheme-sap_belize_hcw .FavFooter .sapMBtnContent{
+	color: #000000 !important;
+	background-color: #ffffff;
+	border-style: solid;
+	border-width: thin;
+}
+
+.sapUiTheme-sap_belize_plus .sapUxAPObjectPageSectionTitle{
+    color: #ffffff;  
+}
+
+.sapUiTheme-sap_belize .headerTextFont.sapUxAPAnchorBar .sapUxAPAnchorBarButton .sapMBtnInner .sapMBtnContent, .sapUxAPAnchorBar .sapUxAPAnchorBarButton .sapMBtnInner .sapMBtnIcon {
+	color: #346187;  
+}
+.customStandtile {
+	height:11rem !important;
+	width:11rem !important;	
+	background-color: #ffffff !important;	
+}
+.CustomContainer {
+	top: 1rem !important;
+}
+.FavHeader_edit { 
+	/* padding-left: 33.5rem !important; */
+    width: 83rem !important;
+}
+
+.tilesHeaderLbl{
+    font-size: 1.125rem !important;
+    /* padding-left: 48px !important; */
+}
+
+.FavHeader_edit_Button { 
+padding-left: 3rem !important;
+    align-content: center !important;
+    width: 75rem !important;
+    
+}
+
+.sapUiTheme-sap_fiori_3 .BILP-launchpadLabel .sapMBtnIcon{
+	color:  #ffffff !important;
+}
+
+.sapUiTheme-sap_fiori_3 .BILP-launchpadLabel .sapMBtnInner, .sapUiTheme-sap_fiori_3 .BILP_WelcomeLabelcolor{
+	color:  #ffffff !important;
+}
+
+.sapUiTheme-sap_fiori_3  .BILP-homepageIcons .sapUiIcon, .sapUiTheme-sap_fiori_3 #notification-icon-content{
+	color:  #d1e8ff ;
+	line-height: 1.5rem;
+}
+
+.sapUiTheme-sap_fiori_3 .homepagesection .sapUxAPObjectPageSectionTitle , .sapUiTheme-sap_fiori_3 .BILP-NoItemsTextHomePage{
+	color: #32363a;
+}
+
+.sapUiTheme-sap_fiori_3_dark .homepagesection .sapUxAPObjectPageSectionTitle , .sapUiTheme-sap_fiori_3 .BILP-NoItemsTextHomePage, .sapUiTheme-sap_fiori_3_dark .BILP-launchpadLabel  .sapMBtnInner{
+	color: #ffffff ;
+}
+
+.sapUiTheme-sap_fiori_3_dark  .BILP-homepageIcons .sapUiIcon, .sapUiTheme-sap_fiori_3_dark #notification-icon-content{
+	color:  #d1e8ff ;
+	line-height: 1.5rem;
+}
+
+.sapUiTheme-sap_fiori_3_dark .FavFooter .sapMBtnContent{
+	color: black ;
+}
+
+.sapUiTheme-sap_fiori_3_dark .BILP-NoItemsButtonHomePage .sapMBtnContent{
+	color: #91c8f6 ;
+}
+
+
+.sapUiTheme-sap_fiori_3_hcb .homepagesection .sapUxAPObjectPageSectionTitle , .sapUiTheme-sap_fiori_3_hcb .BILP-NoItemsTextHomePage{
+	color: #ffffff;
+}
+
+.sapUiTheme-sap_fiori_3_hcb .FavFooter .sapMBtnContent{
+	color: #ffffff;
+	background-color: #000000;
+	border-style: solid;
+	border-width: thin;
+	margin-left: -8px;
+}
+
+.sapUiTheme-sap_fiori_3_hcb .BILP-NoItemsButtonHomePage .sapMBtnContent{
+	color: #ffffff ;
+}
+
+.sapUiTheme-sap_fiori_3_hcw .homepagesection .sapUxAPObjectPageSectionTitle , .sapUiTheme-sap_fiori_3_hcw .BILP-NoItemsTextHomePage{
+	color: #000000;
+}
+
+.sapUiTheme-sap_fiori_3_hcw .FavFooter .sapMBtnContent{
+	color: #000000;
+	background-color: #ffffff;
+	border-style: solid;
+	border-width: thin;
+	margin-left: -8px;
+}
+
+.customStandtile img{
+	object-fit: none;
+	object-position: -4px -2889px !important;
+}
+.AAD.AnalysisApplication img{	
+    object-position: -72px -2618px !important;
+}
+.Folder img{	
+    object-position: -4px -1935px !important;
+}
+.Webi img{	
+    object-position: -4px -2717px !important;
+}
+.CrystalReport img{	
+    object-position:-4px -2683px !important;
+}
+.Lumira img{	
+    object-position:-4px -2855px !important;
+}
+.LUMX img{	
+    object-position:-72px -2584px !important;
+}
+.DesignStudio img{	
+    object-position:-4px -2855px !important;
+}
+.Pdf img{	
+    object-position:-38px -2855px !important;
+}
+.Excel img{	
+    object-position:-37px -2721px !important;
+}
+.Publication img{	
+    object-position:-105px -2722px !important;
+}
+.Txt img{	
+    object-position:-37px -2817px !important;
+}
+.Word img{	
+    object-position:-37px -2755px !important;
+}
+.Agnostic img{	
+    object-position:-4px -2889px !important;
+}
+.Hyperlink img{	
+    object-position:-38px -2689px !important;
+}
+.Attachment img{	
+    object-position:-71px -2689px !important;
+}
+.Publication img{	
+    object-position:-105px -2722px !important;
+}
+.MDAnalysis img{	
+    object-position:-71px -2753px !important;
+}
+.ObjectPackage img{	
+    object-position:-72px -2889px !important;
+}
+.Program img{	
+    object-position:-72px -2823px !important;
+}
+.AFDashboardPage img{	
+    object-position:-71px -2854px !important;
+}
+.Powerpoint img{	
+    object-position:-36px -2789px !important;
+}
+.Xcelsius img{	
+    object-position:-70px -2718px !important;
+}
+.Lumira img{	
+    object-position:-4px -2854px !important;
+}
+.DesignStudio img{	
+    object-position:-4px -2854px !important;
+}
+.VISILums img{	
+    object-position:-4px -2854px !important;
+}
+.favTileContent{
+    padding-top: 26px !important;
+}
+
+/* .editTileFooter{
+    width : 99% !important;
+} */
+
+.favPagePanel{
+    padding-left: 46px;
+    padding-right: 46px;
+}
+
+.favPageModuleBackground,.favPagePanel .sapMPanelContent {
+    background: rgba(255,255,255,0.3);
+    padding-top: 8px !important;
+}
+
+.favPageModuleToolbar{
+    border-bottom: none !important;
+}
+
+html.sap-desktop .favPageTile .sapMGTWithoutImageHoverOverlay.sapMGTPressActive, html.sap-phone .favPageTile .sapMGTWithoutImageHoverOverlay.sapMGTPressActive, html.sap-tablet .favPageTile .sapMGTWithoutImageHoverOverlay.sapMGTPressActive{
+    background: none !important;
+}
+
+.allFavEditBtn>.sapMBtnInner{
+    border: .0625rem solid #0854a0 !important;
+}
+.allFavEditBtn{
+    margin-bottom: 12px !important;
+}
+.favReportType{
+    font-size: 10px !important;
+}
+
+.favReportIcon{
+    margin-left: 38px !important;
+}
+
+.badgeStyle.sapMBtn .sapMBadgeTopRight.sapMBadge .sapMBadgeIndicator{
+	top: -0.25rem !important;
+    right: -0.125rem !important;
+    position: absolute !important;
+}
+
+.BILP-pinButton .sapMBtnInner {
+
+    background-color: transparent !important;
+      border: 0px !important;
+	  padding-top:1px !important;
+	padding-left: 0px !important;
+	  }
+	  
+.BILP-pinButton .sapMBtnInner:hover {
+
+    background-color: inherit !important;
+	
+	  }
+.BILP-pinButton  .sapMBtnCustomIcon{
+
+      color: inherit !important;
+	  padding-top:1px !important;
+	  margin-bottom: 0px;
+		  }
+		  
+.BILP-hboxPadding{
+	    margin-left: -0.7rem !important;
+}
+
+.sapUiTheme-sap_fiori_3 .badgeStyle .sapMBtnIcon{
+	color: #d1e8ff !important;
+}
+.sapUiTheme-sap_fiori_3 .BILP-Allign .sapMBtnIcon{
+	color: #d1e8ff !important;
+}
+
+.sapUiTheme-sap_fiori_3 .sapMBar .sapMBtn:focus>.sapMFocusable{
+	outline-color: #ffffff !important;
+    outline-style: dotted;
+    outline-width: 0.0625rem;
+    outline-offset: -1px;
+}
+
+.sapUiTheme-sap_fiori_3 .sapMBar .sapFAvatarFocusable:focus{
+	outline-color: #ffffff !important;
+}
+
+.BILPShellBar {
+	padding: 0 !important;
+	padding-right: 20px !important;
+	border-bottom-style: solid;
+}
+
+.BILP-launchpadLabel{
+	margin: auto !important;
+}
+
+.BILPShellBarLeftItems{
+	position: absolute;
+    left: 0.5rem;
+}
+
+.appMsgBar{
+    height: 25px;
+}
+
+.appMsgStrip{
+    margin: 0px !important;
+    width: 100%;
+    border: none !important;
+}
+
+@media screen and (max-width: 600px) {
+  .BILP-launchpadLabel .sapMBtnContent {
+    display: none;
+  }
+}

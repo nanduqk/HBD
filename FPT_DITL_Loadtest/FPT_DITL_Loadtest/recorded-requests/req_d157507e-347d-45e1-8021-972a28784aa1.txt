@@ -1,0 +1,23 @@
+POST https://hba.na.pg.com:8443/BOE/portal/2302072240/FioriBI/logon.jsp HTTP/1.1
+Host: hba.na.pg.com:8443
+Connection: keep-alive
+Content-Length: 243
+Cache-Control: max-age=0
+sec-ch-ua: "Chromium";v="128", "Not;A=Brand";v="24", "Google Chrome";v="128"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+Upgrade-Insecure-Requests: 1
+Origin: https://hba.na.pg.com:8443
+Content-Type: application/x-www-form-urlencoded
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: https://hba.na.pg.com:8443/BOE/portal/2302072240/FioriBI/UI5logon.jsp
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
+Cookie: JSESSIONID=7B3B3007C0EF17EF76997F529707F4C8; InfoViewPLATFORMSVC_COOKIE_CMS=%40webHBA; InfoViewCE_SAPCnt=400; InfoViewPLATFORMSVC_COOKIE_AUTH=secSAPR3; InfoViewCE_SAPSys=HGA; InfoViewPLATFORMSVC_COOKIE_USR=z0006aLne%3Cj64%40%23%2444; InfoViewPLATFORMSVC_COOKIE_TOKEN=
+
+isLoadedFromCookies=true&chgPwd=false&pvl=en_US&pl=en&isManualLogin=true&CMS=%40webHBA&SAP_SYSTEM=HGA&SAP_CLIENT=400&USERNAME=ES2041&PASSWORD=****************&USERNAME_CHGPWD=ES2041&AUTH_TYPE=secSAPR3&OLD_PASSWORD=****************&NEW_PASSWORD=****************&CONFIRM_PASSWORD=****************

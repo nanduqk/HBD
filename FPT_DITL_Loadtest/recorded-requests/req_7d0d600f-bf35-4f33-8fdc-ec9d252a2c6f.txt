@@ -1,0 +1,20 @@
+GET https://hbd.na.pg.com:8443/BOE/portal/2409262000/biprwsproxy/biprws/internal/v1/folders/FgAG31rq_wUAUQEAAABXS9MAAFBWqwDI/children?type=%27folder%27&paging=0&encodepath=true&maxchildren=1000&pagesize=50&_=1729510573424 HTTP/1.1
+Host: hbd.na.pg.com:8443
+Connection: keep-alive
+x-SAP-logonToken: usalspgsa638.na.pg.com:6400@{3&2=2290553,U3&2v=usalspgsa638.na.pg.com:6400,UP&66=40,U3&68=secEnterprise:ES2020,UP&S9=2279113,U3&qe=100,U3&vz=F9E1FjZxxE2dcM5jhuiD.bHmR4Xbt6K57bQFz6p78a9fL7FaTH_NAjLpiHhafTht,UP}
+sec-ch-ua-platform: "Windows"
+sec-ch-ua: "Google Chrome";v="129", "Not=A?Brand";v="8", "Chromium";v="129"
+sec-ch-ua-mobile: ?0
+X-SAP-PVL: en_US
+X-Requested-With: XMLHttpRequest
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36
+Accept: application/json
+Content-Type: application/json;odata=verbose
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: empty
+Referer: https://hbd.na.pg.com:8443/BOE/portal/2409262000/FioriBI/main.jsp?service=%2Fcommon%2FappService.do&appKind=InfoView
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
+Cookie: JSESSIONID=A1F5A7E5573F81BFAC32DDC6460C6EDA
+

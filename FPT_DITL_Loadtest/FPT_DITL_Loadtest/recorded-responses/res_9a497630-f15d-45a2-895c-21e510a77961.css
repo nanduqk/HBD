@@ -1,0 +1,128 @@
+/*
+�2010 - 2016 SAP SE or an SAP affiliate company.  All rights reserved.
+ 
+SAP and other SAP products and services mentioned herein as well as their respective logos are trademarks or registered trademarks of SAP SE in Germany and other countries.  Please see http://www.sap.com/corporate-en/legal/copyright/index.epx#trademark for additional trademark information and notices.
+*/
+
+.BILP-toolBarColor{
+	border-top: 0.5px solid !important;	
+}
+
+.BILP-TreePadding{
+    padding-bottom: 32px !important;
+}
+
+.BILP-TreeTopBottomPadding{
+    padding-top: 0px !important;
+	padding-bottom: 0px !important;
+}
+.BILP-folder-tree-list-item .sapMLIBContent{ 
+	/* sap.m.StandardTreeItem have no control for title */
+	text-wrap: nowrap;
+}
+.BILP-table-breadcrum-label {
+    font-size: .875rem;;
+    padding-left: 15px;
+}
+
+.BILP-treetableFooter {
+	justify-content: center;
+	border-bottom: none;
+}
+
+.BILP-favoriteIconMargin {
+	position: relative;
+    left: 50%;
+    translate: -50%;
+	margin-left: 0;
+}
+
+.BILP-favoriteIconPosition {
+	text-align: center !important;
+}
+
+.BILP-TableColumnIconAligment {
+	text-align: left;
+}
+
+.BILP-breadCrumbPadding {
+	width:75% !important;
+	padding-left: 15px;
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+.BILP-contextButtonAlign {
+	margin-left: 8px !important;
+}
+
+.BILP-TableCellCustom{
+	margin-top: 6px;
+}
+
+.BILP-HorizontalLayoutWidth{
+	width:85% !important;
+}
+
+.BILP-HorizontalLayoutWidth >div:last-child {
+	display: contents !important;
+}
+
+.BILP-CreateFolderDialog{
+	padding: 1rem;
+}
+
+.BILP-PaddingHbox{
+	padding-right: 20px !important;
+}
+
+.BILP-favIconPadding{
+	padding-top: 5px !important;
+}
+
+.BILP-favIconPadding_cat{
+	padding-top: 5px !important;
+	outline-color: white !important;
+}
+
+.BILP-createDialog{
+	padding: 1rem;
+}
+
+.BILP-StatusIconPadding{
+	padding-right: 5px !important
+}
+
+.BILP-tileContentBackgroundColor{
+	background-color: rgba(41,76,106,0.80) !important;
+}
+
+.BILP-tileheaderColor{
+	color:#FFFFFF !important;
+}
+
+.BILP-CategoryLabelFontSize {
+	font-size: 16px !important;
+}
+
+.BILP-tree-expand-collapse [aria-label="Expand Node"]{
+	opacity: 0;
+}
+[data-ttc-row="bold"]{
+	font-weight: bold;
+}
+.BILP-breadcrumb-prefix{
+	padding-left: 5px;
+	width: max-content !important;
+}
+.BILP-treeTableCursor {
+    cursor: pointer !important;
+}
+
+.BILP-treeTableCursor  [data-sap-ui-draggable=true]{
+    cursor:pointer !important;
+}
+
+[data-ttc-cell-hide="true"] {
+	opacity: 0;
+}

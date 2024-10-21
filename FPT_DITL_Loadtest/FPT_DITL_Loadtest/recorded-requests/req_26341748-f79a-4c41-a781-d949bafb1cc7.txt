@@ -1,0 +1,7 @@
+HEAD http://edgedl.me.gvt1.com/edgedl/release2/chrome_component/adip6th64jzprjgdbapokq5rhuyq_3005/jflookgnkcckhobaglndicnbbgbonegd_3005_all_cnntek3lwrzm4tnpwsuvzotzie.crx3 HTTP/1.1
+Proxy-Connection: Keep-Alive
+Accept: */*
+Accept-Encoding: identity
+User-Agent: Microsoft BITS/7.8
+Host: edgedl.me.gvt1.com
+

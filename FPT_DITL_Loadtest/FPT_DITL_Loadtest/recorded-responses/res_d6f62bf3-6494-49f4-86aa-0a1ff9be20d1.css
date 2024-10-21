@@ -1,0 +1,18 @@
+.sapLudsiICSegmentedButton > li {
+    height: 60px !important;
+}
+.sapLudsiICSegmentedButton > li > span {
+    top: 8px;
+}
+.sapLudsiICTitleLabel {
+    margin-bottom: 26px;
+}
+.sapLudsiSegmentedRendererText{
+    white-space:nowrap;
+    width: 100%;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+.sapLudsiICType{
+    margin-top: 16px;
+}

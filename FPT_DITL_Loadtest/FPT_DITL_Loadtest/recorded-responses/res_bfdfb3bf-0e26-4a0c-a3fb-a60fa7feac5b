@@ -1,0 +1,7 @@
+/*
+�2010 - 2016 SAP SE or an SAP affiliate company.  All rights reserved.
+ 
+SAP and other SAP products and services mentioned herein as well as their respective logos are trademarks or registered trademarks of SAP SE in Germany and other countries.  Please see http://www.sap.com/corporate-en/legal/copyright/index.epx#trademark for additional trademark information and notices.
+*/
+
+var sBasePath=window.location.pathname.replace(/\/[^\/]*\.?[^\/]*$/,"/");var sBaseUrl=window.location.protocol+"//"+window.location.host+sBasePath;var sResourceBundlePath=sBaseUrl+"i18n/fioribiResources.properties";getResourceBundle=function(Locale){var oCore=sap.ui.getCore();var oModel=new sap.ui.model.resource.ResourceModel({bundleUrl:sResourceBundlePath,bundleLocale:Locale});oCore.setModel(oModel,"i18n");return oModel.getResourceBundle();};

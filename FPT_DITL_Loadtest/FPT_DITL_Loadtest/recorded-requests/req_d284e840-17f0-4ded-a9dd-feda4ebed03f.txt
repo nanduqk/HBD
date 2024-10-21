@@ -1,0 +1,16 @@
+GET https://hba.na.pg.com:8443/BOE/portal/2302072240/FioriBI/com/sap/fioribi/modules/UserSettings/UserSettingsContainer.js HTTP/1.1
+Host: hba.na.pg.com:8443
+Connection: keep-alive
+sec-ch-ua: "Chromium";v="128", "Not;A=Brand";v="24", "Google Chrome";v="128"
+sec-ch-ua-mobile: ?0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36
+sec-ch-ua-platform: "Windows"
+Accept: */*
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: empty
+Referer: https://hba.na.pg.com:8443/BOE/portal/2302072240/FioriBI/main.jsp?service=%2Fcommon%2FappService.do&appKind=InfoView
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
+Cookie: JSESSIONID=7249C325DDA69D0FEFC80727EF4CA61C; InfoViewPLATFORMSVC_COOKIE_CMS=%40webHBA; InfoViewCE_SAPCnt=400; InfoViewPLATFORMSVC_COOKIE_AUTH=secSAPR3; InfoViewCE_SAPSys=HGA; InfoViewPLATFORMSVC_COOKIE_TOKEN=; InfoViewPLATFORMSVC_COOKIE_USR=z0006aLne%3Cm6%3C%40%23%2444
+

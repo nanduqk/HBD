@@ -1,0 +1,211 @@
+.RLCFColorPicker {
+    border-radius: 5px;
+}
+
+.RLCFColorPicker .sapMBtnInner {
+    background-image: none
+}
+.sapUiColorPicker-ColorPickerMatrix .sapUiHLayoutChildWrapper {
+    display: inline-block;
+    vertical-align: bottom;
+}
+
+.sapLumiraDesignerColorPicker .sapUiColorPicker-ColorPickerBox {
+    float: left;
+    margin: 16px 10px 0px 16px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #ececec;
+    position: relative;
+    cursor: crosshair;
+    display: inline-block;
+    width: 160px;
+    height: 160px;
+    background-color: none;
+    background-image: url(img/ColorPicker/GradientBox.png);
+    background-size: 100%;
+    background-image: -webkit-linear-gradient(left,#000000,transparent),-webkit-linear-gradient(top,rgba(255,255,255,0),#ffffff);
+    background-image: -moz-linear-gradient(left,#000000,transparent),-moz-linear-gradient(top,rgba(255,255,255,0),#ffffff);
+    background-image: linear-gradient(left,#000000,transparent),linear-gradient(top,rgba(255,255,255,0),#ffffff);
+    background-image: -ms-linear-gradient(left,#000000,transparent),-ms-linear-gradient(top,rgba(255,255,255,0),#ffffff);
+    -moz-user-select: none;
+    -webkit-user-select: none;
+}
+
+html[dir="rtl"] .sapUiColorPicker-ColorPickerBox {
+    margin-left: 10px;
+    margin-right: 16px;
+    background-image: -webkit-linear-gradient(right,#000000,rgba(0,0,0,0)),-webkit-linear-gradient(top,rgba(255,255,255,0),#ffffff);
+    background-image: -moz-linear-gradient(right,#000000,rgba(0,0,0,0)),-moz-linear-gradient(top,rgba(255,255,255,0),#ffffff);
+    background-image: linear-gradient(right,#000000,rgba(0,0,0,0)),linear-gradient(top,rgba(255,255,255,0),#ffffff);
+    background-image: -ms-linear-gradient(right,#000000,rgba(0,0,0,0)),-ms-linear-gradient(top,rgba(255,255,255,0),#ffffff);
+}
+
+.sapUiColorPicker-ColorPickerCircle {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #ffffff;
+    border-radius: 5px
+}
+
+.sapUiColorPicker-ColorPickerOldColor {
+    margin-top: 5px;
+    width: 20px;
+    height: 20px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #ececec;
+    background-color: #ffffff
+}
+
+.sapUiColorPicker-ColorPickerNewColor {
+    margin-left: 6px;
+    margin-top: 5px;
+    width: 20px;
+    height: 20px;
+    border-width: 1px;
+    border-radius: 50px;
+    border-style: solid;
+    border-color: #ececec;
+    background-color: #ffffff
+}
+.sapUiColorPicker-ColorPickerMatrix .sapUiMltPadRight {
+    padding-right: 0
+}
+
+.sapUiColorPicker-ColorPickerMatrix .sapUiMltPadRight .sapUiVlt {
+    padding-left: 5px
+}
+
+.sapUiColorPicker-ColorPickerMatrix .sapUiMltPadRight .sapUiVlt.sapUiColorPicker-ColorPickerLastColumn {
+    padding-left: 13px
+}
+
+.sapUiColorPicker-ColorPickerFirstColumn {
+    margin-top: 12px;
+}
+
+.sapUiSizeCompact .sapMInputBaseWidthPadding.sapUiColorPicker-ColorPickerInputFieldsRight {
+    margin: 0px;
+    padding: 0px;
+}
+.sapUiSizeCompact .sapMInputBaseWidthPadding.sapUiColorPicker-ColorPickerInputFieldsLeft {
+    margin: 0px;
+    padding: 0px;
+}
+.sapMLabel.sapUiColorPicker-ColorPickerLabels {
+    width: 1rem;
+    line-height: 1.5rem;
+    margin-bottom: 6px;
+    margin-top: 0px;
+}
+.sapUiSizeCompact .sapMInputBaseWidthPadding.sapUiColorPicker-ColorPickerHexField {
+    padding: 0px;
+    margin-top: 16px;
+    margin-right: 2px;
+}
+
+html[dir="rtl"] .sapUiSizeCompact .sapMInputBaseWidthPadding.sapUiColorPicker-ColorPickerHexField {
+    margin-right: 0px;
+    margin-left: 2px;
+}
+
+.sapUiColorPicker-ColorPickerSlider.sapUiSliHori .sapUiSliGrip {
+    background-color: transparent;
+    height: 12px;
+    top: -3px
+}
+
+.sapUiColorPicker-ColorPickerAlphaSlider.sapUiSliHori .sapUiSliGrip {
+    background-color: transparent;
+    height: 12px;
+    top: -3px
+}
+
+.sapUiColorPicker-ColorPickerSlider.sapUiSliHori .sapUiSliGrip:focus {
+    background-color: transparent
+}
+
+.sapUiColorPicker-ColorPickerAlphaSlider.sapUiSliHori .sapUiSliGrip:focus {
+    background-color: transparent
+}
+
+.sapUiColorPicker-ColorPickerSlider.sapUiSliHori .sapUiSliBar {
+    height: 10px;
+    background-image: url(img/ColorPicker/ColorBar.png);
+    background-size: 100%;
+    background-image: -webkit-linear-gradient(left,#ff0000,#ffff00,#00ff00,#00ffff,#0000ff,#ff00ff,#ff0000);
+    background-image: -moz-linear-gradient(left,#ff0000,#ffff00,#00ff00,#00ffff,#0000ff,#ff00ff,#ff0000);
+    background-image: -ms-linear-gradient(left,#ff0000,#ffff00,#00ff00,#00ffff,#0000ff,#ff00ff,#ff0000);
+    background-image: linear-gradient(left,#ff0000,#ffff00,#00ff00,#00ffff,#0000ff,#ff00ff,#ff0000);
+    background-image: -o-linear-gradient(left,#ff0000,#ffff00,#00ff00,#00ffff,#0000ff,#ff00ff,#ff0000);
+    background-color: none;
+    margin: 0
+}
+
+.sapUiColorPicker-ColorPickerAlphaSlider.sapUiSliHori .sapUiSliBar {
+    height: 10px;
+    background-image: url(img/ColorPicker/Alphaslider_BG.png);
+    background-repeat: repeat-x;
+    background-image: -moz-linear-gradient(left,transparent 0,#000000 100%),url(img/ColorPicker/Alphaslider_BG.png);
+    background-image: -webkit-linear-gradient(left,transparent 0,#000000 100%),url(img/ColorPicker/Alphaslider_BG.png);
+    background-image: -o-linear-gradient(left,transparent 0,#000000 100%),url(img/ColorPicker/Alphaslider_BG.png);
+    background-image: -ms-linear-gradient(left,transparent 0,#000000 100%),url(img/ColorPicker/Alphaslider_BG.png);
+    background-image: linear-gradient(to right,transparent 0,#000000 100%),url(img/ColorPicker/Alphaslider_BG.png);
+    background-color: none;
+    margin: 0
+}
+
+.sapUiColorPicker-ColorPickerMatrix .sapUiSli.sapUiSliHori {
+    padding: 3px 0 0 0;
+    height: 10px
+}
+
+.sapUiColorPicker-ColorPickerSlider .sapMSliderInner {
+    height: 10px;
+    background-image: url(img/ColorPicker/ColorBar.png);
+    background-size: 100%;
+    background-image: -webkit-linear-gradient(left,#ff0000,#ffff00,#00ff00,#00ffff,#0000ff,#ff00ff,#ff0000);
+    background-image: -moz-linear-gradient(left,#ff0000,#ffff00,#00ff00,#00ffff,#0000ff,#ff00ff,#ff0000);
+    background-image: -ms-linear-gradient(left,#ff0000,#ffff00,#00ff00,#00ffff,#0000ff,#ff00ff,#ff0000);
+    background-image: linear-gradient(left,#ff0000,#ffff00,#00ff00,#00ffff,#0000ff,#ff00ff,#ff0000);
+    background-image: -o-linear-gradient(left,#ff0000,#ffff00,#00ff00,#00ffff,#0000ff,#ff00ff,#ff0000);
+    background-color: none;
+    margin: 0;
+}
+
+html[dir="rtl"] .sapUiColorPicker-ColorPickerSlider .sapMSliderInner {
+    background-image: -webkit-linear-gradient(left,#ff0000, #ff00ff,#0000ff,#00ffff, #00ff00,#ffff00,#ff0000);
+    background-image: -moz-linear-gradient(left,#ff0000, #ff00ff,#0000ff,#00ffff, #00ff00,#ffff00,#ff0000);
+    background-image: -ms-linear-gradient(left,#ff0000, #ff00ff,#0000ff,#00ffff, #00ff00,#ffff00,#ff0000);
+    background-image: linear-gradient(left,#ff0000, #ff00ff,#0000ff,#00ffff, #00ff00,#ffff00,#ff0000);
+    background-image: -o-linear-gradient(left,#ff0000, #ff00ff,#0000ff,#00ffff, #00ff00,#ffff00,#ff0000);
+}
+.sapUiColorPicker-ColorPickerSlider .sapMSliderProgress {
+    display : none;
+}
+
+
+.sapUiColorPicker-ColorPickerSlider.sapMSlider {
+    height: 0px;
+    padding: 0;
+    margin-left: 17px;
+    margin-top: 0px;
+}
+
+html[dir="rtl"] .sapUiColorPicker-ColorPickerSlider.sapMSlider {
+    margin-left: 0px;
+    margin-right: 17px;
+}
+
+.sapUiColorPicker-ColorPickerResetColorButton.sapMBtn {
+    margin-left: 17px;
+    margin-top: 8px;
+}
+.sapUiColorPicker-ColorPickerFirstColumn .sapMInputBaseInner {
+    background: transparent;
+    width: 4.3rem;
+}

@@ -1,0 +1,353 @@
+/*
+�2010 - 2016 SAP SE or an SAP affiliate company.  All rights reserved.
+ 
+SAP and other SAP products and services mentioned herein as well as their respective logos are trademarks or registered trademarks of SAP SE in Germany and other countries.  Please see http://www.sap.com/corporate-en/legal/copyright/index.epx#trademark for additional trademark information and notices.
+*/
+
+/*
+�2010 - 2016 SAP SE or an SAP affiliate company.  All rights reserved.
+ 
+SAP and other SAP products and services mentioned herein as well as their respective logos are trademarks or registered trademarks of SAP SE in Germany and other countries.  Please see http://www.sap.com/corporate-en/legal/copyright/index.epx#trademark for additional trademark information and notices.
+*/
+
+/*
+�2010 - 2016 SAP SE or an SAP affiliate company.  All rights reserved.
+ 
+SAP and other SAP products and services mentioned herein as well as their respective logos are trademarks or registered trademarks of SAP SE in Germany and other countries.  Please see http://www.sap.com/corporate-en/legal/copyright/index.epx#trademark for additional trademark information and notices.
+*/
+
+jQuery.sap.declare("com.sap.fioribi.widgets.ObjectPageLayout");
+ 
+com.sap.fioribi.widgets.ObjectPageLayout = function(BILaunchpadApp) {
+
+    BILaunchpadApp.includeStyleSheet("com/sap/fioribi/css/Common.css");
+	if(BILaunchpadApp.getRtlFlag() == false)
+    BILaunchpadApp.includeStyleSheet("com/sap/fioribi/css/Homepage.css");
+	else
+	BILaunchpadApp.includeStyleSheet("com/sap/fioribi/css/Homepage_rtl.css");
+	BILaunchpadApp.includeStyleSheet("com/sap/fioribi/css/MyHomeTab.css");
+    this.BILaunchpadApp = BILaunchpadApp;
+    this.objectPageLayout = new sap.uxap.ObjectPageLayout({
+        class: "sapUiResponsiveContentPadding",
+        expandable: false
+    }).addDelegate({
+        onAfterRendering: function(event) {
+        }
+    });
+
+    this.subsectionCount = (function() {
+        return 1;
+    })();
+
+
+    this.objectPageLayout.addStyleClass("BILP-homepageheadertext objectContainer objectAnchorBar homeborder BILP-objectContainer BILP-headerBackground headerTextFont sapUxAPAnchorBar sapUxAPAnchorBarButton favButtonPadding");
+
+    var that = this;
+
+    // jQuery.sap.require("com.sap.fioribi.components.overviewpage.DocumentsContainer");
+
+    // this.oContainer =  new com.sap.fioribi.components.overviewpage.DocumentsContainer();
+
+
+    var homePagePref=sap.ui.getCore().getModel("homePagePrefModel");
+    
+    this.addMyHomeSection();
+    
+    if(homePagePref.myfav)
+    	this.addMyFavouriteSection();
+
+    if(homePagePref.recdoc)
+    	this.addMyRecentViewedSection();
+
+    if(homePagePref.recrun)
+    	this.addMyRecentlyRunSection();
+
+    if(homePagePref.applications)
+    	this.addApplicationSection();
+
+}; // ObjectPageLayout
+
+
+com.sap.fioribi.widgets.ObjectPageLayout.prototype.addMyHomeSection = function() {
+
+ this.BILaunchpadApp.setCurrentSection("1");
+
+	var objectPageMyHomeSection = new sap.uxap.ObjectPageSection("myHomeSection",{
+
+	        title: BILaunchpadApp.localized("tab_home_title")
+
+	    }).addStyleClass("Background-color sectionHeader homesection homepagesubsection objectlayoutsubsecMargin");
+
+
+	 var objectPageMyHomeSubSection = new sap.uxap.ObjectPageSubSection({
+
+     }); 
+
+      jQuery.sap.require("com.sap.fioribi.components.overviewpage.MyHomePageSectionContainer");
+
+
+       var oMyContainer = new com.sap.fioribi.components.overviewpage.MyHomePageSectionContainer();
+
+    // jQuery.sap.require("com.sap.fioribi.components.overviewpage.DocumentsContainer");
+
+
+    //   var oMyContainer = new com.sap.fioribi.components.overviewpage.DocumentsContainer();
+
+     var docView = oMyContainer.getUI();
+
+	objectPageMyHomeSubSection.addBlock(docView);
+	objectPageMyHomeSection.addSubSection(objectPageMyHomeSubSection);
+
+	 this.objectPageLayout.addSection(objectPageMyHomeSection);
+};
+
+
+com.sap.fioribi.widgets.ObjectPageLayout.prototype.addMyFavouriteSection = function() {
+   
+    this.BILaunchpadApp.setCurrentSection("5");
+
+
+	 var objectPageMyFavouriteSection = new sap.uxap.ObjectPageSection("favoriteSection",{
+
+        title: BILaunchpadApp.localized("my_favourite")
+    }).addStyleClass("sectionHeader homepagesection homepageheader FavFooter favsection objectlayoutsubsec objectlayoutsubsecMargin");
+	
+
+	 var objectPageMyfavSubSection = new sap.uxap.ObjectPageSubSection("FavouriteOPSS", {
+
+     });
+
+    // jQuery.sap.require("com.sap.fioribi.components.overviewpage.MyFavViewPageSectionContainer");
+
+
+    //  var oMyFavContainer = new com.sap.fioribi.components.overviewpage.MyFavViewPageSectionContainer();
+
+    jQuery.sap.require("com.sap.fioribi.components.overviewpage.DocumentsContainer");
+
+    var oContainer =  new com.sap.fioribi.components.overviewpage.DocumentsContainer();
+
+  //  var favView = oMyFavContainer.getUI();
+
+  var favView = oContainer.getUI();
+  //favView.getContent()[0].getProperty.showHeader=false;
+  favView.getContent()[0].mProperties.showHeader=false;
+
+
+    objectPageMyfavSubSection.addBlock(favView);
+
+	objectPageMyFavouriteSection.addSubSection(objectPageMyfavSubSection);
+
+	 this.objectPageLayout.addSection(objectPageMyFavouriteSection);
+
+};
+
+
+com.sap.fioribi.widgets.ObjectPageLayout.prototype.addMyRecentViewedSection = function() {
+   
+    this.BILaunchpadApp.setCurrentSection("2");  //for recently viewed
+
+	var objectPageRecentDocumentsSection = new sap.uxap.ObjectPageSection("RecentViewedSection",{
+
+        title: BILaunchpadApp.localized("recent_documents")
+    
+    }).addStyleClass("sectionHeader homepagesection homepageheader recentlysection objectlayoutsubsec FavFooter objectlayoutsubsecMargin");
+
+
+
+    var objectPageMyRecentViewedSubSection = new sap.uxap.ObjectPageSubSection("RecentViewedOPSS", {
+
+    }); 
+//    jQuery.sap.require("com.sap.fioribi.components.overviewpage.RecentViewPageSectionContainer");
+
+
+//      var oRecentContainer = new com.sap.fioribi.components.overviewpage.RecentViewPageSectionContainer();
+
+jQuery.sap.require("com.sap.fioribi.components.overviewpage.DocumentsContainer");
+
+var oContainer =  new com.sap.fioribi.components.overviewpage.DocumentsContainer();
+
+    // var docView = oRecentContainer.getUI();
+
+    var docView = oContainer.getUI();
+    //docView.getContent()[0].getProperty.showHeader=false;
+    docView.getContent()[0].mProperties.showHeader=false;
+
+
+    objectPageMyRecentViewedSubSection.addBlock(docView);
+
+	objectPageRecentDocumentsSection.addSubSection(objectPageMyRecentViewedSubSection);
+
+	 this.objectPageLayout.addSection(objectPageRecentDocumentsSection);
+
+};
+
+
+com.sap.fioribi.widgets.ObjectPageLayout.prototype.addMyRecentlyRunSection = function() {
+    
+     this.BILaunchpadApp.setCurrentSection("6");
+ 
+
+      var objectPageMyRecentlyRunSection = new sap.uxap.ObjectPageSection("RecentRunSection",{
+ 
+         title: BILaunchpadApp.localized("my_recentlyrun")
+     }).addStyleClass("sectionHeader homepagesection homepageheader FavFooter recentlyrun objectlayoutsubsec objectlayoutsubsecMargin");
+
+ 
+      var objectPageMyRecentlyRunSubSection = new sap.uxap.ObjectPageSubSection("RecentlyRunOPSS", {
+ 
+      });
+ 
+    
+ 
+     jQuery.sap.require("com.sap.fioribi.components.overviewpage.DocumentsContainer");
+ 
+     var oContainer =  new com.sap.fioribi.components.overviewpage.DocumentsContainer();
+ 
+   
+ 
+   var recentlyRunView = oContainer.getUI();
+   
+   recentlyRunView.getContent()[0].mProperties.showHeader=false;
+ 
+ 
+     objectPageMyRecentlyRunSubSection.addBlock(recentlyRunView);
+ 
+     objectPageMyRecentlyRunSection.addSubSection(objectPageMyRecentlyRunSubSection);
+ 
+      this.objectPageLayout.addSection(objectPageMyRecentlyRunSection);
+ 
+ };
+
+
+
+com.sap.fioribi.widgets.ObjectPageLayout.prototype.addApplicationSection = function() {
+
+    // this.BILaunchpadApp.setCurrentSection("2");  //no end point right now
+
+    // so we are using dummy data
+   
+	 var objectPageApplicationsSection = new sap.uxap.ObjectPageSection("pageApplicationSection",{
+
+        title: BILaunchpadApp.localized("applications")
+		
+        }).addStyleClass("Background-color sectionHeader homepagesection homepageheader homepagesubsection appsection apppheader objectlayoutsubsecMargin");
+		
+
+
+	 var applicationSubSection = new sap.uxap.ObjectPageSubSection({
+
+     }); 
+
+    jQuery.sap.require("com.sap.fioribi.components.overviewpage.ApplicationPageSectionContainer");
+
+    var oAppContainer = new com.sap.fioribi.components.overviewpage.ApplicationPageSectionContainer();
+
+   var appView = oAppContainer.getUI();
+
+	applicationSubSection.addBlock(appView);
+
+	objectPageApplicationsSection.addSubSection(applicationSubSection);
+
+	 this.objectPageLayout.addSection(objectPageApplicationsSection);
+
+};
+
+
+com.sap.fioribi.widgets.ObjectPageLayout.prototype.getBlock = function() {
+
+     var oTileContainer = new sap.m.HBox({
+
+    }).addStyleClass("BILP-Height100Perc");
+
+
+    for(var count =0 ; count <5 ; count ++){
+        var block  = new sap.m.GenericTile({
+
+                    header: " Header",
+                    tooltip : "Header",
+                        subheader: " Sub Header ",
+                        tileContent: [
+                            new sap.m.TileContent({
+                                content: [
+                                    new sap.m.Label({
+                                        text: "Tile Content"
+                                    })
+
+                                ]
+                            })
+                        ],
+                        press : function(event){
+
+
+                alert("clicked");
+            }
+    }).addStyleClass("sapUiTinyMarginBegin sapUiTinyMarginTop");
+
+      oTileContainer.addItem(block);  
+   
+    }  //end of for
+
+    return oTileContainer;
+
+};
+
+
+com.sap.fioribi.widgets.ObjectPageLayout.prototype.addSection = function(oSection) {
+
+    // var tabLabel = new sap.m.Label ({text:oTab.name}).addStyleClass("BILP-tabLabel");
+    // var tabFilter = new sap.m.IconTabFilter({id:oTab.id,content:oTab.content});
+    // tabFilter.setText(tabLabel.getText());
+    // if(oTab.key != null){
+    // 	tabFilter.setKey(oTab.key);		
+    // }
+    // this.getTabBar().addItem(tabFilter);
+
+
+
+
+    /* docViews :  getShowAll() , getRecent() , getDocuments() , getCategories() , getFavorites() ,getMyRecentlyRun() */
+
+
+    var subSectionId = "subSction" + this.subsectionCount;
+
+
+    var objectPageSection = new sap.uxap.ObjectPageSection(oSection.id, {
+
+        title: oSection.name
+
+    }); //section 1 
+
+    var objectPageSubSection = new sap.uxap.ObjectPageSubSection(subSectionId, {
+
+        bolck: [
+
+            new sap.m.Text({
+                text: oSection.name + " sub section"
+            })
+        ]
+    });
+
+    //	objectPageSubSection.addBlock(oSection.content);
+
+    objectPageSection.addSubSection(objectPageSubSection);
+
+    this.objectPageLayout.addSection(objectPageSection);
+
+    this.subsectionCount++;
+
+}; //end of addSection
+
+// com.sap.fioribi.widgets.ObjectPageLayout.prototype.setBILaunchpadApp = function(app) {
+
+//     this.BILaunchpadApp = app;
+// };
+
+
+com.sap.fioribi.widgets.ObjectPageLayout.prototype.getObjectPageLayout = function() {
+
+    return this.objectPageLayout;
+};
+
+com.sap.fioribi.widgets.ObjectPageLayout.prototype.setCurrentSection = function(key) {
+    this.objectPageLayout.setSelectedSection(key);
+};

@@ -1,0 +1,7 @@
+/*
+�2010 - 2016 SAP SE or an SAP affiliate company.  All rights reserved.
+ 
+SAP and other SAP products and services mentioned herein as well as their respective logos are trademarks or registered trademarks of SAP SE in Germany and other countries.  Please see http://www.sap.com/corporate-en/legal/copyright/index.epx#trademark for additional trademark information and notices.
+*/
+
+function foldersModel(){var folders=new sap.ui.model.json.JSONModel();this.getFolders=function(){return folders;};this.setFolders=function(input){folders.setData(input);};}function tableModel(){var allItems=new sap.ui.model.json.JSONModel();this.getallItems=function(){return allItems;};this.setallItems=function(input){allItems.setData(input);};}

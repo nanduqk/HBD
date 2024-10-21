@@ -1,0 +1,215 @@
+.sapLumiraColorPicker-ColorPickerMatrix .sapUiHLayoutChildWrapper {
+	display: inline-block;
+	vertical-align: bottom;
+}
+
+.sapLumiraColorPicker-ColorPickerBox {
+    float: left;
+    margin-left: 16px;
+    margin-top: 16px;
+    margin-right: 10px;
+    margin-bottom: 0px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #ececec;
+    position: relative;
+    cursor: crosshair;
+    display: inline-block;
+    width: 160px;
+    height: 160px;
+    background-color: none;
+    background-image: url(img/ColorPicker/GradientBox.png);
+    background-size: 100%;
+    background-image: -webkit-linear-gradient(left,#000000,transparent),-webkit-linear-gradient(top,rgba(255,255,255,0),#ffffff);
+    background-image: -moz-linear-gradient(left,#000000,transparent),-moz-linear-gradient(top,rgba(255,255,255,0),#ffffff);
+    background-image: linear-gradient(left,#000000,transparent),linear-gradient(top,rgba(255,255,255,0),#ffffff);
+    background-image: -ms-linear-gradient(left,#000000,transparent),-ms-linear-gradient(top,rgba(255,255,255,0),#ffffff);
+    -moz-user-select: none;
+    -webkit-user-select: none;
+}
+
+.sapLumiraColorPicker-ColorPickerCircle {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #ffffff;
+    border-radius: 5px
+}
+
+.sapLumiraColorPicker-ColorPickerOldColor {
+    margin-top: 5px;
+    width: 20px;
+    height: 20px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #ececec;
+    background-color: #ffffff
+}
+
+.sapLumiraColorPicker-ColorPickerNewColor {
+    margin-left: 6px;
+    margin-top: 5px;
+    width: 20px;
+    height: 20px;
+    border-width: 1px;
+    border-radius: 50px;
+    border-style: solid;
+    border-color: #ececec;
+    background-color: #ffffff
+}
+.sapLumiraColorPicker-ColorPickerMatrix .sapUiMltPadRight {
+    padding-right: 0
+}
+
+.sapLumiraColorPicker-ColorPickerMatrix .sapUiMltPadRight .sapUiVlt {
+    padding-left: 5px
+}
+
+.sapLumiraColorPicker-ColorPickerMatrix .sapUiMltPadRight .sapUiVlt.sapLumiraColorPicker-ColorPickerLastColumn {
+    padding-left: 13px
+}
+
+.sapLumiraColorPicker-ColorPickerFirstColumn {
+    margin-top: 12px;
+}
+
+.sapUiSizeCompact .sapMInputBaseWidthPadding.sapLumiraColorPicker-ColorPickerInputFieldsRight {
+    margin: 0px;
+    padding: 0px;
+}
+.sapUiSizeCompact .sapMInputBaseWidthPadding.sapLumiraColorPicker-ColorPickerInputFieldsLeft {
+    margin: 0px;
+    padding: 0px;
+}
+.sapMLabel.sapLumiraColorPicker-ColorPickerLabels {
+    width: 1rem;
+    line-height: 1.5rem;
+    margin-bottom: 6px;
+}
+.sapUiSizeCompact .sapMInputBaseHeightMargin.sapLumiraColorPicker-ColorPickerHexField {
+    margin: 0px;
+    padding: 0px;
+    margin-top: 16px;
+    height: 2rem;
+}
+
+.sapLumiraColorPicker-ColorPickerSlider.sapUiSliHori .sapUiSliGrip {
+    background-color: transparent;
+    height: 12px;
+    top: -3px
+}
+
+.sapLumiraColorPicker-ColorPickerAlphaSlider.sapUiSliHori .sapUiSliGrip {
+    background-color: transparent;
+    height: 12px;
+    top: -3px
+}
+
+.sapLumiraColorPicker-ColorPickerSlider.sapUiSliHori .sapUiSliGrip:focus {
+    background-color: transparent
+}
+
+.sapLumiraColorPicker-ColorPickerAlphaSlider.sapUiSliHori .sapUiSliGrip:focus {
+    background-color: transparent
+}
+
+.sapLumiraColorPicker-ColorPickerSlider.sapUiSliHori .sapUiSliBar {
+    height: 10px;
+    background-image: url(img/ColorPicker/ColorBar.png);
+    background-size: 100%;
+    background-image: -webkit-linear-gradient(left,#ff0000,#ffff00,#00ff00,#00ffff,#0000ff,#ff00ff,#ff0000);
+    background-image: -moz-linear-gradient(left,#ff0000,#ffff00,#00ff00,#00ffff,#0000ff,#ff00ff,#ff0000);
+    background-image: -ms-linear-gradient(left,#ff0000,#ffff00,#00ff00,#00ffff,#0000ff,#ff00ff,#ff0000);
+    background-image: linear-gradient(left,#ff0000,#ffff00,#00ff00,#00ffff,#0000ff,#ff00ff,#ff0000);
+    background-image: -o-linear-gradient(left,#ff0000,#ffff00,#00ff00,#00ffff,#0000ff,#ff00ff,#ff0000);
+    background-color: none;
+    margin: 0
+}
+
+.sapLumiraColorPicker-ColorPickerAlphaSlider.sapUiSliHori .sapUiSliBar {
+    height: 10px;
+    background-image: url(img/ColorPicker/Alphaslider_BG.png);
+    background-repeat: repeat-x;
+    background-image: -moz-linear-gradient(left,transparent 0,#000000 100%),url(img/ColorPicker/Alphaslider_BG.png);
+    background-image: -webkit-linear-gradient(left,transparent 0,#000000 100%),url(img/ColorPicker/Alphaslider_BG.png);
+    background-image: -o-linear-gradient(left,transparent 0,#000000 100%),url(img/ColorPicker/Alphaslider_BG.png);
+    background-image: -ms-linear-gradient(left,transparent 0,#000000 100%),url(img/ColorPicker/Alphaslider_BG.png);
+    background-image: linear-gradient(to right,transparent 0,#000000 100%),url(img/ColorPicker/Alphaslider_BG.png);
+    background-color: none;
+    margin: 0
+}
+
+.sapLumiraColorPicker-ColorPickerMatrix .sapUiSli.sapUiSliHori {
+    padding: 3px 0 0 0;
+    height: 10px
+}
+
+.sapLumiraColorPicker-ColorPickerSlider .sapMSliderInner {
+    height: 10px;
+    background-image: url(img/ColorPicker/ColorBar.png);
+    background-size: 100%;
+    background-image: -webkit-linear-gradient(left,#ff0000,#ffff00,#00ff00,#00ffff,#0000ff,#ff00ff,#ff0000);
+    background-image: -moz-linear-gradient(left,#ff0000,#ffff00,#00ff00,#00ffff,#0000ff,#ff00ff,#ff0000);
+    background-image: -ms-linear-gradient(left,#ff0000,#ffff00,#00ff00,#00ffff,#0000ff,#ff00ff,#ff0000);
+    background-image: linear-gradient(left,#ff0000,#ffff00,#00ff00,#00ffff,#0000ff,#ff00ff,#ff0000);
+    background-image: -o-linear-gradient(left,#ff0000,#ffff00,#00ff00,#00ffff,#0000ff,#ff00ff,#ff0000);
+    background-color: none;
+    margin: 0;
+}
+.sapLumiraColorPicker-ColorPickerSlider .sapMSliderProgress {
+    display : none;
+}
+
+.sapLumiraColorPicker-ColorPickerSlider .sapMSliderHandle {
+    background: url(../img/SliderHandle.svg);
+    background-repeat: NO-REPEAT;
+    background-position-x: 8px;
+    top: -4px;
+    border: 0px;
+    border-radius: 0px;
+}
+
+.sapLumiraColorPicker-ColorPickerSlider .sapMSliderHandle:hover {
+    border: 0px !important;
+}
+.sapLumiraColorPicker-ColorPickerSlider .sapMSliderHandle:active {
+    border: 0px;
+    background: url(../img/SliderHandle.svg);
+    background-repeat: NO-REPEAT;
+    background-position-x: 8px;
+    top: -4px;
+    border: 0px;
+    border-radius: 0px;
+}
+.sapLumiraColorPicker-ColorPickerSlider:active .sapMSliderHandle {
+    border: 0px;
+    background: url(../img/SliderHandle.svg);
+    background-repeat: NO-REPEAT;
+    background-position-x: 8px;
+    top: -4px;
+    border: 0px;
+    border-radius: 0px;
+}
+.sapLumiraColorPicker-ColorPickerSlider.sapMSliderPressed:not(.sapMSliderInnerDisabled) > .sapMSliderHandle {
+    border: 0px;
+    background: url(../img/SliderHandle.svg);
+    background-repeat: NO-REPEAT;
+    background-position-x: 8px;
+    top: -4px;
+    border: 0px;
+    border-radius: 0px;
+}
+
+.sapLumiraColorPicker-ColorPickerSlider.sapMSlider {
+    height: 0px;
+    padding: 0;
+    margin-left: 17px;
+    margin-top: 0px;
+}
+
+.sapLumiraColorPicker-ColorPickerResetColorButton.sapMBtn {
+    margin-left: 17px;
+    margin-top: 8px;
+}

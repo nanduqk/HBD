@@ -1,0 +1,1 @@
+define("zen.rt.components.vizframe/js/referenceLines/js/ReferenceLineManager",["zen.rt.components.vizframe/js/referenceLines/js/ReferenceLineController"],function(b){var a={};a.showReferenceLine=function(e,d){var c=d.filter(function(f){return((f.internalKey).indexOf("Measures_Formula")==-1);});this.referenceLine=new b("",this,e,c);this.referenceLine.showDialog();};return a;});

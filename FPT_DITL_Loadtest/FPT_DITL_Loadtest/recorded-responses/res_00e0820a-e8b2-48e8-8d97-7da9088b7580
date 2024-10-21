@@ -1,0 +1,328 @@
+/*
+�2010 - 2016 SAP SE or an SAP affiliate company.  All rights reserved.
+ 
+SAP and other SAP products and services mentioned herein as well as their respective logos are trademarks or registered trademarks of SAP SE in Germany and other countries.  Please see http://www.sap.com/corporate-en/legal/copyright/index.epx#trademark for additional trademark information and notices.
+*/
+
+/*
+Ã¯Â¿Â½2010 - 2016 SAP SE or an SAP affiliate company.  All rights reserved.
+ 
+SAP and other SAP products and services mentioned herein as well as their respective logos are trademarks or registered trademarks of SAP SE in Germany and other countries.  Please see http://www.sap.com/corporate-en/legal/copyright/index.epx#trademark for additional trademark information and notices.
+*/
+jQuery.sap.declare("com.sap.fioribi.modules.treetable.configuration.FoldersPageConfiguration");
+
+jQuery.sap.require("com.sap.fioribi.modules.treetable.helper.TreeTableConstant");
+jQuery.sap.require("com.sap.fioribi.modules.treetable.util.TreeTableConfigurationUtil");
+
+com.sap.fioribi.modules.treetable.configuration.FoldersPageConfiguration = function() {
+	this.constant = new com.sap.fioribi.modules.treetable.helper.TreeTableConstant();
+	/* 
+		BILaunchpadApp.setCopyMoveAction('') 
+	    by default setting copymoveaction to empty in TreeTableConfigurationUtil so inorder to work copy from biinbox to folder it(BILaunchpadApp.getCopyMoveAction()) is required
+	*/
+	this.biInboxCopyPasteFlag = BILaunchpadApp.getBiInboxCopyPasteFlag();
+	this.intialLoad = true;
+	this.configUtil = new com.sap.fioribi.modules.treetable.util.TreeTableConfigurationUtil(this.constant.FOLDERS_PAGE);
+	BILaunchpadApp.setCopyMoveAction(this.biInboxCopyPasteFlag)
+	this.personalFolderId;
+	this.updatePersonalFolderId();
+	this.updateDefaultFolderSelected();
+};
+
+com.sap.fioribi.modules.treetable.configuration.FoldersPageConfiguration.prototype.updatePersonalFolderId = function(){
+	var surl = BILaunchpadApp.getWebServiceBaseURL() + "/internal/v1/user"; //To get current user details, which contain personal folder and personal category id; 
+	this.configUtil._fireRestCall(surl, $.proxy(function(response){
+		this.personalFolderId = response.favoritefolderid;
+	},this));
+};
+
+com.sap.fioribi.modules.treetable.configuration.FoldersPageConfiguration.prototype.updateDefaultFolderSelected = function(){
+	this.defaultFolderSelectedPath = "";
+	var selectedFolderId = "";
+	var folderId=BILaunchpadApp.getSelectedFolder();
+	if(folderId != undefined){ // We will get the id in case of selection is made from the favorite folder
+		selectedFolderId = folderId;
+	}
+	else{
+		selectedFolderId = this.configUtil.initialRootFolderId;
+	}
+	if(selectedFolderId == "__subscribedAlertFolderId__"){
+		var surl = BILaunchpadApp.getWebServiceBaseURL() + "/internal/v1/subscribedalerts";	
+		this.configUtil._fireRestCall(surl, $.proxy(function(response) {
+            if (response != undefined) {
+                this.defaultFolderSelectedPath = this.configUtil.initialRootFolderName;
+				this.updateTranslationCheck();
+            }
+        }, this));		
+	}
+    else if (selectedFolderId != undefined && selectedFolderId != "") {
+		var surl = BILaunchpadApp.getWebServiceBaseURL() + "/v1/folders/" + selectedFolderId + "?details=true&encodepath=true"; 
+		this.configUtil._fireRestCall(surl, $.proxy(function(response){			
+			if(response.path != undefined){
+				if(selectedFolderId === "23" || selectedFolderId== "ASHnC0S_Pw5LhKFbZ.iA_j4"){
+					var folderName = BILaunchpadApp.localized("Public_Folders");
+					this.defaultFolderSelectedPath = response.path + folderName;
+				}else{
+					this.defaultFolderSelectedPath = response.path + response.name;
+				}
+			}
+			this.updateTranslationCheck();
+		},this));
+		
+	}
+};
+com.sap.fioribi.modules.treetable.configuration.FoldersPageConfiguration.prototype.updateTranslationCheck = function() {
+	// scenario 2: as per treetablecontroller selectDefaultFolder method comparision happening with transulated version
+	const [firstLevel, ...allLevels] = this.defaultFolderSelectedPath.split('|*|');
+	if(firstLevel === 'Public Folders' || this.selectedFolderId === "23") {
+		this.defaultFolderSelectedPath = BILaunchpadApp.localized("Public_Folders") + '|*|' + allLevels.join('|*|');
+	} else if(firstLevel === 'Personal Folders' || this.selectedFolderId === "889") {
+		this.defaultFolderSelectedPath = BILaunchpadApp.localized("My_Folders") + '|*|' + allLevels.join('|*|');
+	} else if(firstLevel === 'My Subscribed Alerts ' || this.selectedFolderId === "__subscribedAlertFolderId__") {
+		this.defaultFolderSelectedPath = BILaunchpadApp.localized("SALERTF_FOLDER_subscribedAlertsFolder") + '|*|' + allLevels.join('|*|');
+	}
+}
+
+com.sap.fioribi.modules.treetable.configuration.FoldersPageConfiguration.prototype.dragDropHandler = function(dragObject, newParentObject, currView) {
+    //Perform Cut action 
+	var oCafCutObject = {
+        techname: BILaunchpadApp.oConstants.CUT
+    };
+    com.sap.fioribi.components.actionpanel.ActionPanelController.prototype.setCurrentObject(dragObject);
+	this.configUtil.actionSelectionHandler(oCafCutObject, currView);
+    
+	//Perform Paste action
+    var oCafPasteObject = {
+        techname: BILaunchpadApp.oConstants.PASTE
+    };
+    com.sap.fioribi.components.actionpanel.ActionPanelController.prototype.setCurrentObject(newParentObject);
+	this.configUtil.actionSelectionHandler(oCafPasteObject, currView);
+};
+
+com.sap.fioribi.modules.treetable.configuration.FoldersPageConfiguration.prototype.getConfig = function(){
+	
+	/** Folder Nodes Structure **
+		created: "Feb 18, 2022 10:08 AM"
+		cuid: "AZfc1jCdhktKjrQ34x05nNY"
+		description: ""
+		favorite: "false"
+		id: "5201"
+		instances: ""
+		isinstance: false
+		lastRun: ""
+		name: "Promotion Jobs"
+		owner: "System Account"
+		ownerid: "10"
+		publicationtype: ""
+		reportenginetype: ""
+		type: "Folder"
+		updated: "Feb 18, 2022 10:09 AM"
+		nodes: []
+	*/
+	
+	var dataTreeStructure = {
+		nodes:[]
+	};
+	
+	var dataTableStructure = {
+		nodes:[]
+	};
+	
+	var metaDataStructure = {
+		columns: []
+	};
+	
+	var columnNameArray = ["name", "favorite", "type", "description", "updated", "owner", "created", "instances", "lastRun", "si_specific_progid_i18n", "si_event_source/si_name"];
+	var columnNameSort = ["name", /*"favorite",*/ "type", "updated", "owner", "created", "lastRun", "si_specific_progid_i18n"];
+	var columnNameFilter = ["name", "type", "owner"];
+	this.configUtil.createColumnStructure(metaDataStructure, columnNameArray, columnNameSort, columnNameFilter);
+	
+	var regularColumnList = ["name", "favorite", "type", "description", "updated", "owner", "created", "instances", "lastRun"];
+	var subscribedAlertColumnList =  ["name", "si_specific_progid_i18n", "si_event_source/si_name"];
+	
+	var columns = metaDataStructure.columns;
+	for(var i=0; i<columns.length; i++){ //For below mention column name the key in properties file is different hence writing specific code here
+		if(columns[i].columnId == "si_specific_progid_i18n"){
+			columns[i].displayName = BILaunchpadApp.localized("SALERTF_UI_table_col_type");
+		}
+		else if(columns[i].columnId == "si_event_source/si_name"){
+			columns[i].displayName = BILaunchpadApp.localized("SALERTF_UI_table_col_source");
+		}
+	}
+	
+	//This is basically for getting the top level folder's node on left side tree on the UI
+	var getRootNodes = $.proxy(function(callback){
+		this.oRightsObj = BILaunchpadApp.getRightsObject();
+		var rootFolderList = [];		 
+		if (this.oRightsObj.favoritefolderview) {
+			var personal_folders_obj={
+            key: this.constant.PERSONAL_FOLDERS_KEY,
+            id: this.personalFolderId,
+            cuid: this.personalFolderId,
+            name: BILaunchpadApp.localized("My_Folders"),
+            type: "Folder"
+			}; 
+			rootFolderList.push(personal_folders_obj);
+		 }
+		  
+		 if (this.oRightsObj.alertview) {
+			var subscribed_alerts_obj={
+            key: this.constant.SUBSCRIBED_ALERTS_KEY,
+            name: BILaunchpadApp.localized("SALERTF_FOLDER_subscribedAlertsFolder"),
+            type: "Folder"
+			}; 
+			rootFolderList.push(subscribed_alerts_obj);
+		 }
+		
+		var surl = BILaunchpadApp.getWebServiceBaseURL() + "/internal/v1/folders/23"+"?encodepath=true"; //To get root node; 
+		var successCallback = function(response){
+			response.name = BILaunchpadApp.localized("Public_Folders"); //"Public Folders"
+			rootFolderList.push(response);
+			callback(rootFolderList);
+		};
+		var failureCallback = function(response){
+			callback(rootFolderList); //In case of failure just return the personal folder and subscribed alert.
+		};
+		
+		this.configUtil._fireRestCall(surl, successCallback, failureCallback);
+	}, this);
+	
+	//This is basically for getting content on the right side tree, if any node is selected from left tree (In case tree is available)
+	var updateNodeChildren = $.proxy(function(uiOptions, currNode, callback){
+		if(currNode == undefined || currNode == null || $.isEmptyObject(currNode)){
+			callback(null);
+			return;
+		}
+		// for enabling the global caf action button on pageload based on biinbox copy
+		if(this.biInboxCopyPasteFlag && this.intialLoad) {
+			uiOptions.view.globalActionButton.setEnabled(true);
+			this.intialLoad = false;
+		}
+		
+		//Below code is to show differnt column based on the root node selected from left side tree in UI (Basically "subscribed alert" have different set of column to display)
+		if(uiOptions.actionType == this.constant.NODE_SELECT){
+			var columns = metaDataStructure.columns;
+			var visibleColumnList = regularColumnList;
+			if(currNode.key == this.constant.SUBSCRIBED_ALERTS_KEY){
+				visibleColumnList = subscribedAlertColumnList;
+				uiOptions.view.enableGlobalAddAction(false); //If "Subscribed Alert" Node is selected then disable "Add" button
+			}
+			else{
+				uiOptions.view.enableGlobalAddAction(true);
+			}
+			for(var i=0; i<columns.length-1; i++){ // Ignoring last column (which is for local context action) and it should be visible always 
+				if(visibleColumnList.includes(columns[i].columnId)){
+					columns[i].isVisible = this.configUtil.isColumnVisible(columns[i].columnId); //From Visible list respect item which is set in the preference model
+				}
+				else{
+					columns[i].isVisible = false;
+				}
+			}
+		}
+		
+		var surl = "";
+		
+		//TODO: Need to check why below code is added, this is causing issue in applying Filter on "Personal Folder"
+		/*if(currNode.key != undefined){
+			if(currNode.key == this.constant.PERSONAL_FOLDERS_KEY){
+				surl = BILaunchpadApp.getWebServiceBaseURL() + "/internal/v1/favoritefolders"; 
+			}
+			else if(currNode.key == this.constant.SUBSCRIBED_ALERTS_KEY){
+				surl = BILaunchpadApp.getWebServiceBaseURL() + "/internal/v1/subscribedalerts"; 
+			}
+		}*/
+		if(currNode.key == this.constant.SUBSCRIBED_ALERTS_KEY){
+			surl = BILaunchpadApp.getWebServiceBaseURL() + "/internal/v1/subscribedalerts"; 
+		}
+		else{
+			surl = BILaunchpadApp.getWebServiceBaseURL() + "/internal/v1/folders/"+ currNode.cuid +"/children"; 
+			BILaunchpadApp.setCurrentParentId(currNode.cuid);
+		}
+		
+		if(uiOptions.actionType == this.constant.NODE_EXPAND){ //Get only Folder
+			surl = surl + "?type='folder'&paging=0&encodepath=true";
+			var sMaxChildren = BILaunchpadApp.getcallbackMaxChildrenOnExpandValue();
+			if( sMaxChildren != undefined){
+				surl = surl + "&maxchildren=" + sMaxChildren;
+			}
+		}
+		if(uiOptions.actionType == this.constant.NODE_SELECT || uiOptions.actionType == this.constant.NODE_PAGINATE) {
+			surl = surl + "?encodepath=true";
+		}
+		this.configUtil.getNodeChildern(uiOptions, surl, callback);
+	},this);
+	
+	var contextActionHandler = $.proxy(function(oCurrentObject, actionSource, currView){
+		BILaunchpadApp.setContainer(BILaunchpadApp.oConstants.FOLDER_CONTAINER); //This is required to get the context action based on the page it is called from
+		
+		if(actionSource == this.constant.GLOBAL_CAF_ACTION){
+			BILaunchpadApp.setActionType("organize"); //For performing paste action this is needed
+		}
+		
+		var action = BILaunchpadApp.getCopyMoveAction();
+		if(actionSource == this.constant.ADD_ACTION){
+			BILaunchpadApp.setActionType("new");
+			BILaunchpadApp.setCopyMoveAction("");
+		}
+		
+		var actionHandler = this.configUtil.contextActionHandler(oCurrentObject, actionSource, currView);
+		
+		if(actionSource == this.constant.ADD_ACTION){
+			BILaunchpadApp.setCopyMoveAction(action);
+		}
+		BILaunchpadApp.setActionType("");
+		
+		return actionHandler;
+	},this);
+	
+	var folderConfiguration = {
+		hasTree: true,
+		hasBreadcrumb: true,
+		hasTable: true,
+		hasDragNDrop: true,
+		hasSingleClickAction: true,
+		defaultViewType: this.configUtil.defaultView,
+		rootNodes: getRootNodes,
+		updateNodeData: updateNodeChildren,
+		contextActionHandler: contextActionHandler,
+		actionSelectionHandler: $.proxy(this.configUtil.actionSelectionHandler,this.configUtil),
+		docSelectActionHandler: $.proxy(this.configUtil.docSelectActionHandler,this.configUtil),
+		favoriteHandler: $.proxy(this.configUtil.favoriteHandler,this.configUtil),
+		dragDropHandler: $.proxy(this.dragDropHandler,this), // Will be applicable only if hasDragNDrop is set to true
+		bindingPath:{
+			nodeId: 'id',  //unique identifier for the given node 
+			nodeName: 'name', //column name which will be used to display title in tree 
+			nodeType: 'type', //column name which will be used to store kind of a current node in Tree context(in this case kind of infoObject)
+			nodeChildren: 'nodes', //column name which will be used identify current node's children array
+			actionNode: 'actions', //For local caf action - key used to identified the context action data structure
+			actionNodeDisplay: 'displayname', // Key to use to display the action name on menu item
+			tileNodeDescription: 'updated', //Key to use to display description in tile 
+			tileNodeIsFavorite: 'favorite', //Key to use to show favorite icon in tile view, note the value of the key should be boolean
+		},
+		treeData: {
+			kindList: ['Folder'], //List of InfoObject Kind that will be visible in Tree
+			baseTreeDataStructure: dataTreeStructure,
+			defaultNodeSelectedPath: this.defaultFolderSelectedPath,
+			defaultSelectedNodePathBindingKey: 'name'
+		},
+		breadCrumbData: {
+			//breadCrumbHeader:'',//If breadCrumbHeader is present UI will show this text else it will show the path
+			hasAutoRefreshAction: false,
+			hasRefreshAction: true,
+			hasCreateAction: true,
+			hasDownloadAction: true,
+			hasGridListAction: true,
+			hasEditAction: false,
+			hasGlobalContextAction: true
+		},
+		tableData: {
+			selectionMode: 'multi', //'single' or 'multi'
+			baseTableDataStructure: dataTableStructure,
+			baseColumnStructure: metaDataStructure,
+			hasContextAction: true,
+			useUISort: false,
+			useUIFilter: false
+		}
+	}
+	return folderConfiguration;
+};

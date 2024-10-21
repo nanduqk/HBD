@@ -1,0 +1,1 @@
+define("zen.rt.components.sdkhtml5chart/resources/js/charts/ChartException",[],function(){function a(b,c){this.name="Unexpected error";this.message=b;this.longMessage=c;}a.prototype=new Error();a.prototype.constructor=a;return a;});

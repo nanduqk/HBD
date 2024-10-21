@@ -1,0 +1,100 @@
+.sapMColorSwatchG {
+    padding-top: 4px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    display: flex;
+    box-sizing: border-box;
+}
+.sapMColorSwatchG8 {
+    padding-top: 8px !important;
+}
+.sapMColorSwatch1C {
+    display: block !important;
+    padding-left: 3px;
+}
+
+.sapMColorSwatchGTab {
+    display: box;
+    display: -moz-box;
+    display: -webkit-box
+}
+
+html .sapMColorSwatchGTab {
+    display: table;
+    table-layout: fixed
+}
+
+.sapMColorSwatchGTabFlex>.sapMColorSwatchGCol {
+    -moz-box-flex: 1;
+    -webkit-box-flex: 1;
+    box-flex: 1
+}
+
+.sapMColorSwatchGDummy {
+    -moz-box-flex: 1000;
+    -webkit-box-flex: 1000;
+    box-flex: 1000;
+    min-width: 1px
+}
+
+.sapMColorSwatchGDummy {
+    display: table-cell;
+    width: 1px
+}
+
+.sapMColorSwatchG>.sapMRb,.sapMColorSwatchGCol>.sapMColorSwatch {
+    float: left;
+    clear: left;
+    text-overflow: ellipsis
+}
+
+.sapMColorSwatchG.sapMColorSwatchG1Row>.sapMColorSwatch {
+    clear: none;
+    margin-right: 15px
+}
+
+.sapMColorSwatchGCol>.sapMColorSwatch {
+    width: 100%;
+    outline-offset: -1px
+}
+
+.sapMColorSwatchG .sapMColorSwatch {
+    position: relative;
+    left: 0;
+    margin-right: -2px;
+}
+.sapMColorSwatchGDisabled {
+    pointer-events : none;
+}
+
+.sapMColorGradientBase {
+    pointer-events : none;
+}
+
+.sapLudsiColorPaletteDialog {
+    height : 484px;
+    width: 616px;
+}
+
+
+.sapLudsiColorPaletteDialog .sapMColorSwatch1C .sapMColorSwatch {
+    margin-bottom: 10px;
+    margin-top: 3px;
+}
+
+.sapLudsiColorPaletteRow .sapMLabel {
+    line-height: 2rem;
+}
+
+.sapMColorSwatchGSelectedRow {
+    background-color: #e8f1f9 !important;
+}
+
+.sapMColorPaletteLabel {
+    height: 2rem;
+    margin-left: 16px !important;
+}
+
+.sapLudsiColorMenuPanel .sapMPanelWrappingDivTb {
+    margin-left: 0.5rem;
+}

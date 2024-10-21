@@ -1,0 +1,394 @@
+<!--
+�2010 - 2016 SAP SE or an SAP affiliate company.  All rights reserved.
+ 
+SAP and other SAP products and services mentioned herein as well as their respective logos are trademarks or registered trademarks of SAP SE in Germany and other countries.  Please see http://www.sap.com/corporate-en/legal/copyright/index.epx#trademark for additional trademark information and notices.
+-->
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+
+
+<html>
+<head>
+<title>BI launch pad</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script src="../PlatformServices/sapui5/resources/sap-ui-core.js"
+				id="sap-ui-bootstrap"
+				data-sap-ui-libs="sap.m, sap.ui.commons, sap.ui.layout,sap.ui.table"
+				data-sap-ui-theme="sap_belize"
+				data-sap-ui-bindingSyntax="complex"
+				data-sap-ui-xx-bindingSyntax="complex"
+				data-sap-ui-compatVersion="edge"
+				data-sap-ui-xx-supportedLanguages="ar,cs,da,de,dev,en,es,fi,fr,he,hu,is,it,iw,ja,kk,ko,nb,nl,pl,pt,ro,ru,sk,sl,sv,th,tr,uk,zh_CN,zh_TW,">
+</script>
+
+<script src="com/sap/fioribi/utils/DialogService.js"></script>
+<script src="com/sap/fioribi/utils/RequestDispatcher.js"></script>
+<script src="com/sap/fioribi/utils/Pinger.js"></script>
+<script src="com/sap/fioribi/utils/ResourceBundleUtil.js"></script>
+<script src="com/sap/fioribi/app/BILaunchpadAppCallBack.js"></script>
+
+<script src="com/sap/fioribi/utils/callBackUtils.js"></script>
+<link rel="shortcut icon" href="com/sap/fioribi/images/favicon.ico"/>
+<link rel="stylesheet" type="text/css" href="com/sap/fioribi/css/Shell.css">
+<link rel="stylesheet" type="text/css" href="com/sap/fioribi/css/Logonpage.css">
+
+
+
+<script type="text/javascript">
+var appKind = "InfoView";
+var sPVL = 'en_US';
+
+// Get the fioribi prefix to the URL for supportability as the root context        
+var rootContext = '\x2fportal\x2f2305172330';
+
+// Setting the default formatting locale with user selected Preferred Viewing Locale, which will be used for Date, Time,calendar,Number and Currency formatting 
+sap.ui.getCore().getConfiguration().setFormatLocale(sPVL);
+
+var sProductLocale = 'en';
+
+var notificationPollingEnabled='true';
+var notificationPollingTime='200000';
+var defaultScheduleEndDateConfig='';
+
+var offlinehelpflag='false';
+var offlinehelpurl ='';
+var resourceBundle = getResourceBundle(sPVL);
+var appname ='null';
+if(appname=='null'){
+		appname= resourceBundle.getText("app_name")
+}
+window.parent.document.title =appname;
+jQuery.sap.registerModulePath("com.sap.fioribi", "com/sap/fioribi/");    //For Loading BILaunchpad Libs
+
+//for icon
+try{
+	
+    var iconlink = window.parent.document.createElement("link");
+    iconlink.setAttribute("rel", "shortcut icon");
+    iconlink.setAttribute("type", "image/x-icon");
+    iconlink.setAttribute("href", window.location.href.substring(0, window.location.href.lastIndexOf('/')) + "/" + "./com/sap/fioribi/images/InfoView.ico");
+    window.parent.document.getElementsByTagName("head")[0].appendChild(iconlink);
+}catch (e) {}
+
+getRootContext = function(){
+	return rootContext;
+}
+getProductViewingLocale=function(){
+	return sPVL;
+}
+
+getProductLocale=function(){
+	return sProductLocale;
+}
+
+getWarName =function(){
+	var obj ='\x2fFioriBI';
+	return obj;
+}
+callbackGetLogonToken =function(){
+var obj ='usalspgsa573.na.pg.com\x3a6400\x4013103748JrcgDR6ALqxAtjYDzKDi3ZznYVTiXGLl513103747JHTCCHfCl5wW4m7RQuoGGXtPmHeYeRz2G';
+return obj;
+}
+callbackGetBTToken =function(){
+var obj ='MDAwRG1VblRdNVtRVVVqWlo8ZV9IQTUyNGlsU281ODAEQ';
+return obj;
+} 
+callbackGetserializedSession=function(){
+var obj ='3\x265U\x3d13103748JrcgDR6ALqxAtjYDzKDi3ZznYVTiXGLl513103747JHTCCHfCl5wW4m7RQuoGGXtPmHeYeRz2G,8P\x2610U,88\x261,8P\x2663\x3dsecSAPR3,8P\x2635\x3dES1921,8P\x26S5,88\x26pa,8P\x26ua\x3dAf9fX5We.TVJu_6eVqnxufQ,8P\x26ub\x3dFkpnCgA_ogYAd08AAAAHdFYAAFBWtjah,8P\x26zA,83\x264E\x3d13103747JHTCCHfCl5wW4m7RQuoGGXtPmHeYeRz2G,8P\x263k\x3d\x40webHBA,8P\x264F\x3d10935219,8P\x26Tm\x3d36500,83\x26Tn\x3d\x7b3\x26U\x3d3,83\x26.1\x3d\x7b3\x262\x3d10935347,83\x26O\x3dFavoritesFolder,8P\x7d,\x3fz\x26.2\x3d\x7b3\x262\x3d10935348,83\x26O\x3dPersonalCategory,8P\x7d,\x3fz\x26.3\x3d\x7b3\x262\x3d10935349,83\x26O\x3dInbox,8P\x7d,\x3fz\x7d,\x3fz\x267r,83\x262r\x3dusalspgsa573.na.pg.com\x3a6400,8P\x26lu\x3d1033,83\x26PP\x3d1024,83\x26ux\x3dFkabggA9cg0AAJkAAAAXfCQAAFBWtuFk,8P\x26uy\x3d\x2d13,8L';
+return obj;
+}
+
+callbackGetRestLogonToken=function(){
+	return getLogonTokenUsingSersession();
+}
+
+callbackGetBTTOKEN2=function(){
+	var token = 'MDAwRDlbNV1ramNmaTZpXTBObUI2RTdnZ09FWUFnPzAAN'
+    return token;	
+}
+
+callbackGetStartFolder = function(){
+	var obj='null';
+	return obj;
+}
+	
+callbackGetisCat = function(){
+	var obj='null';
+	return obj;
+}	
+
+
+callbackGetWACURL=function(){
+	var considerRelativeURL ='false'
+	var obj;
+	if(considerRelativeURL == "true"){
+		var currentURL = window.location.href;
+		if(currentURL.includes("/BOE/")){
+			//In reverse proxy case if mapping is done as "http://<reverseProxyServer>/somePath/BOE/BI" - "http://<BOEServer>:<BOEPort>/BOE/BI", so this changes will consider "/somePath/" also in making URL for biprws endpoint, so biprws url will be "http://<reverseProxyServer>/somePath/biprws"
+			var baseURL = currentURL.split("/BOE/");
+			obj = baseURL[0] + "/biprws";
+		}
+		else{
+			obj = window.location.protocol + "//" + window.location.host + "/biprws";
+		}
+	}
+	else{
+		obj ='https\x3a\x2f\x2fhba.na.pg.com\x3a8443\x2fbiprws';
+	}
+	return obj;
+}
+
+callbackGetSMTPProp=function(){
+var smtp = 'true';
+return smtp;
+}
+callbackGetIsNotificationSMTPFrom=function(){
+var isNotificationSMTPFrom = 'true';
+return isNotificationSMTPFrom;
+}
+
+callbackGetNotificationSMTPFromDefaultValue=function(){
+var notificationSMTPFromDefaultValue = 'null';
+return notificationSMTPFromDefaultValue;
+}
+callbackGetDisclaimerProp=function(){
+	var disclaimer = 'true ';
+	return disclaimer;
+}
+
+callbackIsThemeEnabled=function(){
+var IsThemeEnabled = 'default';
+return IsThemeEnabled;
+}
+	
+callbackgetRelativeUrlPrefixOutOfBundle= function(){
+var obj = '..'
+return obj;
+}
+callbackgetRelativeUrlPrefixToRootOfBundle= function(){
+var obj = '../FioriBI'
+return obj;
+}
+
+callbackGetLocalePreference=function(){
+var pref ='false';
+return pref;
+}
+
+callbackAutoRefreshMilliSec=function(){
+var autoRefreshMilliSec='10000';
+return autoRefreshMilliSec;
+}
+
+callbackUploadMaxFileSize=function(){
+var uploadMaxFileSize='0';
+return uploadMaxFileSize;
+}
+
+callbackUploadAllowedFormats=function(){
+var uploadAllowedFormats='biar,docx,ppsx,pptx,rpt,unv,wid,xlsx,csv,doc,gif,htm,ini,jpg,jpeg,mdb,msg,pcx,pdf,png,pps,ppt,rtf,tif,txt,url,wri,xls,xlt,xml,xsl';
+return uploadAllowedFormats;
+}
+
+callbackDatabaseCredentialsTabEnabled=function(){
+var DatabaseCredentialsTabEnabled = 'null';
+return DatabaseCredentialsTabEnabled;
+}
+
+callbackAuthorizationReferenceTabEnabled=function(){
+var AuthorizationReferenceTabEnabled = 'null';
+return AuthorizationReferenceTabEnabled;
+}
+
+caf_callback_displayHeaderInfo = function(actionName, numObjs, objName, actionWindow){
+	 var titleName;
+	 if (actionName) {
+         titleName = actionName;
+	 }else{
+		 titleName= "";
+	 }
+ 
+	if (numObjs) {
+		if (numObjs === 1 && objName && objName.length > 0) {
+			if(titleName && titleName.length > 0){
+				titleName += ': ' + objName;
+			}else{
+				titleName = objName;
+			}
+		} else if (numObjs > 1) {
+			if(titleName && titleName.length > 0){
+				titleName += ': [' + DISPLAY_HEADER_BULK + ']';
+			}else{
+				titleName = '[' + DISPLAY_HEADER_BULK + ']';
+			}
+		}
+	}
+		
+	if(actionWindow){
+		actionWindow.document.title = titleName;
+		setWindowIcon(actionWindow);
+	}
+};
+
+
+setWindowIcon = function(actionWindow){
+	var iconlink = actionWindow.document.createElement("link");
+	iconlink.setAttribute("rel", "shortcut icon");
+	iconlink.setAttribute("type", "image/x-icon");
+	iconlink.setAttribute("href", window.location.href.substring(0, window.location.href.lastIndexOf('/')) + "/" + "com/sap/fioribi/images/InfoView.ico");
+	actionWindow.document.getElementsByTagName("head")[0].appendChild(iconlink);
+};
+
+jQuery.sap.registerModulePath("com.sap.fioribi", "com/sap/fioribi/");    //For Loading BILaunchpad Libs
+
+
+//loading logon module
+var logonToBI = function(){
+	jQuery.sap.require("com.sap.fioribi.modules.logonpageBI.LogonpageBIContainer");
+	var oAfterLogon = new com.sap.fioribi.modules.logonpageBI.LogonpageBIContainer();
+	oAfterLogon.getUI().placeAt("content");
+}
+logonToBI();
+function sendXmlHttpGet(Url, asyncFlag)
+{
+   var xmlHttp;
+   try
+   {
+	    // Firefox, Opera 8.0+, Safari
+	    xmlHttp=new XMLHttpRequest();
+   }
+   catch (e)
+   {
+   // Internet Explorer
+	    try
+	      {
+	      	xmlHttp=new ActiveXObject("Msxml2.XMLHTTP");
+	      }
+	    catch (e)
+	      {
+		      try
+		        {
+		        	xmlHttp=new ActiveXObject("Microsoft.XMLHTTP");
+		        }
+		      catch (e)
+		        {
+			        //alert("Your browser does not support AJAX!");
+			        return false;
+		        }
+	      }
+   }
+   var async = true;
+   if (asyncFlag != "undefined" && asyncFlag != null)
+   {
+      async = asyncFlag;
+   } 
+
+   xmlHttp.open("GET", Url, async);
+   xmlHttp.send();
+}
+ function resetSession()
+	   {
+		   /*this method will reset session timeout to initial time 
+   			whenever a refresh happens closeSession() sets the time out to 30 secs and this method resets back to old time
+   			*/
+	   		var randomNum = Math.round(Math.random() * 10000);
+	   		sendXmlHttpGet('../BIPCoreWeb/ResetSessionTime'+ '?rand=' + randomNum + '&appKind=' + appKind,true);
+
+	   }
+function closeSession()
+	   {
+		   /*this method will set session timeout to 30 secs;
+   			this method is called in browser refresh and browser close. 
+   			whenever a refresh happens this method sets the time out to 30 secs 
+   			and resetSession method resets back to old time (20 mins)
+   			*/
+		   	var randomNum = Math.round(Math.random() * 10000);
+			logofflink=false;
+		   	var loggedoff = logofflink;   			
+		   	sendXmlHttpGet('../BIPCoreWeb/TimeoutSession' + '?rand=' + randomNum+'&logofflink='+loggedoff + '&appKind=' + appKind,true);
+	   	
+	   }
+function onBodyLoad() {
+		resetSession();
+		
+}
+
+function resizePanel(){
+	//For browser resize
+}
+
+function getLogonTokenUsingSersession() {
+	
+   	var sersesstoken;
+    var serSession = callbackGetserializedSession();
+
+	var wacsUrl=callbackGetWACURL();
+	var logonLong = wacsUrl+"/logon/token";
+	//console.log(logonLong);
+
+	var fnLogonSuccess = function(response) {
+		sersesstoken=response.logonToken;
+    };
+
+ var fnLogonFailure = function(err) {
+        //alert('Failed');
+    };
+
+ var oHandler = {
+        success: $.proxy(fnLogonSuccess, this),
+        error: $.proxy(fnLogonFailure, this)
+    };
+
+	
+	var jsondata = {
+                "logonToken": serSession,
+				"tokenType": "serializedSession"
+            };
+try {
+        $.ajax({
+            cache: false,
+            url: logonLong,
+			async: false,
+            type: "POST",
+			data: JSON.stringify(jsondata),
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json;odata=verbose"
+            },
+            beforeSend: function() {
+                sap.ui.core.BusyIndicator.show(0);
+            },
+            complete: function() {
+                sap.ui.core.BusyIndicator.hide(0);
+            },
+            success: function(data, textStatus, xhr) {
+                var fnSuccess = oHandler.success;
+                fnSuccess(data);
+            },
+            error: function(xhr, textStatus, thrownError) {
+                var fnLogonFailure = oHandler.error;
+                fnLogonFailure(thrownError);
+            }
+        });
+    } catch (exception) {
+        fnLogonFailure(exception);
+    }
+	
+	return sersesstoken;
+};
+
+</script>
+
+<title>Insert title here</title>
+</head>
+ <body onload="javascript:onBodyLoad()" onbeforeunload="closeSession()" onresize="resizePanel();" class="sapUiBody BILP-no-overflow" role="application">
+		<div id="content" class="BILP-displayBlock"></div>
+	</body>
+</html>

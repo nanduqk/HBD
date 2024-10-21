@@ -1,0 +1,20 @@
+POST https://hbd.na.pg.com:8443/BOE/portal/2409262000/biprwsproxy/biprws/v1/logoff HTTP/1.1
+Host: hbd.na.pg.com:8443
+Connection: keep-alive
+Content-Length: 0
+x-SAP-logonToken: usalspgsa638.na.pg.com\x3a6400\x40\x7b3\x262\x3d2290553,U3\x262v\x3dusalspgsa638.na.pg.com\x3a6400,UP\x2666\x3d40,U3\x2668\x3dsecEnterprise\x3aES2020,UP\x26S9\x3d2279113,U3\x26qe\x3d100,U3\x26vz\x3dF9E1FjZxxE2dcM5jhuiD.bHmR4Xbt6K57bQFz6p78a9fL7FaTH_NAjLpiHhafTht,UP\x7d
+sec-ch-ua-platform: "Windows"
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36
+sec-ch-ua: "Google Chrome";v="129", "Not=A?Brand";v="8", "Chromium";v="129"
+Content-type: application/json
+sec-ch-ua-mobile: ?0
+Accept: */*
+Origin: https://hbd.na.pg.com:8443
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: empty
+Referer: https://hbd.na.pg.com:8443/BOE/portal/2409262000/FioriBI/RestLogoff.jsp
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
+Cookie: JSESSIONID=A1F5A7E5573F81BFAC32DDC6460C6EDA
+

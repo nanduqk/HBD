@@ -1,0 +1,883 @@
+/* Custom CSS */
+/* INPUT TOOL CHANGES */
+
+area {
+	background-color: #F2f2f2;
+	
+}
+.tabText {
+font-size: 12px;
+text-decoration: underline;
+text-decoration-color: #D2DCEE;
+text-decoration-thickness: 2px;
+}
+.tabText:hover {
+font-size: 12px;
+color: #3b6f9a;
+/*decoration: underline;*/
+text-decoration-color: #3b6f9a;
+text-decoration-thickness: 2px;
+cursor: pointer;
+border-bottom: 1px;
+}
+
+
+.onSwitch .sapMSwtHandle{
+	left: 2.75rem;
+}
+.sapMSwtLabel{
+	text-transform: none !important;
+	display: inline !important;
+}
+.offSwitch .sapMSwtHandle{
+	right: 1.5rem;
+}
+
+.dashboardTextLinks{
+	color: #3b6f9a;
+	text-decoration: underline;
+	text-decoration-color: #3b6f69a
+}
+
+.sapUiSizeCompact .sapMRbBLabel{
+	font-size: 12px;
+}
+
+.sapzencrosstab-DataCellEntryEnabled-MainMode>.sapzencrosstab-DataCellContentDiv {
+
+	border-left-color: #305496;
+	font-size: 12px;
+}
+
+.sapzencrosstab-HeaderCellEntryEnabled-MainMode>.sapzencrosstab-HeaderCellContentDiv {
+
+	border-left-color: #305496;
+}
+
+.sapzenfilterpanelM * .sapUiVlt.sapUiContentPadding {
+    padding: 0rem;
+}
+
+
+.sapzenfilterpanelM * .sapUiVlt.sapUiContentPadding {
+    padding: 0rem;
+}   
+    
+.defaultFilter .sapMLIB {
+    border-bottom: 0px solid #e5e5e5;
+}
+
+
+/*.MenuPanel {
+	text-align: left;
+	font: normal normal normal 14px/16px Arial;
+	letter-spacing: 0px;
+	color: #666666;
+	opacity: 1;
+	
+	
+}*/
+
+.MenuPanel {
+	background-color: #ffffff;
+	
+	box-shadow: 0em 0 .5em #C7C7C7;
+	border-left-style: solid;
+	border-left-width: 1px;
+	border-left-color: #f2f2f2;
+	
+}
+.Menu
+{
+	top: 0px;
+	left: 0px;
+	width: 780px;
+	height: 312px;
+/* UI Properties */
+	background: #FFFFFF 0% 0% no-repeat padding-box;
+	opacity: 1;
+	
+}
+.sapMITBHead {
+
+    margin: 0rem 0rem 0 0rem;
+}
+
+.sapMITBInLine.sapMITBTextOnly>.sapMITBVertical {
+    margin-top: -10px;
+}
+
+.TitleBackground
+{
+	border-bottom-style: solid;
+	border-bottom-color: #f2f2f2;
+	border-bottom-width: 2px;
+	background-color: #ffffff;
+	box-shadow: 0em 0 .5em #C7C7C7;
+	border-left-style: solid;
+	border-left-width: 1px;
+	border-left-color: #f2f2f2;
+}
+
+.MenuHeadingText
+{
+	text-align: left;
+	font: normal normal bold 14px/16px Arial;
+	letter-spacing: 0px;
+	color: #666666;
+	opacity: 1;
+}
+.TitleText {
+	font-size: 14px;
+	color: #0854a0;
+	font-weight: bold;
+	font-family: Arial Helvetica;
+}
+
+.CompositeText
+{
+	text-align: left;
+	font: normal normal normal 14px/16px Arial;
+	font-weight: bold;
+	letter-spacing: 0px;
+	color: #0854A0;
+	opacity: 1;
+
+}
+
+.SubtitleText {
+	font-size: 16px;
+	color: #666666;
+	
+	
+}
+
+.sapMScrollCont 
+{
+	
+	border: none;
+	
+}
+
+.sapMLIB
+{
+
+	border-width: 1px;
+	
+	
+}
+
+.sapMLIB .sapMLIBSelected
+{
+
+	border-width: 1px;
+	border-bottom-color: green;
+	
+	
+}
+
+/* Custom CSS */
+
+.Banner
+{
+background-color: #012169;
+}
+.SubBanner
+{
+	background-color: #FFFFFF;
+}
+.Title
+{
+	color: #FFFFFF;
+	text-align: Left;
+	font-size: 22px;
+	font: arial;
+	font-weight: bold;
+}
+.DownloadReport
+{
+	text-align: left;
+	font: Source Sans Pro;
+	letter-spacing: 0px;
+	font-size: 16px;
+	color: #FFFFFF;
+	opacity: 1;
+}
+.Bookmark
+{
+	text-align: left;
+	font: Source Sans Pro;
+	letter-spacing: 0px;
+	font-size: 16px;
+	color: #FFFFFF;
+	opacity: 1;
+}
+.Persona
+{
+	text-align: left;
+	font: Source Sans Pro;
+	letter-spacing: 0px;
+	font-size: 16px;
+	color: #FFFFFF;
+	opacity: 1;
+}
+.PageTitleText
+{
+	text-align: left;
+	font: 72-regular;
+	letter-spacing: 0px;
+	font-size: 16px;
+	color: #6A6D70;
+	opacity: 1;
+}
+
+.PageTitleText:hover{
+	color: #0854a0;
+	border-bottom-color: #0854a0;
+	border-bottom-style: solid;
+	border-bottom-width: thin;
+}
+
+.PageTitleText:selected{
+	color: #0854a0;
+	border-bottom-color: #0854a0;
+	border-bottom-style: solid;
+	border-bottom-width: thin;
+}
+
+
+.PagebookBGround
+{
+	background-color: #F2F2F2;
+}
+
+.ContainerBackground
+{
+	background-color: #FFFFFF;
+
+	
+	
+}
+.SaveNextBTN  .sapMBtnInner{
+  background-color: #00703C;
+  color: #FFFFFF;
+  font-size: 12px;
+}
+.SaveNextBTN .sapMBtnInner:hover{
+	background-color: #015B30;
+	color: #FFFFFF;
+	font-size: 12px;
+}
+.Button .sapMBtnInner{
+	border-color: #0854a0; 
+/*	text-color: #0854a0; */
+	text-color: #FFFFFF;
+	font-size: 12px;
+/*	background-color: #16AF5B;*/
+	background-color: #00703C;
+}
+.Button .sapMBtnInner:hover{
+	background-color: #012169;
+	color: #FFFFFF;
+	font-size: 12px;
+}
+
+.Button .sapMBtnContent{
+	text-color: #FFFFFF;
+}
+
+.EmailButton .sapMBtnInner{
+	
+	
+	color: #FFFFFF;
+	font-size: 12px;
+	
+	background-color: #0854a0;
+}
+.EmailButton .sapMBtnInner:hover{
+	background-color: #012169;
+	color: #FFFFFF;
+	font-size: 12px;
+}
+
+.MyButton .sapMBtnInner{
+	border-color: #0854a0; 
+/*	text-color: #0854a0;*/
+    text-color: #FFFFFF;
+	font-size: 12px;
+	background-color: #00703C;
+}
+
+/* Start of BM5347 08/15/2022 */
+/* Comment : Added code to split the formatting of Submit Button vs Approve/ Reject/ Deletion button. Below is for Approve/ Reject/ Delete buttons */ 
+.MyButtonAppRejDel .sapMBtnInner{
+	border-color: #0854a0; 
+	text-color: #0854a0;
+	font-size: 12px;
+	background-color: #FFFFFF;
+}
+
+/* End of BM5347 08/15/2022 */
+
+.RYE
+{
+	color: #3F5161;
+	text-align: center;
+	letter-spacing: 0px;
+	font: ArielMT;
+	font-size: 12px;
+}
+
+.SubmitTxt
+{
+	color: #346188;
+	font-size: 12px;
+	font: Segoi UI;
+	text-align: left;
+	letter-spacing: 0px;
+}
+
+
+.LoadDataBTN .sapMBtnInner{
+	border-color: #0854a0;
+	text-color: #0854a0;
+	font-size: 12px;
+}
+.LoadDataBTN .sapMBtnInner:hover{
+	background-color: #012169;
+	color: #FFFFFF;
+	font-size: 12px;
+}
+
+.sapUiSizeCompact .sapMSwt {
+    width: 60px;
+    height: 24px;
+}
+
+.sapUiSizeCompact .sapMSwtHandle {
+    height: 16px;
+    width: 16px;
+}
+
+.SwitchText
+{
+	color: #000000;
+	font: 72-regular;
+	font-size: 12px;
+}
+
+.change{
+	color: white;
+	font-size: 16px;
+	font-family: Arial,Helvetica,sans-serif;
+}
+.shift{
+	color: black;
+	font-size: 12px;
+	font-family: Arial,Helvetica,sans-serif;
+}
+
+.CrosstabBackground
+{
+	background-color: #FFFFFF;
+	
+}
+
+.CrosstabBackground .sapzencrosstab-DataArea>tbody>tr>td:nth-last-child(1)>div
+{
+	text-align:left !important;
+}
+
+.FilterText
+{
+	font-size: 12px;
+}
+
+.myTabStrip .sapMITH
+{
+	background-color:#ffffff;
+	font-size: 12px;
+    box-shadow: inset 0  0rem 0 0rem #d1e0ee; 
+    border-bottom: 0px; 
+	
+	
+}
+.myTabStrip .sapMITBContent
+{
+	border-bottom: 0px;
+}
+.myTabStrip .sapMITBTextOnly .sapMITBFilterDefault.sapMITBSelected>.sapMITBText
+{
+	    font-size: 12px;
+	    font-weight: bold;
+}
+.myTabStrip .sapMITBTextOnly .sapMITBText
+{
+	    font-size: 12px;
+	    
+}
+.myTabStrip .sapMITBTextOnly .sapMITBText:hover
+{
+	    font-size: 12px;
+	    color: #0854a0;
+	    text-decoration: underline;
+	    
+}
+
+.sapMITBInLine.sapMITBTextOnly>.sapMITBVertical.sapMITBFilter>.sapMITBText + .sapMITBContentArrow
+{
+	height: 0.4rem;
+}
+
+.sapMITBScrollContainer {
+    display: block;
+    margin: 0 1.75rem;
+    padding: 0 1px;
+    top: 6.6px;
+    position: relative;
+    
+}
+
+.sapUiVlt.sapUiContentPadding>.sapuiVltCell:not(:last-child)
+ {
+    padding-bottom: 1px; 
+    box-sizing: border-box;
+    position: relative;
+    top: 5px;
+    background: transparent;
+}
+
+/*.NORMAL .sapzencrosstab-DataCellLastInCol, .sapzencrosstab-HeaderCellLastInCol {
+	font-weight: normal;
+}
+
+/*.NORMAL .sapzencrosstab-DataCellEmphasized, .sapzencrosstab-HeaderCellEmphasized, .sapzencrosstab-DataCellTotal, .sapzencrosstab-HeaderCellTotal {
+    background-color: #ddebf7 !important;
+    font-weight:normal !important;
+}
+.bold .sapzencrosstab-DataCellEmphasized, .sapzencrosstab-HeaderCellEmphasized, .sapzencrosstab-DataCellTotal, .sapzencrosstab-HeaderCellTotal {
+    background-color: #ddebf7 !important;
+    font-weight:normal !important;
+}*/
+
+/* Crosstab */
+
+/*.NORMAL
+.sapzencrosstab-ColumnHeaderArea .sapzencrosstab-HeaderCellDefault,  
+.sapzencrosstab-ColumnHeaderArea .sapzencrosstab-HeaderCellAlternating,  
+.sapzencrosstab-DimensionHeaderArea .sapzencrosstab-HeaderCellAlternating,  
+.sapzencrosstab-DimensionHeaderArea .sapzencrosstab-HeaderCellDefault
+	{
+	background-color:#f7f7f7 !important;
+	color: #000000!important;
+	font-weight: normal !important;
+    font-size: 16px;
+
+	}
+*/
+
+/*.NORMAL .sapzencrosstab-DataCellDefault, .sapzencrosstab-HeaderCellDefault {
+      background-color: #FFFFFF;
+font-size: 16px;
+}
+
+.sapzencrosstab-scrollbarHandleColor
+{
+	background-color: #FFFFFF;
+	border-style: solid;
+	border-color:#c0c0c0;
+	border-width: 1px;
+}
+
+.sapzencrosstab-scrollbarHandleColor:hover
+{
+	background-color: #e9e9e9;
+	border-style: solid;
+	border-color:#c0c0c0;
+	border-width: 1px;
+	
+}
+.sapzencrosstab-scrollbarClickAreaColor
+{
+	background-color: #dbdbdb;
+	border-style: solid;
+	border-color:#c0c0c0;
+	border-width: 0px 0px 0px 0px;
+}
+
+
+.sapzencrosstab-scrollbarButton
+{
+	background-color: #FFFFFF;
+	border-style: solid;
+	border-color:#c0c0c0;
+	border-width: 1px;
+}
+
+.CrosstabDimensions .sapzencrosstab-scrollbarButton
+{
+	background-color: #FFFFFF;
+}
+
+.NORMAL .sapUiSizeCompact .sapMSltLabel, .sapUiSizeCompact {
+    line-height: 0.7rem !important;
+    
+}
+
+.sapzencrosstab-horizontalScrollbarPlaceholder {
+	background-color: #dbdbdb;
+	border-style: solid;
+	border-color:#c0c0c0;
+	border-width: 1px;
+}
+
+.sapzencrosstab-FontSize-MainMode
+{
+	font-size:16px;
+}
+
+.sapUiSizeCompact .sapMSltLabel, .sapUiSizeCompact
+{
+	line-height: 1rem !important;
+}
+*/
+
+/*Crosstab new*/
+
+CrosstabDimensions
+.sapzencrosstab-ColumnHeaderArea .sapzencrosstab-HeaderCellDefault,  
+.sapzencrosstab-ColumnHeaderArea .sapzencrosstab-HeaderCellAlternating,  
+.sapzencrosstab-DimensionHeaderArea .sapzencrosstab-HeaderCellAlternating,  
+.sapzencrosstab-DimensionHeaderArea .sapzencrosstab-HeaderCellDefault
+	{
+	background-color:#ffffff !important;
+	color: #000000!important;
+	font-weight: bold !important;
+    font-size: 12px;
+   /* border: 1px !important;*/
+	}
+CrosstabDimensions.sapzencrosstab-DataArea:hover
+ {float: inherit;}
+ 
+.CrosstabDimensions .sapzencrosstab-DataCellAlternating, .sapzencrosstab-HeaderCellAlternating {
+      background-color: #FFFFFF !important;
+  font-size: 0.77rem;
+}
+.CrosstabDimensions .sapzencrosstab-DataCellDefault, .sapzencrosstab-HeaderCellDefault {
+      background-color: #FFFFFF;
+font-size: 12px;
+}
+
+.CrosstabDimensions .sapzencrosstab-scrollbarHandleColor
+{
+	background-color: #FFFFFF;
+	border-style: solid;
+	border-color:#c0c0c0;
+	border-width: 1px;
+}
+
+.CrosstabDimensions .sapzencrosstab-scrollbarHandleColor:hover
+{
+	background-color: #e9e9e9;
+	
+}
+.CrosstabDimensions .sapzencrosstab-scrollbarClickAreaColor
+{
+	background-color: #dbdbdb;
+}
+
+.CrosstabDimensions .sapzencrosstab-scrollbarButton
+{
+	background-color: #FFFFFF;
+}
+
+.CrosstabDimensions #__cell156_textContentDiv{
+	white-space:pre-line!important;
+
+word-wrap:break-word!important;
+
+}
+
+.CrosstabDimensions #__cell157_textContentDiv{
+	white-space:pre-line!important;
+
+word-wrap:break-word!important;
+
+}
+.sapzencrosstab-FontSize-MainMode
+{
+	font-size:12px;
+}
+
+.sapUiSizeCompact .sapMSltLabel, .sapUiSizeCompact
+{
+	line-height: 1rem;
+}
+
+.sapzencrosstab-DataCellDivValueHelp-MainMode
+{
+	display: inline-block;
+}
+
+/*myCrosstab
+.sapzencrosstab-ColumnHeaderArea .sapzencrosstab-HeaderCellDefault,  
+.sapzencrosstab-ColumnHeaderArea .sapzencrosstab-HeaderCellAlternating,  
+.sapzencrosstab-DimensionHeaderArea .sapzencrosstab-HeaderCellAlternating,  
+.sapzencrosstab-DimensionHeaderArea .sapzencrosstab-HeaderCellDefault
+{
+font-size: 16px;
+background-color: white !important;
+border: 0px !important;
+}
+
+.myCrosstab.sapzencrosstab-DataCellDefault {
+border: 0px !important;
+}
+.myCrosstab.sapzencrosstab-HeaderCellDefault {
+border: 0px !important;
+}
+.myCrosstab.sapzencrosstab-TableDiv {
+border: 0px !important;
+}
+.myCrosstab.sapzencrosstab-DataArea {
+border: 0px !important;
+}
+
+.myCrosstab.sapzencrosstab-DataArea>tbody>tr:nth-child(3)>td>div
+{
+  font-weight: bold  !important;
+}
+.myCrosstab.sapzencrosstab-RowHeaderArea>tbody>tr:nth-child(3)>td>div
+{
+  font-weight: bold  !important;
+}
+
+.myCrosstab.sapzencrosstab-HeaderCellInLastColOfDimHeadertbody>tr:nth-child(3)>td>div
+{
+	font-weight: bold;
+} 
+*/
+/*Dropdown*/
+.sapUiSizeCompact .sapMSlt
+{
+	height: 1.4rem;
+	margin-top: 0.18rem;
+	margin-bottom: 0.18rem;
+}
+
+.sapMSltArrow
+{
+	line-height: 1.2rem;
+	background-color: #ffffff;
+}
+.sapUiSizeCompact .sapMSltLabel, .sapUiSizeCompact .sapMSltArrow
+{
+	line-height: 1.2rem;
+}
+
+.sapMSlt > .sapMSltLabel
+{	
+	font-size: 12px;
+	padding-top: 3px;
+}
+
+
+/*Dimension Filter*/
+
+.sapUiSizeCompact .sapMMultiInputBorder
+{
+	height: 1.4rem;
+}
+.sapUiSizeCompact .sapMInputValHelp > .sapMInputValHelpInner
+{
+	line-height: 16px;
+	background-color: #fafafa;
+}
+
+.sapUiSizeCompact .sapMMultiInput .sapMInputBaseInner
+{
+	height:1.2rem;
+	font-size: 16px;
+	background-color: #fafafa;
+}
+.sapMMultiInputBorder
+{
+	background-color: #fafafa;
+
+}
+.sapMMultiInputIndicator
+{
+font-size: 16px;
+}
+
+.sapUiSizeCompact .sapMToken
+{
+font-size: 12px;
+}
+
+.sapMITBTextOnly .sapMITBText
+{
+font-size: 12px;
+}
+
+.compValueHelpDialog .sapUiTable .sapUiTableHdrTitle
+{
+font-size: 16px;
+}
+
+
+.sapMSelectListItemBase
+{
+font-size: 12px;
+}
+
+.sapUiCompFilterBar {
+	background: #ffffff;
+	border-bottom: 0px;
+}
+
+.sapUiCompFilterBarHint.sapMText{
+	display: none;
+}
+
+.bookmarkDialog .sapMLIB .sapMLIBSelected{
+	background-color: #dde8f1;
+}
+
+
+// Error Message Code
+
+#MESSAGE_messageview1 .sapMBtnInner.sapMBtnEmphasized {
+    background-image: none;
+    background-color: inherit !important;
+    border: inherit !important;
+    color: #ffffff;
+}
+
+#MESSAGE_messageview1 .sapMBtnInner.sapMBtnHoverable {
+    background-image: none;
+    background-color: inherit !important;
+    border: inherit !important;
+    color: #ffffff;
+}
+
+ 
+#MESSAGE_messageview1 {
+  background-color: #004A7F;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  border: none;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Arial;
+  font-size: 20px;
+  padding: .35rem 1rem;
+ /* margin: 0.625rem;*/
+/*   margin-right: 35rem; */
+/*   margin-bottom: 15rem; */
+  text-align: center;
+  text-decoration: none;
+  -webkit-animation: glowing 1500ms infinite;
+  -moz-animation: glowing 1500ms infinite;
+  -o-animation: glowing 1500ms infinite;
+  animation: glowing 1500ms infinite;
+}
+
+#MESSAGE_messageview1 .sapMBtnInner {
+    font-size: 1.3rem !important;
+}
+
+.sapzencrosstab-DataCellInvalidValue, .sapzencrosstab-HeaderCellInvalidValue {
+    border-color: #ee0000!important;
+    border: 3px solid #ee0000 !important;
+}
+
+
+@-webkit-keyframes glowing {
+  0% { background-color: #B20000 ; -webkit-box-shadow: 0 0 3px #B20000; }
+  50% { background-color: #FF0000 ; -webkit-box-shadow: 0 0 40px #FF0000; }
+  100% { background-color: #B20000 ; -webkit-box-shadow: 0 0 3px #B20000; }
+}
+
+@-moz-keyframes glowing {
+  0% { background-color: #B20000 ; -moz-box-shadow: 0 0 3px #B20000; }
+  50% { background-color: #FF0000 ; -moz-box-shadow: 0 0 40px #FF0000; }
+  100% { background-color: #B20000 ; -moz-box-shadow: 0 0 3px #B20000; }
+}
+
+@-o-keyframes glowing {
+  0% { background-color: #B20000 ; box-shadow: 0 0 3px #B20000; }
+  50% { background-color: #FF0000 ; box-shadow: 0 0 40px #FF0000; }
+  100% { background-color: #B20000 ; box-shadow: 0 0 3px #B20000; }
+}
+
+@keyframes glowing {
+  0% { background-color: #B20000 ; box-shadow: 0 0 3px #B20000; }
+  50% { background-color: #FF0000 ; box-shadow: 0 0 40px #FF0000; }
+  100% { background-color: #B20000 ; box-shadow: 0 0 3px #B20000; }
+}
+
+.sapzencrosstab-scrollbarHandleColor {
+                background-color: white;
+                border-style: solid;
+                border-width: 1px;
+                border-color: #bfbfbf
+}
+
+.sapzencrosstab-scrollbarClickAreaColor { 
+                background-color: #dbdbdb;
+}
+.sapzencrosstab-horizontalScrollbarPlaceholder {
+                background-color: #dbdbdb;
+}
+
+.sapzencrosstab-TableDiv {
+                border-style:solid;
+                border-width:2px;
+}
+
+.hoverover:hover {
+	text-decoration: underline;
+}
+
+.crosstabtextlink{
+	color: #3b6f9a;
+	/*text-decoration: underline;*/
+	text-decoration-color: #3b6f69a
+}
+.crosstabtextlink:hover{
+	/*text-decoration: underline;*/
+    cursor: pointer;
+}
+/*Start of BM5347 08/12/2022 /*
+/* Comment: Script to make Header Summary Crosstab Last Row bold*/
+
+.CTHeaderSum .sapzencrosstab-DataArea>tbody>tr:nth-child(3)>td>div
+{
+   font-weight: bold; 
+}
+
+.CTHeaderSum .sapzencrosstab-RowHeaderArea>tbody>tr:nth-child(3)>td>div
+{
+   font-weight: bold; 
+}
+
+/* End of BM5347 08/12/2022 */
+
+/*Start of DX7059 08/23/2022 */
+.text_panel{
+	text-align: left;
+font: normal normal normal 16px Arial;
+letter-spacing: 0px;
+color: #000000;
+opacity: 1;
+}
+
+/*End of DX7059 08/23/2022 */
+
+.sapzencrosstab-DimensionHeaderArea, .sapzencrosstab-ColumnHeaderArea {
+    font-weight: bold;
+    color: black;
+    /* font-weight: bold; */
+}

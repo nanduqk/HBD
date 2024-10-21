@@ -1,0 +1,251 @@
+/*
+�2010 - 2016 SAP SE or an SAP affiliate company.  All rights reserved.
+ 
+SAP and other SAP products and services mentioned herein as well as their respective logos are trademarks or registered trademarks of SAP SE in Germany and other countries.  Please see http://www.sap.com/corporate-en/legal/copyright/index.epx#trademark for additional trademark information and notices.
+*/
+
+@CHARSET "ISO-8859-1";
+
+.BILP-detailsPane{
+	width: 300px !important;
+}
+.BILP-size32px{
+	width:32px;
+	height:32px;
+}
+.BILP-VBoxLayout{
+	width: inherit !important;
+}
+
+.BILP-VBoxLayout>div{
+	height:inherit !important;
+}
+.BILP-detailsPane .sapMDialogSection{
+	background: #FFFFFF !important;
+}
+
+.BILP-texttrucation{
+	width: 245px !important;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+
+.BILP-detailTabStyleGeneral{
+	background-color: white !important;
+
+}
+/* .BILP-detailTabStyleGeneral .sapMITBContainerContent{
+	height: 99vh !important;
+} */
+
+.BILP-LastRowBorderBottom > .sapUiMltCell {
+	padding-bottom:16px;
+}
+.BILP-detailTabStyleGeneral .sapMITBContentArrow{
+	width: 45px;
+	margin-top: -8px;
+	margin-left:17px;
+	
+}
+
+
+.BILP-ItemTitle{
+               font-size:9px;
+        /*padding-top:8px;*/
+}
+.BILP-ItemTitle1{
+               font-size:9px;
+       /* padding-bottom:8px;*/
+}
+.BILP-TitleDetails{
+	padding-bottom:12px !important;
+}
+
+.BILP-DetailsLayout > tbody > tr:nth-child(1)>td{
+	padding-top: 8px !important;
+}
+.BILP-DetailsLayout > tbody > tr > td:nth-child(2){
+    position: relative;
+    right: -2px;
+}
+.BILP-DetailsLayout > tbody{
+	width: 100%;
+	border:none !important;
+}
+.BILP-DetailsLayout .sapUiMltCell:nth-child(1){
+	vertical-align:super !important;	
+	padding-left:16px;	
+}
+
+.BILP-HeaderLayout .sapMFlexItem {
+	width: auto !important;
+	max-width:280px;
+}
+
+
+.BILP-WebiIcon{
+	background-position : -1887px -1301px !important;
+}
+.BILP-FolderIcon{
+	background-position : -1885px -1982px !important;
+}
+.BILP-CrystalReportIcon{
+	background-position : -1885px -1368px !important;
+}
+.BILP-LumiraIcon{
+	background-position : -1305px -1275px !important;
+}
+.BILP-DesignStudioIcon{
+	background-position : -1885px -1345px !important;
+}
+.BILP-CateogoryIcon{
+	background-position : -1885px -518px !important;
+}
+
+.BILP-DownArrowIcon{
+	background-position : -1885px -346px !important;
+}
+
+
+
+
+.BILP-tableSpecificPadding {
+	margin-right: 32px;
+    width: 98%;
+}
+
+
+.BILP-PanelClass >.sapMPanelContent{
+	padding: 0px !important;
+	overflow-x:hidden !important;
+}
+
+.BILP-Layout2> tbody> tr:nth-child(3){
+	border-bottom:0px !important;
+}
+.BILP-Labelwidthdoc{
+               width:128px !important;
+               text-align:right !important;
+        padding:3px;
+}
+.space sapMTextMaxWidth{
+padding:4px;
+}
+.BILP-Labelwidth{
+    width:110px !important;
+	text-align:right !important;
+	}
+.BILP-margindialog{
+	 margin-top:-27px !important;
+	margin-left:-15px !important; 
+	
+}
+.BILP-texttruncdoc{
+	width: 256px !important;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.BILP-texttrunc{
+               /*width: 270px !important;*/
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.BILP-descriptionwhitespace{
+	white-space:pre-line !important;
+	word-wrap:break-word !important;
+	width:244px !important;	
+}
+.BILP-margindialog  body > .sapUxAPObjectPageLayout, .sapUiVltCell .sapUxAPObjectPageLayout{
+	
+	position: absolute !important; 
+}
+
+ .BILP-DetailsHeader{
+ align:center !important;
+ }
+ 
+ .BILP-PanelClass.sapMPanel>.sapMPanelHdr{
+ border:none !important;
+ }
+ .BILP-PanelClass .sapMPanelContent{
+ border:none !important;
+ margin-top:-7px !important;
+ }
+ .BILP-descalign{
+ vertical-align:super !important;
+ }
+ .BILP-dialogBoxEachHorizontallayout> tbody> tr> td{
+   text-align:right !important;
+   }
+.BILP-Labelwidthhistory{
+	width:185px !important;
+	text-align:right !important;
+}
+
+
+.LabelPadding{
+   padding-top: 15px !important;
+}
+
+.labelPadding123{
+	padding-top: 12px !important;
+}
+
+.LabelPadding1{
+  padding-top: 8px !important;
+}
+
+.LocalePadding{
+	 padding: 12px !important;
+	
+}
+.FolderPadding{
+	padding: 5px !important;
+}
+.IDPadding1{
+  padding-top: 3px !important;
+}
+.CUIDPadding1{
+  padding-top: 5px !important;
+}
+.PATHPadding1Padding1{
+ padding-top: 10px !important;
+ width: 100% !important;
+ padding-bottom: 5px;
+}
+
+.SchedulePadding{
+	padding:3px !important;
+}
+
+.Category1{
+	    padding-left: 20px !important;
+}
+
+.moreInfo{
+	padding-top: 10px !important;
+	padding-bottom: 10px !important;
+    font-size: 18px !important;
+    padding-left: 16px !important;
+}
+
+.label123{
+	      width:128px !important;
+          text-align:right !important;
+        padding:5px;
+}
+.label1{
+	      width:181px !important;
+          text-align:right !important;
+          padding:5px;
+}
+.valuepadding{
+  padding:5px;
+}
+.valuepadding_instance{
+  padding:5px;
+  white-space: pre-line;
+}

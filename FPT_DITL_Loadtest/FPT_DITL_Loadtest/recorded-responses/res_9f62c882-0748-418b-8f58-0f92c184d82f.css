@@ -1,0 +1,138 @@
+.sapLudsiInputControlPanel {
+    border-radius: 4px;
+    height: 100% !important;
+    overflow: visible !important;
+}
+
+.sapLudsiInputControlPanelBorder {
+    box-sizing: border-box;
+    border: 1px solid #ececec;
+}
+/*Assign white color to header of IC. @Overriding theme */
+.sapLudsiInputControlPanel.sapMPanel > .sapMIBar {
+    background-color: #FFFFFF;
+}
+
+.sapUiTheme-sap_hcb .sapLudsiInputControlPanel.sapMPanel > .sapMIBar {
+    background-color: #000000;
+}
+
+.sapLudsiInputControlPanel .sapMTB-Transparent-CTX.sapMTB {
+    padding-left: 0px;
+    padding-right: 0.6rem;
+}
+/*Making IC transparent to remove multiple color layers, for supporting opacity. @Overriding theme */
+.sapzendimensionfilterM.sapzenfilterpanelM, .sapUiSizeCompact .sapLudsiInputControlPanel .sapMLIB.sapMLIBSelected,
+.sapLudsiInputControlPanel .sapMSFF, .sapLudsiInputControlPanel .sapMListBGSolid .sapMLIB {
+    background-color: transparent;
+}
+/*Assign white color to body of IC. @Overriding theme */
+.sapLudsiInputControlPanel .sapzenfilterpanelM .sapMPanelContent {
+    background-color: #FFFFFF;
+}
+.sapUiSizeCompact .sapLudsiInputControlPanel .sapLudsiInputControlDate .sapMInputValHelp{
+    padding-right: 4px;
+    right: 0px;
+}
+
+.sapUiSizeCompact .sapLudsiInputControlPanel .sapMSlider {
+    padding-top: 42px;
+    padding-bottom: 42px
+}
+
+.sapUiSizeCompact .sapLudsiInputControlPanel .sapMSlider {
+    background: white;
+}
+
+.sapUiTheme-sap_hcb .sapUiSizeCompact .sapLudsiInputControlPanel .sapMSlider {
+    background: black;
+}
+
+.sapUiSizeCompact .sapLudsiICSegmentedButton .sapMSegBBtn .sapUiIcon {
+    font-size: 21px;
+}
+
+.sapUiSizeCompact .sapLudsiMultiComboBoxCountLabel {
+    min-width: 60px;
+}
+
+/*FIXME : Text IC - Splitter somehow got the idea that it's content was bigger than expected*/
+html[data-sap-ui-browser="ie11"]  .sapUiSplitterIE .sapUiLoSplitterContent{
+    overflow: hidden;
+}
+
+
+/*FIXME : In Themes other than simplite, something is going wrong with the rendering in IE
+So doing a temporary fix to get rid of the issue.
+The below CSS is to trick the browser into beleiving there is always text inside the label*/
+.sapLudsiMultiComboBoxCountLabelDiv {
+    display: inline-flex;
+    align-items: center;
+    height: 100%;
+    width: calc(100% - 32px);
+}
+
+.sapLudsiMultiComboBoxInputContainer {
+    max-width: calc(100% - 4rem) !important;
+}
+.sapLudsiListInputcontrolWarningStrip .sapMText {
+  text-overflow: ellipsis;
+  width: 100%;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  display: inline-block;
+}
+.sapLudsiDatepickerBackground {
+    background: white;
+}
+.sapLudsiListInputControlSelectAll {
+	margin-left: 0px !important;
+}
+
+.sapUiSizeCompact .sapLudsiInputControlPanel .sapMRb {
+    margin: 0px;
+}
+
+.sapUiSizeCompact .inputControlChoiceWarningStrip {
+  line-height: 1.5rem;
+  font-style:italic;
+  padding: 0 1rem 0 1rem;
+  opacity:0.6;
+}
+.sapUiSizeCompact .multiComboBoxDisableLastItem li:last-child .sapMLIBSelectM {
+  visibility: hidden;
+}
+.sapUiSizeCompact .multiComboBoxDisableLastItem li:last-child .sapMSLITitleOnly
+{
+  font-style:italic;
+}
+
+.sapLudsiInputControlPanel .sapMInputBaseInner:-ms-input-placeholder {
+  font-style: normal;
+}
+.sapUiSizeCompact .multiComboBoxDisableLastItem.maxmultiSelectD li:last-child
+{
+    pointer-events:none;
+    opacity:0.6;
+    font-style:italic;
+}
+.clear{
+    margin-top: 4px;
+    padding-right: 7px;
+}
+
+.clear::after{
+    display: none;
+}
+
+.clearBtn > .sapMBtnTransparent > .sapUiIcon{
+    font-size: 14px;
+}
+
+.sapLudsiInputControlPopover .sapMMultiComboBoxList .sapMListModeMultiSelect .sapMLIB .sapMCb {
+    margin-right: 0rem;
+}
+
+.dropdownSelectToolbar {
+    padding-left: 8px !important;
+}

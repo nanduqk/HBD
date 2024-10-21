@@ -1,0 +1,3 @@
+.sapzenfilterpanelM-ListItem .sapUiVlt.sapUiContentPadding>.sapuiVltCell:not(:last-child) {
+	padding-bottom: 0 !important;
+}

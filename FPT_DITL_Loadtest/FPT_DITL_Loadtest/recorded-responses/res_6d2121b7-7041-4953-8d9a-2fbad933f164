@@ -1,0 +1,1 @@
+define("zen.rt.components.vizframe/js/referenceLines/common/js/helper/AxisTypes",[],function(){return{CATEGORY:"categoryAxis",X:"xAxis",X2:"xAxis2",Y:"yAxis",Y2:"yAxis2",Z:"zAxis",VALUE:"valueAxis",VALUE2:"valueAxis2",COLOR:"color",TIME:"timeAxis"};});

@@ -1,0 +1,342 @@
+/*
+�2010 - 2016 SAP SE or an SAP affiliate company.  All rights reserved.
+ 
+SAP and other SAP products and services mentioned herein as well as their respective logos are trademarks or registered trademarks of SAP SE in Germany and other countries.  Please see http://www.sap.com/corporate-en/legal/copyright/index.epx#trademark for additional trademark information and notices.
+*/
+
+/*
+�2010 - 2016 SAP SE or an SAP affiliate company.  All rights reserved.
+ 
+SAP and other SAP products and services mentioned herein as well as their respective logos are trademarks or registered trademarks of SAP SE in Germany and other countries.  Please see http://www.sap.com/corporate-en/legal/copyright/index.epx#trademark for additional trademark information and notices.
+*/
+
+/*
+�2010 - 2016 SAP SE or an SAP affiliate company.  All rights reserved.
+ 
+SAP and other SAP products and services mentioned herein as well as their respective logos are trademarks or registered trademarks of SAP SE in Germany and other countries.  Please see http://www.sap.com/corporate-en/legal/copyright/index.epx#trademark for additional trademark information and notices.
+*/
+
+
+@font-face {
+    font-family: 'bi-iconsregular';
+    src: url('bi_iconfont_1-webfont.woff2') format('woff2'),
+         url('bi_iconfont_1-webfont.woff') format('woff'),
+         url('bi_iconfont_1-webfont.svg#bi-iconsregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+/* Use the following CSS code if you want to use data attributes for inserting your icons */
+
+[data-icon]:before {
+  font-family: 'bi-iconsregular';
+  content: attr(data-icon);
+  speak: none;
+}
+
+/* Use the following CSS code if you want to have a class per icon */
+/*[class^="icon-"]:before,
+[class*=" icon-"]:before {
+  font-family: 'SAP-icons';
+  font-style: normal;
+  speak: none;
+}*/
+[class^="icon-"]:before,
+[class*=" icon-"]:before {
+  font-family: 'bi-iconsregular';
+  font-style: normal;
+  speak: none;
+}
+
+.icon-cr:before {
+  content: "\E806";
+}
+.icon-webi:before {
+  content: "\E81C";
+}
+.icon-lumira:before {
+  content: "\E80C";
+}
+.icon-pdf:before {
+  content: "\E817";
+}
+.icon-txt:before {
+  content: "\E80D";
+}
+.icon-contentLink:before {
+  content: "\E812";
+}
+.panelContentAlign .sapMPanelContent{
+padding: 0.2rem;
+    border-bottom: none !important;
+} 
+ .panelBorder {
+    border:1px solid gray;
+    border-radius: 1px;
+	/*margin-left: 0px !important;
+    margin-top: -9px !important;*/
+}
+
+.Labeltext{
+	
+	padding-left: 30px;
+	padding-right:30px;
+}
+
+.LabelPreference{
+	padding-left: 170px;;
+}
+
+.DescriptionPadding{
+	padding-left: 70px;
+}
+
+.DialogFormat{
+	width: 897px;
+     height: 450px;
+}
+
+.HboxPadding{
+	    padding-bottom: 30px;
+}
+
+.labelFont{
+	font-size: 18px;
+}
+
+.LabelTopPadding{
+	padding-top: 15px;
+	 padding-bottom: 15px;
+}
+
+.TextboxMargin .sapMInputBaseContentWrapper {
+	width: 382px !important;
+	height: 26px !important;
+}
+
+.TextBoxDescription .sapMInputBaseContentWrapper  {
+	    height: 94px !important;
+		width: 382px !important;
+}
+.TileContentFormat{
+	    margin-top: 75px;
+		margin-bottom: -77px;
+    background-color: #ffffffff;
+}
+
+.TileWidth{
+	    width: 17rem !important;
+}
+
+.TileWidthofBIW{
+	   background-size: 200px 150px !important;
+	    width: 12rem !important;
+}
+
+
+.tableMargin{
+	    margin-top: -20px !important;
+}
+
+.LabelTopFormat{
+	padding-bottom: 20px !important;
+   
+    margin-top: -12px !important;
+}
+
+.LabelTopFormatofBIW{
+	padding-bottom: 10px !important;
+   
+    margin-top: -12px !important;
+}
+
+.BackgroungColor{
+	    background-color: rgba(242, 248, 252, 1);
+		  
+}
+
+.BackgroundTable{
+	background-color: rgba(250, 250, 250, 1);
+}
+
+.BorderFormat .sapMPanelHdr{
+	  border-bottom: 0px solid #ffffffff !important;
+}
+.side-navigation-demo {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+
+    -webkit-box-direction: normal;
+    -webkit-box-orient: vertical;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+
+    max-width: 15rem;
+}
+.BIW-Layout .sapMPanelContent{
+  padding: 0;
+}
+/* .BIW-Layout .sapMPanelContent{
+display: block;
+border-bottom: none !important;
+height: 118% !important;
+    margin-top: -10px;
+    margin-right: -16px;
+	margin-left: -16px;
+}
+.BIW-LayoutSubPanel .sapMPanelContent{
+display: flex;
+border-bottom: none !important;
+height: 107% !important;
+    margin-top: -10px;
+    margin-right: -16px;
+	margin-left: -4px;
+} */
+/*.BIW-LayoutSubPanel{
+    width: 103% !important;
+    height: 96% !important;
+    margin-left: -15px;
+}*/
+.BIW-LayoutSubPanel, .BIW-Layout {
+  display: flex;
+  flex-direction: column;
+}
+.BIW-LayoutSubPanel .sapMPanelContent, .BIW-Layout .sapMPanelContent{
+  flex: 1;
+  display: flex;
+  height: 100%;
+  overflow: hidden; 
+}
+.BILP-coloumn-layout .BIW-LayoutSubPanel{
+min-height: 200px;
+}
+/*targeting for one level child only*/
+.BILP-coloumn-layout>.sapMPanelContent{ 
+  overflow-y: auto;
+  display: grid; 
+  grid-template-columns: 100%;
+  grid-auto-rows: 200px;/* In coloumn layout resizing not possible so default height 200px*/
+}
+
+.BIW-comboMargin{
+margin-top: -1px;
+margin-left: -15px;
+    height: 32px;
+}
+.BIW-buttonMargin{
+margin-top: -6px;
+}
+.BIW-icontabContent .sapMITBContent{
+/*margin-left: -204px;
+    margin-right: -63px;*/
+	height : 100% !important;
+	}
+	.BIW-tabContainerContent .sapMTabContainerInnerContent{
+/*margin-left: -173px;
+  /*  margin-right: -63px;*/
+	height : 100% !important;
+	background-color: white;
+	padding : 0 !important;
+	}
+	
+.sapMTabContainer{
+width: 100% !important;
+height:  100% !important;
+}/*
+.sapUiMnu{
+top : 144px !important;
+}
+.sapMITB {
+    display: block;
+    position: relative;
+    width: 80%;
+}*/
+.sapUiVSplitterFirstPane{
+background-color: white;
+}
+.verticalSplitter .sapUiVerticalSplitterBar{
+	height: 104%;
+    margin-top: -10px;
+}
+.treeExpanderForDocs .sapMTreeItemBaseExpander{
+visibility: hidden;
+}
+.treeExpanderForFolders .sapMTreeItemBaseExpander{
+visibility: visible;
+}
+
+.BIW-WebiContent{
+  width : 100% !important;
+}
+.BIW-RichTextEditor {
+    margin-top: 6px;
+    margin-right: 0px;
+    margin-left: 12px;
+    overflow: hidden;
+}
+.BIW-TreeExpandIcon .sapMTreeItemBaseExpander{
+	line-height: 2.5rem;
+}
+/*.tabConSelColor .sapMTabStrip .sapMTSTabsContainer .sapMTSTabs .sapMTabStripItem.sapMTabStripItemSelected{
+	    color: #427cac;
+}*/
+.BILP-saveAsContainerHeight{
+	height : 350px !important;
+}
+.BIW-tableHeight .sapUiTableCnt{
+	height : 357px !important;
+}
+
+.BIW-saveAsSplitterBorder{
+	border:1px solid gray;
+}
+.BIW-saveTableWidth{
+    background-color: #FFFFFF !important;
+    margin-top: 0px !important;
+    width: 100% !important;
+}
+.BIW-saveAsTreeHeight{
+	height : 100% !important;
+}
+.BIW-saveAsPageHeight .sapMPageEnableScrolling{
+	height : 315px !important;
+}
+
+
+.BIW-saveAsCatTreeIcon  .sapMTreeItemBaseExpander {
+    opacity: 1 !important;
+}
+.BIW-MainsplitterTreeBGColor  .sapUiLoSplitterContent {
+    background-color: white;
+}
+.BIW-title{
+	font-size: 1.3rem;
+	color: #346187 !important;
+}
+
+.BIW-AllReportsLabel{
+	font-size: 18px;
+    color: #333333 !important;
+    margin-left: 45px !important;
+}
+.sapUiTheme-sap_belize_hcb .TileContentFormat {	  
+    background-color: #000000;
+}
+.treenavigationList{
+	margin-top: 7px;
+   overflow-y: auto;
+}
+
+.BILP-category-config .BILP-layoutBackgroundColor{
+  height: auto !important;
+}
+.BILP-edit-panel-spliter{
+  display: grid;
+}
+.BILP-panel-header-toolbar, .BILP-panel-header-title{
+  cursor: move;
+}

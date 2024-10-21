@@ -1,0 +1,16 @@
+GET https://hbd.na.pg.com:8443/BOE/portal/2409262000/FioriBI/com/sap/fioribi/components/actionpanel/ActionPanelContainer.js HTTP/1.1
+Host: hbd.na.pg.com:8443
+Connection: keep-alive
+sec-ch-ua-platform: "Windows"
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36
+sec-ch-ua: "Google Chrome";v="129", "Not=A?Brand";v="8", "Chromium";v="129"
+sec-ch-ua-mobile: ?0
+Accept: */*
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: empty
+Referer: https://hbd.na.pg.com:8443/BOE/portal/2409262000/FioriBI/main.jsp?service=%2Fcommon%2FappService.do&appKind=InfoView
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
+Cookie: JSESSIONID=9A8902BA9E15287D591660AABAA3CA83
+

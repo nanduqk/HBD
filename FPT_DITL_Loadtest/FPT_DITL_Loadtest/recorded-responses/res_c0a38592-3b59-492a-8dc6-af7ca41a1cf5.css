@@ -1,0 +1,362 @@
+.sapzenfilterpanelM * .sapUiVlt.sapUiContentPadding {
+    padding: 0rem;
+}
+ .sapMListBGSolid .sapMLIB {
+    background: transparent;
+}
+
+.sapzenfilterpanelM * .sapUiVlt.sapUiContentPadding {
+    padding: 0rem;
+}   
+    
+.sapMLIB {
+    border-bottom: 0px solid #e5e5e5;
+}   
+
+.sapzenfilterpanelM * .sapMTitleStyleAuto {
+    padding-top: 4px;
+    padding-left: 2px;
+}   
+    
+    
+/*CSS added by DQ4143 UX changes - Arpit Porwal*/ 
+/*Button*/
+.butn .sapMBtnInner {	
+	 -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0px;
+   color: #ffffff !important;
+  font-size: 0.72rem !important;
+  background: #00b0f0 !important;
+  text-decoration: none !important;
+   outline: none !important;
+     border: solid #00b0f0 1px !important;
+}
+.butn .sapMFocusable{
+	   outline: none !important;
+}    
+    
+    
+.butnSelect .sapMBtnInner {	
+	 -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0px;
+   color: #f2f2f2 !important;
+  font-size: 0.72rem !important;
+  background: #346187 !important;
+  text-decoration: none !important;
+   outline: none !important;
+     border: solid #00b0f0 1px !important;
+}
+
+.butnUnselect .sapMBtnInner {	
+	 -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0px;
+   color: #346187 !important;
+  font-size: 12px !important;
+  background: #f2f2f2 !important;
+  text-decoration: none !important;
+   outline: none !important;
+     border: solid #bfbfbf 1px !important;
+}
+
+/*Dropdown*/
+.sapUiSizeCompact .sapMSlt
+{
+	height: 1.4rem;
+	margin-top: 0.18rem;
+	margin-bottom: 0.18rem;
+}
+.sapUiSizeCompact .sapMSltLabel, .sapUiSizeCompact
+{
+	line-height: 0.8rem !important;
+	background-color: #fafafa;
+}
+.sapMSltArrow
+{
+	line-height: 1.2rem;
+	background-color: #ffffff;
+}
+.sapUiSizeCompact .sapMSltLabel, .sapUiSizeCompact .sapMSltArrow
+{
+	line-height: 1.2rem;
+}
+
+.sapMSlt > .sapMSltLabel
+{	
+	font-size: 0.7rem;
+	padding-top: 3px;
+}
+
+
+/*Dimension Filter*/
+
+.sapUiSizeCompact .sapMMultiInputBorder
+{
+	height: 1.4rem;
+}
+.sapUiSizeCompact .sapMInputValHelp > .sapMInputValHelpInner
+{
+	line-height: 1.2rem;
+	background-color: #fafafa;
+}
+
+.sapUiSizeCompact .sapMMultiInput .sapMInputBaseInner
+{
+	height:1.2rem;
+	font-size: 0.7rem;
+	background-color: #fafafa;
+}
+.sapMMultiInputBorder
+{
+	background-color: #fafafa;
+
+}
+.sapMMultiInputIndicator
+{
+font-size: 0.7rem;
+}
+
+.sapUiSizeCompact .sapMToken
+{
+font-size: 0.7rem;
+}
+
+.sapMITBTextOnly .sapMITBText
+{
+font-size: 0.7rem;
+}
+
+.compValueHelpDialog .sapUiTable .sapUiTableHdrTitle
+{
+font-size: 15px;
+}
+
+.sapMText
+{
+font-size: 0.75rem;
+}
+.sapMSelectListItemBase
+{
+font-size: 0.7rem;
+}
+
+ /* Crosstab */
+
+.CrosstabDimensions
+.sapzencrosstab-ColumnHeaderArea .sapzencrosstab-HeaderCellDefault,  
+.sapzencrosstab-ColumnHeaderArea .sapzencrosstab-HeaderCellAlternating,  
+.sapzencrosstab-DimensionHeaderArea .sapzencrosstab-HeaderCellAlternating,  
+.sapzencrosstab-DimensionHeaderArea .sapzencrosstab-HeaderCellDefault
+	{
+	background-color:#f7f7f7 !important;
+	color: #000000!important;
+	font-weight: normal !important;
+    font-size: 0.77rem;
+	}
+
+.CrosstabDimensions .sapzencrosstab-DataCellAlternating, .sapzencrosstab-HeaderCellAlternating {
+      background-color: #FFFFFF;
+  font-size: 0.77rem;
+}
+.CrosstabDimensions .sapzencrosstab-DataCellDefault, .sapzencrosstab-HeaderCellDefault {
+      background-color: #FFFFFF;
+font-size: 0.77rem;
+}
+
+.CrosstabDimensions .sapzencrosstab-scrollbarHandleColor
+{
+	background-color: #FFFFFF;
+	border-style: solid;
+	border-color:#c0c0c0;
+	border-width: 1px;
+}
+
+.CrosstabDimensions .sapzencrosstab-scrollbarHandleColor:hover
+{
+	background-color: #e9e9e9;
+	
+}
+.CrosstabDimensions .sapzencrosstab-scrollbarClickAreaColor
+{
+	background-color: #dbdbdb;
+}
+
+
+.CrosstabDimensions .sapzencrosstab-scrollbarButton
+{
+	background-color: #FFFFFF;
+}
+.CrosstabDimensions .sapUiSizeCompact .sapMSltLabel, .sapUiSizeCompact {
+    line-height: 1.2rem !important;
+    
+}
+
+.CrosstabDimensions #__cell156_textContentDiv{
+	white-space:pre-line!important;
+
+word-wrap:break-word!important;
+
+}
+.CrosstabDimensions .sapzencrosstab-HeaderCellDivHierarchy
+{
+	display: none;
+}
+
+.CrosstabDimensions #__cell157_textContentDiv{
+	white-space:pre-line!important;
+
+word-wrap:break-word!important;
+
+}
+
+.sapzencrosstab-FontSize-MainMode
+{
+	font-size:0.77rem;
+}
+
+.sapUiSizeCompact .sapMSltLabel, .sapUiSizeCompact
+{
+	line-height: 1rem;
+}
+
+/*Highlighting Document column - adding tooltip*/
+.CrosstabDimensions [style*="color:#009FBF !important"]{
+text-decoration: underline !important;
+font-weight: normal !important;
+cursor: pointer !important;
+}
+
+ /*Colour of results row*/
+.sapzencrosstab-DataCellEmphasized, .sapzencrosstab-HeaderCellEmphasized, .sapzencrosstab-DataCellTotal, .sapzencrosstab-HeaderCellTotal
+{
+	background-color: #f7f7f7!important;
+	color:black;
+}
+.sapzencrosstab-DataCellEmphasized, .sapzencrosstab-HeaderCellEmphasized, .sapzencrosstab-DataCellTotal, .sapzencrosstab-HeaderCellTotal:hover
+{
+	background-color: #f7f7f7!important;
+	color:black;
+}
+
+
+/*Freeze pane*/
+.CrosstabDimensions .sapzencrosstab-DataArea {
+ border-left: 4px solid;
+    border-left-color: #e5e5e5;
+}
+
+.CrosstabDimensions .sapzencrosstab-ColumnHeaderArea{
+ border-left: 4px solid;
+    border-left-color: #e5e5e5;
+}
+
+/*Bex Prompt*/
+
+.sapMPageSubHeader{
+visibility: hidden;	
+}
+
+.sapUiSizeCompact .sapMPageWithSubHeader > section
+{
+	top: 2rem;
+}
+
+.sapMTitle
+{
+	white-space: normal;
+}
+.sapzenfilterpanelM * .sapMTitleStyleAuto
+{
+font-size: 0.80rem;
+}
+
+#DLG_VARIABLE_dlg-title
+{
+	visibility: hidden;
+}
+
+#DLG_VARIABLE_dlg-title::after
+{
+visibility: visible;
+position: relative;
+left: -35px;
+font-size: 0.80rem;
+
+content: " You currently have more than 100 cost centers. Restrict your cost center selection for optimal performance.";
+}
+
+.sapMPageEnableScrolling > div:first-child > ul >li:nth-child(1) > div:first-child > div:first-child > div:first-child > div:first-child > div:first-child >span
+{
+	visibility: hidden;
+}
+
+.sapMPageEnableScrolling > div:first-child > ul >li:nth-child(1) > div:first-child > div:first-child > div:first-child > div:first-child > div:first-child >span::after
+{
+	visibility: visible;
+	position: relative;
+	font-size: 0.77rem;
+	left: -80px;
+	content: "*Actuals Period";
+}
+
+
+
+.sapMPageEnableScrolling > div:first-child > ul >li:nth-child(4) > div:first-child > div:first-child > div:first-child > div:first-child > div:first-child >span::after
+{
+	visibility: visible;
+	position: relative;
+	font-size: 0.74rem;
+	content: " - (select Cost center to fetch corresponding Internal Orders)";
+}
+
+
+/*Navigational Panel*/
+.zenNavigationPanelM * .sapMTitle
+{
+	font-size: 0.77rem;
+}
+
+.myPivot .sapMPageSubHeader{
+visibility: visible;	
+}
+
+.myPivot .sapUiSizeCompact .sapMPageWithSubHeader > section
+{
+	top: 2rem;
+}
+
+/*Checkbox Group*/
+
+ .myCheckbox .sapUiVltCell{
+
+      display: inline-block !important;
+
+      padding-left: 5px;
+
+      padding-right: 5px;
+
+}
+
+.myCheckbox .sapMLabel
+{
+	font-size:0.7rem;
+} 
+
+.sapUiSizeCompact .sapMSltLabel, .sapUiSizeCompact {
+	    line-height: 0.8rem !important;
+	}
+	
+	/*No data available message in crosstab*/
+.componentLoadingStateMessage
+{
+	font-size: 1.1rem;
+	font-weight: 500;
+}
+
+ .myfil .sapMPanelBGSolid
+{
+    background: transparent;
+    padding-bottom: 0px;
+}

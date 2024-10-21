@@ -1,0 +1,37 @@
+.warningMessageHeaderIcon::before{
+	font-family:fpa-icons;
+	content:"\e615"
+}
+.warningMessageHeaderIcon{
+	color:#ffffff;
+	display:block;
+	margin: 0.5rem 0.5rem 0 0;
+	float: right;
+	cursor: pointer;
+}
+
+
+.warningMessageContent{	
+	padding:1rem;
+	font-size:1rem;
+}
+
+.warningMessageBox{
+	position:absolute;
+	align-items:center;
+	background-color:transparent;
+	overflow:hidden;
+}
+.warningMessageMask{
+	position:absolute;
+	opacity:0.6;
+	background-color:#7c7c7c;
+}
+
+.warningMessageContainer {
+	width: 100%;
+	position: absolute;
+	top: 50%;
+	transform:translateY(-50%);
+	text-align: center;
+}

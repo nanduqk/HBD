@@ -1,0 +1,50 @@
+/* Lumira Icons */
+@font-face{
+    font-family: 'Ludsi-icons';
+    src: url('../fonts/lumira_fpa_icon_font.eot'); /* IE9 Compat Modes */
+    src: url('../fonts/lumira_fpa_icon_font?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('../fonts/lumira_fpa_icon_font.woff2') format('woff2'), /* Modern Browsers */
+         url('../fonts/lumira_fpa_icon_font.woff') format('woff'), /* Modern Browsers */
+         url('../fonts/lumira_fpa_icon_font.ttf') format('truetype'), /* Safari, Android, iOS */
+         url('../fonts/lumira_fpa_icon_font.svg#webfont') format('svg'); /* Legacy iOS */
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Use the following CSS code if you want to use data attributes for inserting your icons */
+[data-icon]:before {
+    font-family: 'Ludsi-icons';
+    content: attr(data-icon);
+}
+
+/* Use the following CSS code if you want to have a class per icon */
+[class^="icon-"]:before, [class*=" icon-"]:before {
+    font-family: 'Ludsi-icons';
+    font-style: normal;
+}
+
+/* TODO: Remove this after 2.1 and load only FPA Icons. Now this file contains both FPA Icons + old collection of lumira icons */
+
+@font-face{
+    font-family: 'FPA-icons';
+    src: url('../fonts/enriched-fpa-icons-webfont.eot'); /* IE9 Compat Modes */
+    src: url('../fonts/enriched-fpa-icons-webfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('../fonts/enriched-fpa-icons-webfont.woff2') format('woff2'), /* Modern Browsers */
+         url('../fonts/enriched-fpa-icons-webfont.woff') format('woff'), /* Modern Browsers */
+         url('../fonts/enriched-fpa-icons-webfont.ttf') format('truetype'), /* Safari, Android, iOS */
+         url('../fonts/enriched-fpa-icons-webfont.svg#webfont') format('svg'); /* Legacy iOS */
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Use the following CSS code if you want to use data attributes for inserting your icons */
+[data-icon]:before {
+    font-family: 'FPA-icons';
+    content: attr(data-icon);
+}
+
+/* Use the following CSS code if you want to have a class per icon */
+[class^="icon-"]:before, [class*=" icon-"]:before {
+    font-family: 'FPA-icons';
+    font-style: normal;
+}

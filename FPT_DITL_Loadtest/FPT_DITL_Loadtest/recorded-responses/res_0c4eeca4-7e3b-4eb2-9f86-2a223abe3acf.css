@@ -1,0 +1,215 @@
+/*
+�2010 - 2016 SAP SE or an SAP affiliate company.  All rights reserved.
+ 
+SAP and other SAP products and services mentioned herein as well as their respective logos are trademarks or registered trademarks of SAP SE in Germany and other countries.  Please see http://www.sap.com/corporate-en/legal/copyright/index.epx#trademark for additional trademark information and notices.
+*/
+
+@CHARSET "ISO-8859-1";
+
+/* .BILP-InfoLogo {
+
+	margin-right: 30px !important;
+	margin-top: -3px !important;
+} */
+
+.margin-top {
+    height: 100%;
+    vertical-align: middle;
+}
+
+.BILP-subheader {
+	color:red !important;
+}
+
+.BILP-header {
+	font-size: 1.5rem !important;
+
+	padding-bottom: 10px !important;
+}
+/* .BILP-heading {
+	color: #ffffff;
+	text-align:center !important;
+	font-size:22px;
+	padding-bottom:40px !important;
+} */
+.BILP-Logo
+{
+max-height: 2.5rem;
+max-width: 6rem;
+top:0.75rem !important;
+bottom: 0.75rem !important;
+left:1rem !important;
+right: 1rem !important; 
+position:fixed;
+}
+.BILP-Line{
+	margin-top: 16px !important;
+	margin-bottom: 16px;
+        border-bottom: 1px solid rgba(52, 97, 135, 0.4);
+	/* margin-left: 200px !important; */
+
+}
+.background-white{
+    background: #ffffff;
+}
+
+/* .BILP-cpheading{
+margin-left: -25px !important;
+} */
+.BILP-Label{
+	color: #333333 !important;
+
+	text-align:right !important;
+	margin-bottom: 5px;
+	
+	margin-top: 13px;
+}
+.BILP-Label1{
+	color: #ffffff;
+ 	text-align:right !important;
+	font-size:14pt !important;
+	width:300px !important;
+	margin-right:8px !important;
+	padding-bottom:10px !important;
+	margin-left:85px !important;
+}
+.BILP-Inputbox{
+    color:#333333;
+	/*text-align:left !important;*/
+	width:260px !important;
+
+	line-height:32 px!important;
+}
+
+.BILP-Inputbox .sapMInputBaseInner{
+ width: 260px !important;
+
+ /*text-align:left !important;*/
+ 
+ border:0px #ffffff !important;
+
+}
+
+.BILP-Inputbox :focus {
+	outline: none !important;
+	border: #427cac 1px solid !important;
+}
+
+.BILP-Inputbox :active {
+	border: #427cac 1px solid !important;
+	
+}
+
+ .BILP-combobox{
+    color:#ffffff !important;
+	width:284px !important;
+	text-align:left !important;
+    /* font-size:14pt !important; 
+	font-family:"Helvetica Neue" !important;*/
+	height:32px !important;
+	border-radius:3px !important;
+    border:0px !important;
+    border:#ffffff !important; 
+	margin-left: 6px !important;
+} 
+.BILP-combobox .sapMComboBoxTextFieldArrow 
+{
+    color:#ffffff !important;
+	/* width:284px!important; */
+	text-align:left !important;
+    font-size:14pt !important;
+	height:32px !important;
+	line-height:0rem !important;
+}
+.BILP-combobox .sapMInputBaseInner{
+/* width:284px !important; */
+border-radius:3px !important;
+font-size:14pt !important;
+}
+.BILP-combobox .sapMSelectListItem{
+font-size:14pt !important;
+}
+.BILP-combobox .sapMComboBoxTextFieldArrow 
+{
+padding-left:0px !important;
+width:0rem !important;
+font-size:14pt !important;
+}
+.BILP-button{
+   border-radius:3px !important;
+    width: 260px !important;
+
+    border:#ffffff 3px !important;
+}
+.BILP-marginleftChangePassword{
+	margin-left:34px !important;
+}
+
+.BILP-addMarginRight{
+	margin-right:34px !important;
+}
+
+ .BILP-button>div>span {
+
+}
+.BILP-cpLoginButton .sapMBtnDefault{
+    margin-left: 103px !important;
+	height:32px !important;
+}
+.BILP-lsLoginButton .sapMBtnDefault{
+	margin-left: 45px !important;
+	height:32px !important;
+}
+
+/* .BILP-downLabel
+
+{   
+    color:#ffffff !important;
+	 margin-left: 70px;
+} */
+
+
+.BILP-downLabel1
+{
+outline-style:none !important;
+}
+
+.BILP-MatrixLayoutdown{
+	margin-left: 85px !important;
+	color:#ffffff !important;
+	font-family:Helvetica Neue !important;
+	font-size:14pt !important;
+	padding-left:16px !important;
+}
+.BILP-Error-Label{
+	color: red;
+	font-size:16px;
+}
+/* .BILP-combobox  > .sapMSltLabel 
+{
+font-family:"Helvetica Neue" !important;
+font-size:14pt!important;
+} */
+.BILP-Vbox{
+vertical-align:center !important;
+    }
+.BILP-Vbox  .sapMFlexItem {
+     padding-left:0px !important;
+	} 
+.BILP-Vbox .sapUiMltPadRight{
+     padding:0px !important;
+}
+.BILP-Vbox .sapMFlexBoxBGTransparent {
+padding-bottom:12px !important;
+}
+
+/* .sapMSltLabel
+{
+font-family:"Helvetica" !important;
+font-size:14pt !important;
+} */
+.PaddingRight10{padding-right: 5px !important;}
+
+
+
+

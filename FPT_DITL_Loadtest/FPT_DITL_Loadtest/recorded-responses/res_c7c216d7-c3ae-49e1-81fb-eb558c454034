@@ -1,0 +1,1 @@
+define(["require"],function(b){var a=function(){this.oResourceModel=new sap.ui.model.resource.ResourceModel({bundleUrl:"zen.res/zen.rt.components.ui5/resources/i18n/localization.properties"});this.getText=function(d){if(this.oResourceModel){var c=this.oResourceModel.getResourceBundle().getText(d);if(c!=null){return c;}}return d;};};return new a();});

@@ -1,0 +1,21 @@
+POST https://hba.na.pg.com:8443/BOE/portal/2302072240/LumiraWebApp/zen HTTP/1.1
+Host: hba.na.pg.com:8443
+Connection: keep-alive
+Content-Length: 989
+sec-ch-ua: "Chromium";v="128", "Not;A=Brand";v="24", "Google Chrome";v="128"
+Accept: application/xml, text/xml, */*; q=0.01
+sec-ch-ua-platform: "Windows"
+X-Requested-With: XMLHttpRequest
+sec-ch-ua-mobile: ?0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36
+Content-Type: application/x-www-form-urlencoded;charset=UTF-8
+Origin: https://hba.na.pg.com:8443
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: empty
+Referer: https://hba.na.pg.com:8443/BOE/portal/2302072240/LumiraWebApp/view.faces?cafWebSesInit=true&bttoken=MDAwRDBCXl8xXV5Ea1tcXEdnUl9YVlRXZVVPbW85NDAEQ&opendocTarget=infoviewOpenDocFrame&appKind=InfoView&service=%2FInfoView%2Fcommon%2FappService.do&loc=en_US&pvl=en_US&ctx=standalone&actId=8023&objIds=8346470&containerId=undefined&pref=maxOpageUt%3D200%3BmaxOpageC%3D10%3Btz%3DEurope%2FLondon%3BmUnit%3Dinch%3BshowFilters%3Dtrue%3BsmtpFrom%3Dtrue%3BpromptForUnsavedData%3Dtrue%3B&app=BING&defaultView=true
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
+Cookie: JSESSIONID=B40CC448153286F34F68DBD2CC03EF39; InfoViewPLATFORMSVC_COOKIE_CMS=%40webHBA; InfoViewCE_SAPCnt=400; InfoViewPLATFORMSVC_COOKIE_AUTH=secSAPR3; InfoViewCE_SAPSys=HGA; InfoViewPLATFORMSVC_COOKIE_USR=z0006aLne%3Cl6%3D%40%23%2444; InfoViewPLATFORMSVC_COOKIE_TOKEN=
+
+BI_COMMAND=&BI_COMMAND-BI_COMMAND_TYPE=GET_SNIPPET&BI_COMMAND-KEEP_SERVER_STATE=X&BI_COMMAND_1=&BI_COMMAND_1-BI_COMMAND_TYPE=SUBMIT_FILTER&BI_COMMAND_1-FILTER=%7B%22filters%22%3A%5B%7B%22name%22%3A%22DS_1%3AGFICV_GFIBUS_01%20%20%20%20%20%20%20%20%20%20%20%20%20%20%200003%22%2C%22ranges%22%3A%5B%7B%22from%22%3A%222324.GBSITP11%22%7D%5D%7D%2C%7B%22name%22%3A%22DS_1%3AGFICV_GFIBUS_19%20%20%20%20%20%20%20%20%20%20%20%20%20%20%200003%22%2C%22ranges%22%3A%5B%7B%22from%22%3A%222425.GBSITF01%22%7D%5D%7D%2C%7B%22name%22%3A%22DS_1%3AGFIHCV_GFICOCTR_M01%20%20%20%20%20%20%20%20%20%20%200003%22%2C%22ranges%22%3A%5B%7B%22from%22%3A%22GFICOCTR%2FXX00CS00000001%22%7D%5D%7D%5D%2C%22axis%22%3A%7B%7D%7D&BI_COMMAND_1-PREVENT_UNDO=X&BI_COMMAND_1-SUBMIT=%20&BI_COMMAND_1-SUB_TARGET=DLG_VARIABLE_variablescreen&BI_COMMAND_1-TARGET_DIALOG_REF=DLG_VARIABLE&PAGE_ID=1_ZDc1M2QyNjQ4NmQyNGVkN2JiZWY3N2ZlNDc1MzgwMjM%3D&REQUEST_ID=1&SESSION_RESOURCE_ID=z000I1L%5CV%40%5DB43EK7Cj%3Fho2WL%5B%5D%3FYVZ%3BlddOQ5P00

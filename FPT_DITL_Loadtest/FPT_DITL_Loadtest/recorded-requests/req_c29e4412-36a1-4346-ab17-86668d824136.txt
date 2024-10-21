@@ -1,0 +1,16 @@
+GET https://hba.na.pg.com:8443/BOE/portal/2302072240/FioriBI/com/sap/fioribi/images/SAP_logo.png HTTP/1.1
+Host: hba.na.pg.com:8443
+Connection: keep-alive
+sec-ch-ua-platform: "Windows"
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36
+sec-ch-ua: "Google Chrome";v="129", "Not=A?Brand";v="8", "Chromium";v="129"
+sec-ch-ua-mobile: ?0
+Accept: image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: image
+Referer: https://hba.na.pg.com:8443/BOE/portal/2302072240/FioriBI/UI5logon.jsp
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
+Cookie: JSESSIONID=8B2D31E8B72E7842022D60E27E0B8193; InfoViewPLATFORMSVC_COOKIE_CMS=%40webHBA; InfoViewCE_SAPCnt=400; InfoViewPLATFORMSVC_COOKIE_AUTH=secSAPR3; InfoViewCE_SAPSys=hga; InfoViewPLATFORMSVC_COOKIE_USR=z0006aLnf4l6%3C%40%23%2444; InfoViewPLATFORMSVC_COOKIE_TOKEN=
+

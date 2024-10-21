@@ -1,0 +1,22 @@
+POST https://hbd.na.pg.com:8443/BOE/portal/2409262000/FioriBI/logoff.jsp HTTP/1.1
+Host: hbd.na.pg.com:8443
+Connection: keep-alive
+Content-Length: 475
+Cache-Control: max-age=0
+sec-ch-ua: "Google Chrome";v="129", "Not=A?Brand";v="8", "Chromium";v="129"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+Origin: https://hbd.na.pg.com:8443
+Content-Type: application/x-www-form-urlencoded
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Dest: iframe
+Referer: https://hbd.na.pg.com:8443/BOE/portal/2409262000/FioriBI/logoff.jsp
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
+Cookie: JSESSIONID=A1F5A7E5573F81BFAC32DDC6460C6EDA
+
+cleanedUp=true&RestLogOff=true&bttoken=MDAwRGRHY1RbZGNNPk1lbDpVU2ZBSGBXQlRMRktLOTAEQ&logontoken=usalspgsa638.na.pg.com%3A6400%40%7B3%262%3D2290553%2CU3%262v%3Dusalspgsa638.na.pg.com%3A6400%2CUP%2666%3D40%2CU3%2668%3DsecEnterprise%3AES2020%2CUP%26S9%3D2279113%2CU3%26qe%3D100%2CU3%26vz%3DF9E1FjZxxE2dcM5jhuiD.bHmR4Xbt6K57bQFz6p78a9fL7FaTH_NAjLpiHhafTht%2CUP%7D&wacsurl=https%3A%2F%2Fhbd.na.pg.com%3A8443%2FBOE%2Fportal%2F2409262000%2Fbiprwsproxy%2Fbiprws&isFioriLaunchpad=true

@@ -1,0 +1,252 @@
+/* Custom CSS */
+.sapzenfilterpanelM * .sapUiVlt.sapUiContentPadding {
+    padding: 0rem;
+}
+ .sapMListBGSolid .sapMLIB {
+    background: transparent;
+}
+
+.sapzenfilterpanelM * .sapUiVlt.sapUiContentPadding {
+    padding: 0rem;
+}   
+    
+.sapMLIB {
+    border-bottom: 0px solid #e5e5e5;
+}   
+
+.sapzenfilterpanelM * .sapMTitleStyleAuto {
+    padding-top: 4px;
+    padding-left: 2px;
+}   
+
+
+/*************************************************************************************/
+/*Prompt
+/*-************************************************************************************/
+
+
+
+.sapMPageEnableScrolling > div:first-child > ul >li:first-child[class="sapMCLI sapMLIB sapMLIB-CTX sapMLIBFocusable sapMLIBShowSeparator sapMLIBTypeInactive sapzenfilterpanelM-ListItem"]
+{
+
+height: 320px;
+margin-bottom: -127px;
+
+}
+
+.sapMPageEnableScrolling > div:first-child > ul >li:first-child[class="sapMCLI sapMLIB sapMLIB-CTX sapMLIBFocusable sapMLIBShowSeparator sapMLIBTypeInactive sapzenfilterpanelM-ListItem"]::before
+
+{
+
+visibility: visible;
+width: 600px;
+line-height: 30px;
+position: absolute;
+top: 2px;
+color: #346187;
+left: -0.05px;
+font-size: 0.87rem;
+content: "Security Scope:  Plant/Warehouse users see data for their entire site including Base, PGP, JVs, Exports, Focus, Enterprise, Other." 
+}
+
+
+.sapMPageEnableScrolling > div:first-child > ul >li:first-child[class="sapMCLI sapMLIB sapMLIB-CTX sapMLIBFocusable sapMLIBShowSeparator sapMLIBTypeInactive sapzenfilterpanelM-ListItem"]::after
+
+{
+visibility: visible;
+width: 600px;
+line-height: 30px;
+line-space: 10px;
+position: absolute;
+top: 65px;
+color: #346187;
+left: -0.05px;
+font-size: 0.87rem;
+content: " Security Scope:  Global & Regional BU/CFT/SMO users see data based on their business unit (Management Profit Center).";
+}
+
+.butn .sapMBtnInner {	
+	 -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0px;
+   color: #ffffff !important;
+  font-size: 12px !important;
+  background: #0070c0 !important;
+  text-decoration: none !important;
+   outline: none !important;
+     border: solid #0070c0 1px !important;
+}
+.butn .sapMFocusable{
+	   outline: none !important;
+}    
+
+
+.stepActive  { 
+	background-color: #00B0F0; 
+}
+.stepInactive  { 
+	background-color: #0070C0; 
+}
+
+.saveButton {
+	background-color: #32CD32;
+}
+
+
+.stepText {
+	color: white !important;
+	font-size: 13px;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 30px; 
+	text-decoration: underline;
+}
+.actionItems {
+	background-color: #EFF4F9;
+}
+.actionButtons {
+	color: white !important;
+	font-size: 11.5px;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 40px; 
+}
+
+/*Dropdown*/
+.sapUiSizeCompact .sapMSlt
+{
+	height: 1.4rem;
+	margin-top: 0.18rem;
+	margin-bottom: 0.18rem;
+}
+.sapUiSizeCompact .sapMSltLabel, .sapUiSizeCompact
+{
+	line-height: 0.8rem !important;
+	background-color: #fafafa;
+}
+.sapMSltArrow
+{
+	line-height: 1.2rem;
+	background-color: #ffffff;
+}
+.sapUiSizeCompact .sapMSltLabel, .sapUiSizeCompact .sapMSltArrow
+{
+	line-height: 1.2rem;
+}
+
+.sapMSlt > .sapMSltLabel
+{	
+	font-size: 0.7rem;
+	padding-top: 3px;
+}
+
+
+
+
+
+/* Crosstab */
+
+.CrosstabDimensions
+.sapzencrosstab-ColumnHeaderArea .sapzencrosstab-HeaderCellDefault,  
+.sapzencrosstab-ColumnHeaderArea .sapzencrosstab-HeaderCellAlternating,  
+.sapzencrosstab-DimensionHeaderArea .sapzencrosstab-HeaderCellAlternating,  
+.sapzencrosstab-DimensionHeaderArea .sapzencrosstab-HeaderCellDefault
+	{
+	background-color:#f7f7f7 !important;
+	color: #000000!important;
+	font-weight: normal !important;
+    font-size: 0.77rem;
+	}
+
+.CrosstabDimensions .sapzencrosstab-DataCellAlternating, .sapzencrosstab-HeaderCellAlternating {
+      background-color: #FFFFFF !important;
+  font-size: 0.77rem;
+}
+.CrosstabDimensions .sapzencrosstab-DataCellDefault, .sapzencrosstab-HeaderCellDefault {
+      background-color: #FFFFFF;
+font-size: 0.77rem;
+}
+
+.CrosstabDimensions .sapzencrosstab-scrollbarHandleColor
+{
+	background-color: #FFFFFF;
+	border-style: solid;
+	border-color:#c0c0c0;
+	border-width: 1px;
+}
+
+.CrosstabDimensions .sapzencrosstab-scrollbarHandleColor:hover
+{
+	background-color: #e9e9e9;
+	
+}
+.CrosstabDimensions .sapzencrosstab-scrollbarClickAreaColor
+{
+	background-color: #dbdbdb;
+}
+
+
+.CrosstabDimensions .sapzencrosstab-scrollbarButton
+{
+	background-color: #FFFFFF;
+}
+.CrosstabDimensions .sapUiSizeCompact .sapMSltLabel, .sapUiSizeCompact {
+    line-height: 1.2rem !important;
+    
+}
+
+.CrosstabDimensions #__cell156_textContentDiv{
+	white-space:pre-line!important;
+
+word-wrap:break-word!important;
+
+}
+
+.CrosstabDimensions #__cell157_textContentDiv{
+	white-space:pre-line!important;
+
+word-wrap:break-word!important;
+
+}
+
+.sapzencrosstab-FontSize-MainMode
+{
+	font-size:0.77rem;
+}
+
+.sapUiSizeCompact .sapMSltLabel, .sapUiSizeCompact
+{
+	line-height: 1rem;
+}
+
+
+
+/*Crosstab END*/
+
+.sapMCLI.sapMLIB {
+	padding: 0px;
+}
+
+.sapzenfilterpanelM * .sapUiVlt.sapUiContentPadding {
+	background-color: #EFF4F9;
+	padding: 0rem;
+}
+
+.crosstabTitle {
+	
+	color: #305496;
+	font-weight: bold;
+	
+}
+/* INPUT TOOL CHANGES */
+
+.sapzencrosstab-DataCellEntryEnabled-MainMode>.sapzencrosstab-DataCellContentDiv {
+	border-left-width: 4px;
+	border-left-color: #305496;
+}
+
+.sapzencrosstab-HeaderCellEntryEnabled-MainMode>.sapzencrosstab-HeaderCellContentDiv {
+	border-left-width: 4px;
+	border-left-color: #305496;
+}
+

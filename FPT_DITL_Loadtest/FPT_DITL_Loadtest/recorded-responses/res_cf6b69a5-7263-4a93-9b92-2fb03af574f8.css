@@ -1,0 +1,94 @@
+.vizFrame {
+}
+
+.uvb-vizframe-container {
+	height: 100%;
+	width: 100%;
+}
+
+.uvb-vizframe-container svg{
+	overflow: hidden;
+} 
+
+.msg-state-error .uvb-vizframe-container {
+	display: none;
+}
+
+.msg-state-error ~.componentLoadingStateBox {
+	background-color: transparent!important;
+}
+
+.msg-state-error ~.componentLoadingStateMessage {
+	font-size: 23px;
+	color: gray;
+	width: 100%;
+	left: 0;
+	text-align: center;
+	margin-left : 0;
+}
+.msg-state-error ~.componentLoadingState {
+	background-color: #808080;
+	opacity: 0.1;
+}
+
+.sapUiTheme-sap_hcb .viz-controls-contextmenu {
+    background-color: #000000;
+}
+
+.sapUiTheme-sap_hcb .viz-controls-contextmenu-list > li {
+    background-color: #000000;
+}
+
+.sapUiTheme-sap_hcb .viz-controls-contextmenu-MnuItmTxt {
+    color: #ffffff;
+}
+
+.sapUiTheme-sap_hcb .viz-controls-contextmenu-disabled .viz-controls-contextmenu-MnuItmTxt {
+    color: #bfbfbf;
+}
+
+.sapUiTheme-sap_hcb .viz-controls-contextmenu-MnuItem-separator {
+   border-bottom : 0px;
+   margin: 0px;
+}
+
+.sapUiTheme-sap_hcb .viz-controls-contextmenu-list .viz-controls-contextmenu-highlighted {
+    background-color: #7a5100;
+}
+
+.sapUiTheme-sap_hcb .viz-controls-contextmenu-list-hovered .viz-controls-contextmenu-highlighted:hover {
+    background-color: #7a5100;
+}
+
+.sapUiTheme-sap_hcb .viz-controls-contextmenu-highlighted .viz-controls-contextmenu-MnuItmTxt {
+    color: black;
+}
+
+.sapUiTheme-sap_hcb .viz-controls-contextmenu-list-hovered > li:hover,
+.sapUiTheme-sap_hcb .viz-controls-contextmenu-list li.viz-controls-contextmenu-MnuItmOpen {
+    background-color: #7a5100;
+}
+.sapUiTheme-sap_hcb .viz-controls-contextmenu-list-hovered .viz-controls-contextmenu-disabled:hover {
+    background-color: #000000;
+}
+.sapUiTheme-sap_hcb .viz-controls-playcontrol-playbtn .sapMBtnInner {
+	background-color: #ffffff;
+}
+
+.sapUiTheme-sap_hcb .viz-controls-common-menu-list {
+	background-color: #000000;
+}
+
+.sapUiTheme-sap_hcb .viz-controls-common-menu-list > ul {
+	background-color: #000000;
+}
+.sapUiTheme-sap_hcb .viz-controls-common-menu-list-hovered{
+	background-color: #7a5100;
+}
+.sapUiTheme-sap_hcb .viz-controls-adhoc-frame-popover-summary{
+	background-color: #1b1b1b;
+}
+.sapUiTheme-sap_hcb .viz-controls-adhoc-frame-popover{
+	background-color: #1b1b1b;
+}
+

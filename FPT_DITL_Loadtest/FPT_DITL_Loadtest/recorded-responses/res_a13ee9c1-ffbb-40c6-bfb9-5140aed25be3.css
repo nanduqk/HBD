@@ -1,0 +1,209 @@
+.horizontalMenuSeparator {
+    margin: 1px auto;
+    width: 90%;
+    border-top: 1px solid rgba(102, 102, 102, 0.4);
+}
+
+.verticalMenuSeparator {
+    margin: 1px 3px;
+    height: 1.75rem;
+    border-left: 1px solid rgba(102, 102, 102, 0.4);
+    width: 0px;
+}
+/* START: Horizontal menu */
+
+.horizontalMenuToolbar.sapMTB {
+    border-bottom: initial; /* Toolbar puts a default border */
+}
+
+.horizontalMenuToolbar .firstLevelDynamicMenuItem.sapUiIcon {
+    padding: 8px;
+}
+
+.disableContextMenuItems{
+  pointer-events:none;
+  opacity:0.6;
+}
+
+.horizontalExpansionIcon {
+    padding: 8px 0px !important; /* Theme override */
+    margin-right: 2px !important; /* Theme override */
+    font-size: 18px;
+}
+
+/* END: Horizontal menu */
+
+.verticalMenu.sapMPopover {
+    min-width: 36px;
+}
+
+.verticalMenuContent > div.sapUiVltCell > .sapUiIcon,
+.verticalMenuContent > div.sapUiVltCell > .sapUiIcon:hover,
+.verticalExpansionIcon:hover,
+.verticalMenuContent > div.sapUiVltCell > .sapUiIcon:active,
+.verticalExpansionIcon:active {
+    border-top: 1px solid;
+    border-bottom: 1px solid;
+}
+
+.verticalMenuContent > div.sapUiVltCell > .sapUiIcon {
+    padding: 4px 9px 4px 9px;
+    border-top-color: transparent;
+    border-bottom-color: transparent;
+}
+
+.verticalMenuContent > div.sapUiVltCell > .sapUiIcon:hover,
+.verticalExpansionIcon:hover {
+    border-top-color: #EFEFEF;
+    border-bottom-color: #EFEFEF;
+}
+
+.verticalMenuContent > div.sapUiVltCell > .sapUiIcon:active,
+.verticalExpansionIcon:active {
+    border-top-color: #1670C1;
+    border-bottom-color: #1670C1;
+}
+
+/* START: Selection behavior for first level menu items */
+
+.selectedQMItem,
+.selectedQMItem:hover {
+    border-top: 1px solid !important;
+    border-bottom: 1px solid !important;
+    border-top-color: #1670C1 !important;
+    border-bottom-color: #1670C1 !important;
+}
+
+.selectedQMItem,
+.selectedQMItem:hover,
+.selectedEMItem,
+.selectedEMItem:hover,
+.selectedEMItem .sapUiMnuItmIco {
+    color: #FFFFFF !important;
+    background-color: #1670C1 !important;
+}
+
+/* END: Selection behavior for first level menu items */
+
+/* Fixing 1680304539. Selection of context menu items results in an unwanted outline */
+
+.verticalMenu .sapUiIcon:focus,
+.horizontalMenu .sapUiIcon:focus,
+.subMenu .sapUiIcon:focus,
+.expandedMenu .sapUiIcon:focus {
+    outline: none !important;
+}
+
+/* START: Expanded menu */
+.expandedMenu .sapUiMnuItmSbMnuIconHolder > .sapUiIcon {
+    width: 18px;
+    height: 18px;
+    font-size: 18px;
+}
+
+.expandedMenu .sapUiMnuItmSbMnuIconHolder {
+    right: 0;
+    top: 0;
+    position: absolute;
+    padding: 2px;
+}
+/* END: Expanded menu */
+
+/* START: Submenu */
+
+.subMenu {
+    overflow: auto;
+    max-height: 100%;
+}
+
+.subMenu .sapMBar.sapMPageHeader {
+    height: 30px;
+    background-color: #FFFFFF;
+}
+
+.subMenu .sapMBar.sapMPageHeader .sapMBarLeft,
+.subMenu .sapMBar.sapMPageHeader .sapMBarMiddle,
+.subMenu .sapMBar.sapMPageHeader .sapMBarRight {
+    height: 30px;
+    padding: 0px;
+}
+
+.subMenu .sapMBar.sapMPageHeader .sapMBarLeft .sapUiIcon {
+    width: 18px;
+    line-height: 16px;
+    height: 18px;
+    font-size: 18px;
+    padding: 0px 6px;
+}
+
+.subMenu .sapMPageWithHeader>section {
+    top: 30px;
+}
+
+.sapMBarChild.submenuHeader.submenuItem,
+.sapMBarChild.submenuHeader.submenuItem:hover,
+.sapMBarChild.submenuHeader.submenuItem:active,
+.sapMBarChild.submenuHeader.submenuItem:focus {
+    border-bottom: 1px solid rgba(102, 102, 102, 0.4);
+}
+
+.sapMBarChild.submenuHeader.submenuItem {
+    padding-left: 4px;
+}
+
+.sapMBarChild.submenuHeader.submenuItem .submenuTextContent {
+    max-width: 160px;
+    line-height: 11px;
+}
+
+/* Fixing 1780008220. Unnecessary scrollbars in submenu. This is caused by
+inline style "-ms-overflow-y: auto;" that sap.m.Page adds even though we say
+enableScrolling: false */
+
+.subMenu .sapMPage>section {
+    overflow-x: auto !important;
+    overflow-y: auto !important;
+}
+
+/* END: Submenu */
+
+.subMenu,
+.horizontalMenu,
+.customMenu,
+.verticalMenu {
+    border: 1px solid #999999;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -webkit-box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.1);
+    box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.1);
+}
+
+/* FIXME Random right margin assigned by sap.m.Popover, find out why. Doing this as of now */
+.submenu .sapMPopoverScroll,
+.horizontalMenu .sapMPopoverScroll,
+.customMenu .sapMPopoverScroll,
+.verticalMenu .sapMPopoverScroll,
+.expandedMenu .sapMPopoverScroll {
+    margin-right: 0px !important;
+}
+
+/* START: Preview mode hover */
+
+/* TODO: remove !important once somebody removes it from homepage.css */
+div.sapLumiraStoryBook.sapLumiraPreviewMode div[id^=__container].sapUiLayoutAbsPos,
+div.sapLumiraStoryBook.sapLumiraPreviewMode div[id^=__container].sapUiLayoutAbsPos.previewModeSelection {
+    outline-width: 1px !important;
+    outline-style: solid !important;
+}
+
+div.sapLumiraStoryBook.sapLumiraPreviewMode  div[id^=__container].sapUiLayoutAbsPos {
+    outline-color: transparent !important;
+}
+
+div.sapLumiraStoryBook.sapLumiraPreviewMode div[id^=__container].sapUiLayoutAbsPos.previewModeSelection {
+    outline-color: #1670C1 !important;
+}
+
+/* END: Preview mode hover */

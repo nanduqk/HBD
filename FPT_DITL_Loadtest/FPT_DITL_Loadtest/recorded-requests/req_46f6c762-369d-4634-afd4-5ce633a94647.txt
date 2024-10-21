@@ -1,0 +1,16 @@
+GET https://hba.na.pg.com:8443/BOE/portal/2302072240/LumiraWebApp/zen.res/zen.rt.components.dialogm/resources/js/dialog_handler-min.js?version=20240312104136 HTTP/1.1
+Host: hba.na.pg.com:8443
+Connection: keep-alive
+sec-ch-ua: "Not)A;Brand";v="99", "Google Chrome";v="127", "Chromium";v="127"
+sec-ch-ua-mobile: ?0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36
+sec-ch-ua-platform: "Windows"
+Accept: */*
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: no-cors
+Sec-Fetch-Dest: script
+Referer: https://hba.na.pg.com:8443/BOE/portal/2302072240/LumiraWebApp/view.faces?cafWebSesInit=true&bttoken=MDAwRFE3OkZSTG9CZG1IYlxgZkoBSU2BFOztlNGVnOzAEQ&opendocTarget=infoviewOpenDocFrame&appKind=InfoView&service=%2FInfoView%2Fcommon%2FappService.do&loc=en_US&pvl=en_US&ctx=standalone&actId=8023&objIds=14470954&containerId=undefined&pref=maxOpageUt%3D200%3BmaxOpageC%3D10%3Btz%3DEurope%2FLondon%3BmUnit%3Dinch%3BshowFilters%3Dtrue%3BsmtpFrom%3Dtrue%3BpromptForUnsavedData%3Dtrue%3B&app=BING&defaultView=true
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
+Cookie: JSESSIONID=05494483860B232F4EEB4DA5D0142AEB; InfoViewPLATFORMSVC_COOKIE_CMS=%40webHBA; InfoViewCE_SAPSys=HGA; InfoViewCE_SAPCnt=400; InfoViewPLATFORMSVC_COOKIE_AUTH=secSAPR3; InfoViewPLATFORMSVC_COOKIE_USR=z0006aLnf4m62%40%23%2444; InfoViewPLATFORMSVC_COOKIE_TOKEN=
+

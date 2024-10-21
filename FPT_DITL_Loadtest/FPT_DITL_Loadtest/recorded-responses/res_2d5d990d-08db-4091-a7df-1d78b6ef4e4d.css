@@ -1,0 +1,375 @@
+/*
+�2010 - 2016 SAP SE or an SAP affiliate company.  All rights reserved.
+ 
+SAP and other SAP products and services mentioned herein as well as their respective logos are trademarks or registered trademarks of SAP SE in Germany and other countries.  Please see http://www.sap.com/corporate-en/legal/copyright/index.epx#trademark for additional trademark information and notices.
+*/
+
+.BILP-searchBusyGlassPane {
+	position: absolute;
+	left: 0px;
+	right: 0px;
+	top: 0px;
+	bottom: 0px;
+	background-color: rgba(0, 0, 0, 0.3);
+	padding-top: 70px;
+	z-index: 10;
+	padding-top: 25%;
+}
+
+.BILP-searchBusyGlassPane>div {
+	margin: auto;
+}
+
+.BILP-homeSearchBar {
+	margin-top: 2px;
+}
+
+.BILP-searchPage {
+	width: 100%;
+	text-align: center;
+}
+
+.BILP-searchPage .BILP-detailTabStyleGeneral {
+	/*width: auto !important;*/
+}
+
+.BILP-searchPage .sapMBarPH {
+	height: auto;
+	padding: 0px;
+	line-height: normal;
+}
+
+.BILP-searchPageLayout {
+	width: 100%;
+	/*margin-top: 20px;*/
+}
+
+.BILP-searchPageHeader {
+	width: 100%;
+	height: 174px;
+	background: transparent !important;
+	box-shadow: none;
+}
+
+.BILP-searchPageHeader::before {
+	border: 0px;
+}
+
+.BILP-searchPageHeaderLayout {
+	width: 100%;
+}
+
+.BILP-searchLayout {
+	width: 100%;
+	padding-top: 30px;
+	padding-bottom: 20px;
+	text-align: center;
+}
+
+.BILP-searchCombo {
+	margin-right: 16px;
+	border-radius: 5px;
+}
+
+.BILP-searchCombo input {
+	border-radius: 4px;
+}
+
+.BILP-searchCombo button {
+	border-radius: 4px;
+}
+
+.BILP-searchField {
+}
+
+.BILP-searchSuggestionItem .sapMSuggestionItemIcon {
+	height: 16px;
+	width: 16px;
+}
+
+.BILP-searchSideLayout {
+}
+
+.BILP-searchFixFlexLayout {
+	position: absolute;
+	left: 0px;
+	right: 0px;
+	top: 0px;
+	bottom: 0px;
+	padding-top: 2rem;
+	padding-bottom: 2rem;
+}
+
+.BILP-searchPageLayout>div:first-child {
+	width: 100% !important;
+}
+
+.BILP-searchFilterLayout {
+	padding-left: 2rem;
+	padding-right: 2rem;
+}
+
+.BILP-searchHeaderLayout {
+	text-align: left;
+}
+
+.BILP-searchResultsLayout {
+	width: 100%;
+	height: 100%;
+	min-width: 200px;
+	text-align: left;
+}
+
+.BILP-searchResultsLayout>div:nth-child(2) {
+	height: calc(100% - 50px) !important;
+}
+
+.BILP-searchScrollContainer>.sapMScrollContScroll {
+	padding-left: 2rem;
+	padding-right: 2rem;
+}
+
+.BILP-searchFacetsLayout {
+	width: 100%;
+	padding-bottom: 22px;
+	text-align: left;
+	padding-left: 20px;
+	display: none;
+}
+
+.BILP-searchFacetsLayout .sapUiRFLContainer {
+	width: 190px !important;
+	height: 74px;
+}
+
+.BILP-searchFacetsLayout .sapUiRFLPaddingClass {
+	padding: 0px;
+}
+
+.BILP-searchFacetLayout {
+}
+
+.BILP-searchFacetLabel {
+	font-size: 1rem;
+}
+
+.BILP-searchFacetCombo {
+	width: 174px;
+}
+
+.BILP-searchFacetCombo.sapUiSizeCompact {
+	height: 1.625rem;
+}
+
+.BILP-searchFacetCombo.sapUiSizeCompact button {
+	line-height: 1.500rem;
+}
+
+.BILP-searchFacetCombo input {
+	border-radius: 4px;
+}
+
+.BILP-searchFacetCombo button {
+	border-radius: 4px;
+}
+
+.BILP-searchFacetButton {
+	margin-top: 18px;
+}
+
+.BILP-searchFacetButton div {
+	border-radius: 5px;
+	border-color: #bfbfbf !important;
+	background: #f7f7f7 !important;
+}
+
+.BILP-searchFacetButton div:hover {
+	background: #eaeaea !important;
+}
+
+.BILP-searchShowFacetsButton {
+	padding-top: 0px !important;
+	padding-bottom: 0px !important;
+	height: 1.625rem !important;
+}
+
+.BILP-searchResultsListLayout {
+	width: 100%;
+}
+
+.BILP-searchResultsListLayout .sapUiRrPtb {
+	display: none;
+}
+
+.BILP-searchResultsListLayout .sapUiRrBody {
+	border: 0px;
+}
+
+.BILP-searchResultsListLayout .sapUiRrFtr {
+	background-color: transparent;
+	border: 0px;
+	height: 36px
+}
+
+.BILP-searchResultsListLayout .sapUiRrFtr .sapUiBtn {
+	visibility: hidden;
+}
+
+.BILP-searchResultsListLayout .sapUiRrNoData {
+	text-align: center;
+}
+
+.BILP-searchResultsLabel {
+	font-size: 1.125rem;
+	padding-left: 2rem;
+	padding-bottom: 1rem;
+}
+
+.BILP-searchHitLayout {
+	padding-top: 16px;
+	padding-bottom: 10px;
+	width: 100%;
+}
+
+.BILP-searchFlexBox {
+	border-bottom: 1px solid #DDDDDD;
+}
+
+.BILP-searchHitTitleLayout {
+	height: 24px;
+}
+
+.BILP-searchHitTitleLabel {
+    color: #0070b1 !important;
+	height: 27px;
+	font-size: 1.125rem;
+	padding-right: 4px;
+	padding-top: 7px;
+	padding-left: 5px;
+	text-decoration: none;
+}
+
+.BILP-searchHitTitleLabel:hover {
+	cursor: pointer;
+	text-decoration: underline;
+}
+
+.BILP-searchHitTitleLabel.sapMLnkDsbl, .BILP-searchHitTitleLabel.sapMLnkDsbl :hover{
+	text-decoration: none;
+	cursor: auto;
+}
+
+.BILP-searchHitTitleLabelHighlighted {
+	/*color: #000000;*/
+	font-weight: bold;
+}
+
+.BILP-searchDescriptionLayout {
+	padding-left: 5px !important;
+}
+
+.BILP-searchHitDescriptionLabel {
+	font-size: 0.875rem !important;
+	padding-right: 1rem !important;
+}
+
+.BILP-searchHitDescriptionLabelHighlighted {
+	/*color: #000000;*/
+	font-weight: bold;
+}
+
+.BILP-searchHitOwnerLabel {
+	padding-top: 9px;
+	padding-right: 5px;
+	padding-left: 5px;
+}
+
+.BILP-searchHitOwnerLabel::before {
+	content: "\007c";
+	padding-right: 5px;
+}
+
+.BILP-searchHitUpdatedLabel {
+	padding-top: 9px;
+}
+
+.BILP-searchHitPathLabel {
+	padding-top: 9px;
+	word-wrap: break-word !important;
+	white-space: normal !important;
+}
+
+.BILP-searchHitInfoItem {
+	display: block;
+	text-align: left;
+	padding-top: 6px;
+	font-size: 12pt;
+}
+
+.BILP-searchHitInfoCategoryLabel {
+	width: 108px;
+}
+
+.BILP-searchHitInfoValueLabel {
+	white-space: normal;
+}
+
+.BILP-searchDetailsLayout {
+	padding-left: 5px;
+	display: none;
+}
+
+.BILP-searchInstancesRowRepeater {
+	display: block;
+	font-size: 10pt;
+}
+
+.BILP-searchInstancesRowRepeater .sapUiRrFtr {
+	display: block;
+}
+
+.BILP-searchPopover .sapUiRrFtr {
+	display: none;
+}
+
+.sapUiRrRow:first-child> .sapUiHLayout .BILP-searchInstanceLabel {
+	padding-top: 1rem !important;
+}
+
+.sapUiRrRow:last-child> .sapUiHLayout .BILP-searchInstanceLabel {
+	padding-bottom: 1rem !important;
+}
+
+.BILP-searchInstanceLabel {
+	padding-left: 1rem;
+	padding-right: 1rem;
+	padding-bottom: 0.25rem;
+	padding-top: 0.25rem;
+}
+
+.BILP-searchShowInstancesButton::before {
+	content: "\007c";
+	padding-right: 5px;
+	color: rgb(102, 102, 102);
+	text-decoration: none !important;
+}
+
+.BILP-searchShowInstancesButton {
+	padding-top: 9px;
+}
+
+.BILP-searchComboBoxPopupHeader {
+	display: none;
+}
+
+.BILP-searchComboBoxPopupHeader.visible {
+	display: block;
+}
+
+.BILP-searchComboBoxPopupTextField {
+	font-size: 0.875rem;
+}
+
+html[data-sap-ui-browser^='ie'].sap-desktop li.sapMSelectListItemBase.sapMSelectListItemBaseSelected::before, html[data-sap-ui-browser^='ed'].sap-desktop li.sapMSelectListItemBase.sapMSelectListItemBaseSelected::before {
+	content: none;
+}

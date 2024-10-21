@@ -1,0 +1,91 @@
+<!--
+�2010 - 2016 SAP SE or an SAP affiliate company.  All rights reserved.
+ 
+SAP and other SAP products and services mentioned herein as well as their respective logos are trademarks or registered trademarks of SAP SE in Germany and other countries.  Please see http://www.sap.com/corporate-en/legal/copyright/index.epx#trademark for additional trademark information and notices.
+-->
+
+<!DOCTYPE HTML>
+
+
+
+<html>
+	<head>
+	    <title>BI launch pad</title>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta http-equiv='Content-Type' content='text/html;charset=UTF-8'/>
+
+	</head>
+	<body>
+		<script>
+			function getXmlHttp()
+			{
+			   var xmlHttp;
+			   try
+			   {	// return false;
+					// Firefox, Opera 8.0+, Safari
+					xmlHttp=new XMLHttpRequest();
+					return xmlHttp;
+			   }
+			   catch (e)
+			   {
+			   // Internet Explorer
+					try
+					  {
+						xmlHttp=new ActiveXObject("Msxml2.XMLHTTP");
+						return xmlHttp;
+					  }
+					catch (e)
+					  {
+						  try
+							{
+								xmlHttp=new ActiveXObject("Microsoft.XMLHTTP");
+								return xmlHttp;
+							}
+						  catch (e)
+							{
+								//alert("Your browser does not support AJAX!");
+								return false;
+							}
+					  }
+			   }
+
+			}
+	
+
+var http=getXmlHttp();
+
+if(http){
+	
+			/*
+				The purpose of the decodeEscapeSequences function is to convert these escape sequences( "\x5c" and "\x3a") to their readable form. 
+			*/
+			function decodeEscapeSequences(str) {
+				return str.replace(/\\x([0-9a-fA-F]{2})/g, (match, hex) => String.fromCharCode(parseInt(hex, 16)));
+			}
+			var url =  decodeEscapeSequences('https\x5cx3a\x5cx2f\x5cx2fhba.na.pg.com\x5cx3a8443\x5cx2fbiprws') + '/v1/logoff';
+			
+			
+				http.open('POST', url, false);
+				http.setRequestHeader('Content-type', 'application/json');
+				http.setRequestHeader('x-SAP-logonToken', 'usalspgsa687.na.pg.com\x3a6400\x40\x7b3\x262\x3d13102853,U3\x262v\x3dusalspgsa687.na.pg.com\x3a6400,UP\x2666\x3d40,U3\x2668\x3dsecSAPR3\x3aHGA\x7e400\x2fES1899,UP\x26S9\x3d10935197,U3\x26qe\x3d100,U3\x26vz\x3dd7AI5aW1ZOW7Kpo8kHPII3AmyAQu2lsI876SL_NQo_yIDQySPUa_I4ZEUHF6O0kd,UP\x7d' );
+				http.onreadystatechange = function() {
+					if (this.readyState == 4 && this.status == 200) {
+						//Successful log off enterprise session by rest ful logoff call hence setting a shared attribute through another ajax call to suppress unnecessary exception
+						var httpAjax=getXmlHttp(); 
+						httpAjax.open('POST', "./checkEntSession", false);
+						httpAjax.send();
+						console.log("Setting shared attribute through ajax call");
+					}
+				};
+				http.send();
+		
+}
+</script>
+<form action="logoff.jsp" method="post">
+	<input type="hidden" name="cleanedUp" value="true">
+</form>		
+	<script>
+		document.forms[0].submit();
+	</script>
+	</body>
+</html>

@@ -1,0 +1,22 @@
+POST https://hba.na.pg.com:8443/BOE/portal/2302072240/FioriBI/main.jsp?service=%2Fcommon%2FappService.do&appKind=InfoView HTTP/1.1
+Host: hba.na.pg.com:8443
+Connection: keep-alive
+Content-Length: 1385
+Cache-Control: max-age=0
+sec-ch-ua: "Google Chrome";v="123", "Not:A-Brand";v="8", "Chromium";v="123"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+Upgrade-Insecure-Requests: 1
+Origin: https://hba.na.pg.com:8443
+Content-Type: application/x-www-form-urlencoded
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Dest: document
+Referer: https://hba.na.pg.com:8443/BOE/portal/2302072240/FioriBI/logon.jsp
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
+Cookie: JSESSIONID=A545847F5671CFAB49EBE3B3382A4A95; InfoViewPLATFORMSVC_COOKIE_TOKEN=; InfoViewPLATFORMSVC_COOKIE_CMS=%40webHBA; InfoViewCE_SAPSys=HGA; InfoViewCE_SAPCnt=400; InfoViewPLATFORMSVC_COOKIE_USR=z0006aLnf4h63%40%23%2444; InfoViewPLATFORMSVC_COOKIE_AUTH=secSAPR3
+
+isLoadedFromCookies=false&chgPwd=false&logontoken=usalspgsa573.na.pg.com%3A6400%4014456675Jac3yLoyvoabbUFxBVRGuWDCiqsW90qX414456674JiDd79Vm8lZKav26k7FWAYJKON8Vn4Qxn&restLogonToken=usalspgsa573.na.pg.com%3A6400%40%7B3%262%3D14456674%2CU3%262v%3Dusalspgsa573.na.pg.com%3A6400%2CUP%2666%3D1440%2CU3%2668%3DsecSAPR3%3AHGA%7E400%2FES1867%2CUP%26S9%3D10935015%2CU3%26qe%3D100%2CU3%26vz%3DSqlXxOUHeRzdzJaEFC3vfhCrCDP5v4ttu3lpBxIIYQoM61yDRwMwdwaHv9N3qir6%2CUP%7D&considerRelativeURL=false&bttoken=MDAwREhOMVlKNGY6PFRjYzRVQEFMVGVRZjVUMThAMDAEQ&isManualLogin=true&SerializedSession=3%265U%3D14456675Jac3yLoyvoabbUFxBVRGuWDCiqsW90qX414456674JiDd79Vm8lZKav26k7FWAYJKON8Vn4Qxn%2C8P%2610U%2C88%261%2C8P%2663%3DsecSAPR3%2C8P%2635%3DES1867%2C8P%26S5%2C88%26pa%2C8P%26ua%3DAf9fX5We.TVJu_6eVqnxufQ%2C8P%26ub%3DFkJnCgAbjgsAd08AAAAHdFYAAFBWtjah%2C8P%26zA%2C83%264E%3D14456674JiDd79Vm8lZKav26k7FWAYJKON8Vn4Qxn%2C8P%263k%3D%40webHBA%2C8P%264F%3D10935015%2C8P%26Tm%3D36500%2C83%26Tn%3D%7B3%26U%3D3%2C83%26.1%3D%7B3%262%3D10935135%2C83%26O%3DFavoritesFolder%2C8P%7D%2C%3Fz%26.2%3D%7B3%262%3D10935136%2C83%26O%3DPersonalCategory%2C8P%7D%2C%3Fz%26.3%3D%7B3%262%3D10935137%2C83%26O%3DInbox%2C8P%7D%2C%3Fz%7D%2C%3Fz%267r%2C83%262r%3Dusalspgsa573.na.pg.com%3A6400%2C8P%26lu%3D1033%2C83%26PP%3D1024%2C83%26ux%3DFg8UJgE3zAEAvh0EAABnbpoAAFBWtuFk%2C8P%26uy%3D-22%2C8L&WACURL=https%3A%2F%2Fhba.na.pg.com%3A8443%2Fbiprws

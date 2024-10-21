@@ -1,0 +1,148 @@
+<!--
+�2010 - 2016 SAP SE or an SAP affiliate company.  All rights reserved.
+ 
+SAP and other SAP products and services mentioned herein as well as their respective logos are trademarks or registered trademarks of SAP SE in Germany and other countries.  Please see http://www.sap.com/corporate-en/legal/copyright/index.epx#trademark for additional trademark information and notices.
+-->
+
+
+
+
+<!DOCTYPE html>
+ 
+
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script src="../PlatformServices/sapui5/resources/sap-ui-core.js"
+				id="sap-ui-bootstrap"
+				data-sap-ui-libs="sap.m, sap.ui.commons, sap.ui.layout,sap.ui.table"
+				data-sap-ui-theme="sap_belize"
+				data-sap-ui-xx-supportedLanguages="ar,cs,da,de,dev,en,es,fi,fr,he,hu,is,it,iw,ja,kk,ko,nb,nl,pl,pt,ro,ru,sk,sl,sv,th,tr,uk,zh_CN,zh_TW,">
+</script>
+
+<script src="com/sap/fioribi/utils/callBackUtils.js"></script>
+<script src="com/sap/fioribi/utils/ResourceBundleUtil.js"></script>
+
+<link rel="stylesheet" type="text/css" href="com/sap/fioribi/css/Shell.css">
+<link rel="stylesheet" type="text/css" href="com/sap/fioribi/css/Logonpage.css">
+</head>
+<script type="text/javascript">
+jQuery.sap.require("sap.m.MessageBox");
+ 
+jQuery.sap.registerModulePath("com.sap.fioribi", "com/sap/fioribi/");    //For Loading BILaunchpad Libs
+
+//for icon
+try{
+	
+    var iconlink = window.parent.document.createElement("link");
+    iconlink.setAttribute("rel", "shortcut icon");
+    iconlink.setAttribute("type", "image/x-icon");
+    iconlink.setAttribute("href", window.location.href.substring(0, window.location.href.lastIndexOf('/')) + "/" + "./com/sap/fioribi/images/InfoView.ico");
+    window.parent.document.getElementsByTagName("head")[0].appendChild(iconlink);
+}catch (e) {}
+var usermailId = "";
+
+
+
+var sPVL = 'en_US';
+var sProductLocale = 'en';
+
+
+
+var resourceBundle = getResourceBundle(sPVL);
+
+var appname ='null';
+if(appname=='null'){
+		appname= resourceBundle.getText("app_name")
+}
+window.parent.document.title =appname;
+
+var jsonData;
+//loading logon module
+var logonToBI = function(){
+	jQuery.sap.require("com.sap.fioribi.modules.logonpage.LogonpageContainer");
+	var oLogonPage = new com.sap.fioribi.modules.logonpage.LogonpageContainer();
+	oLogonPage.getUI().placeAt("content");
+}
+
+callbackGetConfigData =function(){
+var obj ='\x5b\x7b\x22isCmsVisible\x22\x3atrue\x7d,\x7b\x22isAuthenticationVisible\x22\x3atrue\x7d,\x7b\x22sapVisible\x22\x3atrue\x7d,\x7b\x22CMS\x22\x3a\x22\x40webHBA\x22\x7d,\x7b\x7d,\x7b\x7d,\x7b\x22USERNAME\x22\x3a\x22ES1945\x22\x7d,\x7b\x22PASSWORD\x22\x3a\x22\x22\x7d,\x7b\x22AUTH_TYPE\x22\x3a\x22secSAPR3\x22\x7d,\x7b\x22sa\x22\x3a\x5b\x7b\x22secEnterprise\x22\x3a\x22Enterprise\x22\x7d,\x7b\x22secLDAP\x22\x3a\x22LDAP\x22\x7d,\x7b\x22secWinAD\x22\x3a\x22Windows\x20AD\x22\x7d,\x7b\x22secSAPR3\x22\x3a\x22SAP\x22\x7d,\x7b\x22secOraApps\x22\x3a\x22Oracle\x20EBS\x22\x7d,\x7b\x22secPSE1\x22\x3a\x22JD\x20Edwards\x20EnterpriseOne\x22\x7d,\x7b\x22secpsenterprise\x22\x3a\x22PeopleSoft\x20Enterprise\x22\x7d,\x7b\x22secSiebel7\x22\x3a\x22Siebel7\x22\x7d\x5d\x7d,\x7b\x22e\x22\x3a\x22\x22\x7d,\x7b\x22instructionfirst\x22\x3a\x22Enter\x20your\x20user\x20information,\x20and\x20click\x20\x5c\x22Log\x20On\x5c\x22.\x22\x7d,\x7b\x22instructionsecond\x22\x3a\x22If\x20you\x20are\x20unsure\x20of\x20your\x20account\x20information,\x20contact\x20your\x20system\x20administrator.\x22\x7d\x5d';
+return obj.toString();
+}
+
+callbackGetResourceBundle =function(){
+return resourceBundle;
+}
+
+callbackSubmitUserData = function(userData){
+	var url='..\x2fFioriBI\x2flogon.jsp\x3fisLoadedFromCookies\x3dtrue\x26chgPwd\x3dfalse\x26pvl\x3den_US\x26pl\x3den\x26isManualLogin\x3dtrue\x26';
+	
+	for(var LogonFieldName in userData) {
+		
+		url += encodeURIComponent(LogonFieldName)+"="+encodeURIComponent(userData[LogonFieldName])+"&";
+	}
+	jQuery.sap.require("com.sap.fioribi.utils.CommonUtils");
+	sendURLViaPOST(url,"_self");
+}
+function is_IE() {
+  return (window.navigator.userAgent.match(/MSIE|Trident/) !== null);
+}
+function onLoad(){
+	var obj ='\x5b\x7b\x22isCmsVisible\x22\x3atrue\x7d,\x7b\x22isAuthenticationVisible\x22\x3atrue\x7d,\x7b\x22sapVisible\x22\x3atrue\x7d,\x7b\x22CMS\x22\x3a\x22\x40webHBA\x22\x7d,\x7b\x7d,\x7b\x7d,\x7b\x22USERNAME\x22\x3a\x22ES1945\x22\x7d,\x7b\x22PASSWORD\x22\x3a\x22\x22\x7d,\x7b\x22AUTH_TYPE\x22\x3a\x22secSAPR3\x22\x7d,\x7b\x22sa\x22\x3a\x5b\x7b\x22secEnterprise\x22\x3a\x22Enterprise\x22\x7d,\x7b\x22secLDAP\x22\x3a\x22LDAP\x22\x7d,\x7b\x22secWinAD\x22\x3a\x22Windows\x20AD\x22\x7d,\x7b\x22secSAPR3\x22\x3a\x22SAP\x22\x7d,\x7b\x22secOraApps\x22\x3a\x22Oracle\x20EBS\x22\x7d,\x7b\x22secPSE1\x22\x3a\x22JD\x20Edwards\x20EnterpriseOne\x22\x7d,\x7b\x22secpsenterprise\x22\x3a\x22PeopleSoft\x20Enterprise\x22\x7d,\x7b\x22secSiebel7\x22\x3a\x22Siebel7\x22\x7d\x5d\x7d,\x7b\x22e\x22\x3a\x22\x22\x7d,\x7b\x22instructionfirst\x22\x3a\x22Enter\x20your\x20user\x20information,\x20and\x20click\x20\x5c\x22Log\x20On\x5c\x22.\x22\x7d,\x7b\x22instructionsecond\x22\x3a\x22If\x20you\x20are\x20unsure\x20of\x20your\x20account\x20information,\x20contact\x20your\x20system\x20administrator.\x22\x7d\x5d';
+	if(is_IE()){
+			var hBox = new sap.m.HBox();
+			hBox.addStyleClass("BILP-simple-page-margin-left BILP-simple-page-margin-right");
+			var BrowserNotSupportedTxt= resourceBundle.getText("Browser_not_Supported");
+			var requirementTxt= resourceBundle.getText("Requirements_Technical_Prerequisites");
+			var SeeOurSystemTxt= resourceBundle.getText("See_our_system");
+			var detailsBrowserSupportTxt= resourceBundle.getText("details_on_browser_support");
+			 var biURL = new sap.m.Link({
+				text: requirementTxt,
+				href: "https://apps.support.sap.com/sap/support/pam",
+				target: "_blank"
+			}).addStyleClass("PaddingRight10");
+			 var line1Text = new sap.m.Text("line1",{				
+				 text:SeeOurSystemTxt
+			}).addStyleClass("PaddingRight10");
+			 var line2Text = new sap.m.Text("line2",{				
+				 text:detailsBrowserSupportTxt
+			}).addStyleClass("PaddingRight10");
+			
+			hBox.addItem(line1Text);
+			hBox.addItem(biURL);
+			hBox.addItem(line2Text);
+			var aboutDialogBox = new sap.m.Dialog("aboutDialog",{
+			modal: true,
+			title:BrowserNotSupportedTxt,       
+			contentHeight: "auto",
+			horizontalScrolling: false,
+			resizable: false,
+			endButton: new sap.m.Button({
+				text:"OK",
+				press: function() {
+					aboutDialogBox.close();
+				}
+			})
+    }).addStyleClass("DialogBorderRadius PaddingTop0 sapUiNoContentPadding");
+	aboutDialogBox.addContent(hBox);
+		 aboutDialogBox.open();	
+}else{
+	  logonToBI();
+ }
+}
+
+callbackIsThemeEnabled=function(){
+var IsThemeEnabled = 'default';
+return IsThemeEnabled;
+}
+callbackGreeting=function(){
+	var greetingMsg = 'null';
+	return greetingMsg;
+}
+</script>
+<body onload="onLoad()" class="sapUiBody" role="application">
+<div id="content" class="BILP-displayBlock"></div>
+</body>
+
+</html>

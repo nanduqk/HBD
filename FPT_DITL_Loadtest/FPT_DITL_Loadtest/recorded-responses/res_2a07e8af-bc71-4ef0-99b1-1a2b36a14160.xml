@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<snippet_collection>
+<snippet id="sapbi_snippet___JAVASCRIPTHEADER" type="JAVASCRIPT"><![CDATA[sapbi_page.m_required_sdk_versions = {};
+sapbi_page.m_required_biBundles = {"zen.rt.components.crosstab": "bundles/zen/rt/components/crosstab","zen.rt.components.ui5.shape": "bundles/zen/rt/components/ui5/shape","zen.rt.components.dynamicmenu.menubuilders": "bundles/zen/rt/components/dynamicmenu/menubuilders","zen.rt.components.dynamicmenu.builders": "bundles/zen/rt/components/dynamicmenu/builders"};
+sapbi_addRequired([]);
+sapbi_page.m_requestIdValue = "2";
+sapbi_page.m_WaitForPhase2 = false;
+]]></snippet>
+<snippet id="sapbi_snippet___JAVASCRIPTBODY" type="HTML"><![CDATA[<div id="sapbi_snippet___JAVASCRIPTBODY"></div>]]></snippet>
+<snippet id="sapbi_snippet_ROOT" type="JSON"><![CDATA[{"delta":[{"component":{"id":"WORK_PROMPT","type":"TEXT_COMPONENT","pureId":"WORK_PROMPT","scope":"","width":"267","height":"21","leftmargin":"20","rightmargin":"auto","topmargin":"45","bottommargin":"auto","cssclass":"","showLoadingState":false,"content":{"control":{"type":"textfield","id":"WORK_PROMPT_tf1","tooltip":"","style":"STANDARD","cssStyle":"font\x2dsize\x3a\x2012px\x3b\x0d\x0afont\x2dweight\x3a\x20bold\x3b","onclick":"sap.zen.request.zenSendCommandArrayWoEventWZenPVT\x28\x5b\x5b\x27BI_COMMAND_TYPE\x27,\x27\x27,0\x5d,\x5b\x27COMMAND_INTERPRETER\x27,\x27BIAL\x27,0\x5d,\x5b\x27COMPONENT_NAME\x27,\x27WORK_PROMPT\x27,0\x5d,\x5b\x27EVENT_NAME\x27,\x27ON_CLICK\x27,0\x5d\x5d\x29\x3b","text":{"_v":"\x28CS00031514\x29\x20SAP\x20OPERATIONS\x20OH"}}}}},{"component":{"id":"TEXT_SCN","type":"TEXT_COMPONENT","pureId":"TEXT_SCN","scope":"","width":"153","height":"21","leftmargin":"336","rightmargin":"auto","topmargin":"45","bottommargin":"auto","cssclass":"","showLoadingState":false,"content":{"control":{"type":"textfield","id":"TEXT_SCN_tf1","tooltip":"","style":"STANDARD","cssStyle":"font\x2dsize\x3a\x2012px\x3b\x0d\x0afont\x2dweight\x3a\x20bold\x3b","onclick":"","text":{"_v":"2324\x2dP10\x20April"}}}}}]}]]></snippet>
+</snippet_collection>

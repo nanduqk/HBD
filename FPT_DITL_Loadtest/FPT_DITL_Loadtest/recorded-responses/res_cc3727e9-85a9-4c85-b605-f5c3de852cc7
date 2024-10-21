@@ -1,0 +1,821 @@
+/*
+�2010 - 2016 SAP SE or an SAP affiliate company.  All rights reserved.
+ 
+SAP and other SAP products and services mentioned herein as well as their respective logos are trademarks or registered trademarks of SAP SE in Germany and other countries.  Please see http://www.sap.com/corporate-en/legal/copyright/index.epx#trademark for additional trademark information and notices.
+*/
+
+/*
+©2010 - 2016 SAP SE or an SAP affiliate company.  All rights reserved.
+ 
+SAP and other SAP products and services mentioned herein as well as their respective logos are trademarks or registered trademarks of SAP SE in Germany and other countries.  Please see http://www.sap.com/corporate-en/legal/copyright/index.epx#trademark for additional trademark information and notices.
+*/
+
+jQuery.sap.declare({modName : "com.sap.fioribi.modules.folders.foldersView",    type : "view"});
+
+jQuery.sap.require({modName: "com.sap.fioribi.modules.common.BILPView",type: "view"});
+
+jQuery.sap.require("sap.ui.core.IconPool");  
+
+
+
+com.sap.fioribi.modules.folders.foldersView = function() {
+    "use strict";
+    com.sap.fioribi.modules.common.BILPView.apply(this, arguments);
+};
+
+com.sap.fioribi.modules.folders.foldersView.prototype = jQuery.sap.newObject(com.sap.fioribi.modules.common.BILPView.prototype);
+
+com.sap.fioribi.modules.folders.foldersView.prototype.getControllerName = function() {
+    return "com.sap.fioribi.modules.folders.foldersController";
+};
+
+/*
+Create UI Table to display Subscribed Alerts
+*/
+com.sap.fioribi.modules.folders.foldersView.prototype.createSubscribedAlertsWidgetTable = function(){
+    var titleColumns = [BILaunchpadApp.localized("SALERTF_UI_table_col_title")];
+    titleColumns.push(BILaunchpadApp.localized("SALERTF_UI_table_col_type"));
+    titleColumns.push(BILaunchpadApp.localized("SALERTF_UI_table_col_source"));
+    
+    var cols = ["si_name"];
+    cols.push("si_specific_progid_i18n");
+    cols.push("si_event_source/si_name");
+
+    /*
+    var tableList = this.getController().oTableModel.getallItems();
+    tableList.setSizeLimit(100000);
+    */
+
+    jQuery.sap.require("com.sap.fioribi.widgets.SubscribedAlertTableWidget");
+    var oListTable = new com.sap.fioribi.widgets.SubscribedAlertTableWidget(titleColumns, cols, this.getController(), this.getController().processActions, true);
+    
+    return oListTable;
+}
+
+com.sap.fioribi.modules.folders.foldersView.prototype.createFoldersWidgetTable = function(){
+    var pagePrefModel = sap.ui.getCore().getModel("pagePrefModel");
+
+    // UI Table
+    var allColumns = [BILaunchpadApp.localized("text_Title")];
+    if (pagePrefModel.myfavorites == true) {
+        allColumns.push(BILaunchpadApp.localized("my_favourite"));
+    }
+    if (pagePrefModel.type == true) {
+        allColumns.push(BILaunchpadApp.localized("text_Type"));
+    }
+    if (pagePrefModel.lastrun == true) {
+        allColumns.push(BILaunchpadApp.localized("document_last_run"));
+    }
+    if (pagePrefModel.instances == true) {
+        allColumns.push(BILaunchpadApp.localized("instances"));
+    }
+    if (pagePrefModel.description == true) {
+        allColumns.push(BILaunchpadApp.localized("description"));
+    }
+    if (pagePrefModel.createdby == true) {
+        allColumns.push(BILaunchpadApp.localized("createdby"));
+    }
+    if (pagePrefModel.lastupdated == true) {
+        allColumns.push(BILaunchpadApp.localized("text_Last_Updated"));
+    }
+    if (pagePrefModel.createdon == true) {
+        allColumns.push(BILaunchpadApp.localized("created_on"));
+    }
+    var cols = ["name"];
+    if (pagePrefModel.myfavorites == true) {
+        cols.push("favorite");
+    }
+    if (pagePrefModel.type == true) {
+        cols.push("displaytype");
+    }
+    if (pagePrefModel.lastrun == true) {
+        cols.push("lastRun");
+    }
+    if (pagePrefModel.instances == true) {
+        cols.push("instances");
+    }
+    if (pagePrefModel.description == true) {
+        cols.push("description");
+    }
+    if (pagePrefModel.createdby == true) {
+        cols.push("owner");
+    }
+    if (pagePrefModel.lastupdated == true) {
+        cols.push("updated");
+    }
+    if (pagePrefModel.createdon == true) {
+        cols.push("created");
+    }
+    var tableList = this.getController().oTableModel.getallItems();
+    tableList.setSizeLimit(100000);
+
+    jQuery.sap.require("com.sap.fioribi.widgets.TableWidget");
+    var oListTable = new com.sap.fioribi.widgets.TableWidget(allColumns, cols, tableList, this.getController(), this.getController().processActions);
+
+    return oListTable;
+}
+
+com.sap.fioribi.modules.folders.foldersView.prototype.displaySubscribedAlertesTable = function () {
+    
+    this.oListTable = this.createSubscribedAlertsWidgetTable();
+
+    var oScrollContainer = this._folderUIelementMap.get("folder_conainer"); // sap.m.ScrollContainer
+    var folderContent = this.oListTable.getTable();
+    oScrollContainer.removeAllContent();
+    oScrollContainer.addContent(folderContent.addStyleClass("BILP-folderTable"));
+    this.oAddIcon.setEnabled(false);
+    this.createfolder.setEnabled(false);
+};
+
+com.sap.fioribi.modules.folders.foldersView.prototype.displayFoldersTable = function () {
+    this.oListTable = this.createFoldersWidgetTable();
+
+    var oScrollContainer = this._folderUIelementMap.get("folder_conainer"); // sap.m.ScrollContainer
+    var folderContent = this.oListTable.getTable();
+    oScrollContainer.removeAllContent();
+    oScrollContainer.addContent(folderContent.addStyleClass("BILP-folderTable"));
+    this.oAddIcon.setEnabled(true);
+    this.createfolder.setEnabled(true);
+};
+com.sap.fioribi.modules.folders.foldersView.prototype.restoreTileView = function() {
+    var $this = this;
+    // $this.listIcon.attachPress();
+    //$this.exportIcon.setEnabled(false);
+    $this.listIcon.setPressed(false);
+	BILaunchpadApp.setListingType("tileview");
+    $this._folderUIelementMap.get("tablePage").getContent()[1].destroy();
+    BILaunchpadApp.getfolderViewUIelementMap().delete("folderTable");
+    BILaunchpadApp.getfolderViewUIelementMap().delete("folder_conainer");
+    var oFolderContainer = new sap.m.ScrollContainer({
+        vertical: true
+    }).addStyleClass("BILP-folderScrollPaddings");
+    BILaunchpadApp.getfolderViewUIelementMap().set("folder_conainer", oFolderContainer);
+    BILaunchpadApp.addfolderUIelementToDocMap("folder_conainer", oFolderContainer);
+    var oController = $this.getController();
+    jQuery.sap.require("com.sap.fioribi.utils.Pagination");
+    var oPagination = new com.sap.fioribi.utils.Pagination();
+    oPagination.addPagination(oFolderContainer, oController);
+
+    BILaunchpadApp.includeStyleSheet("com/sap/fioribi/css/GenericTile.css");
+    jQuery.sap.require("com.sap.fioribi.widgets.GenericTile");
+    var oCallback = {
+        oController: $this.getController()
+    };
+    var oBICustomTile = new com.sap.fioribi.widgets.GenericTile({
+        icon: "{icon}",
+        cuid: "{cuid}",
+        objectName: "{name}",
+        count: "{count}",
+        kind: "{type}",
+        contentImageSrc: "{contentImageSrc}",
+        lastRef: "{updated}",
+        fav: "{favorite}",
+		subType:"{subtype}",
+        callBackObj: oCallback
+    });
+    oBICustomTile.addStyleClass("BILP-BICustomTileFolders");
+    oFolderContainer.bindAggregation("content", "/entries", oBICustomTile);
+    var tableModel = new sap.ui.model.json.JSONModel();
+	tableModel.setSizeLimit(100000);
+    tableModel.setData($this.updateTileFavFlag($this.getController().oTableModel.getallItems().getData()));
+    oFolderContainer.setModel(tableModel);
+
+    //oFolderContainer.addContent( .addStyleClass("BILP-folderTable"));
+    // var oContainer = new sap.m.ScrollContainer({
+    //     vertical: true
+    // }).addStyleClass("BILP-Height100Perc BILP-folderScrollTileHolder");
+    //oContainer.addContent(oFolderContainer);
+	if(tableModel.oData.entries.length > 0)
+		$this.exportIcon.setEnabled(true);
+	else
+		$this.exportIcon.setEnabled(false);
+    $this._folderUIelementMap.get("tablePage").addStyleClass("BILP-tileSpecificPadding");
+    $this._folderUIelementMap.get("tablePage").addContent(oFolderContainer);
+};
+com.sap.fioribi.modules.folders.foldersView.prototype.updateListFavFlag = function(tileData) {
+    tileData.entries.forEach(function(entry, index) {
+       if (entry.favorite) {
+            if (entry.favorite == true) {
+                tileData.entries[index].favorite = "true";
+            } else if (entry.favorite ==false) {
+                tileData.entries[index].favorite = "false";
+            }
+        }
+    });
+    return tileData;
+};
+com.sap.fioribi.modules.folders.foldersView.prototype.updateTileFavFlag = function(tileData) {
+    tileData.entries.forEach(function(entry, index) {
+        if (entry.favorite) {
+            if (entry.favorite == "true") {
+                tileData.entries[index].favorite = true;
+            } else if (entry.favorite == "false") {
+                tileData.entries[index].favorite = false;
+            }
+        }
+    });
+    return tileData;
+};
+com.sap.fioribi.modules.folders.foldersView.prototype.restoreListView = function() {
+    var $this = this;
+  //  $this.tileIcon.attachPress();
+    //$this.exportIcon.setEnabled(true);
+    $this.tileIcon.setPressed(false);
+	BILaunchpadApp.setListingType("listview");
+    $this._folderUIelementMap.get("tablePage").getContent()[1].destroy();
+    $this.oListTable = this.createFoldersWidgetTable();
+    var oFolderContainer = new sap.m.ScrollContainer({
+        vertical: true
+    }).addStyleClass("BILP-Height100Perc BILP-folderTableHeight");
+    BILaunchpadApp.getfolderViewUIelementMap().set("folder_conainer", oFolderContainer);
+    BILaunchpadApp.addfolderUIelementToDocMap("folder_conainer", oFolderContainer);
+    var oController = $this.getController();
+    jQuery.sap.require("com.sap.fioribi.utils.Pagination");
+    var oPagination = new com.sap.fioribi.utils.Pagination();
+    oPagination.addPagination(oFolderContainer, oController);
+    var folderContent = $this.oListTable.getTable();
+    var tableModel = new sap.ui.model.json.JSONModel();
+    tableModel.setData($this.updateListFavFlag($this.getController().oTableModel.getallItems().getData()));
+	tableModel.setSizeLimit(100000);
+    folderContent.setModel(tableModel);
+    folderContent.bindRows("/entries");
+    oFolderContainer.addContent(folderContent.addStyleClass("BILP-folderTable"));
+    if(sap.ui.getCore().byId("folderContainer")==undefined)
+    {
+    this.oContainer = new sap.m.ScrollContainer({
+        id:"folderContainer",
+        vertical: true
+    }).addStyleClass("BILP-FolderScrollHeight");
+    }
+    else
+    {
+        this.oContainer=sap.ui.getCore().byId("folderContainer");
+    }
+    this.oContainer.addContent(oFolderContainer);
+    $this.oController.updateRowCount(tableModel.getData().entries.length);
+	if(tableModel.getData().entries.length != 0)
+		$this.exportIcon.setEnabled(true);
+	else
+		$this.exportIcon.setEnabled(false);
+    $this._folderUIelementMap.get("tablePage").addStyleClass("BILP-tileSpecificPadding");
+    $this._folderUIelementMap.get("tablePage").addContent(this.oContainer);
+};
+com.sap.fioribi.modules.folders.foldersView.prototype.createContent = function(oController) {
+    foldersViewInstance=this;
+    sap.ui.getCore().setModel(oController ,"folderController");
+
+    var folderUIelementMap = new Map();
+    this._folderUIelementMap = folderUIelementMap;
+    
+    BILaunchpadApp.includeStyleSheet("com/sap/fioribi/css/Category.css");
+    BILaunchpadApp.includeStyleSheet("com/sap/fioribi/css/Folders.css");
+    BILaunchpadApp.includeStyleSheet("com/sap/fioribi/css/CustomHeader.css");
+    BILaunchpadApp.includeStyleSheet("com/sap/fioribi/css/Common.css");
+    var oFolderTree = new sap.m.Tree({
+        showHeader : false,
+        enableScrolling : true,
+        mode: sap.m.ListMode.SingleSelectMaster,
+        dragDropConfig: oController.getTreeDragDropConf(),
+        toggleOpenState : function(event){
+            if (event.getParameters().expanded == true) {
+                 var src = event.getSource();
+                var objPath = event.getParameters().itemContext.sPath;
+                var sCUID = event.getParameters().itemContext.getModel().getProperty(objPath).cuid;
+                oController.expandTree(objPath, sCUID, null);
+            }else{
+                var src = event.getSource();
+               src.collapse(true, true);
+            }
+        },
+        selectionChange: function(event){
+             var objPath=event.getSource()._aSelectedPaths[0];
+             var sCUID = foldersViewInstance.getController().oModel.getFolders().getProperty(objPath).cuid;
+             var selModel = new sap.ui.model.json.JSONModel(this.getModel().getProperty(objPath));
+            BILaunchpadApp.getfolderViewUIelementMap().get(
+                    "folderObjectPageLayout").setModel(selModel);
+            //var sCUID = src.getModel().getProperty(objPath).cuid;
+            var name = this.getModel().getProperty(objPath).name;
+            oController.updateTable(sCUID, name, objPath, true);
+            $(".BILP-CloseDialog").hide();
+            $this.oListTable.myHomeListTable.setFirstVisibleRow(0);
+        }
+    }).addStyleClass("BILP-treeBox BILP-treepadding");
+
+    folderUIelementMap.set("folderTree" ,oFolderTree);
+
+    var nodeTemplate = new sap.m.StandardTreeItem(
+    {
+        title : "{name}",
+        data : "{type}",
+        visible : {
+            path: "name",
+            formatter: function(name){
+                if(name == "" || name == undefined){
+                    return false;
+                }
+                else{
+                    return true;
+                }
+            }
+        },
+        icon : {
+            path: "name",
+            formatter: function(name){
+                if(name=="Personal Folders"){
+                    return "sap-icon://work-history";
+                }
+                else{
+                    return "sap-icon://folder";
+                }
+            }
+        }
+    }).addStyleClass("sapUiTreeNode BILPTreeIcon");
+    
+    var folderList = this.getController().oModel.getFolders();
+    folderList.setSizeLimit(100000);
+    oFolderTree.setModel(folderList);
+    oFolderTree.bindItems("/", nodeTemplate);
+    
+    this.oSideLayout = new sap.m.HBox({
+        width: "100%",
+        layoutData: new sap.ui.layout.SplitterLayoutData({
+            size: "auto",
+            resizable: true
+        })
+    }).addStyleClass("BILP-sideLayout BILP-Height100Perc");
+    folderUIelementMap.set("bilp-sidelayout", this.oSideLayout);
+    var oTablePage = new sap.m.Page({
+        title: BILaunchpadApp.localized("Selected_Folder")
+    }).addStyleClass("BILP-folderPageheaderBGColor");
+
+    folderUIelementMap.set("tablePage", oTablePage);
+
+    var oToolBar = new sap.m.Bar().addStyleClass("BILP-noShadow BILP-foldersToolbar BILP-headershadow1 BILP-foldersToolbar BILP-test");
+    var oBreadCrumbs = new sap.m.Breadcrumbs({}).addStyleClass("Breadcrumb-folder");
+    oBreadCrumbs.setModel(this.getController().breadCrumbModel);
+    var linkTemplate = new sap.m.Link({
+        text: "{name}",
+        href: "javascript:void(0)",
+        customData: [new sap.ui.core.CustomData({
+            key: "cuid",
+            writeToDom: false,
+            value: "{cuid}"
+        })],
+        press: $.proxy(function(oEvent) {
+            var name = oEvent.getSource().mProperties.text;
+            var cuid = oEvent.getSource().data("cuid");
+            var objPath = oEvent.getSource().getBindingContext().getPath();
+            var selModel = new sap.ui.model.json.JSONModel(oEvent.getSource().getModel().getProperty(objPath));
+            BILaunchpadApp.getfolderViewUIelementMap().get("folderObjectPageLayout").setModel(selModel);
+            this.getController().updateTableByBreadCrumb(cuid, name, objPath);
+            this.getController().setSelectedFolderInTree(cuid,false);
+            $(".BILP-CloseDialog").hide();
+            $this.oListTable.myHomeListTable.setFirstVisibleRow(0);
+        }, this)
+    }).addStyleClass("BILP-foldersHeader");
+    oBreadCrumbs.bindAggregation("links", {
+        path: "/entries",
+        template: linkTemplate
+    });
+    var description_upload = "";
+    var keywords_upload = "";
+    var oActionLabelUpload = new sap.m.Label({
+        text: BILaunchpadApp.localized("text_Upload_document")
+    }).addStyleClass("moreList");
+    var oControl = this.getController();
+    var oActionListItemUpload = new sap.m.CustomListItem({
+        content: oActionLabelUpload,
+        type: sap.m.ListType.Active,
+        press: function() {
+            oTopBarDialog = new sap.m.Dialog().addStyleClass("BILP-dialogWidth");
+            oTopBarDialog.addStyleClass("sapUiSizeCompact create");
+            oTopBarDialog.setVerticalScrolling(false);
+            var oLayout1 = new sap.m.VBox();
+            var documentTitle = new sap.m.Label({
+                text: BILaunchpadApp.localized("Upload_DOC")
+            });
+            this.oFileUploader = new sap.ui.unified.FileUploader({
+                id: "file",
+                uploadUrl: "",
+                uploadOnChange: false,
+                useMultipart: true,
+                sendXHR: true,
+                sameFilenameAllowed: true,
+                width: "100%",
+                change: function(oEvent) {
+                    var sResponse = oEvent.getParameter("files");
+                    if (sResponse) {
+                        oControl.uploadFileModel.setProperty("/entries", sResponse);
+                    }
+                },
+                uploadProgress: function(oEvent) {
+                    oTopBarDialog.setBusy(true);
+                },
+                uploadComplete: function(oEvent) {
+                    oTopBarDialog.close();
+                    oControl.updateTable(oControl.currentParentID);
+                    oTopBarDialog.destroyContent();
+                },
+            }).addStyleClass(" BILP-topbox");
+            var documentName = new sap.m.Label({
+                text: BILaunchpadApp.localized("title")
+            });
+            var documentDesc = new sap.m.Label({
+                text: BILaunchpadApp.localized("Folder_Description")
+            });
+            var documentKeywords = new sap.m.Label({
+                text: BILaunchpadApp.localized("Folder_Keywords")
+            });
+            var documentNameValue = new sap.m.Input({
+                placeholder: BILaunchpadApp.localized("text_File_Name"),
+            }).addStyleClass("BILP-UploadDialogField");
+            var documentDescLabelValue = new sap.m.Input({
+                change: function(oEvent) {
+                    description_upload = oEvent.getSource().getProperty("value");
+                }
+            }).addStyleClass("BILP-UploaddescriptionField");
+            var documentKeywordsLabelValue = new sap.m.Input({
+                change: function(oEvent) {
+                    keywords_upload = oEvent.getSource().getProperty("value");
+                }
+            }).addStyleClass("BILP-UploadDialogLastField");
+            oLayout1.addItem(documentTitle);
+            oLayout1.addItem(this.oFileUploader);
+            oLayout1.addItem(documentName);
+            oLayout1.addItem(documentNameValue);
+            oLayout1.addItem(documentDesc);
+            oLayout1.addItem(documentDescLabelValue);
+            oLayout1.addItem(documentKeywords);
+            oLayout1.addItem(documentKeywordsLabelValue);
+            oTopBarDialog.addContent(oLayout1);
+            oTopBarDialog.addStyleClass("create");
+            var $this = this;
+            var clsBtn = new sap.m.Button({
+                text: BILaunchpadApp.localized("text_Cancel"),
+                press: function() {
+                    oTopBarDialog.close();
+                    oTopBarDialog.destroyContent();
+                }
+            });
+            var DoneBtn = new sap.m.Button({
+                text: BILaunchpadApp.localized("text_Add"),
+                press: function(event) {
+                    sResponse = oControl.uploadFileModel.getProperty("/entries");
+                    oControl.Upload(sResponse[0], oControl.currentParentID, documentNameValue.getValue(), description_upload, keywords_upload, $this.oFileUploader);
+                }
+            });
+            oTopBarDialog.addButton(DoneBtn);
+            oTopBarDialog.addButton(clsBtn);
+            oTopBarDialog.addContent(oLayout1);
+            oTopBarDialog.setTitle(BILaunchpadApp.localized("text_Upload_document"));
+            oTopBarDialog.open();
+            oTopBarDialog.addStyleClass("create");
+        }
+    });
+    var name = "";
+    var description = "";
+    var keywords = "";
+    var oActionIcon = new sap.m.Image({
+        src: "com/sap/fioribi/images/Sprite2.png",
+        width: "32px",
+        height: "32px",
+        mode: sap.m.ImageMode.Background,
+        backgroundSize: "initial",
+        backgroundPosition: "-1880px -2052px",
+    });
+    var oActionLabel = new sap.m.Label({
+        text: BILaunchpadApp.localized("text_Folder")
+    }).addStyleClass("moreList");
+    var oControl = this.getController();
+    var folderLayout = new sap.ui.layout.HorizontalLayout({
+        content: [oActionIcon, oActionLabel],
+    });
+    var oActionListItem = new sap.m.CustomListItem({
+        content : [ folderLayout ],
+        type : sap.m.ListType.Active,
+        press : function() {
+                    oTopBarDialog = new sap.m.Dialog().addStyleClass("BILP-dialogWidth");
+            oTopBarDialog.addStyleClass("sapUiSizeCompact create");
+                    oTopBarDialog.setVerticalScrolling(false);
+                    
+                    var oLayout = new sap.m.VBox();
+                    
+                    var documentTitle = new sap.m.Label({
+                        text : BILaunchpadApp.localized("Folder_Name")});
+                    var documentDesc = new sap.m.Label({
+                        text :BILaunchpadApp.localized("Folder_Description")});
+                    var documentKeywords = new sap.m.Label({
+                        text : BILaunchpadApp.localized("Folder_Keywords")});
+                    var documentTitleLabelValue = new sap.m.Input({
+                        placeholder:BILaunchpadApp.localized("Placeholder_newfolder"),
+                        change: function(oEvent){
+                            name = oEvent.getSource().getProperty('value');
+                        }
+                    }).addStyleClass("BILP-FolderDialogField");
+                    var documentDescLabelValue = new sap.m.Input({
+                        change: function(oEvent){
+                            description = oEvent.getSource().getProperty('value');
+                        }
+                    }).addStyleClass("BILP-descriptionField");;
+                    var documentKeywordsLabelValue = new sap.m.Input({
+                        change: function(oEvent){
+                            keywords = oEvent.getSource().getProperty('value');
+                        }
+                    }).addStyleClass("BILP-FolderDialogLastField");;
+                    
+                   oLayout.addItem(documentTitle);
+                   oLayout.addItem(documentTitleLabelValue);
+                   oLayout.addItem(documentDesc);
+                   oLayout.addItem(documentDescLabelValue);
+                   oLayout.addItem(documentKeywords);
+                   oLayout.addItem(documentKeywordsLabelValue);
+                    
+                    oTopBarDialog.addContent(oLayout);
+            var clsBtn = new sap.m.Button({
+                text: BILaunchpadApp.localized("text_Cancel"),
+                press: function() {
+                    oTopBarDialog.close();
+                }
+            });
+                    var saveBtn = new sap.m.Button({text: BILaunchpadApp.localized("text_Save"), 
+                        press:function(){
+                            if(name=="" || name == null){
+                                sap.m.MessageToast.show(BILaunchpadApp.localized("text_popupnoname"));
+                            }
+                            else{
+                                oControl.createFolder(oControl.currentParentID,name,description,keywords);
+                                documentTitleLabelValue.setValue(null);
+                                documentDescLabelValue.setValue(null);
+                                documentKeywordsLabelValue.setValue(null);
+                                name="";
+                                description="";
+                                keywords="";
+                                oTopBarDialog.close();
+                                //oControl.updateTable(oControl.currentParentID);
+                            }
+                        }
+                    });
+                    oTopBarDialog.addButton(saveBtn);
+                    oTopBarDialog.addButton(clsBtn);
+                    
+                    oTopBarDialog.setTitle( BILaunchpadApp.localized("create_folder"));
+                    oTopBarDialog.open();
+            oTopBarDialog.addStyleClass("create");
+            }
+        }); 
+        
+        jQuery.sap.require("com.sap.fioribi.components.dialogsave.DialogSaveContainer");
+        var oActionIconSaveAs = new sap.m.Image({
+            src :"com/sap/fioribi/images/Sprite2.png",
+            width : "32px",
+            height : "32px",
+            mode :sap.m.ImageMode.Background,
+            backgroundSize:"initial",
+            backgroundPosition :"-1880px -2052px",
+        });
+        
+        var fnTestSaveAs = function(obj){
+            //alert("test Save");
+        };
+        var oActionLabelSaveAs = new sap.m.Label({text:"Testing Save As"}).addStyleClass("moreList");
+        var $this = this;
+        var oActionListItemSaveAs = new sap.m.CustomListItem({
+            content:[oActionIconSaveAs,oActionLabelSaveAs],
+            type : sap.m.ListType.Active,
+            press: function(){
+                var sTitle = "File Name..";
+                var sId ="5466";
+                $this.oSaveDialog =  new com.sap.fioribi.components.dialogsave.DialogSaveContainer(sId, BILaunchpadApp.getWebServiceBaseURL(), BILaunchpadApp.getlogonToken(),sTitle);
+                var obj = {selectedKey: "001", items: [{key:"001", text:"Web Intelligence"}, {key:"002", text:"PDF"}, {key:"003", text:"Excel"}]};
+                $this.oSaveDialog.setTypeObj(obj);
+                $this.oSaveDialog.showDialog();
+                $this.oSaveDialog.setSaveAsCallback(fnTestSaveAs);
+            }
+        });
+        
+        oActionPanel = new sap.m.Popover({
+            showHeader: false,
+            placement: "Bottom",
+            bounce: true,
+            enableScrolling:true,
+        }).addStyleClass("popoverIcon popoverPosition");
+        oActionPanel.addContent(oActionListItem);
+            var $this = this;
+        //oActionPanel.addContent(oActionListItemSaveAs);
+        oActionPanel.addContent(oActionListItemUpload);
+        if(sap.ui.getCore().byId("foldersGlobalCAFButton")==undefined)
+        {
+        this.oAddIcon = new sap.m.Button({
+        id:"foldersGlobalCAFButton",
+        icon: "sap-icon://overflow",
+        tooltip : BILaunchpadApp.localized("More_Actions_Tooltip"),
+            //press: function(){
+            press: function(oEvent)
+            {
+        var selections = $this.oListTable.myHomeListTable.getSelectedIndices();
+            if (selections.length > 0) {
+                var objData = {};
+                objData.id = oController.cuid;
+                if (objData.id === undefined || objData.id == "") {
+                    if (oController.oRightsObj.favoritefolderview) {
+                        objData.id = oController.favoriteFolderID;
+                    } else {
+                        objData.id = oController.publicFolderID;
+                    }
+                }
+                var selectedObjects = [];
+                // var oDataObjects = $this.oListTable.getTable().getModel().oData.entries;
+                if(typeof($this.oListTable.getTable().getModel().oData.entries) == "object") {
+                    var oDataObjects = $this.oListTable.getTable().getModel().oData.entries;
+                } else {
+                    var oDataObjects = $this.oListTable.getTable().getModel().oData;
+                }
+                for (index = 0; index < selections.length; index++) {
+                    selectedObjects[index] = oDataObjects[selections[index]];
+                }
+                oController.processGlobalActions(this, selectedObjects);
+            } else {
+                var objData = {};
+                objData.id = oController.cuid;
+                if (objData.id === undefined || objData.id == "") {
+                    if (oController.oRightsObj.favoritefolderview) {
+                        objData.id = oController.favoriteFolderID;
+                    } else {
+                        objData.id = oController.publicFolderID;
+                    }
+                }
+                BILaunchpadApp.setActionType("organize");
+                var action = BILaunchpadApp.getCopyMoveAction();
+                if (action.length > 1) {
+                    oController.processActions(this, objData);
+                }
+                BILaunchpadApp.setActionType("");
+            }
+        }
+    }).addStyleClass("BILP-Refreshicon");
+        }
+        else
+        {
+            this.oAddIcon=sap.ui.getCore().byId("foldersGlobalCAFButton");
+        }
+   var actions = BILaunchpadApp.getCopyMoveAction();
+           
+                if (actions.length > 1) {
+                   this.oAddIcon.setEnabled(true);
+                } else {
+                    this.oAddIcon.setEnabled(false);
+                }
+            
+        this.createfolder = new sap.m.Button({
+            icon: 'sap-icon://add',
+            tooltip: BILaunchpadApp.localized("Create_folders_label"),
+            enabled:true,
+            press: function(oEvent){
+                
+                
+                    var objData = {};
+                    objData.id = oController.cuid;
+                    if(objData.id===undefined ||  objData.id=="")
+                    {
+                        if(oController.oRightsObj.favoritefolderview){
+                            objData.id=oController.favoriteFolderID;
+                        }
+                        else{
+                            objData.id=oController.publicFolderID;
+                        }
+                    }
+                    BILaunchpadApp.setActionType("new");
+                    var action = BILaunchpadApp.getCopyMoveAction();
+                    BILaunchpadApp.setCopyMoveAction("");
+                    oController.processActions(this,objData);
+                    BILaunchpadApp.setActionType("");
+                    BILaunchpadApp.setCopyMoveAction(action);
+                } 
+                 
+        }).addStyleClass("sapUiSizeCompact BILP-createfolderIcon");
+        var RefreshIcon = new sap.m.Button({            
+        icon: "sap-icon://refresh",
+            tooltip: BILaunchpadApp.localized("refresh"),
+                press: function() {
+                var objPath = oControl.parentPath;
+                var sCUID = oControl.cuid;
+                oControl.setSelectedFolderInTree(sCUID, false);
+                    oControl.updateTable(oControl.currentParentID);
+                }               
+    }).addStyleClass("sapUiSizeCompact BILP-Refreshicon");
+
+    this.exportIcon = new sap.m.Button({            
+        icon: "sap-icon://download",
+        type: sap.m.ButtonType.Transparent,
+        tooltip: BILaunchpadApp.localized("exportToExcel"),
+            press: function(oEvent) {
+                oControl.exportTableAsExcel();
+            }               
+    }).addStyleClass("sapUiSizeCompact");
+
+    this.tileIcon = new sap.m.ToggleButton({
+        icon: "sap-icon://grid",
+        pressed: false,
+        press: function() {
+            $this.restoreTileView();
+        }
+    }).addStyleClass("sapUiSizeCompact BILP-Tile_icon_List");
+    this.tileIcon.setTooltip(BILaunchpadApp.localized("pagepreference_tileview"));
+
+    this.listIcon = new sap.m.ToggleButton({
+        icon: "sap-icon://list",
+        pressed: true,
+        press: function() {
+            $this.restoreListView();
+        }
+    }).addStyleClass("sapUiSizeCompact BILP-Tile_icon_List");
+    this.listIcon.setTooltip(BILaunchpadApp.localized("pagepreference_listview"));
+
+    var ObjectPageLayout = new sap.uxap.ObjectPageLayout({
+        enableLazyLoading: false,
+        showTitleInHeaderContent: false,
+        showHeaderContent: true,
+        showEditHeaderButton: false,
+        height: "auto",
+        headerTitle: new sap.uxap.ObjectPageHeader({
+            isObjectTitleAlwaysVisible: false,
+            showPlaceholder: false,
+            isObjectIconAlwaysVisible: true,
+            objectImageURI: "sap-icon://folder",
+            //objectTitle: "{/name}",
+            objectImageShape: "Circle",
+            isObjectTitleAlwaysVisible: false,
+            isObjectSubtitleAlwaysVisible: false,
+            actions: [RefreshIcon, this.createfolder, this.exportIcon, this.oAddIcon, this.tileIcon, this.listIcon],
+            breadcrumbs: oBreadCrumbs
+        }).addStyleClass("BILP-imageSize BILP-objectLayoutHeader")
+    });
+    folderUIelementMap.set("folderObjectPageLayout", ObjectPageLayout);
+    oTablePage.setEnableScrolling(false);
+    BILaunchpadApp.setfolderViewUIelementMap(folderUIelementMap);
+    //jQuery.sap.require("com.sap.fioribi.widgets.TableWidget");
+    //this.oListTable = new com.sap.fioribi.widgets.TableWidget(allColumns, cols, tableList, this.getController(), this.getController().processActions);
+    this.oListTable = this.createFoldersWidgetTable();
+    var oFolderContainer = new sap.m.ScrollContainer({
+      //  id: "folder_conainer",
+        vertical: true
+    }).addStyleClass("BILP-Height100Perc BILP-folderTableHeight");
+
+    folderUIelementMap.set("folder_conainer",oFolderContainer);
+
+   BILaunchpadApp.addfolderUIelementToDocMap("folder_conainer",oFolderContainer);
+    
+    var oController = this.getController();
+
+    jQuery.sap.require("com.sap.fioribi.utils.Pagination");
+    
+    var oPagination = new com.sap.fioribi.utils.Pagination();
+    oPagination.addPagination(oFolderContainer, oController);
+    
+    
+    var folderContent = this.oListTable.getTable();
+    
+    
+    oFolderContainer.addContent(folderContent.addStyleClass("BILP-folderTable"));
+    if(sap.ui.getCore().byId("folderContainer")==undefined)
+    {
+    this.oContainer = new sap.m.ScrollContainer({
+                id:"folderContainer",
+                vertical: true
+            }).addStyleClass("BILP-FolderScrollHeight");
+    }
+    else
+    {
+        this.oContainer=sap.ui.getCore().byId("folderContainer");
+    }
+            
+    oTablePage.addContent(ObjectPageLayout);
+    this.oContainer.addContent(oFolderContainer);
+    oTablePage.addContent(this.oContainer);
+
+
+
+    //this.oSideFolderTreeLayout.addItem(oFolderTreePage);
+
+    var oFolderTreePage = new sap.m.Page({
+        title :  BILaunchpadApp.localized("tile_header_text_folders"),
+        content: [oFolderTree],     
+        layoutData: new sap.ui.layout.SplitterLayoutData({
+            size: "20.8%",
+            resizable: true
+        })
+    });
+    /*var oFolderTablePage = new sap.m.Page({
+        title : "Selected Folder",
+        content: [oTablePage]
+    });*/
+
+    this.oSideLayout.addItem(oTablePage);
+
+
+
+    var oLayout = new sap.ui.layout.Splitter({
+        contentAreas: [oFolderTreePage, this.oSideLayout]
+    }).addStyleClass("sapUiSizeCompact BILP-splitterLayout");
+    return oLayout;
+};

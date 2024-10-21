@@ -1,0 +1,7 @@
+/*
+�2010 - 2016 SAP SE or an SAP affiliate company.  All rights reserved.
+ 
+SAP and other SAP products and services mentioned herein as well as their respective logos are trademarks or registered trademarks of SAP SE in Germany and other countries.  Please see http://www.sap.com/corporate-en/legal/copyright/index.epx#trademark for additional trademark information and notices.
+*/
+
+jQuery.sap.declare("com.sap.fioribi.utils.Pagination");com.sap.fioribi.utils.Pagination=function(){var currentPosition=0;};com.sap.fioribi.utils.Pagination.prototype.addPagination=function(oContainer,oController){oContainer.attachBrowserEvent("scroll",$.proxy(function(oEvent){var srcCtrl=oEvent.target;currentPosition=$(srcCtrl).scrollTop();var innerHeight=$(srcCtrl).innerHeight();var scrollHeight=srcCtrl.scrollHeight;if(currentPosition!=0&&(currentPosition+innerHeight>=(scrollHeight-5))&&oController.isScrollAllowed&&!oController.isLastPage){oController.isScrollAllowed=false;oController.paginate(oContainer,currentPosition);}},this));};

@@ -1,0 +1,950 @@
+#sapbi_snippet_ROOT,#sapbi_snippet_ROOT_DIALOG,html,body {
+	height: 100%;
+	margin-left: 0px;
+	margin-right: 0px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+
+
+#sapbi_snippet_ROOT_DIALOG {
+	position: absolute;
+	top: 0px;
+	width: 100%;
+}
+
+div.sapUiMlt,div.zenborder,table.sapUiMlt>tbody>tr>td {
+	overflow: visible !important;
+}
+
+div.popup {
+	border: 1px solid #CCC;
+}
+
+.sapMNav {
+	display:block;
+}
+
+.sapzenfilterbar .sapzenfilterpanel-HasLabelOnTop{
+	margin-top:20px;
+}
+
+.zenMessageWithFilter {
+	background-color: LightGray;
+	filter: alpha(opacity=50);
+}
+
+.sapzenfilterpanel-topHighlightDND{
+	border-top: 2px solid blue !important;
+}
+
+.sapzenfilterpanel-bottomHighlightDND{
+	border-bottom: 2px solid blue !important;
+}
+
+.sapzenfilterpanel-catHighlightDND{
+	border-bottom: 2px solid blue !important;
+}
+.sapzenfilterpanel-opacityDND{
+	opacity:0.7;
+}
+
+button.zenSapMBtnFixHeight{
+	padding-top:0px;
+}
+
+button.zenSapMBtnFixHeight .sapMBtnContent{
+    position: absolute;
+    top: 50%;
+    left: 0.75rem;
+    transform: translateX(0%) translateY(-50%);
+    -ms-transform: translateX(0%) translateY(-50%); /* IE 9 */
+    -webkit-transform: translateX(0%) translateY(-50%); /* Chrome, Safari, Opera */
+    right: 0.75rem;
+}
+
+.zenDialogFixHeight .sapMDialogSection{
+	height: 100% !important;	
+}
+
+.zenDialogFixHeight .sapMDialogScrollCont{
+	height: 100%;
+}
+
+button.zenSapMBtnFixHeight .sapMBtnInner{
+	height:100%;
+	width:100%;
+}
+
+.zenPagebookHideNavigationControls > .sapMCrslHud {
+	display:none;
+}
+
+.sapMCrsl {
+	min-width: 0rem !important; 
+} 
+
+.sapUiSizeCompact button.zenSapMBtnFixHeight{
+	padding-top:0px;
+	padding-bottom: 0px;
+}
+
+.zenDialogNoMinWidth.sapMDialog{
+	min-width:auto !important;
+	
+}
+
+.zenSplitUserSel{
+	  -webkit-user-select: none;  /* Chrome all / Safari all */
+  -moz-user-select: none;     /* Firefox all */
+  -ms-user-select: none;      /* IE 10+ */
+
+  /* No support for these yet, use at own risk */
+  -o-user-select: none;
+  user-select: none; 
+}
+
+.zenResizeMouseOver{
+	background-color: #c3dbed;
+}
+.zenResizeMouseOverH{
+	cursor: e-resize;
+}
+.zenResizeMouseOverV{
+	cursor: s-resize;
+}
+
+.zenSplitcellOverlay{
+	opacity: 0.7;
+}
+
+.zenSplitcellOverlayOpen{
+	background-color:#dbe1ec;
+}
+
+
+.componentLoadingState{
+	background: rgba(211, 211, 211, 0.5);
+ 	width:100%;
+	height:100%;
+	position:absolute;
+	top:0px;
+	display : flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;	
+		
+}
+
+.componentLoadingStateCROSSTAB_COMPONENT {
+	background-image: url("Crosstab_BG.svg");
+	background-repeat: no-repeat;
+	background-color:  #f1f1f1;
+}
+
+.componentLoadingStateSPREADSHEET_COMPONENT {
+	background-image: url("Spreadsheet.svg");
+	background-color:  #f1f1f1;
+	background-repeat: no-repeat;
+}
+
+.componentLoadingStateMessage {
+	font-size: 28px;
+	font-family: arial;
+	text-align: center; 
+	-webkit-align-items: center;
+	background-color: transparent !important;
+	overflow: hidden !important;
+	opacity: 0.5;
+	text-overflow: ellipsis;
+	width: 100%;
+}
+
+
+.componentLoadingStateIcon{
+	background-image: url("loading_comp.gif?1.0.0");
+	background-repeat:no-repeat;
+	width: 65px;
+	height: 19px;
+	opacity:1 !important;
+}
+
+
+
+.dialogCBDummyFocusHidden{
+	visibility: hidden !important;
+	height: 0px !important;
+	padding: 0px !important;
+	display:block !important;
+}
+
+.zenTextFieldSTANDARD{
+	
+}
+.zenTextFieldHEADING1{
+	
+}
+.zenTextFieldHEADING2{
+	
+}
+.zenTextFieldHEADING3{
+	
+}
+.zenTextFieldHEADING4{
+	
+}
+
+
+
+.zenHideFilterPanel {
+	display: none;
+}
+
+
+.zenSplitContainerCellTop{
+	box-shadow: inset 0px 4px 0px 0px #c3dbed;
+}
+.zenSplitContainerCellRight{
+	box-shadow: inset -4px 0px 0px 0px #c3dbed;
+}
+.zenSplitContainerCellBottom{
+	box-shadow: inset 0px -4px 0px 0px #c3dbed;
+}
+.zenSplitContainerCellLeft{
+	box-shadow: inset 4px 0px 0px 0px #c3dbed;
+}
+.zenSplitContainerCellCenter{
+	box-shadow: inset 0 0 0px 4px #c3dbed;
+}
+
+.sapUiTabBarBottom {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+
+.sapDataboundComponentLoadingIndicator{
+	margin: -20px 0px 0px -100px;
+}
+
+.sapUiTabPanelBottom {
+	top: 0;
+}
+
+.sapUiTabBarHidden {
+	display: none;
+}
+
+.sapUiTabPanelHidden {
+	top: 0;
+	bottom: 31px;
+}
+
+.sapUiImg {
+	border: thin;
+	border-style: none;
+	vertical-align: top;
+}
+
+/*
+Images are usually vertically aligned to the baseline of the text. This creates some unwanted
+space (usually 3 pixels) at the bottom of the image to accommodate space for characters with 
+descenders, like "g", "y", and the like. This creates an unwanted vertical scroll bar.
+By making the vertical alignment different from the default value the image is placed correctly, 
+the space at the image bottom is removed, and the scroll bar disappears.
+
+See also:
+http://stackoverflow.com/questions/5804256/image-inside-div-has-extra-space-below-the-image
+*/
+.sapSetVerticalAlignmentToAvoidVerticalScrollbar {	 
+	vertical-align: middle;
+}
+
+.zenTempFixForListBox {
+	line-height: 13px;
+}
+
+.zenTransitionNo {
+	-webkit-transition : none;
+	-moz-transition : none;
+	-ms-transition : none;
+	transition : none;
+}
+
+.zenTransitionSlidein {
+	-webkit-transition : -webkit-transform 1.0s;
+	-moz-transition : -moz-transform 1.0s;
+	-ms-transition : -ms-transform 1.0s;
+	transition : transform 1.0s;
+}
+
+.zenTransitionFlip {
+	-webkit-transition : -webkit-transform 1.0s;
+	-moz-transition : -moz-transform 1.0s;
+	-ms-transition : -ms-transform 1.0s;
+	transition : transform 1.0s;
+}
+
+.zenTransitionCube {
+	-webkit-transition : -webkit-transform 1.0s;
+	-moz-transition : -moz-transform 1.0s;
+	-ms-transition : -ms-transform 1.0s;
+	transition : transform 1.0s;
+}
+
+.zenControl .zenClickable {
+	cursor: pointer;
+}
+
+.zenClickable .sapMTxt {
+	cursor: pointer;
+}
+
+.zenClickable .sapUiIcon {
+	cursor: pointer;
+}
+
+.customGlasspaneZenClass {
+	position: fixed;
+	top: 0px;
+    left: 0px;
+	width: 100%;
+	height: 99%;
+	z-index: 9999;
+	vertical-align: middle;
+	text-align:center;
+	cursor: wait;
+	background-color:black;
+	display:block;
+}
+
+.zenGlasspaneOpacity{
+		opacity:0.3;
+}
+
+.zenGlasspaneFilter{
+	filter: alpha(opacity=50);
+}
+
+.zenPixelClass{
+	width:100%; height:100%;
+}
+
+/* Begin of Dialog styles */
+
+.zenDialogMatrixLayout {
+    overflow: hidden;
+    padding: 0px;
+}
+
+/* BUTTONS *********************************/
+.zenDialogButtonArea {
+    padding: 0 5px 0px 5px !important;
+    height: 21px;
+}
+
+.zenDialogButtonRow {
+	height: 21px;
+}
+
+/* RESIZE *********************************/
+.zenDialogResizeArea {
+    padding: 0px;
+    margin-right: -3px;
+    margin-bottom: -3px;
+    height: 12px;
+    width: 12px;
+}
+
+.zenDialogResizeRow {
+	height: 12px;
+}
+
+.zenDialogResizeCell {
+	cursor: nwse-resize;
+}
+
+.zenDialogResizeCellRTL {
+	cursor: ne-resize;
+}
+
+/* CONTENT *********************************/
+.zenDialogContentArea {
+    padding: 5px !important;
+    height: auto;
+}
+
+.zenDialogContentRow {
+	height: auto;
+}
+
+/* TITLE *********************************/
+.zenDialogTitleArea {
+    padding: 0px 0px 0px 5px !important;
+    height: 21px;
+}
+
+.zenDialogTitleRow {
+	height: 21px;
+}
+
+.zenDialogTextView {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: move;
+}
+
+
+.zenDialogDragCell {
+	cursor: move;
+}
+
+.zenDialogCloseCell {
+	cursor: pointer;
+	cursor: hand;
+	background-image: url('DlgClose.gif');
+	background-repeat: no-repeat;
+}
+
+.zenChartImage {
+	position: absolute;
+	opacity:0.50;
+}
+
+
+.bookmarkOpenButton{
+	padding-left:10px;
+}
+
+#openButton{
+	margin-left:5px;
+	
+
+}
+
+.zenDialogPadding.sapUiPopupWithPadding .sapMDialogScrollCont{
+	padding:0px;
+}
+
+.zenDialogNoAnimation{
+	transition: all 0s ease 0s !important;
+}
+
+.shareBookmarkDialogContainer .sapUiDlgCont{
+	padding:14px;
+}
+
+.shareBookmarkDialogContainer .sapMInputBaseInner{
+	border-color: #bfbfbf;
+}
+
+.shareBookmarkDialogContainer .sapUiTf{
+	margin-right: 4px;
+	margin-bottom: 5px;
+}
+/* End of Dialog styles */
+
+/* Fix for UI5 CSS problem in DSH */
+.sapUiHLayoutNoWrap {
+	white-space: nowrap;
+}
+
+.sapUiHLayoutChildWrapper {
+	white-space: normal;
+	display: inline-block;
+	vertical-align: top;
+}
+
+/* POP */
+@-webkit-keyframes popin {
+	0% {
+		opacity: 0;
+	  -webkit-transform: scale(.1);
+	}
+	85% {
+		opacity: 1;
+	  -webkit-transform: scale(1.05);
+	}
+	100% {
+	  -webkit-transform: scale(1.0);
+	}
+}
+@-moz-keyframes popin {
+	0% {
+		opacity: 0;
+	  -moz-transform: scale(.1);
+	}
+	85% {
+		opacity: 1;
+	  -moz-transform: scale(1.05);
+	}
+	100% {
+	  -moz-transform: scale(1.0);
+	}
+}
+@-ms-keyframes popin {
+	0% {
+		opacity: 0;
+	  -ms-transform: scale(.1);
+	}
+	85% {
+		opacity: 1;
+	  -ms-transform: scale(1.05);
+	}
+	100% {
+	  -ms-transform: scale(1.0);
+	}
+}
+@keyframes popin {
+	0% {
+		opacity: 0;
+	  transform: scale(.1);
+	}
+	85% {
+		opacity: 1;
+	  transform: scale(1.05);
+	}
+	100% {
+	  transform: scale(1.0);
+	}
+}
+
+@-webkit-keyframes popout {
+	0% {
+		opacity: 1;
+	  -webkit-transform: scale(1.0);
+	}
+	15% {
+	  -webkit-transform: scale(1.05);
+	}
+	100% {
+		opacity: 0;
+	  -webkit-transform: scale(.1);
+	}
+}
+@-moz-keyframes popout {
+	0% {
+		opacity: 1;
+	  -moz-transform: scale(1.0);
+	}
+	15% {
+	  -moz-transform: scale(1.05);
+	}
+	100% {
+		opacity: 0;
+	  -moz-transform: scale(.1);
+	}
+}
+@-ms-keyframes popout {
+	0% {
+		opacity: 1;
+	  -ms-transform: scale(1.0);
+	}
+	15% {
+	  -ms-transform: scale(1.05);
+	}
+	100% {
+		opacity: 0;
+	  -ms-transform: scale(.1);
+	}
+}
+@keyframes popout {
+	0% {
+		opacity: 1;
+	  transform: scale(1.0);
+	}
+	15% {
+	  transform: scale(1.05);
+	}
+	100% {
+		opacity: 0;
+	  transform: scale(.1);
+	}
+}
+
+/* FLIP */
+@-webkit-keyframes flipInY {
+    0% {
+        -webkit-transform: perspective(400px) rotateY(90deg);
+        opacity: 0;
+    }
+    
+    40% {
+        -webkit-transform: perspective(400px) rotateY(-10deg);
+    }
+    
+    70% {
+        -webkit-transform: perspective(400px) rotateY(10deg);
+    }
+    
+    100% {
+        -webkit-transform: perspective(400px) rotateY(0deg);
+        opacity: 1;
+    }
+}
+@-moz-keyframes flipInY {
+    0% {
+        -moz-transform: perspective(400px) rotateY(90deg);
+        opacity: 0;
+    }
+    
+    40% {
+        -moz-transform: perspective(400px) rotateY(-10deg);
+    }
+    
+    70% {
+        -moz-transform: perspective(400px) rotateY(10deg);
+    }
+    
+    100% {
+        -moz-transform: perspective(400px) rotateY(0deg);
+        opacity: 1;
+    }
+}
+@-ms-keyframes flipInY {
+    0% {
+        -ms-transform: perspective(400px) rotateY(90deg);
+        opacity: 0;
+    }
+    
+    40% {
+        -ms-transform: perspective(400px) rotateY(-10deg);
+    }
+    
+    70% {
+        -ms-transform: perspective(400px) rotateY(10deg);
+    }
+    
+    100% {
+        -ms-transform: perspective(400px) rotateY(0deg);
+        opacity: 1;
+    }
+}
+@-o-keyframes flipInY {
+    0% {
+        -o-transform: perspective(400px) rotateY(90deg);
+        opacity: 0;
+    }
+    
+    40% {
+        -o-transform: perspective(400px) rotateY(-10deg);
+    }
+    
+    70% {
+        -o-transform: perspective(400px) rotateY(10deg);
+    }
+    
+    100% {
+        -o-transform: perspective(400px) rotateY(0deg);
+        opacity: 1;
+    }
+}
+@keyframes flipInY {
+    0% {
+        transform: perspective(400px) rotateY(90deg);
+        opacity: 0;
+    }
+    
+    40% {
+        transform: perspective(400px) rotateY(-10deg);
+    }
+    
+    70% {
+        transform: perspective(400px) rotateY(10deg);
+    }
+    
+    100% {
+        transform: perspective(400px) rotateY(0deg);
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes flipOutY {
+    0% {
+        -webkit-transform: perspective(400px) rotateY(0deg);
+        opacity: 1;
+    }
+	100% {
+        -webkit-transform: perspective(400px) rotateY(90deg);
+        opacity: 0;
+    }
+}
+@-moz-keyframes flipOutY {
+    0% {
+        -moz-transform: perspective(400px) rotateY(0deg);
+        opacity: 1;
+    }
+	100% {
+        -moz-transform: perspective(400px) rotateY(90deg);
+        opacity: 0;
+    }
+}
+@-ms-keyframes flipOutY {
+    0% {
+        -ms-transform: perspective(400px) rotateY(0deg);
+        opacity: 1;
+    }
+	100% {
+        -ms-transform: perspective(400px) rotateY(90deg);
+        opacity: 0;
+    }
+}
+@-o-keyframes flipOutY {
+    0% {
+        -o-transform: perspective(400px) rotateY(0deg);
+        opacity: 1;
+    }
+	100% {
+        -o-transform: perspective(400px) rotateY(90deg);
+        opacity: 0;
+    }
+}
+@keyframes flipOutY {
+    0% {
+        transform: perspective(400px) rotateY(0deg);
+        opacity: 1;
+    }
+	100% {
+        transform: perspective(400px) rotateY(90deg);
+        opacity: 0;
+    }
+}
+
+/* Fix for UI5 CSS problem with sizes > 100% since version 1.20 */
+.sapUiLayoutAbsPos > .sapzenfilterpanel-PopupContainer, .sapUiLayoutAbsPos > .sapzenfilterpanel-PopupContainerDialog {
+	width: 100% !important;
+	height: 100% !important;
+}
+
+#SPLITCELLCONTAINER_1_grid button.zenControl{
+	width: 100% !important;
+	height: 100% !important;
+}
+
+
+.sapUiLayoutAbsPos > .sapzenfilterpanel-ValueHelp {
+	width: 100% !important;
+}
+
+/***Dialog**********************************/
+div.uidialogcontent{
+	display: inline;
+}
+
+.uidialogzentitle{
+	position: absolute;
+	height: 2.5rem !important;
+	top: 0;
+  background-color: #f2f2f2;
+  filter: none;
+  background-image: none;
+  font-size: 1rem;
+  color: #666;
+  text-shadow: 0 0.0625rem 0 rgba(255,255,255,0.5);
+  -webkit-box-shadow: inset 0 -0.0625rem #dddddd;
+  box-shadow: inset 0 -0.0625rem #dddddd;
+}
+
+.uidialogzenfooter{
+	position: absolute;
+	height: 2.5rem !important;
+	bottom: 0;
+	background-color: rgba(54,62,67,0.96);
+	color: #ffffff;
+  text-shadow: 0 0.0625em 0 rgba(0,0,0,0.5);
+  background-color: rgba(54,62,67,0.96);
+  background-image: none;
+  border-top: 0.0625rem solid rgba(229,229,229,0.2);
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.uidialogzencontent{
+	position: absolute;
+	padding-top: 2.5rem;
+	padding-bottom:2.5rem;
+	background: #fafafa;
+}
+
+.uidialogzenroot{
+		border: 1px solid #CCC;
+}
+
+.uidialogzenroot  > .sapUiLayoutAbsPos:not(:nth-child(2)){
+	height: auto !important;
+}
+.uidialogzenroot  > .sapUiLayoutAbsPos:nth-child(2){
+	height: calc(100% - 5rem) !important;
+}
+
+.uidialogzentitle > .sapUiLayoutAbsPos{
+	width: 100% !important;
+	height: 100% !important;
+}
+
+.uidialogzentitle > .sapUiLayoutAbsPos > span{
+  text-align: center !important;
+  position: absolute;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  width: 50%;
+  height: 50%;
+}
+/***done Dialog**********************************/
+
+/***FacetFilter**********************************/
+.zenfacetfilter{
+background-color: white;	
+}
+
+.zenfacetfilter section.sapUiLoSplitterContent{
+	border-left: 1px solid #d3d3d3;
+  border-right: 1px solid #d3d3d3;
+  border-top: 1px solid #d3d3d3;
+  box-sizing: border-box;
+}
+
+ .zen-facetfilter-listwhitebg{
+ min-height: 100%;
+ background-color: #fff;
+ }
+ 
+ .zen-facetfilter-listwhitebg .sapMListHdr{
+ background-color: #f3f3f3;
+ line-height: 2rem;
+ height: 2rem;
+ font-size: 0.875rem;
+ text-shadow: none;
+ }
+ 
+ .zenfacetfilter .zenfacetfilter-listitem{
+ height: 1.75rem !important;
+ font-size: 0.75rem !important;
+ color: #666 !important;
+ }
+ 
+ .zenfacetfilter .zenfacetfilter-listitem .sapMSLITitleOnly{
+ font-size: 0.75rem;
+ color: #666;
+ }
+ 
+ .zenfacetfilter .sapMLIBSelected:not(.sapMLIBUnread) .sapMSLITitleOnly {
+ color: red;
+}
+ /****************done FacetFilter***************/
+
+/*****************Compact Mode************/
+@media screen and (min-width: 600px) {
+	
+	.cMremoveLines.sapMLIB {
+		border-bottom: 0px;
+	}
+
+	.cMremoveBorder.sapzenfilterpanelM.sapMList {
+		border-right: 0px;
+		border-left: 0px;	
+	}
+	
+	.cMpaddingFPContent {
+		padding-top: 15px;	
+	}
+	
+	.cMborder.sapzenfilterpanelM-mainpage{
+		border: 0px;
+		border-top: 0px !important;
+	}
+	
+	.cMborderToolbar {
+		border-bottom:solid 1px #cccccc;
+	}
+	
+	.cMpaddingInputFields {
+		padding-top: 4px;
+		margin-bottom: 0px !important;
+	}
+	
+	.cMremoveBorder.sapMTB {
+		border: 0px;
+	}
+}
+
+@media screen and (max-width: 599px) {
+
+	.cMsapUiGridSpan {
+		margin-bottom: 0.4rem !important;
+	}
+}
+/*****************Done Compact Mode************/
+
+.sapUiRespGrid{
+	padding: 0px !important;
+	margin-bottom: 0px !important;
+}
+ 
+ .zenGridGuide.sapUiRespGrid div{
+		background-color: #333;
+		height: 100%;
+		opacity: 0.1;		
+		border-left: solid 0.5px #000;
+		border-right: solid 0.5px #000;
+		box-sizing: border-box;		
+	}
+
+.zenGridGuideParent > .sapUiLayoutAbsPos{
+	height: 100%;
+	width: 100%;
+} 
+
+.zenGridGuide {
+	height: 100%;
+	width: 100%;
+	position: absolute;
+}
+ 
+div.udc {
+	overflow: hidden !important;
+}
+
+.zen-viewport {
+	position: absolute;
+	border-style: solid;
+	background-color: #dff2f3;
+	border-width: 1px;
+}
+
+.zenMessageViewButtonPosition {
+	position: relative !important;
+}
+
+.zenMessageViewBottomRight {
+	position: fixed !important;
+	bottom: 15px;
+	right: 15px;
+}
+
+.zenMessageViewTopRight {
+	position: fixed !important;
+	top: 15px;
+	right: 15px;
+}
+
+.zenMessageViewTopLeft {
+	position: fixed !important;
+	top: 15px;
+	left: 15px;
+}
+
+.zenMessageViewBottomLeft {
+	position: fixed !important;
+	bottom: 15px;
+	left: 15px;
+}

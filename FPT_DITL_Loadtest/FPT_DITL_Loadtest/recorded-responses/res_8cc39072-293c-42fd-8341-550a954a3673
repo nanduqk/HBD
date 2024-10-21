@@ -1,0 +1,7 @@
+/*
+�2010 - 2016 SAP SE or an SAP affiliate company.  All rights reserved.
+ 
+SAP and other SAP products and services mentioned herein as well as their respective logos are trademarks or registered trademarks of SAP SE in Germany and other countries.  Please see http://www.sap.com/corporate-en/legal/copyright/index.epx#trademark for additional trademark information and notices.
+*/
+
+jQuery.sap.declare("com.sap.fioribi.modules.treetable.helper.TreeTableConstant");com.sap.fioribi.modules.treetable.helper.TreeTableConstant=function(){this.NODE_EXPAND="node_expand";this.NODE_SELECT="node_select";this.NODE_PAGINATE="node_paginate";this.ADD_ACTION="AddAction";this.GLOBAL_CAF_ACTION="GlobalCafAction";this.LOCAL_CAF_ACTION="LocalCafAction";this.PERSONAL_FOLDERS_KEY="favoritefolders";this.SUBSCRIBED_ALERTS_KEY="subscribedalerts";this.PERSONAL_CATEGORY_KEY="personalcategory";this.FAVORITE_FOLDER_KEY="favorite";this.FOLDERS_PAGE="folder";this.CATEGORY_PAGE="category";this.DOCUMENTS_PAGE="homepage";this.SCHEDULE_PAGE="schedule";this.HISTORY_PAGE="history";this.RECYCLE_BIN_PAGE="recyclebin";this.BIINBOX_PAGE="inbox";this.GRID_VIEW="grid_view";this.LIST_VIEW="list_view";this.ALL="messages";this.ALERTS="notification";this.INBOX="inbox";};

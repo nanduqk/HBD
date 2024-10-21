@@ -1,0 +1,374 @@
+/*
+�2010 - 2016 SAP SE or an SAP affiliate company.  All rights reserved.
+ 
+SAP and other SAP products and services mentioned herein as well as their respective logos are trademarks or registered trademarks of SAP SE in Germany and other countries.  Please see http://www.sap.com/corporate-en/legal/copyright/index.epx#trademark for additional trademark information and notices.
+*/
+
+jQuery.sap.declare({
+	modName: "com.sap.fioribi.modules.treetable.control.TreeTableController",
+	type: "controller"
+});
+
+jQuery.sap.require({
+	modName: "com.sap.fioribi.modules.common.BILPController",
+	type: "controller"
+});
+jQuery.sap.require("sap.m.MessageBox");
+jQuery.sap.require("com.sap.fioribi.modules.treetable.helper.TreeTableConstant"); 
+jQuery.sap.require("com.sap.fioribi.modules.treetable.control.TreeTableOData"); 
+
+com.sap.fioribi.modules.treetable.control.TreeTableController = function() {
+	 com.sap.fioribi.modules.common.BILPController.apply(this, arguments);
+};
+com.sap.fioribi.modules.treetable.control.TreeTableController.prototype = jQuery.sap.newObject(com.sap.fioribi.modules.common.BILPController.prototype);
+
+com.sap.fioribi.modules.treetable.control.TreeTableController.prototype.initializeVariable = function(){
+	this.mSettings = this.getView().mSettings;
+	this.constant = new com.sap.fioribi.modules.treetable.helper.TreeTableConstant();
+	this.commonTableOData = new com.sap.fioribi.modules.treetable.control.TreeTableOData();
+	this.listenerContext=this.oView.setSplitterHeight.bind(this.oView);
+	
+	this.currSelectedNodePath = "";
+	
+	this.uiOptions = {
+		actionType: "",
+		pageNumber: 1,
+		reloadAllPage: false,
+		sortData: {}, //'sortData.id' and 'sortData.order'
+		filterData:{}, //filterData[id1] = '<filtervalue1>', filterData[id2] = '<filtervalue2>', so on...
+		view: this.getView(),
+		controller: this
+	};
+};
+
+com.sap.fioribi.modules.treetable.control.TreeTableController.prototype.onInit = function() {
+	this.initializeVariable();
+	// event for browser zoom and resetting the splitter height in order get responsiveness
+	window.addEventListener("resize",this.listenerContext);
+	if(this.mSettings.tableData.hasContextAction){
+		//To add additional column at the end of the table for local context action
+		var contextActionColumn = {
+			columnId : "contextAction",
+			displayName : "",
+			width:"65px"
+		}
+		this.mSettings.tableData.baseColumnStructure.columns.push(contextActionColumn);
+	}
+	
+	if(this.mSettings.treeData && this.mSettings.treeData.baseTreeDataStructure){
+		this.commonTableOData.setTreeDataModel(this.mSettings.treeData.baseTreeDataStructure);
+	}
+	this.commonTableOData.setTableDataModel(this.mSettings.tableData.baseTableDataStructure);
+	this.commonTableOData.setMetaModel(this.mSettings.tableData.baseColumnStructure);
+	this.commonTableOData.setBreadCrumDataModel({});
+	
+	this.oTreeDataModel = this.commonTableOData.getTreeDataModel();
+	this.oTableDataModel = this.commonTableOData.getTableDataModel();
+	this.oMetaModel = this.commonTableOData.getMetaModel();
+	this.oBreadCrumModel = this.commonTableOData.getBreadCrumDataModel();
+	
+	this.getView().oLayout.setModel(this.oTreeDataModel, 'treeData');
+	this.getView().oLayout.setModel(this.oTableDataModel, 'tableData');
+	this.getView().oLayout.setModel(this.oMetaModel, 'tableMeta');
+	this.getView().oBreadCrumbs?.setModel(this.oBreadCrumModel);
+	this.updateBreadCrumPath("/");
+	
+	var fireOnlyTableNode = true;
+	
+	if(this.mSettings.rootNodes){
+		//Call for root node only if tree structure is available
+		this.mSettings.rootNodes($.proxy(function(response){
+			if(response != undefined && response != null){
+				fireOnlyTableNode = false;
+				var treeData = this.oTreeDataModel.getData();
+				var tableData = this.oTableDataModel.getData();
+				// If there is more than 1 root nodes then it should be available as part of response.
+				if(response != undefined && response != null && Array.isArray(response)){
+					treeData[this.mSettings.bindingPath.nodeChildren] = response;
+					tableData[this.mSettings.bindingPath.nodeChildren].push(response[0]);
+					var folderPath = this.mSettings.treeData.defaultNodeSelectedPath;
+					if(folderPath == undefined || folderPath == ""){
+						this.nodeExpandAction("/"+this.mSettings.bindingPath.nodeChildren+"/0");
+						this.nodeSelectionAction("/"+this.mSettings.bindingPath.nodeChildren+"/0", false); //By default select the first nodes from the root nodes list
+					}
+					else{
+						this.selectDefaultFolder(folderPath);
+					}
+					this.refreshModel();
+				}
+			}
+		},this));
+	}
+	if(fireOnlyTableNode){
+		//Make call directly for loading the table structure
+		this.nodeSortFilterAction();
+	}
+	
+	//If Auto Refresh button is enable by default then file the press event of AutoRefershButton here.
+	this.isAutoRefreshEnable = false;
+	var autoRefreshAction = this.mSettings.breadCrumbData.autoRefreshAction;
+	if(autoRefreshAction != undefined){
+		var defaultAutoRefreshStatus = autoRefreshAction.enableAction;
+		if(defaultAutoRefreshStatus != undefined && defaultAutoRefreshStatus){
+			this.getView().autoRefreshButton.firePress(); // In case auto refresh is enabled by default on this page 
+		}
+	}
+};
+
+com.sap.fioribi.modules.treetable.control.TreeTableController.prototype.onAfterRendering = function() {
+	this.oView.setSplitterHeight();
+	//Save pageId in the View
+	this.oView.pageSid=BILaunchpadApp.getNavContainer().getCurrentPage().sId;
+}
+
+//Tree control Action - Will be called when tree's node is expanded
+com.sap.fioribi.modules.treetable.control.TreeTableController.prototype.nodeExpandAction = function(sContextPath, forceLoad){
+	var currNode = this.oTreeDataModel.getProperty(sContextPath);
+	if(currNode != undefined){
+		var currNodeChildren = currNode[this.mSettings.bindingPath.nodeChildren];
+		if(forceLoad || currNodeChildren == undefined || !$.isArray(currNodeChildren) || !currNodeChildren.length){
+			this.uiOptions.actionType = this.constant.NODE_EXPAND;
+			this.mSettings.updateNodeData(this.uiOptions, currNode, $.proxy(function(response){
+				if(response != null){
+					currNode[this.mSettings.bindingPath.nodeChildren] = response;
+				}
+				this.oTreeDataModel.refresh(true);
+			},this));
+		}
+	}
+};
+
+com.sap.fioribi.modules.treetable.control.TreeTableController.prototype.selectDefaultFolder = function(folderPath){
+	if(folderPath != undefined && folderPath != ""){		
+		var folderNodeArray;
+		if(folderPath.includes("|*|")){
+			folderNodeArray = folderPath.split("|*|");
+		}
+		else {
+			folderNodeArray = folderPath.split("/");
+		}
+		folderNodeArray=folderNodeArray.filter(function(e){return e});
+		var nodePath = "";
+		var found = false;
+		for(var i=0; i<folderNodeArray.length; i++){
+			found = false;
+			var nodeIndentifier = folderNodeArray[i];
+			nodePath += "/" + this.mSettings.bindingPath.nodeChildren;
+			var childrenNodes = this.oTreeDataModel.getProperty(nodePath);
+			for(var j=0; j<childrenNodes.length; j++){
+				// in localized language comparision makes more strong
+				if(childrenNodes[j][this.mSettings.treeData.defaultSelectedNodePathBindingKey].trim() === nodeIndentifier.trim()){
+					nodePath += "/" + j;
+					this.nodeExpandAction(nodePath);
+					found = true;
+					break;
+				}
+			}
+			if(!found){
+				break;
+			}
+		}
+		if(!found){ //In case the selected default folder no more exist (case when the folder is deleted or renamed) in that case fall back to showing the top folder from the tree.
+			this.nodeExpandAction("/"+this.mSettings.bindingPath.nodeChildren+"/0");
+			this.nodeSelectionAction("/"+this.mSettings.bindingPath.nodeChildren+"/0", false);
+		}
+		else{
+			this.nodeSelectionAction(nodePath, false);
+		}
+	}
+};
+
+com.sap.fioribi.modules.treetable.control.TreeTableController.prototype.nodeSortFilterAction = function(){
+	this.uiOptions.actionType = this.constant.NODE_SELECT;
+	this.uiOptions.pageNumber = 1;
+	this.getView().oTable.setNoData(BILaunchpadApp.localized("processing"));
+	this.mSettings.updateNodeData(this.uiOptions, this.getCurrentSelectedNode(), $.proxy(function(response, hasNextPage){
+		var modelData = this.oTableDataModel.getData();
+		if(response != null){
+			modelData[this.mSettings.bindingPath.nodeChildren] = response; //In case of Sort or filter replace the whole table content
+			if(hasNextPage == undefined || hasNextPage == null){
+				hasNextPage = false;
+			}
+			this.getView().moreButtonVisible(hasNextPage);
+		}
+		this.oTableDataModel.refresh(true);
+		this.oMetaModel.refresh(); //Don't call it by passing the argument 'true' as it is clearing filter and sort value also
+		
+		this.getView().downloadButton.setEnabled(modelData[this.mSettings.bindingPath.nodeChildren].length!=0?true:false); //Enable Download (Export to Excel) button only if content is there in table
+		this.getView().oTable.setNoData("");
+	},this));
+};
+
+com.sap.fioribi.modules.treetable.control.TreeTableController.prototype.getCurrentSelectedNode = function(){
+	return this.oTreeDataModel.getProperty(this.currSelectedNodePath); //The node which is returned is nothing but the node which is selected from the left tree
+}
+
+com.sap.fioribi.modules.treetable.control.TreeTableController.prototype.nodeSelectionAction = function(sContextPath, doClearSortFilter){
+	if(!this.mSettings.hasTable || this.getView().isEditMode){ // No need to perform any operation for node select if table itself is not visible and Skip all action in edit mode
+		return; 
+	}
+	this.currSelectedNodePath = sContextPath;
+	
+	if(doClearSortFilter == undefined || doClearSortFilter){
+		this.getView().clearSortFilter(); //In case of node change clear sort and filter data.
+	}
+	this.nodeSortFilterAction(); 
+	
+	//Expand the folder tree till the current selected node and select it, in Tree
+	if(this.mSettings.hasTree){
+		var folderTree = this.getView().oFolderTree;
+		for(var i=0;i<folderTree.getItems().length;i++){
+			if(sContextPath.startsWith(folderTree.getItems()[i].getBindingContextPath())){	
+				if(folderTree.getItems()[i].getBindingContextPath()==sContextPath){
+					folderTree.getItems()[i].setSelected(true);
+				}
+				else{
+					folderTree.getBinding("items").expand(i);
+				}
+			}
+		}
+	}
+	
+	if(this.mSettings.hasBreadcrumb){
+		this.updateBreadCrumPath(sContextPath);
+	}
+};
+
+com.sap.fioribi.modules.treetable.control.TreeTableController.prototype.nodePaginationAction = function(reloadAllPage){
+	this.uiOptions.actionType = this.constant.NODE_PAGINATE;
+	this.uiOptions.reloadAllPage = reloadAllPage;
+	if(!reloadAllPage){
+		this.uiOptions.pageNumber += 1;
+	}
+	this.mSettings.updateNodeData(this.uiOptions, this.getCurrentSelectedNode(), $.proxy(function(response, hasNextPage){
+		var modelData = this.oTableDataModel.getData();
+		if(response != null){
+			if(this.uiOptions.reloadAllPage){
+				modelData[this.mSettings.bindingPath.nodeChildren] = response; // As the response will contain all data so don't concatenate but replace
+				this.uiOptions.reloadAllPage = false;
+			}
+			else{
+				modelData[this.mSettings.bindingPath.nodeChildren] = modelData[this.mSettings.bindingPath.nodeChildren].concat(response); //Getting next page so concatenate it in existing list 
+			}
+			if(hasNextPage == undefined || hasNextPage == null){
+				hasNextPage = false;
+			}
+			this.getView().moreButtonVisible(hasNextPage);
+		}
+		this.oTableDataModel.refresh(true);
+		this.getView().downloadButton.setEnabled(modelData[this.mSettings.bindingPath.nodeChildren].length!=0?true:false); //Enable Download (Export to Excel) button only if content is there in table
+	},this));
+};
+
+com.sap.fioribi.modules.treetable.control.TreeTableController.prototype.updateBreadCrumPath = function(sContextPath){
+	var data = [];
+	var nodes = this.mSettings.bindingPath.nodeChildren;
+	var list = sContextPath.split("/"+nodes);
+	var treePath = "";
+	
+	for (var i = 1; i < list.length; i++) {
+		treePath += "/"+nodes + list[i];
+		obj = this.oTreeDataModel.getProperty(treePath);
+		element = {
+			bc_name: obj.name,
+			bc_cuid: obj.cuid,
+			bc_path: treePath
+		};
+		data.push(element);
+	}
+	this.getView().oBreadCrumbs?.getModel().setProperty("/", data);
+};
+
+com.sap.fioribi.modules.treetable.control.TreeTableController.prototype.getBreadCrumPath = function(){
+	var path = "";
+	var data = this.getView().oBreadCrumbs?.getModel().getProperty("/");
+	for (var i=0; i < data.length; i++) {
+		path = path + "/" + data[i].bc_name;
+	}
+	return path;
+};
+
+com.sap.fioribi.modules.treetable.control.TreeTableController.prototype.exportTableAsExcel = function() {
+    sap.ui.require(["sap/ui/export/Spreadsheet"], function(Spreadsheet) {
+        var excelColMapping = [];
+        var columns = this.mSettings.tableData.baseColumnStructure.columns;
+        var noOfColumns = columns.length;
+        if(this.mSettings.tableData.hasContextAction){
+        	noOfColumns = noOfColumns - 1; //For Removing context action column
+        }
+        
+        for (var i = 0; i < noOfColumns; i++) {
+        	if(columns[i].isVisible == undefined || columns[i].isVisible){
+        		excelColMapping.push({
+        			label: columns[i].displayName,
+        			property: columns[i].columnId,
+        			width: 10 //TODO: Define width based on actual width of the column's width in UI
+        		});
+        	}
+        }
+
+        var modelData = this.oTableDataModel.getData();
+        modelData = modelData[this.mSettings.bindingPath.nodeChildren]
+        
+        var mSettings = {
+            workbook: {
+                columns: excelColMapping,
+                context: {
+                    sheetName: "Folders"
+                }
+            },
+            dataSource: modelData,
+            fileName: "Folders.xlsx"
+        };
+        var oSpreadsheet = new sap.ui.export.Spreadsheet(mSettings);
+        oSpreadsheet.onprogress = function (iValue) {
+            jQuery.sap.log.debug("Export: " + iValue + "% completed");
+        };
+        oSpreadsheet.build().then(function () { 
+            jQuery.sap.log.debug("Export is finished"); 
+        }).catch(function (sMessage) { 
+            jQuery.sap.log.error("Export error: " + sMessage); 
+        });
+    }.bind(this));
+};
+
+com.sap.fioribi.modules.treetable.control.TreeTableController.prototype.refreshModel = function(){
+	this.oTreeDataModel.refresh(true);
+	this.oTableDataModel.refresh(true);
+};
+
+com.sap.fioribi.modules.treetable.control.TreeTableController.prototype.reloadTreeNode = function(nodePath){ //argument nodePath is optional
+	//Rather than deleting the node from tree its better to get the data back from backend.
+	var refreshNodePath = (nodePath != undefined) ? nodePath : this.currSelectedNodePath;
+	this.nodeExpandAction(refreshNodePath, true); //2nd argument is for force load
+	this.oTreeDataModel.refresh(true);
+};
+
+com.sap.fioribi.modules.treetable.control.TreeTableController.prototype.reloadTableNode = function(){
+	//Rather than deleting the node from Table its better to get the data back from backend.
+	this.nodePaginationAction(true); //argument is for reloading all currently loaded page
+	this.oTableDataModel.refresh(true);
+};
+
+com.sap.fioribi.modules.treetable.control.TreeTableController.prototype._autoRefreshTable = function(){
+	var autoRefreshAction = this.mSettings.breadCrumbData.autoRefreshAction;
+	if(autoRefreshAction == undefined){
+		return;
+	}
+	setTimeout($.proxy(function() {
+		if(this.isAutoRefreshEnable){
+			//sap.m.MessageToast.show(BILaunchpadApp.localized("auto_refresh_called"))
+			var isReloadable= autoRefreshAction.handler();
+			if(isReloadable){
+				sap.m.MessageToast.show(BILaunchpadApp.localized("auto_refresh_called"))
+				this.reloadTableNode();
+			}
+			this._autoRefreshTable();
+		}
+	}, this), autoRefreshAction.timer); //TODO: check if Refresh every 15 second is ok?
+};
+
+com.sap.fioribi.modules.treetable.control.TreeTableController.prototype.onExit = function(){
+	this.isAutoRefreshEnable = false;
+	window.removeEventListener("resize",this.listenerContext,false);
+}

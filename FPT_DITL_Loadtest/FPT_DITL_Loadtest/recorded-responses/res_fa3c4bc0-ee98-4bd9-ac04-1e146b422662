@@ -1,0 +1,703 @@
+/*
+�2010 - 2016 SAP SE or an SAP affiliate company.  All rights reserved.
+ 
+SAP and other SAP products and services mentioned herein as well as their respective logos are trademarks or registered trademarks of SAP SE in Germany and other countries.  Please see http://www.sap.com/corporate-en/legal/copyright/index.epx#trademark for additional trademark information and notices.
+*/
+
+/*
+©2010 - 2016 SAP SE or an SAP affiliate company.  All rights reserved.
+
+SAP and other SAP products and services mentioned herein as well as their respective logos are trademarks or registered trademarks of SAP SE in Germany and other countries.  Please see http://www.sap.com/corporate-en/legal/copyright/index.epx#trademark for additional trademark information and notices.
+ */
+
+
+var pagePrefModel=sap.ui.getCore().getModel("pagePrefModel");
+var $folders_current, $folders_entries,$folders_previous;
+var folders_key = ["name"];
+if (pagePrefModel.myfavorites == true) 
+	folders_key.push("favorite");
+if(pagePrefModel.type==true)
+	folders_key.push("displaytype");
+if(pagePrefModel.lastrun==true)
+	folders_key.push("lastRun");
+if(pagePrefModel.instances==true)
+	folders_key.push("instances");
+if(pagePrefModel.description==true)
+	folders_key.push("description");
+if(pagePrefModel.createdby==true)
+	folders_key.push("owner");
+if(pagePrefModel.lastupdated==true)
+	folders_key.push("updated");
+if(pagePrefModel.createdon==true)
+	folders_key.push("created");
+if(pagePrefModel.lastmodified==true)
+	folders_key.push("updated");
+if(pagePrefModel.locationcategories==true)
+	folders_key.push("path");
+
+var folders_sort = ["name"];
+if (pagePrefModel.myfavorites == true) 
+	folders_sort.push("favorite");
+if(pagePrefModel.type==true)
+	folders_sort.push("type");
+if(pagePrefModel.lastrun==true)
+	folders_sort.push("lastRun");
+if(pagePrefModel.instances==true)
+	folders_sort.push("instances");
+if(pagePrefModel.description==true)
+	folders_sort.push("description");
+if(pagePrefModel.createdby==true)
+	folders_sort.push("owner");
+if(pagePrefModel.lastupdated==true)
+	folders_sort.push("updated");
+if(pagePrefModel.createdon==true)
+	folders_sort.push("created"); 
+this.folders_filtersMap;
+var foldersColumnFilterArray = [];
+
+jQuery.sap.declare("com.sap.fioribi.widgets.TableWidget");
+com.sap.fioribi.widgets.TableWidget = function(actualColumns, cols, list, oController, processCAF) {
+	BILaunchpadApp.includeStyleSheet("com/sap/fioribi/css/Folders.css");
+	BILaunchpadApp.includeStyleSheet("com/sap/fioribi/css/CustomHeader.css");
+	BILaunchpadApp.includeStyleSheet("com/sap/fioribi/css/Common.css");
+	BILaunchpadApp.includeStyleSheet("com/sap/fioribi/css/MyHomeTab.css");
+	BILaunchpadApp.includeStyleSheet("com/sap/fioribi/css/Categories.css");
+	BILaunchpadApp.includeStyleSheet("com/sap/fioribi/css/RecycleBin.css");
+	jQuery.sap.require("com.sap.fioribi.utils.iconImage");
+	jQuery.sap.require("com.sap.fioribi.utils.TableIcon");
+	this.folders_filtersMap = new Map;
+	if (oController.$entries != null) {
+		$entries = oController.$entries.entries;
+	}
+	$currentController = oController;
+	var oPref = sap.ui.getCore().getModel("pagePrefModel");
+	var col = 0;
+	var colSize = cols.length;
+	this.isMultiSelected = false;
+	this.selectionsMade = [];
+	var $this = this;
+	this.processCAF = processCAF;
+	this.oController = oController;
+	var sortingBlackList = ["lastRun","instances","description","owner","created"];
+	var filterBlackList=["favorite","lastRun","instances","description","owner","updated","created"];
+	var widthsize = ["25%"];
+	this.Columns = [];
+	var oColSize = actualColumns.length;
+	for (i = 0; i < oColSize; i++) {
+		var temp = getKey(actualColumns[i]);
+		if (i == 0) {
+			var textField = new sap.m.Text({
+				text: "{" + folders_key[i] + "}",
+				tooltip: "{" + folders_key[i] + "}"
+			}).addStyleClass("BILP-ListTableText BILP-Cursor");
+			var titleIcon = new sap.ui.core.Icon({
+        		src :
+					{
+					path: "type",
+					formatter: function(type){
+						if(types.indexOf(type)!=-1)
+						{
+						sIcon=tableIconType(type);
+						return sIcon;
+						}
+						else
+						{
+							return null;
+						}
+						}
+					},
+					color: {
+                            path: "type",
+                            formatter: function(type) {
+								if(types.indexOf(type)!=-1)
+						{
+                               sIcon=tableIconColor(type);
+                                return sIcon;
+						}
+						else
+						{
+							return "";
+						}
+                            }
+                        },
+				size : "1.1rem",
+				width:{
+                            path: "type",
+                            formatter: function(type) {
+								if(types.indexOf(type)!=-1)
+						{
+                              
+                                return "32px";
+						}
+						else
+						{
+							return "0px";
+						}
+                            }
+                        },
+			}).addStyleClass("BILP_Iconalign sapUiNoMargin BILP-Cursor");	
+			
+            var iconImage = new sap.m.Image({
+                height: {
+                            path: "type",
+                            formatter: function(type) {
+								if(types.indexOf(type)==-1)
+						{
+                              
+                                return "32px";
+						}
+						else
+						{
+							return "0px";
+						}
+                            }
+                        },
+                width: {
+                            path: "type",
+                            formatter: function(type) {
+								if(types.indexOf(type)==-1)
+						{
+                              
+                                return "32px";
+						}
+						else
+						{
+							return "0px";
+						}
+                            }
+                        },
+                src: {
+                            path: "type",
+                            formatter: function(type) {
+								if(types.indexOf(type)==-1)
+						{
+                              
+                                return "com/sap/fioribi/images/icons-with-type.png";
+						}
+						else
+						{
+							return "";
+						}
+                            }
+                        },
+				
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "initial",
+                mode: sap.m.ImageMode.Background,
+                backgroundPosition: {
+                    parts: [{ path: 'type' }, { path: 'subtype' }],
+                    formatter: function(type,subtype) {
+						if(type=="Shortcut") {
+							return updatedShortCutIcon(subtype);
+						}
+						else{
+							if(types.indexOf(type)==-1) {
+								return updatedicon(type);
+							}
+							else {
+								return "";
+							} 
+						}
+                    }
+                }
+            }).addStyleClass("BILP_align sapUiNoMargin BILP-Cursor");
+			c = new sap.ui.table.Column({
+				sortProperty:folders_sort[i],
+				filterProperty: folders_sort[i],
+				width: widthsize[i],
+				textAlign: sap.ui.core.TextAlign.Right,
+				label: new sap.m.Label({
+					text: BILaunchpadApp.localized(actualColumns[i]),
+					//  tooltip: BILaunchpadApp.localized(actualColumns[i]),
+					align: "left",
+				}).addStyleClass("BILP-tableHeader"),
+				template: new sap.ui.layout.HorizontalLayout({
+					content: [titleIcon,iconImage, textField]
+				}).addStyleClass("BILP-tableFirstColumnHLayout BILP-Cursor")
+			});
+			$folders_previous = c;
+			c.setSorted(true);
+			c.setSortOrder(sap.ui.table.SortOrder.Ascending);
+		}else if(i==1 && (pagePrefModel.myfavorites==true)) {
+			var favIcon = new sap.ui.core.Icon({
+				src : {
+					path: folders_key[i],
+					formatter: function(favFlag){
+						var flag;
+
+						if(favFlag=="true"){
+							flag = true;
+						}else{
+							flag = false;
+						}
+						if(flag){
+							return "sap-icon://favorite";
+						}
+					}
+				},
+				press: function(oEvent) 
+				{
+					$currentController.markAsUnFav(this.getBindingContext());
+				},
+				size : "1rem",
+				width:"1rem",
+			}); 
+        	favIcon.addStyleClass("BILP-favIconDisplayBlock BILP-favIcon BILP-favIconMargin BILP-Cursor");
+            c = new sap.ui.table.Column({
+                width: widthsize[i],
+				sortProperty:folders_sort[i],
+				textAlign: sap.ui.core.TextAlign.Right,
+				label: new sap.m.Label({
+					text: BILaunchpadApp.localized(actualColumns[i]),
+					// tooltip: BILaunchpadApp.localized(actualColumns[i]),
+					align: "left",
+				}).addStyleClass("BILP-tableHeader BILP-tableheaderc"),
+				template: favIcon
+			});
+			c.setSorted(true);
+			c.setSortOrder(sap.ui.table.SortOrder.Ascending);
+		} else {
+			c = new sap.ui.table.Column({
+				sortProperty: folders_sort[i],
+				filterProperty : folders_sort[i],
+				textAlign: sap.ui.core.TextAlign.Right,
+				width: widthsize[i],
+				label: new sap.m.Label({
+					text: BILaunchpadApp.localized(actualColumns[i]),
+					//    tooltip: BILaunchpadApp.localized(actualColumns[i])
+				}).addStyleClass("BILP-tableHeader BILP-tableheaderc"),
+				template: new sap.m.Text({
+					text: "{" + folders_key[i] + "}",
+					tooltip: "{" + folders_key[i] + "}"
+				}).addStyleClass("BILP-Cursor")
+			});
+		}
+		var oCustomMenu = new sap.ui.unified.Menu();
+		if (sortingBlackList.indexOf(folders_sort[i]) == -1) {
+			oCustomMenu.addItem(new sap.ui.unified.MenuItem({
+				text: BILaunchpadApp.localized("Table_sort_asc"),
+				icon: "sap-icon://sort-ascending",
+				select: function(oControlEvent) {
+					$folders_previous.setSorted(false);
+					var column = oControlEvent.oSource.oParent.oParent;
+					$folders_previous = column;
+					var sortBy = column.getProperty("sortProperty");
+					if(sortBy!="displaytype")
+					 $currentController.getSortAndFilter(sortBy, "+",$this.filterQueryString());
+					$currentController.$sortBy=sortBy;
+					$currentController.$sortHow="+";
+					var oSorter = new sap.ui.model.Sorter(column.getSortProperty(), false);
+					$this.myHomeListTable.getBinding("rows").sort(oSorter);
+					for (var i=0;i<$this.myHomeListTable.getColumns().length; i++) {
+						$this.myHomeListTable.getColumns()[i].setSorted(false); 
+						column.setSorted(true);
+						column.setSortOrder(sap.ui.table.SortOrder.Ascending);
+					}
+
+				}
+			}));
+			oCustomMenu.addItem(new sap.ui.unified.MenuItem({
+				text: BILaunchpadApp.localized("Table_sort_desc"),
+				icon: "sap-icon://sort-descending",
+				select: function(oControlEvent) {
+					$folders_previous.setSorted(false);
+					var column = oControlEvent.oSource.oParent.oParent;
+					$folders_previous = column;
+					var sortBy = oControlEvent.oSource.oParent.oParent.getProperty("sortProperty");
+					if(sortBy!="displaytype")
+					$currentController.getSortAndFilter(sortBy, "-",$this.filterQueryString());
+					$currentController.$sortBy=sortBy;
+					$currentController.$sortHow="-";
+
+					var oSorter = new sap.ui.model.Sorter(column.getSortProperty(), true);
+					$this.myHomeListTable.getBinding("rows").sort(oSorter);
+					for (var i=0;i<$this.myHomeListTable.getColumns().length; i++) {
+						$this.myHomeListTable.getColumns()[i].setSorted(false); 
+						column.setSorted(true);
+						column.setSortOrder(sap.ui.table.SortOrder.Descending);
+					}
+				}
+			}));
+		}
+		if ($this.oController.tab !== "category"){
+			if(filterBlackList.indexOf(folders_sort[i]) == -1){
+				var col =new sap.ui.unified.MenuTextFieldItem({
+					text: "Filter",
+					icon: "sap-icon://filter",
+					label: BILaunchpadApp.localized("text_filter"),
+					select: function(oControlEvent) {
+						var filterValue = oControlEvent.getParameters().item.getValue();
+						var filterProperty = oControlEvent.getSource().getParent().getParent().mProperties.filterProperty;
+						var column = oControlEvent.oSource.oParent.oParent;
+						if (filterValue.trim() != "") {
+							//var oFilter1 = new sap.ui.model.Filter(filterProperty, sap.ui.model.FilterOperator.Contains, filterValue);
+							$this.folders_filtersMap.set(filterProperty,filterValue.trim());
+							column.setFiltered(true);
+						} else {
+							column.setFiltered(false);
+							$this.folders_filtersMap.delete(filterProperty);
+							//$this.folders_filtersMap.delete(column.sId);
+						}
+						$currentController.getSortAndFilter("", "",$this.filterQueryString());
+
+					}
+
+				});
+				if($currentController.filterQueryString!="" && $currentController.filterQueryString.includes("=")){
+					col.setValue($currentController.filterQueryString.split('=').pop());		
+				}
+				oCustomMenu.addItem(col);
+				foldersColumnFilterArray.push(col);
+			}
+		}
+		c.setMenu(oCustomMenu);
+		switch (cols[i]) {
+			case "name":
+				c.data("preferenceKey", "name");
+				break;
+			case "favorite":
+				c.data("preferenceKey", "myfavorites");
+				break;
+			case "displaytype":
+				c.data("preferenceKey", "type");
+				break;
+			case "lastRun":
+				c.data("preferenceKey", "lastrun");
+				break;
+			case "instances":
+				c.data("preferenceKey", "instances");
+				break;
+			case "description":
+				c.data("preferenceKey", "description");
+				break;
+			case "owner":
+				c.data("preferenceKey", "createdby");
+				break;
+			case "updated":
+				c.data("preferenceKey", "lastupdated");
+				break;
+			case "created":
+				c.data("preferenceKey", "createdon");
+				break;
+			case "path":
+				c.data("preferenceKey", "locationcategories");
+				break;
+		}
+		$this.Columns.push(c);
+	}
+	this.Columns.push(new sap.ui.table.Column({
+		resizable: false,
+		autoResizable: false,
+		width: "70px",
+		flexible: false,
+		textAlign: sap.ui.core.TextAlign.Center,
+		label: new sap.m.Label({
+			text: " ",
+			align: "center",
+			width: "10%",
+		}).addStyleClass("BILP-size32px BILP-listmoreIcon BILP-moreIconPosition"),
+		template : new sap.m.Button({
+			icon: "sap-icon://overflow",
+			tooltip: BILaunchpadApp.localized("TableWidget_row"),
+			press: function(oEvent) {
+				$this.processCAF.call(oController, this, this.getBindingContext());
+				$this.myHomeListTable.clearSelection();
+				$this.selectionsMade = [];
+			}
+		}).addStyleClass("BILP-recycleBinbutton BILP-recyclebinAlign BILP-Cursor")
+	}));
+
+	//update custom column width if administrator settings are off
+    if (oPref && !oPref.useadministratorsettings) {
+    	if (sap.ui.getCore().getModel("columnWidth") && Object.keys(sap.ui.getCore().getModel("columnWidth").getData()).length > 0) {
+    		var columnPxModel = sap.ui.getCore().getModel("columnWidth").getData();
+    		for (var i = 0; i < this.Columns.length; i++) {
+    			if (columnPxModel.hasOwnProperty(this.Columns[i].data().preferenceKey)) {
+	    			this.Columns[i].setWidth(columnPxModel[this.Columns[i].data().preferenceKey]);
+	    		}
+    		}
+    	} else {
+    		for (var i = 0; i < this.Columns.length; i++) {
+	    		if (oPref.hasOwnProperty(this.Columns[i].data().preferenceKey + "_width")) {
+	    			this.Columns[i].setWidth(oPref[this.Columns[i].data().preferenceKey + "_width"]);
+	    		}
+		    }
+    	}
+	}
+
+	var oModel = new sap.ui.model.json.JSONModel();
+	if(sap.ui.getCore().byId("folderTable") == undefined){
+		var scrollAttached = false;
+		this.myHomeListTable = new sap.ui.table.Table({
+			id: "folderTable",
+			height: "100%",
+			width: "100%",
+			dragDropConfig: typeof($currentController.getTableDragDropConf) == 'function'? $currentController.getTableDragDropConf() : "",
+			visibleRowCountMode:"Auto",
+			selectionMode: sap.ui.table.SelectionMode.Multi,
+			columnResize: function(oControlEvent) {
+				if (oControlEvent.getParameter("column").data().preferenceKey) {
+					var resizedColumnKey = oControlEvent.getParameter("column").data().preferenceKey;
+					var columnWidthModel = null;
+					var columnWidthModelData = null;
+					if (sap.ui.getCore().getModel("columnWidth")) {
+						columnWidthModel = sap.ui.getCore().getModel("columnWidth");
+						columnWidthModelData = columnWidthModel.getData();
+					} else {
+						columnWidthModel = new sap.ui.model.json.JSONModel({});
+						columnWidthModelData = columnWidthModel.getData();
+					}
+					columnWidthModelData[resizedColumnKey] = oControlEvent.getParameters().width;
+					columnWidthModel.setData(columnWidthModelData);
+					sap.ui.getCore().setModel(columnWidthModel, "columnWidth");	
+				}
+			},
+			rowSelectionChange: function(oControlEvent) {
+				$this.selectionsMade.length = 0;
+				var selections =  $this.myHomeListTable.getSelectedIndices();	
+
+				var action = BILaunchpadApp.getCopyMoveAction();
+				if (action.length > 1) {
+					$currentController.getView().oAddIcon.setEnabled(true);
+				}else{
+					$currentController.getView().oAddIcon.setEnabled(false);
+				}
+				if(selections.length != 0) {
+					$currentController.getView().oAddIcon.setEnabled(true);
+                } 	 //since for pasting none of table is selected so as of now this will not work for folder 
+            /*    if(selections.length == 2){
+                    var sSlectedIndices = oControlEvent.getSource().getSelectedIndices();
+                    var sPath = "/entries/";
+                    var srcCuid = oControlEvent.getSource().getModel().getProperty(sPath + sSlectedIndices[0]).cuid;
+                    var targetCuid = oControlEvent.getSource().getModel().getProperty(sPath + sSlectedIndices[1]).cuid;
+                    var sDiffName = encodeURIComponent("BIAPP-" + oControlEvent.getSource().getModel().getProperty(sPath + sSlectedIndices[0]).name + "_" + oControlEvent.getSource().getModel().getProperty(sPath + sSlectedIndices[1]).name);
+                    var url = BILaunchpadApp.getBaseURL().substring(0, BILaunchpadApp.getBaseURL().length - 9) + "/VDApp/cmcIntegration.jsp?appSource=bi&biSrcCuid=" + srcCuid + "&biTargetCuid=" + targetCuid + "&biDiffName=" + sDiffName + "&cafWebSesInit=true&bttoken=" + callbackGetBTToken() + "&currentPage=differences&appKind=InfoView&service=/InfoView/common/appService.do&loc=en&pvl=en_US&ctx=standalone&actId=4384&containerId=&pref=maxOpageU=50;maxOpageUt=200;maxOpageC=10;tz=UTC;mUnit=inch;showFilters=true;smtpFrom=true;promptForUnsavedData=true";
+                   //var url = "http://localhost:1337/index.html?type=cmc&appSource=bi&biSrcCuid=" + srcCuid +  "&biTargetCuid=" + targetCuid +  "&biDiffName=" + sDiffName + "&loc=fr_FR&logonToken=adept6790541.global.corp.sap%3A6400%4039612JZwkOAVsRMMle5bRb66MtyyltUf08Dmyt39611JM7NKN5N6HlS9z9pTFmGW7S99HOh1WwZU&cms=localhost%3A6400&user=Administrator&auth=secEnterprise&urlApi=http%3A%2F%2Flocalhost%3A6405%2Fbiprws&serializedSession=3%265U%3D39612JZwkOAVsRMMle5bRb66MtyyltUf08Dmyt39611JM7NKN5N6HlS9z9pTFmGW7S99HOh1WwZU%2C8P%2610U%2C88%261%3DAdministrator%20account%2C8P%26W%3D%7B3%26_SI_DISABLE_SYSWIZARDSTART%3Dtrue%2C0P%26oI%3D%257BCDZ_VIEW_addTableHeader%253Dtrue%252C%20CDZ_VIEW_dispMenuHeaders%253Dtrue%252C%20CDZ_VIEW_appFmt%253Dtrue%252C%20CDZ_VIEW_formatPal%253D1%252C%20CDZ_QP_universePaneW%253D250%252C%20CDZ_QP_universeSel%253DdisObj%252C%20CDZ_VIEW_leftPaneW%253D200%252C%20CDZ_VIEW_defaultQueryFilter%253Dconstant%252C%20CDZ_VIEW_tdcAutoMode%253D1%252C%20CADENZA_ResultSnapToGrid%253Dtrue%252C%20CADENZA_ResultGridSpacing%253D0%252C%20CDZ_VIEW_drillFgColor%253D%252C%20CDZ_VIEW_lastUsedColors%253D%252C%20CDZ_VIEW_showSaveOptions%253D1%252C%20CDZ_VIEW_showStatus%253D1%252C%20CDZ_VIEW_infoAutosaveCheck%253D0%252C%20CDZ_VIEW_drillBgColor%253D%252C%20CDZ_VIEW_leftPaneSel%253Ddocinfo%252C%20CADENZA_ResultShowGrid%253Dtrue%252C%20CDZ_QP_queryPaneH%253D150%252C%20CDZ_QP_filterPaneH%253D150%252C%20CADENZA_MeasurementUnit%253Dtrue%252C%20CDZ_VIEW_standardPal%253D0%252C%20CDZ_VIEW_showDesc%253Dtrue%252C%20CDZ_VIEW_drillCustomFmt%253Dfalse%252C%20CDZ_VIEW_leftPane%253D1%252C%20CDZ_VIEW_reportPal%253D0%252C%20CDZ_VIEW_ctxMenu%253Drclick%252C%20CDZ_VIEW_sortPriority%253Dlowest%252C%20CDZ_VIEW_drillUnderlined%253Dfalse%252C%20CDZ_VIEW_formulaPal%253D0%257D%2C0P%26_WCS_ADMIN_OBJSPERPAGE%3D50%2C0P%26_SI_PROMPTFORUNSAVEDDATA%3Ddefault%2C0P%26pa%3Den_IN%2C0P%267r%3D0%2C0P%26PP%3D1033%2C0P%7D%2C%3Fz%2663%3DsecEnterprise%2C8P%2635%3DAdministrator%2C8P%26S5%2C88%26pa%2C8P%26ua%3DAWmaEx4Z.NVPpAEthuTGAjc%2C8P%26ub%3DAfRWaT5_131NlLLf5bRMLKY%2C8P%26zA%2C83%264E%3D39611JM7NKN5N6HlS9z9pTFmGW7S99HOh1WwZU%2C8P%263k%3D%40adept6790541.global.corp.sap%3A6400%2C8P%264F%3D12%2C8P%26Tm%3D36500%2C83%26Tn%3D%7B3%26U%3D3%2C03%26.1%3D%7B3%262%3D872%2C03%26O%3DFavoritesFolder%2C0P%7D%2C2z%26.2%3D%7B3%262%3D873%2C03%26O%3DPersonalCategory%2C0P%7D%2C2z%26.3%3D%7B3%262%3D874%2C03%26O%3DInbox%2C0P%7D%2C2z%7D%2C%3Fz%262r%3Dadept6790541.global.corp.sap%3A6400%2C8P%26PP%3D1033%2C83%26ux%3DATkfjIxrt7hIrg4_32T2NWo%2C8P%26uy%3D-47%2C8L";
+                } */
+			},
+			beforeOpenContextMenu:function(oControlEvent)
+			{
+				if(oControlEvent.getSource().getParent().getParent().sId=="categoryContainer" || $this.oController.tab == "category")
+				{
+					var selections = sap.ui.getCore().byId("folderTable").getSelectedIndices();
+					if (selections.length > 1) {
+						BILaunchpadApp.setGlobalCAFFlag(true);
+						sap.ui.getCore().byId("categoriesGlobalCAFButton").firePress();
+						BILaunchpadApp.setGlobalCAFFlag(false);
+						sap.ui.getCore().byId("folderTable").setContextMenu(com.sap.fioribi.components.actionpanel.ActionPanelContainer.prototype.globalCAF());
+					}
+					else
+					{
+						$this.processCAF.call(oController, this, oControlEvent.getSource().getBinding()._getContexts()[oControlEvent.mParameters.rowIndex]);
+						$this.myHomeListTable.clearSelection();
+						$this.selectionsMade = [];
+						sap.ui.getCore().byId("folderTable").setContextMenu(com.sap.fioribi.components.actionpanel.ActionPanelContainer.prototype.menuit());
+						$this.myHomeListTable.setSelectedIndex(oControlEvent.getParameter("rowIndex"));
+					}
+				}
+				if(oControlEvent.getSource().getParent().getParent().sId=="folderContainer" || $this.oController.tab == "folder")
+				{
+					var selections = sap.ui.getCore().byId("folderTable").getSelectedIndices();
+					if (selections.length > 1) {
+						BILaunchpadApp.setGlobalCAFFlag(true);
+						sap.ui.getCore().byId("foldersGlobalCAFButton").firePress();
+						BILaunchpadApp.setGlobalCAFFlag(false);
+						sap.ui.getCore().byId("folderTable").setContextMenu(com.sap.fioribi.components.actionpanel.ActionPanelContainer.prototype.globalCAF());
+					}
+					else
+					{
+						$this.processCAF.call(oController, this, oControlEvent.getSource().getBinding()._getContexts()[oControlEvent.mParameters.rowIndex]);
+						$this.myHomeListTable.clearSelection();
+						$this.selectionsMade = [];
+						sap.ui.getCore().byId("folderTable").setContextMenu(com.sap.fioribi.components.actionpanel.ActionPanelContainer.prototype.menuit());
+						$this.myHomeListTable.setSelectedIndex(oControlEvent.getParameter("rowIndex"));
+					}
+				}
+			},
+			cellClick: function(oControlEvent) {
+				sap.ui.core.BusyIndicator.hide();
+				if($this.myHomeListTable.getColumns().length-1 == oControlEvent.getParameter("columnIndex"))
+				{
+					$this.processCAF.call(oController, oControlEvent.mParameters.cellControl, oControlEvent.mParameters.rowBindingContext);
+					$this.myHomeListTable.clearSelection();
+					$this.selectionsMade = [];
+
+				}else{
+					var src = oControlEvent.getSource();
+					var objPath = oControlEvent.getParameters().rowBindingContext.sPath;
+					//var objPath = $this.myHomeListTable.getModel().getProperty(path);
+					//var src = obj.getSource();
+					//var objPath = src.getBindingContext().getPath();
+					var selModel = new sap.ui.model.json.JSONModel(oControlEvent.getSource().getModel().getProperty(objPath));
+
+					var sCUID = src.getModel().getProperty(objPath).cuid;
+					var name = src.getModel().getProperty(objPath).name;
+					var type = src.getModel().getProperty(objPath).type;
+					if (type === "Category" || type === "PersonalCategory" || type == "Personal Category") {
+						$this.oController.getchildreninfo(sCUID,oControlEvent);
+						var imageurl=selModel.oData.imageurl;
+					}
+					//var newModel = BILaunchpadApp.getfolderViewUIelementMap().get("folderObjectPageLayout").getModel();
+					//checking the root element to figure out the type of category image to be updated
+					// if(selModel.oData.imagepath==undefined || selModel.oData.imagepath==null ){
+					//      if(type =="PersonalCategory" || type == "Personal Category"){
+					//          imageurl= selModel.oData.imageurl=BILaunchpadApp.getBaseURL() + "com/sap/fioribi/images/personal-category.png";
+					//          //var newModel = BILaunchpadApp.getfolderViewUIelementMap().get("folderObjectPageLayout").getModel();
+					//      }else if(type=="Category"){
+					//      imageurl= selModel.oData.imageurl=BILaunchpadApp.getBaseURL() + "com/sap/fioribi/images/corporate-category.png";
+					//      }else{
+
+					//      }
+					//  }else{
+					//     selModel.oData.imageurl=selModel.oData.imagepath;
+					//  }
+
+
+					if(BILaunchpadApp.getfolderViewUIelementMap() != undefined){
+						BILaunchpadApp.getfolderViewUIelementMap().get("folderObjectPageLayout").setModel(selModel);
+					}    
+					if(BILaunchpadApp.getcategoryViewUIelementMap() != undefined){
+						BILaunchpadApp.getcategoryViewUIelementMap().get("categoryObjectPageLayout").setModel(selModel);
+					}
+
+					if(oControlEvent.getParameters().cellControl.mAggregations.tooltip != BILaunchpadApp.localized("TableWidget_row"))
+					{
+						if (type === "Folder") {
+							$this.oController.updateTable(sCUID, name, false, null);
+							$(".BILP-CloseDialog").hide();
+						} else {
+							if (type === "Category" || type === "PersonalCategory" || type == "Personal Category") {
+								$this.oController.updateTable(sCUID, name, false, null, imageurl);
+							} else {
+								if ($this.oController.fnViewDocument) {
+									BILaunchpadApp.navPoints.push({
+										level: BILaunchpadApp.navPoints[BILaunchpadApp.navPoints.length-1].level + 1,
+										curr: "",
+										currString: name,
+										prev: BILaunchpadApp.navPoints[BILaunchpadApp.navPoints.length-1].curr,
+										backAction: BILaunchpadApp.navPoints[BILaunchpadApp.navPoints.length-1].curr
+									});
+									sap.ui.core.BusyIndicator.show(0);
+									var eventParameters = oControlEvent.getParameters();
+									setTimeout(function(){ 
+										$this.oController.fnViewDocument(eventParameters.rowBindingContext);
+										sap.ui.core.BusyIndicator.hide();
+									}, 10); 
+									$(".BILP-CloseDialog").hide();
+								}
+							}
+						}
+					}
+				}
+			},
+			columns: this.Columns,
+			flexible: true,
+			resizable: true,
+			autoResizable: true,
+			enablescrolling: true,
+			//visibleRowCount: 14,
+			firstVisibleRowChanged:function(event){
+				var vsbDiv = $('#'+event.oSource.sId+'-vsb');
+				if(!scrollAttached){ //Flag to attach scroll event only once
+					vsbDiv.scroll(function() { 
+						var div = vsbDiv[0];
+						if (div.scrollTop != 0 && (Math.floor(div.scrollHeight - div.scrollTop) == Math.floor(vsbDiv.innerHeight())) && oController.isScrollAllowed && !oController.isLastPage) {
+							oController.isScrollAllowed = false;
+							oController.paginate($this.myHomeListTable, div.scrollTop,true);
+						}
+					});
+					scrollAttached = true;
+				}
+			},
+			footer: [],
+			layoutData: new sap.ui.layout.SplitterLayoutData({
+				size: "auto",
+				resizable: false
+			})
+		}).addStyleClass("BILP-TableLayout BILP-commonTableStyle BILP-TableLayout2 BILP-TableLayout3 BILP-border1 BILP-ListingTable sapUiSizeCompact BILP-tableTextTruncation BILP-TableLayout5 BILP-TableLayout4 BILP-Cursor");
+	}
+	else
+	{ 
+		this.myHomeListTable = sap.ui.getCore().byId("folderTable");
+	}
+	this.myHomeListTable.setModel(oModel);
+	this.myHomeListTable.bindRows("/");
+
+	/*if (oPref && !oPref.useadministratorsettings && oPref.pageSizeLimit) {
+		 // deleting stale "loadMoreBtn" traces if any 
+	    if (sap.ui.getCore().byId("loadMoreBtn")) {
+	        sap.ui.getCore().byId("loadMoreBtn").destroy();
+	    }
+		var footerToolbar = new sap.m.Toolbar({
+			design: sap.m.ToolbarDesign.Transparent,
+			content: [
+				new sap.m.Button({
+					id: "loadMoreBtn",
+					text: "More",
+					type: sap.m.ButtonType.Transparent,
+					press: function (oEvent) {
+						oController.paginate($this.myHomeListTable);
+					}
+				}),
+			]
+		}).addStyleClass("BILP-tableFooter");
+		this.myHomeListTable.setFooter(footerToolbar);
+	} */
+
+	if(BILaunchpadApp.getfolderViewUIelementMap() != undefined){
+		BILaunchpadApp.getfolderViewUIelementMap().set("folderTable" ,this.myHomeListTable);
+	}
+	if(BILaunchpadApp.getcategoryViewUIelementMap() != undefined){
+		BILaunchpadApp.getcategoryViewUIelementMap().set("categoryTable" ,this.myHomeListTable);
+	}
+};
+com.sap.fioribi.widgets.TableWidget.prototype.getTable = function() {
+	return this.myHomeListTable;
+};
+com.sap.fioribi.widgets.TableWidget.prototype.getIsMultiSelected = function() {
+	return this.isMultiSelected;
+};
+com.sap.fioribi.widgets.TableWidget.prototype.getSelections = function() {
+	return this.selectionsMade;
+};
+
+com.sap.fioribi.widgets.TableWidget.prototype.getFilterArray = function() {
+	var fArray = [] ;var i = 0;
+	this.folders_filtersMap.forEach(function (item, key, mapObj) {  
+		fArray[i] = item;
+		i ++;	
+	});
+	return fArray;
+};
+com.sap.fioribi.widgets.TableWidget.prototype.filterQueryString = function() {
+	var filterQueryString = "";
+	this.folders_filtersMap.forEach(function (item, key, mapObj) {  
+		if(key == "type") {
+			filterQueryString+=key+"filter="+encodeURIComponent(item)+"&";
+		}else{
+			filterQueryString+=key+"="+encodeURIComponent(item)+"&";
+		}
+	});
+	filterQueryString=filterQueryString.substring(0, filterQueryString.length-1);
+	return filterQueryString;
+};
+
+com.sap.fioribi.widgets.TableWidget.prototype.applyFilters = function() {
+	var fArray = this.getFilterArray();
+	var filterArray = oFilterToSetOnTheTable = new sap.ui.model.Filter({
+		filters: fArray,
+		and: true
+	});
+	this.myHomeListTable.getBinding("rows").filter(filterArray, sap.ui.model.FilterType.Application);
+};
+
+com.sap.fioribi.widgets.TableWidget.prototype.clearFilters = function() {
+	this.folders_filtersMap.clear();
+	for(i=0;i<foldersColumnFilterArray.length;i++){
+		foldersColumnFilterArray[i].setValue("");
+	}
+	for(i=0;i<this.Columns.length;i++){
+		this.Columns[i].setFiltered(false);
+	}
+	this.oController.sortAndFilterQueryString = null;
+};

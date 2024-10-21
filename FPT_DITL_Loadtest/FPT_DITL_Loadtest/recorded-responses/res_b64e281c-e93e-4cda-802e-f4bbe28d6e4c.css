@@ -1,0 +1,63 @@
+.submenuItem.sapMCLI {
+    height: 30px;
+    line-height: 16px;
+    padding: 4px 0px;
+    color: #666666;
+    border-top: 1px solid;
+    border-bottom: 1px solid;
+    border-top-color: transparent;
+    border-bottom-color: transparent;
+}
+
+.submenuItem.sapMCLI:hover {
+    background-color: #F6F7F8;
+    border-top-color: #EFEFEF;
+    border-bottom-color: #EFEFEF;
+}
+
+.submenuItem.sapMCLI:focus {
+    background-color: #1670C1;
+    border-top-color: #1670C1;
+    border-bottom-color: #1670C1;
+}
+
+.submenuItemLeftIcon,
+.submenuIndicatorIcon {
+    width: 18px;
+    height: 18px;
+    font-size: 18px;
+    color: inherit;
+    vertical-align: middle;
+}
+
+.submenuItemLeftIcon {
+    padding: 0px 8px;
+}
+
+.submenuIndicatorIcon {
+    right: 0;
+    position: absolute;
+    padding: 0px 4px;
+}
+
+.submenuTextContent {
+    max-width: 160px; /* TODO */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+    font-size: 12px;
+    font-weight: normal;
+}
+
+.TextStyleDialog .sapMDialogScroll {
+    padding: 0;
+}
+.TextStyleDialog.sapLudsiDialog .sapUiFormElementLbl {
+    padding-bottom: 1rem !important;
+    padding-right: 1rem !important;
+}
+
+.TextStyleDialog .textHBox .sapMFlexItem {
+    margin-right: 10px
+}

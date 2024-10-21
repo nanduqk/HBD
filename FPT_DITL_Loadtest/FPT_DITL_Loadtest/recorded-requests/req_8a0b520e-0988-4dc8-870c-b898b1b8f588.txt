@@ -1,0 +1,8 @@
+GET http://edgedl.me.gvt1.com/edgedl/release2/chrome_component/AJqZYiqGvCtix64S2N84g-M_2020.11.2.164946/EWvH2e-LS80S29cxzuTfRA HTTP/1.1
+Proxy-Connection: Keep-Alive
+Accept: */*
+Accept-Encoding: identity
+If-Unmodified-Since: Mon, 02 Nov 2020 15:59:03 GMT
+User-Agent: Microsoft BITS/7.8
+Host: edgedl.me.gvt1.com
+

@@ -1,0 +1,7 @@
+/*
+�2010 - 2016 SAP SE or an SAP affiliate company.  All rights reserved.
+ 
+SAP and other SAP products and services mentioned herein as well as their respective logos are trademarks or registered trademarks of SAP SE in Germany and other countries.  Please see http://www.sap.com/corporate-en/legal/copyright/index.epx#trademark for additional trademark information and notices.
+*/
+
+jQuery.sap.declare("com.sap.fioribi.modules.UserSettings.UserSettingsContainer");jQuery.sap.require({modName:"com.sap.fioribi.modules.UserSettings.UserSettingsView",type:"view"});jQuery.sap.require({modName:"com.sap.fioribi.modules.UserSettings.UserSettingsController",type:"controller"});jQuery.sap.require("sap.ui.core.IconPool");jQuery.sap.require("sap.ui.core.Icon");jQuery.sap.require("com.sap.fioribi.modules.common.BILPContainer");com.sap.fioribi.modules.UserSettings.UserSettingsContainer=function(oData){this.oView=new com.sap.fioribi.modules.UserSettings.UserSettingsView({viewName:"com.sap.fioribi.modules.UserSettings.UserSettingsView"});this.oController=this.oView.getController();};com.sap.fioribi.modules.UserSettings.UserSettingsContainer.prototype=jQuery.sap.newObject(com.sap.fioribi.modules.common.BILPContainer.prototype);

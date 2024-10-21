@@ -1,0 +1,7 @@
+/*
+�2010 - 2016 SAP SE or an SAP affiliate company.  All rights reserved.
+ 
+SAP and other SAP products and services mentioned herein as well as their respective logos are trademarks or registered trademarks of SAP SE in Germany and other countries.  Please see http://www.sap.com/corporate-en/legal/copyright/index.epx#trademark for additional trademark information and notices.
+*/
+
+jQuery.sap.declare("com.sap.fioribi.utils.AttributeKey");function getKey(k){var map=new Object();map.title="name";map.type="type";map.displaytype="displaytype";map.my_favourite="fav";map.last_referenced="lastRef";map.description="description";map.status="schedulestatus";map.start_time="starttime";map.instance_title="name";map.instance_time="updated";map.owner="owner";map.history_instance_title="name";map.updated_time="updated";map.Title="name";map.Type="displaytype";map.document_last_run="lastRun";map.instances="instances";map.createdby="owner";map.text_Last_Updated="updated";map.created_on="created";map.location_categories="path";return map[k];}this.mapSelected=new Object();this.mapSelected.title=true;this.mapSelected.type=true;this.mapSelected.my_favourite=true;this.mapSelected.last_referenced=true;this.mapSelected.start_time=true;this.mapSelected.creation_time=true;this.mapSelected.description=true;this.mapSelected.status=true;function getSelected(k){return this.mapSelected[k];}function setSelectedFalse(k){this.mapSelected[k]=false;}function setSelectedTrue(k){this.mapSelected[k]=true;}

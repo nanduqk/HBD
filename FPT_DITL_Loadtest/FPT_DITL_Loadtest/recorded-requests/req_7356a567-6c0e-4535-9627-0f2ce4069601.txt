@@ -1,0 +1,22 @@
+POST https://hba.na.pg.com:8443/BOE/portal/2302072240/FioriBI/UI5logon.jsp HTTP/1.1
+Host: hba.na.pg.com:8443
+Connection: keep-alive
+Content-Length: 1505
+Cache-Control: max-age=0
+sec-ch-ua: "Chromium";v="128", "Not;A=Brand";v="24", "Google Chrome";v="128"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+Upgrade-Insecure-Requests: 1
+Origin: https://hba.na.pg.com:8443
+Content-Type: application/x-www-form-urlencoded
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Dest: document
+Referer: https://hba.na.pg.com:8443/BOE/portal/2302072240/FioriBI/logon.jsp
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
+Cookie: JSESSIONID=BDA4C17CA5B4D6DE964AC997BD784904; InfoViewPLATFORMSVC_COOKIE_CMS=%40webHBA; InfoViewCE_SAPSys=HGA; InfoViewCE_SAPCnt=400; InfoViewPLATFORMSVC_COOKIE_AUTH=secSAPR3; InfoViewPLATFORMSVC_COOKIE_USR=z0006aLnf5n61%40%23%2444; InfoViewPLATFORMSVC_COOKIE_TOKEN=
+
+isLoadedFromCookies=true&chgPwd=true&pvl=en_US&jdata=%5B%7B%22isCmsVisible%22%3Atrue%7D%2C%7B%22isAuthenticationVisible%22%3Atrue%7D%2C%7B%22sapVisible%22%3Atrue%7D%2C%7B%22CMS%22%3A%22%40webHBA%22%7D%2C%7B%7D%2C%7B%7D%2C%7B%22USERNAME%22%3A%22ES1806%22%7D%2C%7B%22PASSWORD%22%3A%22%22%7D%2C%7B%22AUTH_TYPE%22%3A%22secSAPR3%22%7D%2C%7B%22sa%22%3A%5B%7B%22secEnterprise%22%3A%22Enterprise%22%7D%2C%7B%22secLDAP%22%3A%22LDAP%22%7D%2C%7B%22secWinAD%22%3A%22Windows+AD%22%7D%2C%7B%22secSAPR3%22%3A%22SAP%22%7D%2C%7B%22secOraApps%22%3A%22Oracle+EBS%22%7D%2C%7B%22secPSE1%22%3A%22JD+Edwards+EnterpriseOne%22%7D%2C%7B%22secpsenterprise%22%3A%22PeopleSoft+Enterprise%22%7D%2C%7B%22secSiebel7%22%3A%22Siebel7%22%7D%5D%7D%2C%7B%22e%22%3A%22%22%7D%2C%7B%22USERNAME_CHGPWD%22%3A%22ES1806%22%7D%2C%7B%22OLD_PASSWORD%22%3A%22%22%7D%2C%7B%22NEW_PASSWORD%22%3A%22%22%7D%2C%7B%22CONFIRM_PASSWORD%22%3A%22%22%7D%2C%7B%22instructionfirst%22%3A%22You+must+change+your+password+now.%22%7D%2C%7B%22instructionsecond%22%3A%22%28Either+your+administrator+has+assigned+a+temporary+password+which+must+be+changed%2C+or+your+password+has+expired.+Password+must+be+changed+now.+If+the+password+is+not+changed%2C+your+account+will+be+locked%3B+contact+your+administrator+to+get+it+unlocked.+On+successful+password+change%2C+you+will+be+logged+out+of+all+your+current+sessions.%29%22%7D%2C%7B%22chgPwd%22%3Atrue%2C%22chgpwdvem%22%3A%22The+new+passwords+do+not+match.+Type+the+passwords+again.%22%7D%2C%7B%7D%5D&pl=en&isManualLogin=true

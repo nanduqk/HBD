@@ -1,0 +1,21 @@
+POST https://hba.na.pg.com:8443/BOE/portal/2302072240/LumiraWebApp/zen HTTP/1.1
+Host: hba.na.pg.com:8443
+Connection: keep-alive
+Content-Length: 621
+sec-ch-ua: "Google Chrome";v="119", "Chromium";v="119", "Not?A_Brand";v="24"
+Accept: application/xml, text/xml, */*; q=0.01
+Content-Type: application/x-www-form-urlencoded;charset=UTF-8
+X-Requested-With: XMLHttpRequest
+sec-ch-ua-mobile: ?0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36
+sec-ch-ua-platform: "Windows"
+Origin: https://hba.na.pg.com:8443
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: empty
+Referer: https://hba.na.pg.com:8443/BOE/portal/2302072240/LumiraWebApp/view.faces?cafWebSesInit=true&bttoken=MDAwRDNjQkxHRUgwYmdhU0hdVkNTNlFDTUhIM1g5NTAEQ&opendocTarget=infoviewOpenDocFrame&appKind=InfoView&service=%2FInfoView%2Fcommon%2FappService.do&loc=en_US&pvl=en_US&ctx=standalone&actId=8023&objIds=2810708&containerId=undefined&pref=maxOpageUt%3D200%3BmaxOpageC%3D10%3Btz%3DEurope%2FLondon%3BmUnit%3Dinch%3BshowFilters%3Dtrue%3BsmtpFrom%3Dtrue%3BpromptForUnsavedData%3Dtrue%3B&app=BING&defaultView=true
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Cookie: JSESSIONID=EB58C5BBAD5A24FF29F53A2AD9A98011; InfoViewPLATFORMSVC_COOKIE_CMS=%40webHBA; InfoViewCE_SAPSys=HGA; InfoViewCE_SAPCnt=400; InfoViewPLATFORMSVC_COOKIE_AUTH=secSAPR3; InfoViewPLATFORMSVC_COOKIE_USR=z0006aLnf4g65%40%23%2444; InfoViewPLATFORMSVC_COOKIE_TOKEN=
+
+BI_COMMAND=&BI_COMMAND-BI_COMMAND_TYPE=GET_SNIPPET&BI_COMMAND-KEEP_SERVER_STATE=X&BI_COMMAND_1=&BI_COMMAND_1-BI_COMMAND_TYPE=SELECTION_CHANGED&BI_COMMAND_1-CELLS=%7B'DATA'%3A%5B%7B'row'%3A1%2C'col'%3A1%2C'originalRow'%3A1%2C'originalCol'%3A1%7D%5D%7D&BI_COMMAND_1-PREVENT_UNDO=X&BI_COMMAND_1-TARGET_ITEM_REF=CROSSTAB_1&BI_COMMAND_2=&BI_COMMAND_2-BI_COMMAND_TYPE=&BI_COMMAND_2-COMMAND_INTERPRETER=BIAL&BI_COMMAND_2-COMPONENT_NAME=CROSSTAB_1&BI_COMMAND_2-EVENT_NAME=ON_SELECT&PAGE_ID=1_MDBlMmI3N2JjOTJhNDkxZGJiZTUzMjUyMzRmZTlkMGI%3D&REQUEST_ID=2&SESSION_RESOURCE_ID=z000I1L%5CV%40%5DB43EK7Cj%3Fho2WL%5B%5D%3FYVZ%3BlddOQ5P00

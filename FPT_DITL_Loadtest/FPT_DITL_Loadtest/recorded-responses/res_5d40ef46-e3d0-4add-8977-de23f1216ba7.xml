@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<snippet_collection>
+<snippet id="sapbi_snippet___JAVASCRIPTHEADER" type="JAVASCRIPT"><![CDATA[sapbi_page.m_required_sdk_versions = {};
+sapbi_page.m_required_biBundles = {"zen.rt.components.crosstab": "bundles/zen/rt/components/crosstab","zen.rt.components.vizframedynamicmenu": "zen.rt.components.vizframe/bundles/zen/rt/components/vizframedynamicmenu","zen.rt.components.ui5.shape": "bundles/zen/rt/components/ui5/shape","zen.rt.components.dynamicmenu.menubuilders": "bundles/zen/rt/components/dynamicmenu/menubuilders","zen.rt.components.colorpalette": "zen.rt.components.vizframe/bundles/zen/rt/components/colorpalette","zen.rt.components.dynamicmenu.builders": "bundles/zen/rt/components/dynamicmenu/builders"};
+sapbi_addRequired([]);
+sapbi_page.m_requestIdValue = "1";
+sapbi_page.m_WaitForPhase2 = false;
+]]></snippet>
+<snippet id="sapbi_snippet___JAVASCRIPTBODY" type="HTML"><![CDATA[<div id="sapbi_snippet___JAVASCRIPTBODY"></div>]]></snippet>
+<snippet id="sapbi_snippet_ROOT" type="JSON"><![CDATA[{"delta":[{"component":{"id":"PANEL_4","type":"PANEL_COMPONENT","pureId":"PANEL_4","scope":"","width":"auto","height":"auto","leftmargin":"10","rightmargin":"10","topmargin":"80","bottommargin":"30","cssclass":"","showLoadingState":false,"content":{"control":{"type":"panel","id":"PANEL_4_panel1","cssStyle":"background\x2dcolor\x3a\x20white\x3b","onclick":"","content":[{"component":{"id":"TABSTRIP_5","type":"TABSTRIP_COMPONENT","pureId":"TABSTRIP_5","scope":""}},{"component":{"id":"SHOWV1","type":"PANEL_COMPONENT","pureId":"SHOWV1","scope":""}},{"component":{"id":"SWITCH_4","type":"com_sap_ip_bi_Switch","pureId":"SWITCH_4","scope":""}},{"component":{"id":"TEXT_2","type":"TEXT_COMPONENT","pureId":"TEXT_2","scope":""}},{"component":{"id":"NAVIGATIONPANEL_1","type":"NAVIGATIONPANEL_COMPONENT","pureId":"NAVIGATIONPANEL_1","scope":""}},{"component":{"id":"SHAPE_1","type":"com_sap_ip_bi_Shape","pureId":"SHAPE_1","scope":""}}]}}}}]}]]></snippet>
+</snippet_collection>

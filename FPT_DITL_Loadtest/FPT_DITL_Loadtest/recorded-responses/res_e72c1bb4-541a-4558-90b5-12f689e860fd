@@ -1,0 +1,693 @@
+/*
+�2010 - 2016 SAP SE or an SAP affiliate company.  All rights reserved.
+ 
+SAP and other SAP products and services mentioned herein as well as their respective logos are trademarks or registered trademarks of SAP SE in Germany and other countries.  Please see http://www.sap.com/corporate-en/legal/copyright/index.epx#trademark for additional trademark information and notices.
+*/
+
+/*
+�2010 - 2016 SAP SE or an SAP affiliate company.  All rights reserved.
+
+SAP and other SAP products and services mentioned herein as well as their respective logos are trademarks or registered trademarks of SAP SE in Germany and other countries.  Please see http://www.sap.com/corporate-en/legal/copyright/index.epx#trademark for additional trademark information and notices.
+ */
+
+
+jQuery.sap.declare("com.sap.fioribi.widgets.Table");
+var pagePrefModel=sap.ui.getCore().getModel("pagePrefModel");
+var FavoriteCol;
+var $current, $entries,$previous,$paginate_url;
+var key = ["name"];
+if(pagePrefModel.myfavorites==true)
+	key.push("my_favourite");
+if(pagePrefModel.type==true)
+	key.push("displaytype");
+if(pagePrefModel.lastrun==true)
+	key.push("lastRun");
+if(pagePrefModel.instances==true)
+	key.push("instances")
+	if(pagePrefModel.description==true)
+		key.push("description");
+if(pagePrefModel.createdby==true)
+	key.push("owner");
+if(pagePrefModel.lastupdated==true)
+	key.push("updated");
+if(pagePrefModel.createdon==true)
+	key.push("created");
+if(pagePrefModel.locationcategories==true)
+	key.push("path");
+
+var sort = ["name"];
+if(pagePrefModel.myfavorites==true)
+	sort.push("fav");
+if(pagePrefModel.type==true)
+	sort.push("type");
+if(pagePrefModel.lastrun==true)
+	sort.push("lastRun");
+if(pagePrefModel.instances==true)
+	sort.push("instances");
+if(pagePrefModel.description==true)
+	sort.push("description");
+if(pagePrefModel.createdby==true)
+	sort.push("owner");
+if(pagePrefModel.lastupdated==true)
+	sort.push("updated");
+if(pagePrefModel.createdon==true)
+	sort.push("created");
+if(pagePrefModel.locationcategories==true)
+	sort.push("path");
+this.filtersMap;
+var columnFilterArray = [];
+com.sap.fioribi.widgets.Table = function(actualColumns, list, oController, processCAF,checkbox) {
+    var oPref = sap.ui.getCore().getModel("pagePrefModel");
+	if (oController.$entries != null) {
+		$entries = oController.$entries.entries;
+	} 
+	/*else {
+       switch(oController.oView.oListBox.getSelectedKey()){
+	 case "1":
+            oController.getShowAll();
+            break;
+        case "2":
+            oController.getRecent();
+            break;
+        case "3":
+            oController.getDocuments();
+            break;
+        case "4":
+            oController.getCategories();
+            break;
+        case "5":
+            oController.getFavorites();
+            break;
+        case "6":
+            oController.getMyRecentlyRun();
+            break;
+		default:
+		oController.getShowAll();
+	}
+    }*/
+	this.filtersMap = new Map;
+	$current = oController;
+	BILaunchpadApp.includeStyleSheet("com/sap/fioribi/css/Common.css");
+	BILaunchpadApp.includeStyleSheet("com/sap/fioribi/css/Categories.css");
+	jQuery.sap.require("com.sap.fioribi.utils.AttributeKey");
+	jQuery.sap.require("com.sap.fioribi.utils.iconImage");
+	jQuery.sap.require("com.sap.fioribi.utils.TableIcon");
+	this.processCAF = processCAF;
+	var col = 0;
+	this.oController = oController;
+	var oList = new sap.m.List({
+		mode: "MultiSelect",
+		includeItemInSelection: true,
+		selectionChange: function(oControlEvent) {
+			var x = oControlEvent.oSource.getSelectedItems();
+			var columnsCount = this.myHomeListTable.getColumns().length;
+			for (i = 0; i < (columnsCount - 1); i++) {
+				this.myHomeListTable.getColumns()[i].setVisible(false);
+				setSelectedFalse(this.myHomeListTable.getColumns()[i].mAggregations.header.mProperties.text);
+				x.forEach(function(item) {
+					var oTitle = item.mProperties.title;
+					setSelectedTrue(item.mProperties.title);
+					if (oTitle == this.myHomeListTable.getColumns()[i].mAggregations.header.mProperties.text) {
+						this.myHomeListTable.getColumns()[i].setVisible(true);
+					}
+				});
+			}
+		},
+	});
+	var oColSize = actualColumns.length;
+	for (i = 0; i < oColSize; i++) {
+		var oItem = new sap.m.StandardListItem({
+			title: actualColumns[i],
+			selected: getSelected(actualColumns[i]),
+		});
+		oList.addItem(oItem);
+	}
+	var oSettingsPopover = new sap.m.Popover({
+		width: "113px",
+		showHeader: false,
+		placement: "Bottom",
+		enableScrolling: false,
+		content: oList,
+	});
+	var widthsize = ["20%"];
+	var sortingBlackList = ["lastRun","instances","description","owner","created","path"];
+	var filterBlackList =  ["fav","lastRun","instances","description","owner","updated","created","path"];
+	this.Columns = [];
+	var $this = this;
+	var c;
+	for (i = 0; i < oColSize; i++) {
+		var temp = getKey(actualColumns[i]);
+		if (i == 0) {
+			var textField = new sap.m.Text({
+				text: "{" + key[i] + "}",
+				tooltip: "{" + key[i] + "}"
+			}).addStyleClass("BILP-ListTableText BILP-Cursor");
+			var titleIcon = new sap.ui.core.Icon({
+				src :
+				{
+					path: "type",
+					formatter: function(type){
+						if(types.indexOf(type)!=-1)
+						{
+							sIcon=tableIconType(type);
+							return sIcon;
+						}
+						else
+						{
+							return null;
+						}
+					}
+				},
+				color: {
+					path: "type",
+					formatter: function(type) {
+						if(types.indexOf(type)!=-1)
+						{
+							sIcon=tableIconColor(type);
+							return sIcon;
+						}
+						else
+						{
+							return "";
+						}
+					}
+				},
+				size : "1.1rem",
+				width:{
+					path: "type",
+					formatter: function(type) {
+						if(types.indexOf(type)!=-1)
+						{
+
+							return "32px";
+						}
+						else
+						{
+							return "0px";
+						}
+					}
+				},
+			}).addStyleClass("BILP_Iconalign sapUiNoMargin BILP-Cursor");	
+
+			var iconImage = new sap.m.Image({
+				height: {
+					path: "type",
+					formatter: function(type) {
+						if(types.indexOf(type)==-1)
+						{
+
+							return "32px";
+						}
+						else
+						{
+							return "0px";
+						}
+					}
+				},
+				width: {
+					path: "type",
+					formatter: function(type) {
+						if(types.indexOf(type)==-1)
+						{
+
+							return "32px";
+						}
+						else
+						{
+							return "0px";
+						}
+					}
+				},
+				src: {
+					path: "type",
+					formatter: function(type) {
+						if(types.indexOf(type)==-1)
+						{
+
+							return "com/sap/fioribi/images/icons-with-type.png";
+						}
+						else
+						{
+							return "";
+						}
+					}
+				},
+
+				backgroundRepeat: "no-repeat",
+				backgroundSize: "initial",
+				mode: sap.m.ImageMode.Background,
+				backgroundPosition: {
+					parts: [{ path: 'type' }, { path: 'subtype' }],
+                    formatter: function(type,subtype) {
+						if(type=="Shortcut") {
+							return updatedShortCutIcon(subtype);
+						}
+						else{
+							if(types.indexOf(type)==-1) {
+								return updatedicon(type);
+							}
+							else {
+								return "";
+							} 
+						}
+                    }
+				}
+			}).addStyleClass("BILP_align sapUiNoMargin BILP-Cursor");
+			c = new sap.ui.table.Column({
+				sortProperty:sort[i],
+				filterProperty: sort[i],
+				width: widthsize[i],
+				textAlign: sap.ui.core.TextAlign.Right,
+				label: new sap.m.Label({
+					text: BILaunchpadApp.localized(actualColumns[i]),
+					// tooltip:BILaunchpadApp.localized(actualColumns[i]),
+					align: "left",
+				}).addStyleClass("BILP-tableHeader"),
+				template: new sap.ui.layout.HorizontalLayout({
+					content: [titleIcon,iconImage, textField]
+				}).addStyleClass("BILP-tableFirstColumnHLayout")
+			});
+			/*if($current.getView().oListBox.getSelectedKey() != 2){
+			$previous = c;
+			c.setSorted(true);
+			c.setSortOrder(sap.ui.table.SortOrder.Ascending);
+			}*/
+		} else if(i==1 && (pagePrefModel.myfavorites==true)) {
+			var favIcon = new sap.ui.core.Icon({
+				src : {
+					path:"fav",
+					formatter: function(favFlag){
+						if(favFlag){
+							favIcon.setTooltip(BILaunchpadApp.localized("tooltip_for_remove_from_favorites"));
+							return "sap-icon://favorite";
+						}else
+							favIcon.setTooltip(" ");
+					}
+				},
+				press: function(oEvent) 
+				{
+					$this.oController.markAsUnFav(this.getBindingContext());
+				},
+				size : "1rem",
+				width:"1rem",
+				//tooltip: BILaunchpadApp.localized("tooltip_for_remove_from_favorites"),
+			}); 
+			favIcon.addStyleClass("BILP-favIconDisplayBlock BILP-favIcon BILP-favIconMargin BILP-Cursor");
+			if(sap.ui.getCore().getElementById("favorites")==undefined){
+				c = new sap.ui.table.Column({
+					width: widthsize[i],
+					sortProperty:sort[i],
+					id:"favorites",
+					textAlign: sap.ui.core.TextAlign.Right,
+					label: new sap.m.Label({
+						text: BILaunchpadApp.localized(actualColumns[i]),
+						//tooltip: BILaunchpadApp.localized(actualColumns[i]),
+						align: "left",
+					}).addStyleClass("BILP-tableHeader BILP-tableheaderc"),
+					template: favIcon
+				});
+				FavoriteCol=c;}
+		} else {
+			c = new sap.ui.table.Column({
+				textAlign: sap.ui.core.TextAlign.Right,
+				width: widthsize[i],
+				label: new sap.m.Label({
+					text: BILaunchpadApp.localized(actualColumns[i]),
+					//tooltip: BILaunchpadApp.localized(actualColumns[i])
+				}).addStyleClass("BILP-tableHeader BILP-tableheaderc"),
+				template: new sap.m.Text({
+					text: "{" + key[i] + "}",
+					tooltip: "{" + key[i] + "}"
+				}).addStyleClass("BILP-Cursor")
+			});
+			if(actualColumns[i] != "description"){ //Accessibility issue: Don't set sort and filter in case of 'description' column 
+				c.setSortProperty(sort[i]);
+				c.setFilterProperty(sort[i]);
+			}
+		}
+		var oCustomMenu = new sap.ui.unified.Menu();
+		var that = this;
+		if (sortingBlackList.indexOf(getKey(actualColumns[i])) == -1) {
+			oCustomMenu.addItem(new sap.ui.unified.MenuItem({
+				text: BILaunchpadApp.localized("Table_sort_asc"),
+				icon: "sap-icon://sort-ascending",
+				select: function(oControlEvent) {
+					if($previous != null){$previous.setSorted(false);}
+					var column = oControlEvent.oSource.oParent.oParent;
+					$previous = column;
+					var sortBy = column.getProperty("sortProperty");
+					   $current.getSortAndFilter(sortBy, "+",$this.filterQueryString());
+					var oSorter = new sap.ui.model.Sorter(column.getSortProperty(), false);
+					that.myHomeListTable.getBinding("rows").sort(oSorter);
+					for (var i=0;i<that.myHomeListTable.getColumns().length; i++) {
+						that.myHomeListTable.getColumns()[i].setSorted(false);                
+						column.setSorted(true);
+						column.setSortOrder(sap.ui.table.SortOrder.Ascending);
+					}
+
+				}
+			}));
+			oCustomMenu.addItem(new sap.ui.unified.MenuItem({
+				text: BILaunchpadApp.localized("Table_sort_desc"),
+				icon: "sap-icon://sort-descending",
+				select: function(oControlEvent) {
+					if($previous != null){$previous.setSorted(false);}
+					var column = oControlEvent.oSource.oParent.oParent;
+					$previous = column;
+					var sortBy = column.getProperty("sortProperty");
+					  $current.getSortAndFilter(sortBy, "-",$this.filterQueryString());
+					var oSorter = new sap.ui.model.Sorter(column.getSortProperty(), true);
+					that.myHomeListTable.getBinding("rows").sort(oSorter);
+					for (var i=0;i<that.myHomeListTable.getColumns().length; i++) {
+						that.myHomeListTable.getColumns()[i].setSorted(false); 
+						column.setSorted(true);
+						column.setSortOrder(sap.ui.table.SortOrder.Descending);
+					}
+				}
+			}));
+		}
+
+
+		var filterMenuItem = new sap.ui.unified.MenuTextFieldItem({
+			text: "Filter",
+			icon: "sap-icon://filter",
+			label: BILaunchpadApp.localized("text_filter"),
+			select: function(oControlEvent) {
+				var filterValue = oControlEvent.getParameters().item.getValue();
+				var filterProperty = oControlEvent.getSource().getParent().getParent().mProperties.filterProperty;
+				if(filterProperty==""){
+					filterProperty = "type";
+				}
+				var column = oControlEvent.oSource.oParent.oParent;
+				if (filterValue.trim() != "") {
+					//var oFilter1 = new sap.ui.model.Filter(filterProperty, sap.ui.model.FilterOperator.Contains, filterValue);
+					$this.filtersMap.set(filterProperty,filterValue.trim());
+					column.setFiltered(true);
+				} else {
+					column.setFiltered(false);
+					$this.filtersMap.delete(filterProperty);
+				}
+				$current.getSortAndFilter("", "",$this.filterQueryString());
+
+			}});
+		if(filterBlackList.indexOf(sort[i]) == -1 ){
+			oCustomMenu.addItem(filterMenuItem);
+			columnFilterArray.push(filterMenuItem);
+		}
+		c.setMenu(oCustomMenu);
+        switch (actualColumns[i]) {
+            case "title":
+                c.data("preferenceKey", "name");
+                break;
+            case "my_favourite":
+                c.data("preferenceKey", "myfavorites");
+                break;
+            case "displaytype":
+                c.data("preferenceKey", "type");
+                break;
+            case "document_last_run":
+                c.data("preferenceKey", "lastrun");
+                break;
+            case "instances":
+                c.data("preferenceKey", "instances");
+                break;
+            case "description":
+                c.data("preferenceKey", "description");
+                break;
+            case "createdby":
+                c.data("preferenceKey", "createdby");
+                break;
+            case "text_Last_Updated":
+                c.data("preferenceKey", "lastupdated");
+                break;
+            case "created_on":
+                c.data("preferenceKey", "createdon");
+                break;
+            case "location_categories":
+                c.data("preferenceKey", "locationcategories");
+                break;
+        }
+		$this.Columns.push(c);
+	}
+	this.Columns.push(new sap.ui.table.Column({
+		resizable: false,
+		autoResizable: false,
+		width: "70px",
+		flexible: false,
+		textAlign: sap.ui.core.TextAlign.Center,
+		label: new sap.m.Label({
+			text: " ",
+			align: "center",
+			width: "10%",
+		}).addStyleClass("BILP-size32px BILP-listmoreIcon BILP-moreIconPosition"),
+		template : new sap.m.Button({
+			//id: "listIcon",
+			icon: "sap-icon://overflow",
+			tooltip: BILaunchpadApp.localized("TableWidget_row"),
+			press: function(oEvent) {
+				$this.processCAF.call(oController, this, this.getBindingContext());
+				$this.myHomeListTable.clearSelection();
+				$this.selectionsMade = [];
+			}
+		}).addStyleClass("BILP-recycleBinbutton  BILP-recyclebinAlign BILP-Refreshicon BILP-Cursor")
+	}));
+    //update custom column width if administrator settings are off
+    if (oPref && !oPref.useadministratorsettings) {
+        if (sap.ui.getCore().getModel("columnWidth") && Object.keys(sap.ui.getCore().getModel("columnWidth").getData()).length > 0) {
+            var columnPxModel = sap.ui.getCore().getModel("columnWidth").getData();
+            for (var i = 0; i < this.Columns.length; i++) {
+                if (columnPxModel.hasOwnProperty(this.Columns[i].data().preferenceKey)) {
+                    this.Columns[i].setWidth(columnPxModel[this.Columns[i].data().preferenceKey]);
+                }
+            }
+        } else {
+            for (var i = 0; i < this.Columns.length; i++) {
+                if (oPref.hasOwnProperty(this.Columns[i].data().preferenceKey + "_width")) {
+                    this.Columns[i].setWidth(oPref[this.Columns[i].data().preferenceKey + "_width"]);
+                }
+            }
+        }
+    }
+	var oModel = new sap.ui.model.json.JSONModel();
+	oModel.setData($entries);
+	if(sap.ui.getCore().byId("homeTable") == undefined){
+		var scrollAttached = false;
+		this.myHomeListTable = new sap.ui.table.Table({
+			id: "homeTable",
+			height: "100%",
+			width: "100%",
+			visibleRowCountMode:"Auto",
+			selectionMode: sap.ui.table.SelectionMode.Multi,
+			modelContextChange:function(oControlEvent){
+				var sel=BILaunchpadApp.getCurrentSection();
+				if(sel==6 && pagePrefModel.myfavorites==true)
+				{
+					if(FavoriteCol.getVisible()==true)
+						if(FavoriteCol.getIndex()==1 )
+							this.removeColumn(FavoriteCol);
+				}
+				else{
+					if(pagePrefModel.myfavorites==true && sel!=6 && FavoriteCol.getVisible()==true){
+						if(sap.ui.getCore().getElementById("favorites")!=undefined){
+							this.removeColumn(FavoriteCol);
+							this.insertColumn(FavoriteCol,1);
+		}}}},
+        columnResize: function(oControlEvent) {
+            if (oControlEvent.getParameter("column").data().preferenceKey) {
+                var resizedColumnKey = oControlEvent.getParameter("column").data().preferenceKey;
+                var columnWidthModel = null;
+                var columnWidthModelData = null;
+                if (sap.ui.getCore().getModel("columnWidth")) {
+                    columnWidthModel = sap.ui.getCore().getModel("columnWidth");
+                    columnWidthModelData = columnWidthModel.getData();
+                } else {
+                    columnWidthModel = new sap.ui.model.json.JSONModel({});
+                    columnWidthModelData = columnWidthModel.getData();
+                }
+                columnWidthModelData[resizedColumnKey] = oControlEvent.getParameters().width;
+                columnWidthModel.setData(columnWidthModelData);
+                sap.ui.getCore().setModel(columnWidthModel, "columnWidth"); 
+            }
+			},
+			rowSelectionChange: function(oControlEvent) {
+				var selections =  $this.myHomeListTable.getSelectedIndices();	
+				if(selections.length != 0) {
+					sap.ui.getCore().byId("showAllOverflowButton").setEnabled(true);
+				}else{
+					sap.ui.getCore().byId("showAllOverflowButton").setEnabled(false);
+				}
+			},
+			selectionChange: function(oControlEvent) {
+				$this.selectionsMade.length = 0;
+				$this.selectionsMade = $this.myHomeListTable.getSelectedContexts(true);
+				$this.isMultiSelected = !($this.selectionsMade.length <= 1);
+				if ($this.oController.tab == "folder") {
+					if ($this.selectionsMade.length <= 0) {
+						$this.oController.oView.createfolder.setEnabled(true);
+					} else {
+						$this.oController.oView.createfolder.setEnabled(false);
+					}
+				}
+			},
+			beforeOpenContextMenu:function(oControlEvent)
+			{
+				var selections = sap.ui.getCore().byId("homeTable").getSelectedIndices();
+				if (selections.length > 1) {
+					BILaunchpadApp.setGlobalCAFFlag(true);
+					sap.ui.getCore().byId("showAllOverflowButton").firePress();
+					BILaunchpadApp.setGlobalCAFFlag(false);
+					sap.ui.getCore().byId("homeTable").setContextMenu(com.sap.fioribi.components.actionpanel.ActionPanelContainer.prototype.globalCAF());
+				}
+				else
+				{
+					$this.processCAF.call(oController, this, oControlEvent.getSource().getBinding().getModel().getData()[oControlEvent.mParameters.rowIndex]);
+					$this.myHomeListTable.clearSelection();
+					$this.selectionsMade = [];
+					sap.ui.getCore().byId("homeTable").setContextMenu(com.sap.fioribi.components.actionpanel.ActionPanelContainer.prototype.menuit());
+					$this.myHomeListTable.setSelectedIndex(oControlEvent.getParameter("rowIndex"));
+				}
+			},
+			cellClick: function(oControlEvent) {
+				sap.ui.core.BusyIndicator.hide();
+				if($this.myHomeListTable.getColumns().length-1 == oControlEvent.getParameter("columnIndex"))
+				{
+					$this.processCAF.call(oController, oControlEvent.mParameters.cellControl, oControlEvent.mParameters.rowBindingContext);
+					$this.myHomeListTable.clearSelection();
+					$this.selectionsMade = [];
+
+				}else{
+					var src = oControlEvent.getSource();
+					var path = oControlEvent.getParameters().rowBindingContext.sPath;
+					var obj = $this.myHomeListTable.getModel().getProperty(path);
+
+
+					if(oControlEvent.getParameters().cellControl.mAggregations.tooltip != BILaunchpadApp.localized("TableWidget_row"))
+					{
+						if (obj.type === "Folder" || obj.type === "Category" || obj.type === "PersonalCategory") {
+							$this.oController.updateTable(obj.cuid, obj.name, true, obj.type);
+						} else {
+							BILaunchpadApp.navPoints.push({
+								level: BILaunchpadApp.navPoints[BILaunchpadApp.navPoints.length-1].level + 1,
+								curr: "",
+								currString: obj.name,
+								prev: BILaunchpadApp.navPoints[BILaunchpadApp.navPoints.length-1].curr,
+								backAction: BILaunchpadApp.navPoints[BILaunchpadApp.navPoints.length-1].curr
+							});
+							sap.ui.core.BusyIndicator.show(0);
+							var eventParameters = oControlEvent.getParameters();
+							setTimeout(function(){ 
+								$this.oController.fnViewDocument(eventParameters.rowBindingContext);
+								sap.ui.core.BusyIndicator.hide();
+							}, 10); 
+						}
+					}
+				}
+			},
+			columns: this.Columns,
+			flexible: true,
+			resizable: false,
+			autoResizable: false,
+			enablescrolling: true,
+			//visibleRowCount: 14,
+			firstVisibleRowChanged:function(event){
+				var vsbDiv = $('#'+event.oSource.sId+'-vsb');
+				if(!scrollAttached){ //Flag to attach scroll event only once
+					vsbDiv.scroll(function() { 
+						var div = vsbDiv[0];
+						if (div.scrollTop != 0 && (Math.floor(div.scrollHeight - div.scrollTop) == Math.floor(vsbDiv.innerHeight())) && oController.isScrollAllowedForList && !oController.isLastPageForList) {
+							//oController.isScrollAllowedForList = false;
+							oController.paginate($this.myHomeListTable, div.scrollTop,true);
+						}
+					});
+					scrollAttached = true;
+				}
+			},
+			layoutData: new sap.ui.layout.SplitterLayoutData({
+				size: "auto",
+				resizable: false
+			})
+		}).addStyleClass("BILP-TableCursor BILP-TableLayout BILP-commonTableStyle BILP-TableLayout2 BILP-TableLayout3 BILP-border1 BILP-ListingTable sapUiSizeCompact BILP-tableTextTruncation BILP-TableLayout5 BILP-TableLayout4 BILP-Cursor ");
+	}else
+	{ 
+		this.myHomeListTable = sap.ui.getCore().byId("homeTable");
+	}
+
+	if(checkbox) 
+		this.myHomeListTable.setSelectionMode(sap.ui.table.SelectionMode.Multi);
+	else 
+		this.myHomeListTable.setSelectionMode(sap.ui.table.SelectionMode.Single);
+
+	this.myHomeListTable.setModel(oModel);
+	this.myHomeListTable.bindRows("/");
+
+	/*if (oPref && !oPref.useadministratorsettings && oPref.pageSizeLimit) {
+		 // deleting stale "loadMoreBtn" traces if any 
+	    if (sap.ui.getCore().byId("loadMoreBtn")) {
+	        sap.ui.getCore().byId("loadMoreBtn").destroy();
+	    }
+		var footerToolbar = new sap.m.Toolbar({
+			design: sap.m.ToolbarDesign.Transparent,
+			content: [
+				new sap.m.Button({
+					id: "loadMoreBtn",
+					text: "More",
+					type: sap.m.ButtonType.Transparent,
+					press: function (oEvent) {
+						oController.paginate($this.myHomeListTable, "", true);
+					}
+				}),
+			]
+		}).addStyleClass("BILP-tableFooter");
+		this.myHomeListTable.setFooter(footerToolbar);
+		oController.updateRowCount(oController.$entries.entries.length);
+	} */
+};
+com.sap.fioribi.widgets.Table.prototype.getTable = function() {
+	return this.myHomeListTable;
+};
+
+com.sap.fioribi.widgets.Table.prototype.getFilterArray = function() {
+	var fArray = [] ;var i = 0;
+	this.filtersMap.forEach(function (item, key, mapObj) {  
+		fArray[i] = item;
+		i ++;	
+	});
+	return fArray;
+};
+
+com.sap.fioribi.widgets.Table.prototype.applyFilters = function() {
+	var fArray = this.getFilterArray();
+	var filterArray = oFilterToSetOnTheTable = new sap.ui.model.Filter({
+		filters: fArray,
+		and: true
+	});
+	this.myHomeListTable.getBinding("rows").filter(filterArray, sap.ui.model.FilterType.Application);
+};
+
+com.sap.fioribi.widgets.Table.prototype.getController = function() {
+	return $current;
+};
+
+com.sap.fioribi.widgets.Table.prototype.filterQueryString = function() {
+	var filterQueryString = "";
+	this.filtersMap.forEach(function (item, key, mapObj) {  
+		if(key == "type") {
+			filterQueryString+=key+"filter="+encodeURIComponent(item)+"&";
+		}else{
+			filterQueryString+=key+"="+encodeURIComponent(item)+"&";
+		}
+	});
+	filterQueryString=filterQueryString.substring(0, filterQueryString.length-1);
+	return filterQueryString;
+};
+
+com.sap.fioribi.widgets.Table.prototype.clearFilters = function() {
+	this.filtersMap.clear();
+	for(i=0;i<columnFilterArray.length;i++){
+		columnFilterArray[i].setValue("");
+	}
+	for(i=0;i<this.Columns.length;i++){
+		this.Columns[i].setFiltered(false);
+	}
+	this.oController.sortAndFilterQueryString = null;
+};

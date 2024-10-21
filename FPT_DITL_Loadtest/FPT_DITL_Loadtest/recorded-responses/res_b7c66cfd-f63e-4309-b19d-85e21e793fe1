@@ -1,0 +1,7 @@
+/*
+�2010 - 2016 SAP SE or an SAP affiliate company.  All rights reserved.
+ 
+SAP and other SAP products and services mentioned herein as well as their respective logos are trademarks or registered trademarks of SAP SE in Germany and other countries.  Please see http://www.sap.com/corporate-en/legal/copyright/index.epx#trademark for additional trademark information and notices.
+*/
+
+jQuery.sap.declare("com.sap.fioribi.modules.notifications.NotificationContainer");jQuery.sap.require({modName:"com.sap.fioribi.modules.notifications.NotificationView",type:"view"});jQuery.sap.require({modName:"com.sap.fioribi.modules.notifications.NotificationController",type:"controller"});jQuery.sap.require("sap.ui.core.IconPool");jQuery.sap.require("sap.ui.core.Icon");jQuery.sap.require("com.sap.fioribi.modules.common.BILPContainer");com.sap.fioribi.modules.notifications.NotificationContainer=function(oData){this.oView=new com.sap.fioribi.modules.notifications.NotificationView({viewName:"com.sap.fioribi.modules.notifications.NotificationView"});this.oController=this.oView.getController();};com.sap.fioribi.modules.notifications.NotificationContainer.prototype=jQuery.sap.newObject(com.sap.fioribi.modules.common.BILPContainer.prototype);

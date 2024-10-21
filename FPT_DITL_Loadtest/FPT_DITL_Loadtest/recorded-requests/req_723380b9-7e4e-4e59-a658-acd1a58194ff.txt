@@ -1,0 +1,21 @@
+POST https://hba.na.pg.com:8443/biprws/logon/token HTTP/1.1
+Host: hba.na.pg.com:8443
+Connection: keep-alive
+Content-Length: 609
+sec-ch-ua: "Google Chrome";v="119", "Chromium";v="119", "Not?A_Brand";v="24"
+Accept: application/json
+Content-Type: application/json;odata=verbose
+X-Requested-With: XMLHttpRequest
+sec-ch-ua-mobile: ?0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36
+sec-ch-ua-platform: "Windows"
+Origin: https://hba.na.pg.com:8443
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: empty
+Referer: https://hba.na.pg.com:8443/BOE/portal/2302072240/FioriBI/main.jsp?service=%2Fcommon%2FappService.do&appKind=InfoView
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Cookie: InfoViewPLATFORMSVC_COOKIE_CMS=%40webHBA; InfoViewCE_SAPSys=HGA; InfoViewCE_SAPCnt=400; InfoViewPLATFORMSVC_COOKIE_AUTH=secSAPR3; InfoViewPLATFORMSVC_COOKIE_TOKEN=; InfoViewPLATFORMSVC_COOKIE_USR=z0006aLnf5j67%40%23%2444
+
+{"logonToken":"3&5U=13104003JEaWehn4Qm0WFWjK3eUGoko7NhnznVTEh13104002JfaEIam416hiG1TU5EVkSveUqZWC3LOAB,8P&10U,88&1,8P&63=secSAPR3,8P&35=ES1943,8P&S5,88&pa,8P&ua=Af9fX5We.TVJu_6eVqnxufQ,8P&ub=FlJnCgB.NwoAd08AAAAHdFYAAFBWtjah,8P&zA,83&4E=13104002JfaEIam416hiG1TU5EVkSveUqZWC3LOAB,8P&3k=@webHBA,8P&4F=10935391,8P&Tm=36500,83&Tn={3&U=3,83&.1={3&2=10935463,83&O=FavoritesFolder,8P},?z&.2={3&2=10935464,83&O=PersonalCategory,8P},?z&.3={3&2=10935465,83&O=Inbox,8P},?z},?z&7r,83&2r=usalspgsa687.na.pg.com:6400,8P&lu=1033,83&PP=1024,83&ux=FvCvggAahwoAYz4CAACniVQAAFBWtjah,8P&uy=-22,8L","tokenType":"serializedSession"}

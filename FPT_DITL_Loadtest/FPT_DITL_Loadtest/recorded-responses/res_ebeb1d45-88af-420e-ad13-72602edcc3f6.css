@@ -1,0 +1,73 @@
+/*
+�2010 - 2016 SAP SE or an SAP affiliate company.  All rights reserved.
+ 
+SAP and other SAP products and services mentioned herein as well as their respective logos are trademarks or registered trademarks of SAP SE in Germany and other countries.  Please see http://www.sap.com/corporate-en/legal/copyright/index.epx#trademark for additional trademark information and notices.
+*/
+
+@CHARSET "ISO-8859-1";
+
+.BILP-FilterInputBox {
+	height:40px !important;
+	/*margin-top:4px !important;*/
+}
+
+.BILP-FilterRow{
+	/*height:40px ;*/
+}
+
+.BILP-FilterButton{
+	background-color:transparent;
+	color:white;
+}
+
+.BILP-FilterBar{
+    margin-left: 4px;
+    margin-top: 20px;
+    margin-bottom: -10px;
+    width: 100%;
+}
+.BILP-VBox{
+margin-top: 2.5rem;
+}
+.BILP-LeftPadding{
+float: right;
+    margin-right: -5px;
+}
+.BILP-RefreshIconSize{
+	width:32px;
+	height:28px;
+}
+.BILP-popverHeight{
+	height: 2rem;
+}
+
+.BILP-FooterTile .sapMTileCntFtrTxt{
+	//height: 0px !important;
+	width: 7.4rem;
+}
+.BILP-TileRefreshIconcolor{
+	color: #346187;
+}
+.BILP-fontFooter .sapMTileCntFtrTxt{
+	font-size: 0.64rem;
+}
+
+.sapUiTheme-sap_belize_hcb .BILP-TileRefreshIconcolor{
+	color: #ffffff;
+}
+
+.sapUiTheme-sap_belize_hcw .BILP-TileRefreshIconcolor{
+	color: #000000;
+}
+
+.sapUiTheme-sap_fiori_3_dark .BILP-TileRefreshIconcolor{
+	color: #89a3bd;
+}
+
+.sapUiTheme-sap_fiori_3_hcb .BILP-TileRefreshIconcolor{
+	color: #ffffff;
+}
+
+.sapUiTheme-sap_fiori_3_hcw .BILP-TileRefreshIconcolor{
+	color: #000000;
+}

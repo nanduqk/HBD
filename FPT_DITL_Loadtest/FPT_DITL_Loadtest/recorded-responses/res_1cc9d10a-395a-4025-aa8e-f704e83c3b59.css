@@ -1,0 +1,518 @@
+/*
+�2010 - 2016 SAP SE or an SAP affiliate company.  All rights reserved.
+ 
+SAP and other SAP products and services mentioned herein as well as their respective logos are trademarks or registered trademarks of SAP SE in Germany and other countries.  Please see http://www.sap.com/corporate-en/legal/copyright/index.epx#trademark for additional trademark information and notices.
+*/
+
+/*
+�2010 - 2016 SAP SE or an SAP affiliate company.  All rights reserved.
+ 
+SAP and other SAP products and services mentioned herein as well as their respective logos are trademarks or registered trademarks of SAP SE in Germany and other countries.  Please see http://www.sap.com/corporate-en/legal/copyright/index.epx#trademark for additional trademark information and notices.
+*/
+
+
+@CHARSET "ISO-8859-1";
+
+.BILP-Widthbox{
+                width:100% !important;
+}
+.BILP-viewBox{
+	width:436px !important;
+}
+.BILP-categoryIcon{
+	padding-left: 5px;
+    padding-top: 5px;
+}
+.BILP-tileIcon{
+	float: right;
+    padding-right: 7px;
+}
+.BILP-imageBox{
+	width: 94% !important;
+	/* padding-left: 1rem; */
+	display: inline-block !important;
+}
+.BILP-HBox2 {
+	width:100% !important;
+}
+.BILP-Padding{
+                /*padding-bottom: 4px;*/
+    padding-left: 0px;
+    /*padding-right: 8px;*/
+    /*padding-top:4px !important;*/
+}
+.BILP-customTile.sapMCustomTile{
+		width:200px !important;
+		margin-right : 8px !important;
+		height : 180px !important;
+		margin-top:1px !important;
+		margin-left:1px !important;
+}
+.sapUiTheme-sap_belize_hcw  .sapMCustomTile:hover{
+	    border: 2px solid #000000;		
+}
+.sapUiTheme-sap_belize_hcw  .sapMCustomTile:focus{
+	    outline:3px dotted #000000;
+		outline-offset: -3px;
+}
+.BILP-customTile>div>div>div
+{
+	width: 94% !important;
+}
+.BILP-TileoptionsIE{
+	display: -ms-inline-flexbox !important;
+}
+.BILP-TileOptionsFireFox{display: inline-flex !important;padding: 0 6px 0 6px;}
+.BILP-TileContentDocumentMoreIcon{
+	padding-left: 116px !important;
+    padding-top: 15px !important;	
+}
+.BILP-TileContentCategoryMoreIcon{
+	padding-left: 196px !important;
+    padding-top: 20px !important;	
+}
+.BILP-customDocumentTileSize{
+	width:184px !important;
+	height:180px!important;
+}
+.BILP-customCategoryTileSize{
+	width:368px !important;
+	height:180px!important;
+}
+.BILP-TabTitleTrunc{
+	width: 120px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.BILP-BorderNone .TwoByOne{
+	border: none !important;
+	padding-top:42px;
+}
+/* .BILP-BorderNone{
+	outline-style: none !important;
+} */
+.BILP-BlackFooterCategoryTile{
+    width: 21rem !important;
+    padding-left: 0px !important;
+    height: 80px !important;
+    margin-bottom: 0px !important;
+    background-color: rgba(41,76,106,0.80) !important;
+    position: relative !important;
+    bottom: 0 !important;
+    top: 95px !important;
+} 
+.BILP-BlackFooterCategoryTile>div{
+	width:100% !important;
+}
+.previewBox{
+    padding-left: 62px !important;
+    padding-top: 30px;
+    margin-bottom: 22px;
+    height: 250px;
+    background-color: #F2F2F2;
+}
+.BILP-TopGrid{
+	top:5rem !important;
+}
+.BILP-BottomGrid{
+	top:4rem !important;
+}
+.BILP-deletecategoryIcon{
+	margin-top: 6px;
+    margin-left: -16px;
+}
+.BILP-BlackFooterCategoryTile1{
+    width: 335px !important;
+   /* position: absolute;*/
+    padding-left: 21px;
+    padding-left: 0px !important;
+    height: 80px !important;
+    margin-bottom: 0px !important;
+    background-color: rgba(41,76,106,0.80) !important;
+    /* position: relative !important; */
+    bottom: 35px !important;
+    /* top: 95px !important; */
+}
+.BILP-BlackFooterCategoryTile1>div{
+	width:100% !important;
+}
+.BILP-TitleCategoryTile{
+    font-size: 16px;
+    color: #FFFFFF !important;
+    padding-top : 10px;
+    top: 6px;
+    position: relative;
+    text-transform: capitalize;
+    cursor: pointer;
+    height: 18px!important;
+}
+.BILP-CategoryTilePreview{
+    font-size: 16px;
+    color: #FFFFFF !important;
+    padding-top : 10px;
+    top: 6px;
+    position: relative;
+    text-transform: none;
+    cursor: pointer;
+    height: 18px!important;
+}
+.BILP-TypeCategoryTile{
+    font-size: 12px !important;
+    color: #FFFFFF !important;
+    padding-top: 15px !important;
+    padding-left:0px !important;
+    cursor: pointer;
+  }
+  
+.BILP-CountCategoryTile{
+    font-size: 30px !important;
+    color: #F7F7F7 !important;
+    padding-left:0px !important;
+    cursor: pointer;
+}
+.BILP-FilesCategoryTile{
+    font-size: 12px !important;
+    color: #F7F7F7 !important;
+    padding-left:0px !important;
+    float:none !important;
+    cursor: pointer;
+}
+.BILP-listmoreIconLight{
+	background-position : -920px -420px !important;
+	
+}
+.BILP-FooterA{
+	    width: 225px;
+    height: 80px;
+}
+
+.BILP-FooterB{
+    width: 40px !important;
+    height: 64px !important;
+    padding-left: 13px;
+    position: absolute !important;
+    right: 60px !important;
+    top: 8px !important;
+}
+.BILP-FooterBPreview{
+    width: 42px !important;
+    height: 64px !important;
+    top: 8px !important;
+}
+.BILP-FooterC{
+	position: absolute;
+	right: 14px;
+	width: 36px;
+	height: 64px;
+	top: 6px;
+}
+.BILP-FooterC div:last-child span{
+	position:relative;
+	bottom:3px;
+}
+.BILP-Footer1{
+	/*width: 120px;*/
+    height: 80px;
+}
+.BILP-Footer2{
+                /*width: 35px !important;*/
+                height: 64px !important;
+                /* position: absolute !important; 
+                right: 56px !important;
+                top: 8px !important;*/
+				top: 3px !important;
+                
+}
+.BILP-Footer3{
+	/* position: absolute;
+	right: 14px;
+	width: 36px;
+	height: 64px;
+	top: 6px; */
+	width: 36px;
+    height: 64px;
+    top: 6px;
+    padding-right: 70px;
+    padding-left: 45px;
+}
+
+.BILP-Footer3preview{
+	padding-left: 20px;
+    width: 36px;
+    height: 64px;
+    top: 8px;
+}
+.BILP-Footer3 div:last-child span{
+	position:relative;
+	bottom:3px;
+}
+
+.BILP-customTile .sapMGT{
+	box-shadow:none !important;
+}  
+.BILP-nav-absolute{
+	position: absolute !important;
+}
+.BILP-customTileForDocument.sapMCustomTile{
+		width: 11rem !important;
+		height: 11rem !important;
+}
+.BILP-customTileForCategory.sapMCustomTile{
+		width: 21rem !important;
+		height: 11rem !important;
+		margin-right: 6px;
+		margin-left: 1px;
+}
+.BILP-sizepx{
+	width: 22rem !important;
+	height:11rem !important;
+	position: absolute;
+	background-size: 100% 100% !important;
+}
+.BILP-customTileForPersonalCategory.sapMCustomTile{
+	    width: 22rem !important;
+		height: 11rem !important;
+		margin-right: 6px;
+		margin-left: 1px;
+}
+.BILP-docVboxHeader{
+	padding-top:10px !important;
+}
+.BILP-docVboxFooter{
+	padding-top: 30px !important;
+	float:right !important;
+	width : 143px !important;
+}
+/*.BILP-docTitle{
+                color: #333333;
+                font-weight: normal;
+                font-family: "72-Web",Arial,Helvetica,sans-serif;
+                font-size: 1rem;
+                
+}
+.BILP-docSubHeader{
+                color: #666 !important;
+                font-weight: normal !important;
+                top: 4px !important;
+                position:relative !important;
+                font-family: "72-Web",Arial,Helvetica,sans-serif;
+                font-size: 9pt !important;
+                padding-left:0px !important;
+                float:none !important;
+                cursor: pointer;
+} */
+.BILP-docVboxHeader{
+	padding-top:10px !important;
+	height: 74px !important;
+}
+.BILP-docVboxFooter{
+	padding-top: 0px !important;
+	float:right !important;
+}
+.BILP-docTitle{ 
+ color: #333333;
+    font-weight: normal;
+    font-family: "72-Web",Arial,Helvetica,sans-serif;
+    font-size: 1rem;
+    display: block;
+    display: -webkit-box;
+    max-width: 100%;
+    max-height: calc(1rem * 1.4 * 2);
+    margin: 0 auto;
+    line-height: 1.4;
+/*-webkit-line-clamp: 2;*/
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: 5px;
+    white-space: normal;	
+    cursor: pointer;
+    word-wrap:break-word;
+}
+.BILP-docSubHeader{
+	color: #666;
+	font-weight: normal;
+	/*top: 4px !important;*/
+
+	position:relative;
+	font-family: "72-Web",Arial,Helvetica,sans-serif;
+	font-size: 9pt !important;
+	cursor: pointer;
+}
+.BILP-docVboxFooter span.sapMImg {
+    float: right;
+	margin-left: 89px;
+}
+.BILP-Tile_DocType {
+font-size: 10px;
+    color: #999;
+    margin-top: 8px;
+    padding-right:5px;
+    cursor: pointer;
+	float:right;
+}
+.BILP_UserSettings {position:relative; top: -10px}	
+.sapUiRttContent{
+	min-width: auto !important;
+	padding: 0px !important;
+}
+.BILP-BICustomTile{
+	width: auto !important;
+    display: inline-block;
+    float: inline-start;
+}
+.BILP-TileLayout >section  {
+	/*top: 5.5rem !important;*/
+}
+.BILP-favIconDisplayBlock{
+	
+	color:#678BC7;
+	display:block;
+
+}
+
+.BILP-favIconMargin{
+	
+	margin-left:47%;
+
+}
+.BILP-favIconDisplayBlockTile{
+	
+	color:#678BC7;
+	display:block;
+margin-top: -15px;
+    margin-left: -25px;
+    width: 32px !important;
+	height: 32px !important;
+	
+}
+.BILP-favIconDisplayBlockTileBorder .sapMBtnInner{
+background-color: unset;
+    border: none;
+	height : 36px;
+}
+
+.BILP-favIconDisplayIcon .sapMBtnIcon{
+	font-size: 1rem;
+}
+.BILP-favIconDisplayBlockForCategory{
+
+	
+
+	color:#8ca7d5;
+
+	display:block;
+}
+
+.BILP-favIconDisplayNone{
+
+    display:none !important;
+}
+
+.BILP-favIconHboxFooter{
+
+	width: 200px !important;
+
+    height: 64px !important;
+
+    /* position: absolute !important;
+
+    right: 90px !important;
+	padding-left: 143px !important;
+    right: 51px;*/
+    padding-top: 44px !important;
+    padding-left: 20px;
+	padding-right: 20px;
+}
+
+.BILP-sap_belize_hcbTextColor {
+	color: #ffffff;
+}
+
+.BILP-sap_belize_hcbBackgroundColor {
+	background-color: #000000;
+}
+
+.BILP-tileBackgroundColor {
+	background-color: #ffffff; !important;
+}
+
+.sapUiTheme-sap_belize_hcw .BILP-tileBackgroundColor{
+	background-color: #ffffff; !important;
+}
+
+.sapUiTheme-sap_belize_hcb .BILP-tileBackgroundColor{
+	background-color: #000000; !important;
+}
+
+.sapUiTheme-sap_belize_hcb .BILP-docSubHeader .BILP-docTitle{
+	color: #ffffff;
+}
+
+.sapUiTheme-sap_belize_hcw .BILP-docSubHeader .BILP-docTitle{
+	color: #000000;
+}
+
+.sapUiTheme-sap_belize_hcb .BILP-favIconDisplayBlock {
+	color: #ffffff;
+}
+
+.sapUiTheme-sap_belize_hcw .BILP-favIconDisplayBlock {
+	color: #000000;
+}
+
+.sapUiTheme-sap_belize_hcb .BILP-favIconDisplayBlockForCategory  {
+	color: #ffffff;
+}
+
+.sapUiTheme-sap_belize_hcw .BILP-favIconDisplayBlockForCategory  {
+	color: #000000;
+}
+
+.sapUiTheme-sap_belize_plus .BILP-favIconDisplayBlockForCategory   {
+	color: #8ca7d5;
+}
+
+.sapUiTheme-sap_belize .BILP-favIconDisplayBlockForCategory   {
+	color: #346187;
+}
+
+.sapUiTheme-sap_belize_plus .BILP-favIconDisplayIcon .sapMBtnIcon {
+	color: #8ca7d5 !important;
+}
+
+.sapUiTheme-sap_belize_hcb .BILP-favIconDisplayIcon .sapMBtnIcon{
+	color: #ffffff !important;
+}
+
+.sapUiTheme-sap_belize_hcw .BILP-favIconDisplayIcon .sapMBtnIcon{
+	color: #000000 !important;
+}
+
+.sapUiTheme-sap_belize_hcb .sapUiMnu {
+	box-shadow: 0 0 1rem 0 rgba(255,255,255,0.5),0 0 0 2px #ffffff !important;
+}
+
+.sapUiTheme-sap_belize_hcb .previewBox{
+    background-color: #000000 !important;
+}
+.sapUiTheme-sap_belize_hcw .previewBox{
+    background-color: #ffffff !important;
+}
+
+.sapUiTheme-sap_fiori_3 .previewBox{
+    background-color: #ffffff !important;
+}
+
+.sapUiTheme-sap_fiori_3 .BILP-favIconDisplayIcon .sapMBtnIcon{
+	color: #346187 !important;
+}
+
+.sapUiTheme-sap_fiori_3_dark .BILP-tileBackgroundColor{
+	background-color: #29313a;
+}
+
+.sapUiTheme-sap_fiori_3_hcb .BILP-tileBackgroundColor, .sapUiTheme-sap_fiori_3_hcb .previewBox{
+	background-color: #000000;
+}

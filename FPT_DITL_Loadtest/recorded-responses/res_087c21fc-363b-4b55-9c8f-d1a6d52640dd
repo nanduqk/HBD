@@ -1,0 +1,844 @@
+/*
+�2010 - 2016 SAP SE or an SAP affiliate company.  All rights reserved.
+ 
+SAP and other SAP products and services mentioned herein as well as their respective logos are trademarks or registered trademarks of SAP SE in Germany and other countries.  Please see http://www.sap.com/corporate-en/legal/copyright/index.epx#trademark for additional trademark information and notices.
+*/
+
+/*
+ï¿½2010 - 2016 SAP SE or an SAP affiliate company.  All rights reserved.
+ 
+SAP and other SAP products and services mentioned herein as well as their respective logos are trademarks or registered trademarks of SAP SE in Germany and other countries.  Please see http://www.sap.com/corporate-en/legal/copyright/index.epx#trademark for additional trademark information and notices.
+*/
+
+caf_callback_actionContentChanged = function (tabProperties) {
+    if(tabProperties.name && tabProperties.name.length > 0){
+        BILaunchpadApp.getHomePage().oController.setHeaderLabel(tabProperties.name);
+    }
+};
+
+
+(function(window) {
+    jQuery.sap.declare("com.sap.fioribi.app.BILaunchpadApp");
+    var oAppModel, oResourceBundle, sBasePath, sBaseUrl, sResourceBundlePath, sAppRouterName;
+    var productLocale, preferredViewingLocale, logonToken, timeZone, lisitngType, homepageTab, userId, homepagefilter, homepage, bSmtpSchDest,oFirstReqHistoryData,productLocaleNumber;
+    var webServiceBaseURL = "";
+    var type = "";
+    var lastrun = "";
+    var instances = "";
+    var description = "";
+    var createdby = "";
+    var lastupdated = "";
+    var createdon = "";
+    var locationcategories = "";
+    var myfavorites = "";
+    var statusschedule = "";
+    var subscriptionschedule = "";
+    var instancetimeschedule = "";
+    var recurrenceendtimeschedule = "";
+    var currentParentId="";
+	var folderpath="";
+    var docViewUIelementMap;
+    var folderViewUIelementMap;
+    var categoryViewUIelementMap;
+    var currentSection;
+    var RecyclebinMap;
+    var mcaction;
+    var cutNodePath="";
+    var mcactiondata;
+    var actiontype;
+    var container;
+    var oTheme;
+    var currentThemeName;
+    var oRightsObj;
+    var footerPressed = false;
+    var help_appname;
+    var parentId;
+    var viewReportInBILP = true;
+    var scheduleViewElementmap;
+    var selecthometab;
+    var categoryId;
+    var folderId;
+    var category;
+    var favFolderSelected;
+    var categoryName;
+    var biInboxCopyPasteFlag;
+    var markfav;
+    var pageTilelist;
+    var folderPageTilelist;
+    var categoryPageTilelist;
+    var tableWidget;
+    var deleteditem;
+    var stopNotificationCall = false;
+    var documentsCount;
+    var incrementalCount = 0;
+    var RtlFlag;
+    var webiInstances = new Map();
+    var webiContainerPanels = new Map();
+    var globalCafFlag=false;
+    var dbUpdateFlag=false;
+    var personalRootCategoryId = "";
+	var  timezonedisplaystring;
+	var productlocaledisplaystring;	
+	var avatarInitial="";
+	var isLandingPage=false;
+	var hyperlinkObj;
+	var isHyperLink=false;
+	var boeVersion = "";
+	var openedDocumentsData="";
+    navMapper = new sap.m.NavContainer({
+        id: "BILP_home_container"
+    });
+    oMultiCategoryAssignRemoveDocId = null;
+    bSingleCafCategoryMode = false;
+    bPopoupDocClicked = false;
+    bSmtpSchDest = true;
+    productLocale = "";
+   	productLocaleNumber="";
+    preferredViewingLocale = "";
+    logonToken = "";
+    timeZone = "";
+    lisitngType = "";
+    homepageTab = "";
+    homepage = "";
+    homepagefilter = "";
+    actiontype = "";
+    container = "";
+    mcactiondata = {};
+    oTheme = "";
+    currentThemeName = "";
+    sessionTimeOut = false;
+    help_appname = "BILaunchpad-Help";
+    oAppModel = null;
+    oResourceBundle = null;
+    sBasePath = window.location.pathname.replace(/\/[^\/]*\.?[^\/]*$/, "/");
+    sBaseUrl = window.location.protocol + "//" + window.location.host + sBasePath;
+    sResourceBundlePath = sBaseUrl + "i18n/fioribiResources.properties";
+    sAppRouterName = "bingAppRouter";
+    window.BILaunchpadApp = {};
+    
+    var clIframe = null;
+    BILaunchpadApp.getPageSizeLimit = function() {
+        var oPref = null;
+        oPref = sap.ui.getCore().getModel("pagePrefModel");
+        if (oPref && oPref.pageSizeLimit) {
+            return Number(oPref.pageSizeLimit);
+        } else {
+            return 50;   
+        }
+    };
+    BILaunchpadApp.getPersonalRootCategoryID = function() {
+        return personalRootCategoryId;
+    };
+    BILaunchpadApp.setPersonalRootCategoryID = function(id) {
+        personalRootCategoryId = id;
+    };
+    BILaunchpadApp.getCLiframe = function() {
+        return clIframe;
+    };
+    BILaunchpadApp.setCLiframe = function(ifrm) {
+        clIframe = ifrm;
+    };
+    BILaunchpadApp.getGlobalCAFFlag = function() {
+        return globalCafFlag;
+    };
+    BILaunchpadApp.setGlobalCAFFlag = function(CafFlag) {
+        globalCafFlag=CafFlag;
+    };
+    BILaunchpadApp.getDBUpdateFlag = function() {
+        return dbUpdateFlag;
+    };
+    BILaunchpadApp.setDBUpdateFlag = function(dbFlag) {
+        dbUpdateFlag=dbFlag;
+    };
+    BILaunchpadApp.getWebiContainerPanels = function() {
+        return webiContainerPanels;
+    };
+    BILaunchpadApp.setWebiContainerPanels = function(webiObjects) {
+        webiContainerPanels = webiObjects;
+    };
+    BILaunchpadApp.deleteWebiContainer = function(webiObjectId) {
+        webiContainerPanels.delete(webiObjectId);
+    };
+    BILaunchpadApp.getWebiInstances = function() {
+        return webiInstances;
+    };
+    BILaunchpadApp.setWebiInstances = function(webiObjects) {
+        webiInstances = webiObjects;
+    };
+    BILaunchpadApp.deleteWebiInstance = function(webiObjectId) {
+        webiInstances.delete(webiObjectId);
+    };
+    BILaunchpadApp.getIncrementalCount = function() {
+        return incrementalCount;
+    };
+    BILaunchpadApp.setIncrementalCount = function(data) {
+        incrementalCount = data;
+    };
+    
+    BILaunchpadApp.isSessionTimeOut = function() {
+        return sessionTimeOut;
+    };
+    BILaunchpadApp.setSessionTimeOut = function(data) {
+        sessionTimeOut = data;
+    };
+	
+	BILaunchpadApp.getTimezonedisplaystring= function() {
+        return timezonedisplaystring;
+    };
+	BILaunchpadApp.setTimezonedisplaystring= function(data) {
+         timezonedisplaystring=data;
+    };
+	
+	BILaunchpadApp.getProductlocaledisplaystring= function() {
+        return productlocaledisplaystring;
+    };
+	BILaunchpadApp.setProductlocaledisplaystring= function(data) {
+         productlocaledisplaystring=data;
+    };	
+	
+	BILaunchpadApp.convertTZ = function(date) {
+	var tzString = BILaunchpadApp.getTimezonedisplaystring();
+	if (tzString == "0") // means "default to Local Server" is selected, no explicit timezone selected
+		return new Date();
+	else{
+	try {
+		 return new Date((typeof date === "string" ? new Date(date) : date).toLocaleString("en-US", {timeZone: tzString}));  
+		} catch (error) {
+		  return new Date();
+		}
+	}	
+	};	
+	
+    BILaunchpadApp.getPageTilelist = function() {
+        return pageTilelist;
+    };
+    BILaunchpadApp.setPageTilelist = function(data) {
+        pageTilelist = data;
+    };
+    BILaunchpadApp.getFolderPageTilelist = function() {
+        return folderPageTilelist;
+    };
+    BILaunchpadApp.setFolderPageTilelist = function(data) {
+        folderPageTilelist = data;
+    };
+    BILaunchpadApp.getCategoryPageTilelist = function() { 
+        return categoryPageTilelist;
+    };
+    BILaunchpadApp.setCategoryPageTilelist = function(data) { // to set the category page data 
+        categoryPageTilelist = data;
+    };
+    BILaunchpadApp.getTableWidget = function() {
+        return tableWidget;
+    };
+    BILaunchpadApp.setTableWidget = function(data) {
+        tableWidget = data;
+    };
+    BILaunchpadApp.getdeleteditem = function() {
+        return deleteditem;
+    };
+    BILaunchpadApp.setdeleteditem = function(data) {
+        deleteditem = data;
+    };
+    BILaunchpadApp.getStopNotificationCall = function() {
+        return stopNotificationCall;
+    };
+    BILaunchpadApp.setStopNotificationCall = function(data) {
+        stopNotificationCall = data;
+    };
+    BILaunchpadApp.getMarkasfav = function() {
+        return markfav;
+    };
+    BILaunchpadApp.setMarkasfav = function(fav) {
+        markfav = fav;
+    };
+    BILaunchpadApp.getdocumentsCount = function() {
+        return documentsCount;
+    };
+    BILaunchpadApp.setdocumentsCount = function(data) {
+        documentsCount = data;
+    };
+    BILaunchpadApp.getCategoryCafState = function() {
+        return bSingleCafCategoryMode;
+    };
+    BILaunchpadApp.setCategoryCafState = function(status) {
+        bSingleCafCategoryMode = status;
+    };
+    BILaunchpadApp.getMultiCategoryDocIdCollection = function() {
+        return oMultiCategoryAssignRemoveDocId;
+    };
+    BILaunchpadApp.setMultiCategoryDocIdCollection = function(arr) {
+        oMultiCategoryAssignRemoveDocId = arr;
+    };
+    BILaunchpadApp.getSMTPSchDest = function() {
+        return bSmtpSchDest;
+    };
+    BILaunchpadApp.getPopupDocStatus = function() {
+        return bPopoupDocClicked;
+    };
+    BILaunchpadApp.setPopupDocStatus = function(param) {
+        bPopoupDocClicked = param;
+    };
+    BILaunchpadApp.getNavContainer = function() {
+        return navMapper;
+    };
+    BILaunchpadApp.getTimeZone = function() {
+        return timeZone;
+    };
+	
+	BILaunchpadApp.getProductLocaleNumber = function() {
+        return productLocaleNumber;
+    };
+    BILaunchpadApp.getProductLocale = function() {
+        return productLocale;
+    };
+    BILaunchpadApp.getPreferredViewingLocale = function() {
+        return preferredViewingLocale;
+    };
+    BILaunchpadApp.getoFirstReqHistoryData = function() {
+        return oFirstReqHistoryData;
+    };
+    BILaunchpadApp.getlogonToken = function() {
+        return logonToken;
+    };
+    BILaunchpadApp.getWebServiceBaseURL = function() {
+        return webServiceBaseURL;
+    };
+    BILaunchpadApp.getBaseURL = function() {
+        return sBaseUrl;
+    };
+    BILaunchpadApp.getLisitngType = function() {
+        return lisitngType;
+    };
+    BILaunchpadApp.getHomepageTab = function() {
+        return homepageTab;
+    };
+    BILaunchpadApp.getHomePageFilter = function() {
+        return homepagefilter;
+    };
+    BILaunchpadApp.getHomePage = function() {
+        return homepage;
+    };
+    BILaunchpadApp.getselecthometab = function() {
+        return selecthometab;
+    };
+    BILaunchpadApp.getNavObject = (function() {
+        var currentLevel = 0;
+        var navObject = {
+            addNavLevel: function() {
+                currentLevel++;
+            },
+            reduceNavLevel: function() {
+                currentLevel--;
+            },
+            getNavLevel: function() {
+                return currentLevel;
+            }
+        };
+        return navObject;
+    })();
+    BILaunchpadApp.getFooterStatus = function() {
+        return footerPressed;
+    };
+    BILaunchpadApp.setFooterStatus = function(status) {
+        footerPressed = status;
+    };
+    BILaunchpadApp.getscheduleViewElementmap = function() {
+        return scheduleViewElementmap;
+    };
+    BILaunchpadApp.setscheduleViewElementmap = function(uiElementmap) {
+        scheduleViewElementmap = uiElementmap;
+    };
+    BILaunchpadApp.getDocViewUIelementMap = function() {
+        return docViewUIelementMap;
+    };
+    BILaunchpadApp.setDocViewUIelementMap = function(uiMap) {
+        docViewUIelementMap = uiMap;
+    };
+    BILaunchpadApp.getRecyclebinMap = function() {
+        return RecyclebinMap;
+    };
+    BILaunchpadApp.setRecyclebinMap = function(uiMap) {
+        RecyclebinMap = uiMap;
+    };
+    BILaunchpadApp.addUIelementToDocMap = function(key, element) {
+        docViewUIelementMap.set(key, element);
+    };
+    BILaunchpadApp.getfolderViewUIelementMap = function() {
+        return folderViewUIelementMap;
+    };
+    BILaunchpadApp.setfolderViewUIelementMap = function(uiMap) {
+        folderViewUIelementMap = uiMap;
+    };
+    BILaunchpadApp.addfolderUIelementToDocMap = function(key, element) {
+        folderViewUIelementMap.set(key, element);
+    };
+    BILaunchpadApp.getcategoryViewUIelementMap = function() {
+        return categoryViewUIelementMap;
+    };
+    BILaunchpadApp.setcategoryViewUIelementMap = function(uiMap) {
+        categoryViewUIelementMap = uiMap;
+    };
+    BILaunchpadApp.addcategoryUIelementToDocMap = function(key, element) {
+        categoryViewUIelementMap.set(key, element);
+    };
+    BILaunchpadApp.getLayoutPageBar = function() {
+        return oLayoutPageBar;
+    };
+    BILaunchpadApp.setCurrentSection = function(sectionId) {
+        currentSection = sectionId;
+    };
+    BILaunchpadApp.getCurrentSection = function() {
+        return currentSection;
+    };
+    BILaunchpadApp.setViewReportInBILP = function(viewReportSetting) {
+        viewReportInBILP = viewReportSetting;
+    };
+    BILaunchpadApp.getViewReportInBILP = function() {
+        return viewReportInBILP;
+    };
+    BILaunchpadApp.setTimeZone = function(data) {
+        timeZone = data;
+    };
+    BILaunchpadApp.setselecthometab = function(data) {
+        selecthometab = data;
+    };
+    BILaunchpadApp.setProductLocale = function(data) {
+        productLocale = data;
+    };
+	 BILaunchpadApp.setProductLocaleNumber = function(data) {
+        productLocaleNumber = data;
+    };
+	
+    BILaunchpadApp.setPreferredViewingLocale = function(data) {
+        preferredViewingLocale = data;
+    };
+    BILaunchpadApp.setoFirstReqHistoryData= function(data) {
+        oFirstReqHistoryData = data;
+    };
+    BILaunchpadApp.setHomePageTab = function(data) {
+        homepageTab = data;
+    };
+    BILaunchpadApp.setHomePageFilter = function(data) {
+        homepagefilter = data;
+    };
+    BILaunchpadApp.setHomePage = function(data) {
+        homepage = data;
+    };
+    BILaunchpadApp.setListingType = function(data) {
+        lisitngType = data;
+    };
+    BILaunchpadApp.getCopyMoveAction = function() {
+        return mcaction;
+    };
+    BILaunchpadApp.setCopyMoveAction = function(data) {
+        mcaction = data;
+    };
+    BILaunchpadApp.getCutNodePath = function() {
+        return cutNodePath;
+    };
+    BILaunchpadApp.setCutNodePath = function(nodePath) {
+        cutNodePath = nodePath;
+    };
+    BILaunchpadApp.getMCActionData = function() {
+        return mcactiondata;
+    };
+    BILaunchpadApp.setMCActionData = function(data) {
+        mcactiondata = data;
+    };
+    BILaunchpadApp.getActionType = function() {
+        return actiontype;
+    };
+    BILaunchpadApp.getContainer = function() {
+        return container;
+    };
+    BILaunchpadApp.setActionType = function(data) {
+        actiontype = data;
+    };
+    BILaunchpadApp.setContainer = function(data) {
+        container = data;
+    };
+    BILaunchpadApp.getTheme = function() {
+        return oTheme;
+    };
+    BILaunchpadApp.setTheme = function(data) {
+        oTheme = data;
+    };
+    BILaunchpadApp.getCurrentThemeName = function() {
+        return currentThemeName;
+    };
+    BILaunchpadApp.setCurrentThemeName = function(themeName) {
+        currentThemeName = themeName;
+    };
+    BILaunchpadApp.getRightsObject = function() {
+        return oRightsObj;
+    };
+    BILaunchpadApp.setRightsObject = function(data) {
+        oRightsObj = data;
+    };
+    BILaunchpadApp.getUserId = function() {
+        return userId;
+    };
+    BILaunchpadApp.setUserId = function(data) {
+        userId = data;
+    };
+    BILaunchpadApp.getParentId = function() {
+        return parentId;
+    };
+    BILaunchpadApp.setParentId = function(id) {
+        parentId = id;
+    };
+    BILaunchpadApp.gethelp_appname = function() {
+        return help_appname;
+    };
+    BILaunchpadApp.sethelp_appname = function(data) {
+        help_appname = data;
+    };
+    BILaunchpadApp.setType = function(data) {
+        type = data;
+    };
+    BILaunchpadApp.setLastRun = function(data) {
+        lastrun = data;
+    };
+    BILaunchpadApp.setInstances = function(data) {
+        instances = data;
+    };
+    BILaunchpadApp.setDescription = function(data) {
+        description = data;
+    };
+    BILaunchpadApp.setCreatedBy = function(data) {
+        createdby = data;
+    };
+    BILaunchpadApp.setLastUpdated = function(data) {
+        lastupdated = data;
+    };
+    BILaunchpadApp.setCreatedOn = function(data) {
+        createdon = data;
+    };
+    BILaunchpadApp.setLocationCategories = function(data) {
+        locationcategories = data;
+    };
+	BILaunchpadApp.setFolderPath = function(data) {
+        folderpath = data;
+    };
+  	BILaunchpadApp.setCurrentParentId= function(parentId) {
+  	currentParentId = parentId;
+  	}
+  	BILaunchpadApp.getCurrentParentId= function() {
+  	return currentParentId;
+  	}
+    BILaunchpadApp.setMyFavorites = function(data) {
+        myfavorites = data;
+    };
+    BILaunchpadApp.setStatusSchedule = function(data) {
+        statusschedule = data;
+    };
+    BILaunchpadApp.setSubscriptionSchedule = function(data) {
+        subscriptionschedule = data;
+    };
+    BILaunchpadApp.setInstanceTimeSchedule = function(data) {
+        instancetimeschedule = data;
+    };
+    BILaunchpadApp.setRecurrenceEndTimeSchedule = function(data) {
+        recurrenceendtimeschedule = data;
+    };
+    BILaunchpadApp.getSelectedCategory = function() {
+        return categoryId;
+    };
+    BILaunchpadApp.setSelectedCategory = function(data) {
+        categoryId = data;
+    };
+    BILaunchpadApp.getSelectedFolder = function() {
+        return folderId;
+    };
+    BILaunchpadApp.setSelectedFolder  = function(data) {
+        folderId = data;
+    };
+    BILaunchpadApp.isFavFolderSelected= function() {
+        return favFolderSelected;
+    };
+    BILaunchpadApp.setFavFolderSelected = function(data) {
+        favFolderSelected = data;
+    };
+    
+    BILaunchpadApp.isCategory = function() {
+        return category;
+    };
+    BILaunchpadApp.setCategory = function(data) {
+        category = data;
+    };
+    BILaunchpadApp.getCategoryName = function() {
+        return categoryName;
+    };
+    BILaunchpadApp.setBiInboxCopyPasteFlag = function(data) {
+        biInboxCopyPasteFlag = data;
+    };
+    BILaunchpadApp.getBiInboxCopyPasteFlag = function() {
+        return biInboxCopyPasteFlag;
+    };
+    BILaunchpadApp.setCategoryName = function(data) {
+        categoryName = data;
+    };
+    
+        BILaunchpadApp.setRtlFlag = function(flag) {
+               RtlFlag = flag;
+}
+    BILaunchpadApp.getRtlFlag = function() {
+               return RtlFlag;
+}
+
+	BILaunchpadApp.setAvatarInitial= function(initial) {
+	           avatarInitial = initial;
+}
+	BILaunchpadApp.getAvatarInitial = function() {
+			   return avatarInitial;
+}
+	BILaunchpadApp.getLandingPageFlag=function() {
+		return isLandingPage;
+	}
+
+	BILaunchpadApp.setLandingPageFlag=function(flag) {
+		isLandingPage=flag;
+	}
+	
+	BILaunchpadApp.getHyperLinkObject = function() {
+        return hyperlinkObj;
+    };
+    BILaunchpadApp.setHyperLinkObject = function(data) {
+    	hyperlinkObj = data;
+    };
+    
+    BILaunchpadApp.getHyperLinkFlag=function() {
+		return isHyperLink;
+	}
+
+	BILaunchpadApp.setHyperLinkFlag=function(flag) {
+		isHyperLink=flag;
+	}
+    
+	BILaunchpadApp.getBOEVersion = function() {
+        return boeVersion;
+    };
+    BILaunchpadApp.setBOEVersion = function(version) {
+    	boeVersion = version;
+    };
+	BILaunchpadApp.getOpenedDocumentsData = function() {
+        return openedDocumentsData;
+    };
+	
+	BILaunchpadApp.setOpenedDocumentsData = function(data) {
+       openedDocumentsData=data;
+    };
+    
+    var loadApplication = function() {
+        jQuery.sap.require("com.sap.fioribi.utils.Constants");
+        BILaunchpadApp.oConstants = new com.sap.fioribi.utils.Constants();
+        jQuery.sap.require("com.sap.fioribi.utils.BILaunchpadUtil");
+        BILaunchpadApp.oBILaunchpadUtil = new com.sap.fioribi.utils.BILaunchpadUtil();
+        jQuery.sap.require("com.sap.fioribi.utils.ErrorHandler");
+        BILaunchpadApp.oErrorHandler = new com.sap.fioribi.utils.ErrorHandler();
+        jQuery.sap.require("com.sap.fioribi.utils.AttributeKey");
+        jQuery.sap.require("com.sap.fioribi.caf.ClientActionHandler");
+        BILaunchpadApp.oClientActionHandler = new com.sap.fioribi.caf.ClientActionHandler();
+        jQuery.sap.require("com.sap.fioribi.components.actionpanel.ActionPanelContainer");
+        BILaunchpadApp.oActionPanel = new com.sap.fioribi.components.actionpanel.ActionPanelContainer();
+        jQuery.sap.require({
+            modName: "com.sap.fioribi.app.BILaunchpadView",
+            type: "view"
+        });
+        jQuery.sap.require({
+            modName: "com.sap.fioribi.app.BILaunchpadController",
+            type: "controller"
+        });
+        var oLaunchpadView = new com.sap.fioribi.app.BILaunchpadView({
+            viewName: "com.sap.fioribi.app.BILaunchpadView"
+        });
+        var oLaunchpadController = oLaunchpadView.getController();
+        oLaunchpadView.placeAt("content");
+    };
+    
+    BILaunchpadApp.initOpenDocumentBIWNG = function(appSettings) {
+        logonToken = appSettings.logonToken;
+        webServiceBaseURL = appSettings.webServiceURL;
+        productLocale = appSettings.productLocale;
+        preferredViewingLocale = appSettings.pvl;
+        timeZone = appSettings.timeZone;
+        bSmtpSchDest = appSettings.smtp;
+        mcaction = "";
+        oRightsObj = appSettings.oRightsObj;
+        var oI18nModel, ui5core;
+        ui5core = sap.ui.getCore();
+        oAppModel = new sap.ui.model.json.JSONModel();
+        ui5core.setModel(oAppModel, "appModel");
+        oI18nModel = new sap.ui.model.resource.ResourceModel({
+            bundleUrl: sResourceBundlePath,
+            bundleLocale: productLocale
+        });
+        ui5core.setModel(oI18nModel, "i18n");
+        oResourceBundle = oI18nModel.getResourceBundle();
+        };
+    
+
+    
+    BILaunchpadApp.init = function(appSettings) {
+        logonToken = appSettings.logonToken;
+        webServiceBaseURL = appSettings.webServiceURL;
+        productLocale = appSettings.productLocale;
+        if (productLocale === "nb_NO")
+            productLocale = "no";
+        preferredViewingLocale = appSettings.pvl;
+        timeZone = appSettings.timeZone;
+		timezonedisplaystring=appSettings.timezonedisplaystring;
+		productlocaledisplaystring= appSettings.productlocaledisplaystring;				
+        bSmtpSchDest = appSettings.smtp;
+        mcaction = "";
+        oRightsObj = appSettings.oRightsObj;
+        var oI18nModel, ui5core;
+        ui5core = sap.ui.getCore();
+        oAppModel = new sap.ui.model.json.JSONModel();
+        ui5core.setModel(oAppModel, "appModel");
+        oI18nModel = new sap.ui.model.resource.ResourceModel({
+            bundleUrl: sResourceBundlePath,
+            bundleLocale: productLocale
+        });
+        ui5core.setModel(oI18nModel, "i18n");
+        oResourceBundle = oI18nModel.getResourceBundle();
+        BILaunchpadApp.setLang(productLocale);
+        loadApplication();
+    };
+    
+// this will happen when the initSettings failed, and we need to redirect to LogoFF, as the user has to relogon 
+    
+    BILaunchpadApp.redirectTologoff = function() {
+        var invokeCallback = findCallback("callbackGetBTToken");
+        var btToken;
+        if (invokeCallback != null) {
+            btToken = invokeCallback();
+        }
+        document.location.href = "logoff.jsp?bttoken=" + btToken;
+    }
+    
+        var i=0;
+
+// this will happen when the initSettings failed, and we need to redirect to LogoFF, as the user has to relogon
+    
+    BILaunchpadApp.localized = function(key, args) {
+        if (oResourceBundle != null || oResourceBundle != undefined)
+            return oResourceBundle.getText(key, args);
+        else
+        {
+            if (i ==0)
+                alert("Logon failed for BOE. Contact system administrator.");
+            redirectTologoff();
+            i++;
+            return;
+        }
+    };
+    BILaunchpadApp.getAppRouterName = function() {
+        return sAppRouterName;
+    };
+    BILaunchpadApp.getAppRouter = function() {
+        return sap.ui.core.routing.Router.getRouter(sAppRouterName);
+    };
+    BILaunchpadApp.getAppModel = function() {
+        return oAppModel;
+    };
+    BILaunchpadApp.getBaseUrl = function() {
+        return sBaseUrl;
+    };
+    BILaunchpadApp.includeStyleSheet = function(sUrl, sId) {
+        if (!sUrl) {
+            return;
+        }
+        if (!sId) {
+            sId = sUrl.replace(/\//g, "-");
+        }
+        if (!document.getElementById(sId)) {
+            return jQuery.sap.includeStyleSheet(sUrl, sId);
+        }
+    };
+    BILaunchpadApp.reload = function() {
+        window.location.reload(true);
+    };
+    BILaunchpadApp.setLang = function(lang) {
+        var oModel, oCore, oConfig;
+        oCore = sap.ui.getCore();
+        oConfig = oCore.getConfiguration();
+        if (oConfig.getLanguage() !== lang) {
+            oConfig.setLanguage(lang);
+            oModel = new sap.ui.model.resource.ResourceModel({
+                bundleUrl: sResourceBundlePath,
+                bundleLocale: lang
+            });
+            oCore.setModel(oModel, "i18n");
+            oResourceBundle = oModel.getResourceBundle();
+            if (lang == "ar" || lang=="iw" || lang=="he") {
+                oConfig.setRTL(true);
+                BILaunchpadApp.setRtlFlag(true);
+            } else {
+                oConfig.setRTL(false);
+                BILaunchpadApp.setRtlFlag(false);
+            }
+        }
+        if (lang == "ar" || lang=="iw" || lang=="he") {
+                oConfig.setRTL(true);
+                BILaunchpadApp.setRtlFlag(true);
+            } else {
+                oConfig.setRTL(false);
+                BILaunchpadApp.setRtlFlag(false);
+            }
+    };
+    BILaunchpadApp.getCanSetSmtpFrom = function () {
+        var isEnabled = false;
+        var smtpFromCallback = findCallback("callbackGetSMTPProp");
+        if (smtpFromCallback != null) {
+            var isEnabledString = smtpFromCallback();
+            isEnabled = (typeof isEnabledString === 'string' && isEnabledString.toLowerCase() === 'true');
+        }
+        return isEnabled;
+    };
+	 BILaunchpadApp.isNotificationSMTPFromCallback = function () {
+        var isEnabled = false;
+        var IsNotificationSMTPFromCallback = findCallback("callbackGetIsNotificationSMTPFrom");
+        if (IsNotificationSMTPFromCallback != null) {
+            var isEnabledString = IsNotificationSMTPFromCallback();
+            isEnabled = (typeof isEnabledString === 'string' && isEnabledString.toLowerCase() === 'true');
+        }
+        return isEnabled;
+    };
+	
+	 BILaunchpadApp.getNotificationSMTPFromDefaultValue = function () {        
+        var smtpFromCallback = findCallback("callbackGetNotificationSMTPFromDefaultValue");        
+        return smtpFromCallback();
+    };
+	
+	BILaunchpadApp.getcallbackMaxChildrenOnExpandValue = function () {        
+        var MaxChildrenOnExpandValue = findCallback("callbackMaxChildrenOnExpand");
+		if (MaxChildrenOnExpandValue != null) {
+            var maxChildrenValue = MaxChildrenOnExpandValue();
+        }
+        return maxChildrenValue;
+    };
+
+    BILaunchpadApp.isAllowSelectionOnEveryoneGroup = function(){
+    	var allowEveryoneSelection = findCallback("callbackAllowSelectionEveryoneGroup");
+    	var isAllow = true;
+    	if (allowEveryoneSelection != null) {
+    		isAllow = allowEveryoneSelection();
+    	}
+    	return (isAllow=="false")? false: true;
+    }
+    
+    BILaunchpadApp.getReuseExistingDocumnentOpenBehaviorFlag = function () {
+        var flag = false;
+        var invokeCallback = findCallback("callbackBILPDocumentOpenBehavior");
+        var docOpenBehaviorVal = null;
+        if (invokeCallback != null) {
+            docOpenBehaviorVal = invokeCallback();
+            if (docOpenBehaviorVal == "ReuseExisting") {
+                flag = true;
+            }
+        }
+        return flag;
+    }
+}
+)(window);

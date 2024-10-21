@@ -1,0 +1,400 @@
+/*
+�2010 - 2016 SAP SE or an SAP affiliate company.  All rights reserved.
+ 
+SAP and other SAP products and services mentioned herein as well as their respective logos are trademarks or registered trademarks of SAP SE in Germany and other countries.  Please see http://www.sap.com/corporate-en/legal/copyright/index.epx#trademark for additional trademark information and notices.
+*/
+
+/*
+�2010 - 2016 SAP SE or an SAP affiliate company.  All rights reserved.
+ 
+SAP and other SAP products and services mentioned herein as well as their respective logos are trademarks or registered trademarks of SAP SE in Germany and other countries.  Please see http://www.sap.com/corporate-en/legal/copyright/index.epx#trademark for additional trademark information and notices.
+*/
+
+
+
+.BILP-treeBox{
+	//height:650px !important;
+	overflow-x:auto !important;
+	overflow-y:auto !important;
+	
+}
+
+.BILP-folderPageheaderBGColor .sapMIBar.sapMHeader-CTX{
+	/*background-color: #f7f7f7 !important;*/
+}
+.BILP-folderTableHeight .sapMScrollContScroll{
+	height: 73% !important;
+}
+.BILP-attributeLayout{
+	margin-top: 5px;
+}
+.BILP-sideLayout .sapMFlexItem:nth-child(1){
+	width:100% !important;
+	height:100%;
+}
+.BILP-imageSize .sapUiMedia-Std-Tablet .sapUxAPObjectPageHeaderContent .sapUxAPObjectPageHeaderPlaceholder{
+width: 8rem !important;
+height: 6rem !important;
+}
+.BILP-tree .sapUiTreeNodeContent{
+	color:  #666666;
+	font-size:14px;
+	cursor:pointer;
+}
+.BILP-tree .sapUiTreeIcon{
+	margin-right:10px;
+	margin-left:14px;
+}
+.BILP-treeBox {
+	border: none;
+	border-right: 1px #e5e5e5 solid;
+}
+.BILP-treeBox >.sapUiTreeCont{
+	
+	margin-top: 1px !important;
+}
+.BILP-treeBox .sapUiTreeHeader{
+}
+.BILP-treeBox .sapUiTreeList{
+	padding-left:0px;
+	padding-right:0px;
+}
+.BILP-mTreeIcons{
+	
+}
+/*
+.BILP-scheduleLayout{
+	height: 95vh !important;
+	background-color:#FFFFFF;
+}
+
+.BILP-scheduleLayout >div{
+	width: 0px !important;
+}
+
+.BILP-scheduleLayout .sapUiLoSplitterContent{
+	height:100% !important;
+	width:100% !important;
+} 
+*/
+
+.BILP-splitterLayout{
+	height: 95vh !important;
+	background-color:#FFFFFF;
+}
+
+.BILP-splitterLayout >div{
+	width: 0px !important;
+}
+
+.BILP-splitterLayout .sapUiLoSplitterContent{
+	height:90vh !important;
+}
+	
+.BILP-splitterLayout .sapUiLoSplitterBar {
+	width: 2px !important;
+}
+
+.BILP-folderLayout{
+	height: 95vh !important;
+	background-color:#FFFFFF;
+}
+
+.BILP-folderLayout >section:last-child{
+	width: 79% !important;
+}
+
+.BILP-folderLayout >section:first-child{
+	width: 21% !important;
+}
+
+.BILP-folderLayout >div{
+	width: 0px !important;
+}
+
+.BILP-folderLayout .sapUiLoSplitterContent{
+	height:90vh !important;
+} 
+.BILP-folderLayoutDocFragmentSelect{
+	height: 510px !important;
+	background-color:#FFFFFF;
+}
+
+.BILP-folderLayoutDocFragmentSelect >section:last-child{
+	width: 70% !important;
+}
+
+.BILP-folderLayoutDocFragmentSelect >section:first-child{
+	width: 30% !important;
+	height: 98% !important;
+}
+
+.BILP-folderLayoutDocFragmentSelect >div{
+	width: 0px !important;
+}
+
+.BILP-folderLayoutDocFragmentSelect .sapUiLoSplitterContent{
+	height:95vh !important;
+} 
+
+.BILP-foldersPage .sapMList{
+	padding-top:14px !important;
+}
+.BILP-test .sapMBreadcrumbsSelectItem{
+	line-height:1rem !important;
+	padding-top:8px !important;
+}
+.BILP-test .sapMBreadcrumbsSelectItem .sapMLnk{
+	color:#666666 !important;
+	font-size:18px !important;
+}
+.BILP-tree .sapUiTreeNode{
+	line-height: 20px !important;
+	//margin-bottom: 12px !important;
+	padding: 6px;
+	//border-bottom: 1px solid rgba(226, 226, 226, .7) !important;
+	outline: none;
+	padding-left: 36px !important;
+	margin-bottom: 0px;
+}
+.BILP-tree .sapUiTreeNodeExpanded{
+	background-image : url(../images/arrow-1.png);
+	background-repeat: no-repeat;
+	background-position: 16px -0px; 
+	outline: none;
+}
+.BILP-tree .sapUiTreeNodeExpanded.sapUiTreeNode:Hover{
+	background-image : url(../images/arrow-1.png);
+	background-repeat: no-repeat;
+	background-position: 16px -0px;  
+	outline: none;
+}
+.BILP-tree .sapUiTreeNodeCollapsed{
+	background-image : url(../images/arrow-2.png);
+	background-repeat: no-repeat;
+	background-position: 16px -1px; 
+	outline: none;
+}
+.BILP-tree .sapUiTreeNodeCollapsed.sapUiTreeNode:Hover{
+	background-image : url(../images/arrow-2.png);
+	background-repeat: no-repeat;
+	background-position: 16px -1px; 
+	outline: none;
+}
+.BILP-folderTable{
+	padding-left: 0px;
+	padding-right: 32px;
+	color:  #666666;
+	font-size:14px;
+}
+.BILP-headershadow1{
+	padding-bottom:0px !important;
+}
+.BILP-searchIconDark{
+	background-position : -1100px -1060px !important;
+}
+.BILP-topmoreIcon{
+	background-position : -1885px -250px !important;
+}
+.BILP-folderIcon{
+	background-position : -1890px -1990px !important;
+}
+.BILP-searchIconDark{
+	background-position : -922px -320px !important;
+}
+.BLIP-dialogWidth{
+	width:512px;
+	border: none !important;
+}
+.BILP-descriptionField{
+	 margin-bottom: 44px;
+}
+.BILP-descriptionField .sapMInputBaseInner{
+	height:3.0rem;
+}
+
+.BILP-descriptionField .sapMInputDivWrapper{
+	height:3.0rem;
+}
+
+.BILP-FolderDialogField{
+	margin-bottom: 22px;
+}
+.BILP-border1 .sapMListShowSeparatorsAll .sapMLIBShowSeparator>td{
+	border-bottom-color: lightgrey !important;
+	
+}
+.BILP-FolderDialogField .sapMInputBaseInner{
+}
+.BILP-FolderDialogLastField .sapMInputBaseInner{
+}
+.BILP-tableheaderc{
+	/*vertical-align:super !important;*/
+}
+.BILP-RecycleBinLabel{
+	padding-left: 0!important;
+}
+.BILP-RecycleBinTextLabel{
+	padding-right: 0!important;
+}
+.BILP-topbox{
+	width:512px !important;
+	margin-bottom:22px !important;
+}
+.BILP-UploadDialogField{
+	margin-bottom: 22px !important;
+	border-color:#bfbfbf;
+}
+.BILP-UploadDialogField .sapMInputBaseInner{
+}
+.BILP-UploaddescriptionField{
+	margin-bottom: 22px !important;
+	border-color:#bfbfbf;
+}
+.BILP-UploaddescriptionField .sapMInputBaseInner{
+}
+.BILP-UploadDialogCheckBox{
+	margin-bottom: 4px !important;
+}
+.BILP-UploadDialogCheckBoxLast {
+	margin-top: -8px !important;
+	margin-bottom: 4px !important;
+}
+
+.BILP-UploadDialogLastField .sapMInputBaseInner{
+	border-color:#bfbfbf;
+}
+.BILP-UploadbrowseField{
+	margin-bottom: 22px !important;
+}
+
+.BILP-foldersToolbar {
+	width: auto !important;
+	padding: 0px !important;
+	height: 32px !important;
+	padding-top: 32px !important;
+	margin-left: 32px;
+	background-color: #ffffff !important;
+	z-index:1 !important;
+	padding-bottom:17px !important;
+}
+.BILP-foldersToolbar .sapMBarLeft{
+	min-width:75% !important;
+	max-width:90% !important;
+}
+.BILP-foldersToolbar >div {
+    padding: 0px !important;
+}
+.BILP-SchedulePage >section {
+    overflow-x:visible !important;
+	overflow-y:visible !important;
+}
+.BILP-detailsIconFolderPage {
+	margin-right: 7px !important;
+	width: 32px !important;
+	height: 32px !important;
+}
+
+.BILP-filterIconFolderPage {
+	width: 32px !important;
+	height: 32px !important;
+}
+
+.BILP-folderTable {
+	padding: 0px;
+	margin-top: 40px !important;
+	margin-bottom: 32px;
+	margin-left: 32px;
+	margin-right: 32px;
+	width: auto !important;
+	cursor:pointer;
+}
+
+.BILP-foldersHeader {
+	padding-left: 0 !important;
+	text-shadow:none !important;
+	/*color: #0070b1 !important;*/
+}
+.Breadcrumb-folder{
+	text-shadow:none !important;
+}
+.BILP-scheduleCalendarLayout {
+	padding: 0px !important;
+	margin:32px !important;
+}
+
+.BILP-detailsIconSchedulerPage {
+	margin-right: 52px !important;
+	width: 32px !important;
+	height: 32px !important;
+}
+.BILP-dateinterval {
+	padding-bottom: 20px !important; 
+}
+
+.sapUiTreeNode {
+    background-image: none;
+}
+.BILP-createfolderIcon{
+	margin-right: 0px !important;
+    padding-bottom: 1px !important;
+}
+
+.BILP-createfolderIcon .sapMBtnInner {
+   background-color: transparent !important; 
+      border: none !important;
+}
+.BILP-createfolderIcon .sapMBtnInner:hover {
+    background-color: rgba(179,179,179,0.5) !important;
+    
+}
+
+.BILP-createfolderIcon .sapMBtnInner:active  {
+    background-color: #346187 !important;
+      color: #ffffff !important;
+    
+}
+.BILP-createfolderIcon .sapMBtnInner:active span {
+    background-color: #346187 !important;
+      color: #ffffff !important;
+    
+}
+.BILP-createfolderIcon  .sapMBtnCustomIcon:active {
+    color: #ffffff !important;
+}
+    
+.BILP-createfolderIcon  .sapMBtnCustomIcon{
+    /*color: #346187 !important;*/
+} 
+.BILP-moreIconFolder {
+	/*padding-right:33px !important;*/
+}
+.BILP-Height100Perc{
+	height:100% !important;
+}
+.BILP-treepadding{
+padding-bottom:32px !important;
+}
+.BILPTreeIcon .sapUiTreeIcon{
+	color:#878787 !important;
+}
+.BILP-moreicon  ..sapMBtnCustomIcon {
+    /*color:#346187 !important;*/
+}
+.BILP-scheduleTableTop {
+        padding-top: 5px !important;
+}
+.BILP-folderTable .sapUiTableRowHidden {
+	cursor:auto !important;
+}
+.sapUiTheme-sap_fiori_3_hcb  .BILP-splitterLayout{
+	background-color: #000000;
+}
+
+.sapUiTheme-sap_fiori_3_dark  .BILP-splitterLayout{
+background-color: #1c2228;
+}
+
+.sapUiTheme-sap_fiori_3 .BILP-splitterLayout{
+background-color: #f7f7f7;
+}

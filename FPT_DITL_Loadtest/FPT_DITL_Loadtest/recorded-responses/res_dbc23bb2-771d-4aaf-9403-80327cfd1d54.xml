@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<snippet_collection>
+<snippet id="sapbi_snippet___JAVASCRIPTHEADER" type="JAVASCRIPT"><![CDATA[sapbi_page.m_required_sdk_versions = {};
+sapbi_page.m_required_biBundles = {"zen.rt.components.crosstab": "bundles/zen/rt/components/crosstab","zen.rt.components.dynamicmenu.menubuilders": "bundles/zen/rt/components/dynamicmenu/menubuilders","zen.rt.components.dynamicmenu.builders": "bundles/zen/rt/components/dynamicmenu/builders"};
+sapbi_addRequired([]);
+sapbi_page.m_requestIdValue = "2";
+sapbi_page.m_WaitForPhase2 = false;
+]]></snippet>
+<snippet id="sapbi_snippet___JAVASCRIPTBODY" type="HTML"><![CDATA[<div id="sapbi_snippet___JAVASCRIPTBODY"></div>]]></snippet>
+<snippet id="sapbi_snippet_ROOT" type="JSON"><![CDATA[{"delta":[{"component":{"id":"DD_CURRENCY","type":"DROPDOWN_COMPONENT","pureId":"DD_CURRENCY","scope":"","width":"auto","height":"auto","leftmargin":"2","rightmargin":"0","topmargin":"5","bottommargin":"0","cssclass":"","showLoadingState":false,"content":{"control":{"type":"dropdown","id":"DD_CURRENCY_dd","tooltip":"","enabled":true,"command":"sap.zen.request.zenSendCommandArrayWoEventWZenPVT\x28\x5b\x5b\x27BI_COMMAND\x27,null,0,\x5b\x5b\x27BI_COMMAND_TYPE\x27,\x27SELECTION_CHANGED\x27,0\x5d,\x5b\x27KEYS\x27,\x27__KEYS__\x27,0\x5d,\x5b\x27TARGET_ITEM_REF\x27,\x27DD_CURRENCY\x27,0\x5d\x5d\x5d,\x5b\x27BI_COMMAND\x27,null,1,\x5b\x5b\x27BI_COMMAND_TYPE\x27,\x27\x27,0\x5d,\x5b\x27COMMAND_INTERPRETER\x27,\x27BIAL\x27,0\x5d,\x5b\x27COMPONENT_NAME\x27,\x27DD_CURRENCY\x27,0\x5d,\x5b\x27EVENT_NAME\x27,\x27ON_SELECT\x27,0\x5d\x5d\x5d\x5d\x29\x3b","title":{},"selectedItems":[{"key":{"_v":"1"}}],"highlightedItems":[],"items":[{"item":{"key":"1","val_0":"USD\x20\x40\x20FIRM\x2023\x2f24\x20FX"}},{"item":{"key":"2","val_0":"Local\x20Currency"}},{"item":{"key":"3","val_0":"Transaction\x20Currency"}},{"item":{"key":"4","val_0":"USD\x20\x40\x20Firm\x2024\x2f25\x20FX"}}]}}}}]}]]></snippet>
+</snippet_collection>

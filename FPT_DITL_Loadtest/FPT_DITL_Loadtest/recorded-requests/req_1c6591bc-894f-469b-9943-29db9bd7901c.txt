@@ -1,0 +1,23 @@
+POST https://hba.na.pg.com:8443/BOE/portal/2302072240/FioriBI/logoff.jsp HTTP/1.1
+Host: hba.na.pg.com:8443
+Connection: keep-alive
+Content-Length: 411
+Cache-Control: max-age=0
+sec-ch-ua: "Google Chrome";v="119", "Chromium";v="119", "Not?A_Brand";v="24"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+Upgrade-Insecure-Requests: 1
+Origin: https://hba.na.pg.com:8443
+Content-Type: application/x-www-form-urlencoded
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Referer: https://hba.na.pg.com:8443/BOE/portal/2302072240/FioriBI/main.jsp?service=%2Fcommon%2FappService.do&appKind=InfoView
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.9
+Cookie: JSESSIONID=1DC0A90564F116B05D8F7A605F33B8F1; InfoViewPLATFORMSVC_COOKIE_CMS=%40webHBA; InfoViewCE_SAPSys=HGA; InfoViewCE_SAPCnt=400; InfoViewPLATFORMSVC_COOKIE_AUTH=secSAPR3; InfoViewPLATFORMSVC_COOKIE_TOKEN=; InfoViewPLATFORMSVC_COOKIE_USR=z0006aLnf5o62%40%23%2444
+
+bttoken=MDAwRDk8PDxNYV4xSllpTkNoWzZOb0pIVDhRUmJuOjAEQ&logontoken=usalspgsa573.na.pg.com%3A6400%40%7B3%262%3D13103601%2CU3%262v%3Dusalspgsa573.na.pg.com%3A6400%2CUP%2666%3D40%2CU3%2668%3DsecSAPR3%3AHGA%7E400%2FES1916%2CUP%26S9%3D10935214%2CU3%26qe%3D100%2CU3%26vz%3DCqEzqDAh1oDbeU_A4vVPPScKuKvvMPUtBPTEWici.5WmeYZn8l5oP24Siy3oM9fn%2CUP%7D&wacsurl=https%3A%2F%2Fhba.na.pg.com%3A8443%2Fbiprws&isFioriLaunchpad=true

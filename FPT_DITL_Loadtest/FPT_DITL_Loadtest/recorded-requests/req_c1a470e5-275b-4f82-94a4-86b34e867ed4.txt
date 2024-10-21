@@ -1,0 +1,17 @@
+GET https://hba.na.pg.com:8443/BOE/portal/2302072240/LumiraWebApp/cleanup.faces?cafWebSesInit=true&bttoken=MDAwREBTYEFPYEVaW1VLQENXNlwwMDJBVlM8RT5oNTAEQ&bttoken=MDAwREBTYEFPYEVaW1VLQENXNlwwMDJBVlM8RT5oNTAEQ&loc=en&actId=7999&appKind=InfoView HTTP/1.1
+Host: hba.na.pg.com:8443
+Connection: keep-alive
+sec-ch-ua: "Google Chrome";v="129", "Not=A?Brand";v="8", "Chromium";v="129"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "Windows"
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: navigate
+Sec-Fetch-Dest: iframe
+Referer: https://hba.na.pg.com:8443/BOE/portal/2302072240/FioriBI/logoff.jsp
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
+Cookie: JSESSIONID=DCB62031EB375EBED9E2FAC1F657ACF2; InfoViewPLATFORMSVC_COOKIE_TOKEN=; InfoViewPLATFORMSVC_COOKIE_CMS=%40webHBA; InfoViewCE_SAPSys=HGA; InfoViewCE_SAPCnt=400; InfoViewPLATFORMSVC_COOKIE_USR=z0006aLnf4m65%40%23%2444; InfoViewPLATFORMSVC_COOKIE_AUTH=secSAPR3
+

@@ -1,0 +1,1177 @@
+/*
+�2010 - 2016 SAP SE or an SAP affiliate company.  All rights reserved.
+ 
+SAP and other SAP products and services mentioned herein as well as their respective logos are trademarks or registered trademarks of SAP SE in Germany and other countries.  Please see http://www.sap.com/corporate-en/legal/copyright/index.epx#trademark for additional trademark information and notices.
+*/
+
+jQuery.sap.declare({modName :"com.sap.fioribi.components.actionpanel.ActionPanelController",	type : "controller"});
+
+
+
+jQuery.sap.require({modName :"com.sap.fioribi.modules.common.BILPController",	type : "controller"});
+
+
+
+jQuery.sap.require("com.sap.fioribi.common.RequestDispatcher");
+
+
+
+com.sap.fioribi.components.actionpanel.ActionPanelController = function (oData) {
+
+
+
+   this.oParentController = null;
+
+   this.oParentView = null;
+
+   this.model = new sap.ui.model.json.JSONModel();
+   
+   this.actionCuidIdMap = new Map();
+
+};
+
+
+
+com.sap.fioribi.components.actionpanel.ActionPanelController.prototype = jQuery.sap.newObject(com.sap.fioribi.modules.common.BILPController.prototype);
+
+
+
+/**
+
+ * SetCurrentObject function used to set the current document information json (object name, cuid and etc)
+
+ * @param objData
+
+ */
+
+com.sap.fioribi.components.actionpanel.ActionPanelController.prototype.setCurrentObject = function(objData){
+
+	this.oCurrentObject = objData;
+
+};
+
+com.sap.fioribi.components.actionpanel.ActionPanelController.prototype.getCurrentObject = function(){
+
+	return this.oCurrentObject;
+
+};
+
+com.sap.fioribi.components.actionpanel.ActionPanelController.prototype.setCafContainer = function(cafContainer){
+
+	this.cafContainer = cafContainer;
+
+};
+
+com.sap.fioribi.components.actionpanel.ActionPanelController.prototype.setParentController = function(parentController){
+
+	this.oParentController = parentController;
+
+};
+
+
+
+com.sap.fioribi.components.actionpanel.ActionPanelController.prototype.setLayout = function(layout){
+
+	this.oLayout = layout;
+
+};
+
+
+
+/**
+
+ * This processAction is to perform the action on selection if individual CAF list (such as properties, schedule) 
+
+ * @param cafObject is the JSON object contains information about the selected CAF Action (such as displayname, actionname etc)
+
+ *  
+
+ */
+
+com.sap.fioribi.components.actionpanel.ActionPanelController.prototype.copyOpenDocUrl = function(cafObject) {
+	var invokeCallbackIsOpendocLinkfromCMC = findCallback("callbackIsOpendocLinkfromCMC");
+    var IsOpendocLinkfromCMC = invokeCallbackIsOpendocLinkfromCMC();
+    var updatedOpendocUrl = null;
+    if (cafObject.opendocurl) {
+        if (IsOpendocLinkfromCMC.toLowerCase() == "cmc" && IsOpendocLinkfromCMC != null) {
+            updatedOpendocUrl = cafObject.opendocurl;
+        } else {
+            // matching the browser tab IP with opendoc link provided
+            var updatedOpendocUrl = null;
+            var webapproot = document.location.pathname;
+            webapproot = webapproot.substring(0, webapproot.indexOf(getRootContext()));
+            var splitIndex = cafObject.opendocurl.indexOf("/OpenDocument/opendoc/openDocument.jsp");
+            var opendocUrlSplit = cafObject.opendocurl.substring(splitIndex);
+
+            updatedOpendocUrl = window.location.protocol + "//" + window.location.host + webapproot + opendocUrlSplit;
+        }
+        const el = document.createElement('textarea');
+        el.value = updatedOpendocUrl;
+        el.setAttribute('readonly', '');
+        el.style.position = 'absolute';
+        el.style.left = '-9999px';
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand('copy');
+        document.body.removeChild(el);
+        sap.m.MessageToast.show(BILaunchpadApp.localized("opendoc_link_copied"), {
+            autoClose: true
+        });
+    } else {
+        sap.m.MessageToast.show(BILaunchpadApp.localized("opendoc_link_copy_error"), {
+            autoClose: true
+        });
+    }
+};
+
+com.sap.fioribi.components.actionpanel.ActionPanelController.prototype.fetchLumiraOpenDocUrl = function() {
+    $this = this;
+    var getCafFailedList = function(xhr, ajaxOptions, thrownError) {};
+    var getCafSuccessList = function(response) {
+		response.entries.forEach(function(entry) {
+			if (entry.displayname == BILaunchpadApp.localized("view_text") && entry.opendocurl) {
+				$this.oCurrentObject.opendocurl = entry.opendocurl;
+			}
+		});
+    };
+    var surl = "";
+    var request = {
+        surl: surl,
+        successHandler: getCafSuccessList,
+        errorHandler: getCafFailedList,
+        headers: {
+            "x-SAP-logonToken": BILaunchpadApp.getlogonToken(),
+            "X-SAP-PVL": BILaunchpadApp.getProductLocale(),
+            Accept: "application/json",
+            "Content-Type": "application/json;odata=verbose",
+        }
+    };
+	request.surl = BILaunchpadApp.getWebServiceBaseURL() + "/internal/v1/infoobjects/" + $this.oCurrentObject.id + "/clientactions?application=bing&container=Folder";
+	request.reqType = "GET";
+    request.bAsync = false;
+    var reqDispatcher = new RequestDispatcher();
+    reqDispatcher.sendRequest(request);
+};
+
+com.sap.fioribi.components.actionpanel.ActionPanelController.prototype.peformAction = function (cafObject) {
+	this.docClickedFromDropdown = false;
+	this.editBIWfromViewMode = false;
+
+	if (this.oCurrentObject.docClickedFromDropdown != undefined) {
+		this.docClickedFromDropdown = this.oCurrentObject.docClickedFromDropdown;
+	}
+
+	if (this.oCurrentObject.editBIWfromViewMode != undefined) {
+		this.editBIWfromViewMode = this.oCurrentObject.editBIWfromViewMode;
+	}
+
+	/*BILaunchpadApp.getViewReportInBILP()-To know whether to open the document in same BIlaunchpad tab or in new broswer tab.
+	  this.isDoclistedinDropdown()- To know if the document already listed in the recently opened document dropdown.
+	  this.docClickedFromDropdown- Returns true if the document viewed from recently opened document dropdown.
+	  this.editBIWfromViewMode- Returns true if BIW is edited from View Mode.
+	  Exceute below if condition only for View and Modify actions.*/
+	
+	//getReuseExistingDocumnentOpenBehaviorFlag() - Returns Boolean flag based on the property(BILP.DocumentOpenBehavior) value(true if "ReuseExisting" else false)
+	if (BILaunchpadApp.getReuseExistingDocumnentOpenBehaviorFlag()) {
+		if (homePageInstance.isBIWorDoc(this.oCurrentObject) && BILaunchpadApp.getViewReportInBILP() && this.isDoclistedinDropdown(this.oCurrentObject) && !this.docClickedFromDropdown && !this.editBIWfromViewMode && (cafObject.techname == "view" || cafObject.techname == "modify")) {
+			if (this.getPageId(this.oCurrentObject) != "") {
+				sap.m.MessageToast.show(BILaunchpadApp.localized("Document_listed_msg"), {
+					autoClose: true
+				});
+			}
+			var data = BILaunchpadApp.dropDownPopup.getContent()[0].getContent()[0].getModel().getData().tableData;
+			for (var i = 0; i < data.length; i++) {
+				if (this.oCurrentObject.cuid == data[i].cuid) {
+					BILaunchpadApp.dropDownPopup.getContent()[0].getContent()[0].getItems()[i].firePress();
+					break;
+				}
+			}
+		} else {
+			this.performCafAction(cafObject);
+		}
+	}
+	else {
+		this.performCafAction(cafObject);
+	}
+};
+
+com.sap.fioribi.components.actionpanel.ActionPanelController.prototype.performCafAction = function(cafObject){
+	if (cafObject.techname == "view") {
+		BILaunchpadApp.setHyperLinkFlag(false);
+		if (this.oCurrentObject.type == "LUMX") {
+			this.fetchLumiraOpenDocUrl();
+		}
+		if (this.oCurrentObject.type == "Hyperlink") {
+			BILaunchpadApp.setHyperLinkObject(this.oCurrentObject);
+			BILaunchpadApp.setHyperLinkFlag(true);
+			this.peformHyperlinkAction(this.oCurrentObject);
+
+			if (this.oCurrentObject.type == "Hyperlink") {
+				this.peformHyperlinkAction(this.oCurrentObject);
+			}
+		}
+
+		if (this.oCurrentObject.type == "SharedElement") {
+			return;
+		}
+	}
+
+	if (this.oCurrentObject.type == "Shortcut") {
+		if (cafObject.techname == "view" || cafObject.techname == "schedule" || cafObject.techname == "categorize" || cafObject.techname == "details" || cafObject.techname == "history" || cafObject.techname == "modify" || cafObject.techname == "test_mode") {
+			this.peformShortcutAction(this.oCurrentObject);
+		}
+	}
+	var type = this.oCurrentObject.type;
+	if (this.oCurrentObject.parenttype != undefined) {
+		type = this.oCurrentObject.parenttype;
+	}
+
+	var clientHandler = BILaunchpadApp.oClientActionHandler.getCAFHandler(cafObject.techname, type, this.oParentController);
+
+	var BOEInfo = {
+		SAPLogonToken: BILaunchpadApp.getlogonToken(),
+		PVL: BILaunchpadApp.getPreferredViewingLocale(),
+		WebServiceURL: BILaunchpadApp.getWebServiceBaseURL(),
+		Language: BILaunchpadApp.getProductLocale(),
+		Theme: BILaunchpadApp.getTheme()
+	};
+
+	this.oCurrentObject.boe = BOEInfo;
+
+	if ((cafObject.techname == "copy_shortcut" || cafObject.techname == "copy" || cafObject.techname == "move" || cafObject.techname == "cut") && (this.oParentController.currentParentID != undefined || this.oParentController.currentParentID != null))
+		BILaunchpadApp.setParentId(this.oParentController.currentParentID);
+	if (cafObject.pvl != undefined || cafObject.pvl != null) {
+		this.oCurrentObject.boe.PVL = cafObject.pvl;
+	}
+	//nulllying all screens copy execpt inbox
+	if ((cafObject.techname == "copy_shortcut" || cafObject.techname == "copy" || cafObject.techname == "move" || cafObject.techname == "cut") &&
+		this.oParentController.tab !== "inbox"
+	) {
+		BILaunchpadApp.setBiInboxCopyPasteFlag('');
+	}
+
+	if (cafObject.id == undefined || cafObject.id == null) {
+		//This situation occurs only on tile select to open the document
+		cafObject.id = this.getActId(this.oCurrentObject);
+	}
+
+	if (!this.oCurrentObject.opendocurl) {
+		this.oCurrentObject.opendocurl = cafObject.opendocurl;
+	}
+
+
+
+	this.oCurrentObject.actId = cafObject.id;
+	this.oCurrentObject.actiontechname = cafObject.techname;
+
+	if (cafObject.techname == "modify") {
+		this.oCurrentObject.url = cafObject.url;
+		this.oCurrentObject.contextpath = cafObject.contextpath;
+	}
+
+	if (cafObject.techname == "details") {
+		clientHandler.getContent(this.oCurrentObject, this.oLayout);
+	} else if (cafObject.techname == "sensitivity") {
+		clientHandler.renderPage(this.oCurrentObject);
+	} else
+	{
+		if (cafObject.techname == "download") {
+			clientHandler.download(this.oCurrentObject);
+		}
+
+		if (cafObject.techname == "markasfavorite") {
+			clientHandler.renderPage(this.oCurrentObject);
+		} else {
+			if (clientHandler != undefined) {
+				clientHandler.renderPage(this.oCurrentObject);
+				if (clientHandler.propertiesDialog != undefined)
+					clientHandler.propertiesDialog.focus();
+			}
+			if (this.oParentController != null && this.oParentController.oView) {
+				if (this.oParentController.oView.oListTable != null && this.oParentController.oView.oListTable.myHomeListTable != null) {
+					this.oParentController.oView.oListTable.myHomeListTable.clearSelection();
+				} else
+				if (this.oParentController.oView.oTableWidget != null && this.oParentController.oView.oTableWidget.myHomeListTable != null) {
+					this.oParentController.oView.oTableWidget.myHomeListTable.clearSelection();
+				}
+			}
+		}
+	}
+};
+
+/**
+
+ * This is to get the list of action items using RWS call
+
+ */
+
+com.sap.fioribi.components.actionpanel.ActionPanelController.prototype.getActionPanelList = function(){
+
+	
+
+	//This list has to retrieved form RWS Call using this.oCurrentObject context
+
+	//TODO: Need to have an new entru for icon details or create a js map for each caf action
+
+	$this = this;
+
+	var oActionList = null;
+
+	 var getCafFailedList = function (xhr, ajaxOptions, thrownError) {
+
+         sap.m.MessageBox.error(xhr.message);
+
+     };
+
+
+
+     var getCafSuccessList = function (response) {
+
+    	 oActionList = response;    	 
+
+     };
+
+     
+
+     var surl = BILaunchpadApp.getWebServiceBaseURL()+"/internal/v1/infoobjects/"+$this.oCurrentObject.id+"/clientactions?application=bing"+"&docType="+$this.oCurrentObject.type;
+
+     var request = {
+
+             "surl": surl,
+
+             "successHandler": getCafSuccessList,
+
+             "errorHandler": getCafFailedList,         
+
+             "headers": {
+
+                 "x-SAP-logonToken": BILaunchpadApp.getlogonToken(),
+
+		 "X-SAP-PVL":BILaunchpadApp.getProductLocale(),
+
+                 "Accept": "application/json",
+
+                 "Content-Type": "application/json;odata=verbose",
+
+             }
+
+
+
+         }
+
+     
+
+     
+
+     if($this.oCurrentObject instanceof Array ){
+
+    	 var reqBody = {"entries":[]}
+
+    	 for(var index = 0;index<$this.oCurrentObject.length;index++){
+
+    		 var jsonItem = $this.oCurrentObject[index];
+
+        		 reqBody['entries'].push({"id":jsonItem.id});    			 
+
+    	 }    	 
+
+    	 request["reqType"] = "POST";
+
+    	 request["surl"] =	BILaunchpadApp.getWebServiceBaseURL()+"/internal/v1/infoobjects/clientactions?application=bing"+"&docType="+$this.oCurrentObject.type;
+
+    	 request["data"] =	JSON.stringify(reqBody);
+
+    	 
+
+     }else{    
+
+        request["surl"] = BILaunchpadApp.getWebServiceBaseURL()+"/internal/v1/infoobjects/"+$this.oCurrentObject.id+"/clientactions?application=bing"+"&docType="+$this.oCurrentObject.type;   		 
+
+    	request["reqType"] = "GET";    		 
+
+     }
+
+     
+
+     request.bAsync = false;
+
+     var reqDispatcher = new RequestDispatcher();
+
+     
+
+     if($this.oCurrentObject.container != null || $this.oCurrentObject.container != undefined){
+
+    	 request.surl = request.surl+"&container="+$this.oCurrentObject.container;
+
+     }
+
+     if(BILaunchpadApp.getCopyMoveAction() != ""){
+
+         request["surl"] = request["surl"] + "&mcaction="+BILaunchpadApp.getCopyMoveAction();    		     	 
+
+     }
+
+     
+
+     if(BILaunchpadApp.getActionType() != "")
+
+	{
+
+    	 
+
+    	 request.surl= BILaunchpadApp.getWebServiceBaseURL() + "/internal/v1/infoobjects/" + $this.oCurrentObject.id + "/clientactions?application=bing&actiontype="+BILaunchpadApp.getActionType();
+
+    	 if(BILaunchpadApp.getCopyMoveAction() != ""){
+
+    		 request.surl = request.surl + "&mcaction="+BILaunchpadApp.getCopyMoveAction();    		     	 
+
+    	}
+
+	}
+
+     
+
+	 if(BILaunchpadApp.getContainer() != "")
+
+	 {
+
+		 request.surl = request.surl + "&container="+BILaunchpadApp.getContainer();
+
+		 BILaunchpadApp.setContainer("");
+
+	 }     
+ 	//  Home page if we select caf actions of recently run to get list accordingly
+	 if(!BILaunchpadApp.getContainer() && this.oCurrentObject.level === 6) {
+		request.surl = request.surl + "&container=schedule";
+	 } 
+
+     reqDispatcher.sendRequest(request);
+
+     return oActionList;
+
+
+
+ /*	try{
+
+		$.ajax({
+
+	        cache: false,
+
+	        url: BILaunchpadApp.getWebServiceBaseURL()+"/internal/v1/infoobjects/"+$this.oCurrentObject.id+"/clientactions?application=bing",
+
+	        type: "GET",
+
+	        headers: {
+
+	             "x-SAP-logonToken": BILaunchpadApp.getlogonToken(),
+
+	             "Accept": "application/json",
+
+	             "Content-Type": "application/json;odata=verbose",
+
+	         },
+
+	        success: getRecycleBinListSuccess,
+
+	        error: getRecycleBinListError
+
+	    });
+
+	}
+
+	catch(exception){
+
+		alert('fialed'+ exception);
+
+	}
+
+	*/
+
+	
+
+	var aActionPanelList = [
+
+			
+
+			        {
+
+			        	displayname:"Properties",
+
+			        	actionname:"properties",
+
+			        	icon : {
+
+			        		src:"com/sap/fioribi/images/AllImages.png",
+
+			        		position:"-1100px -105px"
+
+			        	},
+
+			        	layout:"dialog"
+
+			        	
+
+			        },
+
+			        /*{
+
+			        	displayname:"View Last Instance",
+
+			        	actionname:"view_last_instance",
+
+			        	icon : {
+
+			        		src:"com/sap/fioribi/images/AllImages.png",
+
+			        		position:"-1100px -105px"
+
+			        	},
+
+			        	layout:"dialog"
+
+			        },*/
+
+			        /*{
+
+			        	displayname:"Modify",
+
+			        	actionname:"modify",
+
+			        	icon : {
+
+			        		src:"com/sap/fioribi/images/AllImages.png",
+
+			        		position:"-1065px -205px"
+
+			        	},
+
+			        	layout:"dialog"
+
+			        },*/
+
+			        {
+
+			        	displayname:"View",
+
+			        	actionname:"view",
+
+			        	icon : {
+
+			        		src:"com/sap/fioribi/images/AllImages.png",
+
+			        		position:"-1100px -105px"
+
+			        	},
+
+			        	layout:"dialog"
+
+			        },
+
+			        /*{
+
+			        	displayname:"Mark as Favorite",
+
+			        	actionname:"mark_favorite",
+
+			        	icon : {
+
+			        		src:"com/sap/fioribi/images/AllImages.png",
+
+			        		position:"-1100px -36px"
+
+			        	},
+
+			        	layout:"dialog"
+
+			        },*/
+
+			        {
+
+			        	displayname:"Schedule",
+
+			        	actionname:"schedule",
+
+			        	icon : {
+
+			        	//	src:"com/sap/fioribi/images/AllImages.png",
+
+			        		src:"com/sap/fioribi/images/Sprite2.png",
+
+			        	//	position:"-105px -410px"
+
+			        		position:"-1919px -1778px"
+
+			        	},
+
+			        	layout:"dialog"
+
+			        },
+
+			        /*{
+
+			        	displayname:"Share",
+
+			        	actionname:"share",
+
+			        	icon : {
+
+			        		src:"com/sap/fioribi/images/AllImages.png",
+
+			        		position:"-1100px -105px"
+
+			        	},
+
+			        	layout:"dialog"
+
+			        },*/
+
+			        /*{
+
+			        	displayname:"Move To..",
+
+			        	actionname:"move_to",
+
+			        	icon : {
+
+			        		src:"com/sap/fioribi/images/AllImages.png",
+
+			        		position:"-1065px -205px"
+
+			        	},
+
+			        	layout:"dialog"
+
+			        },*/
+
+			       /* {
+
+			        	displayname:"Mobile Ready",
+
+			        	actionname:"mobile_ready",
+
+			        	icon : {
+
+			        		src:"com/sap/fioribi/images/AllImages.png",
+
+			        		position:"-1065px -205px"
+
+			        	},
+
+			        	layout:"dialog"
+
+			        },*/
+
+			        {
+
+			        	displayname:"Details",
+
+			        	actionname:"details",
+
+			        	icon : {
+
+			        		src:"com/sap/fioribi/images/AllImages.png",
+
+			        		position:"-1100px -105px"
+
+			        	},
+
+			        	layout:"inbuilt"
+
+			        },
+
+			        /*{
+
+			        	displayname:"Mobile Settings",
+
+			        	actionname:"mobile_settings",
+
+			        	icon : {
+
+			        		src:"com/sap/fioribi/images/AllImages.png",
+
+			        		position:"-1100px -170px"
+
+			        	},
+
+			        	layout:"dialog"
+
+			        },*/
+
+			        {
+
+			        	displayname:"Delete",
+
+			        	actionname:"delete",
+
+			        	icon : {
+
+			        		src:"com/sap/fioribi/images/AllImages.png",
+
+			        		position:"-1065px -139px"
+
+			        	},
+
+			        	layout:"dialog"
+
+			        },
+
+					{
+
+			        	displayname:"Properties_rb",
+
+			        	actionname:"properties_rb",
+
+			        	icon : {
+
+			        		src:"com/sap/fioribi/images/AllImages.png",
+
+			        		position:"-1100px -105px"
+
+			        	},
+
+						layout:"dialog"
+
+			        },
+
+			        {
+
+			        	displayname:"Delete_Rb",
+
+			        	actionname:"delete_rb",
+
+			        	icon : {
+
+			        		src:"com/sap/fioribi/images/Sprite2.png",
+
+			        		position:"-1885px -148px"
+
+			        	},
+
+						layout:"dialog"
+
+			        },
+
+			        {
+
+			        	displayname:"Restore",
+
+			        	actionname:"restore",
+
+			        	icon : {
+
+			        		src:"com/sap/fioribi/images/Sprite2.png",
+
+			        		position:"-1882px -1508px;"
+
+			        	},
+
+						layout:"dialog"
+
+			        }
+
+			    /*    {
+
+			        	displayname:"Empty Recycle Bin",
+
+			        	actionname:"empty_rb",
+
+			        	icon : {
+
+			        		src:"com/sap/fioribi/images/AllImages.png",
+
+			        		position:"-1065px -139px"
+
+			        	},
+
+						layout:"dialog"
+
+			        } */
+
+			        
+
+	];
+
+	
+
+//	return aActionPanelList;
+
+	
+
+};
+
+
+
+com.sap.fioribi.components.actionpanel.ActionPanelController.prototype.updateActionPanel = function(){
+
+	
+
+	this.model.setProperty("/actions",this.getActionPanelList());
+
+};
+
+
+
+com.sap.fioribi.components.actionpanel.ActionPanelController.prototype.updateGlobalActionPanel = function(){
+
+	this.model.setProperty("/actions",this.getGlobalActionPanelList());		
+
+};
+
+
+
+com.sap.fioribi.components.actionpanel.ActionPanelController.prototype.emptyModel = function(){
+
+	this.model.setProperty("/actions", null);
+
+};
+
+
+
+com.sap.fioribi.components.actionpanel.ActionPanelController.prototype.getActId = function(objData){
+
+	
+
+	var cuidInfoobjectType="";
+
+	//Only for View Caf Action
+
+	switch (objData.type) {
+
+    case "CrystalReport":
+
+    	cuidInfoobjectType = "Ab2KHgtX66RKjzeC8DHIuOA";
+
+        break;
+
+    case "Webi":
+
+    	cuidInfoobjectType = "AUpatZO59slHuOBDChdF1A8";
+
+        break;
+
+	case "Flash":
+
+ 		cuidInfoobjectType = "AfMvU.mB_2JGpJAPZ4A7ihc";
+
+		break;
+
+    case "XL.XcelsiusEnterprise":
+
+ 		cuidInfoobjectType = "AT930ooeb6RLtazWIin5r0I";
+
+		break;
+
+    case "MDAnalysis":
+
+    	cuidInfoobjectType = "AZyzotvU_g1GiP8gJG.lc8g";
+
+    	break;
+
+    case "AAD.AnalysisApplication":
+
+    	cuidInfoobjectType = "AW5BoC5w0f9Bs2V7VrDBHm0";
+
+    	break;
+
+    case "AO.Workbook":
+
+    	cuidInfoobjectType = "ATyXtRuZaYFNu1yeA3Vp2t4";
+
+    	break;
+
+	case "LUMX":
+
+    	cuidInfoobjectType = "AVbzoyBZZlxAj54Bkg3mmpo";
+
+    	break;
+	case "DataDiscovery_InfoSpace_View":
+		cuidInfoobjectType = "AbclfJlt8ItHjVvaXRoelPg";
+		break;
+    case "ObjectPackage":
+    case "Program":
+        // for 'ObjectPackage' and 'Program', we need to get actId of 'view details action'
+        cuidInfoobjectType = "AQgNodvvFKFLm4T65munjMU";
+		break;
+    } 
+
+	         
+	if(cuidInfoobjectType !=""){
+
+		sData = "SELECT SI_ID,SI_CUID FROM CI_INFOOBJECTS,CI_SYSTEMOBJECTS,CI_APPOBJECTS WHERE SI_CUID='"+cuidInfoobjectType+"'";
+
+		var reqDispatcher = new RequestDispatcher();
+		var oResponseJson = null;
+		var actId = "";
+
+		// var dataPost = "\"query\":\""+sData+"\"";
+
+		var dataPost = {
+			"query":sData
+		};
+
+		dataPost= JSON.stringify(dataPost);
+
+		var fnSuccessACTHandler = $.proxy(function(oResponse) {
+			oResponseJson = oResponse;
+			if(oResponseJson){
+				actId = oResponseJson.entries[0].SI_ID;
+				this.actionCuidIdMap.set(cuidInfoobjectType,actId);
+			}
+		},this);
+
+		var fnErrorACTHandler = function(xhr, ajaxOptions, thrownError) {
+			//alert("Error");
+		};
+
+		//TODO: this has to be repplaced by CAF Resolver
+		var urlCONS = BILaunchpadApp.getWebServiceBaseURL()+"/v1/cmsquery";
+
+		var request = {
+				"surl": urlCONS,
+				"reqType": "POST",
+				"bAsync": false,
+				"data": dataPost,
+				"successHandler": function(data, textStatus, xhr) {
+					fnSuccessACTHandler(data, textStatus, xhr);
+				},
+				"errorHandler": function() {
+					fnErrorACTHandler();
+				},
+				"headers": {
+					"Accept": "application/json",
+					"Content-Type": "application/json;odata=verbose",
+					"x-sap-logontoken": BILaunchpadApp.getlogonToken()
+				}
+		};
+
+		if(this.actionCuidIdMap == undefined)
+			this.actionCuidIdMap = new Map();
+		
+		if(this.actionCuidIdMap.has(cuidInfoobjectType)){
+			actId = this.actionCuidIdMap.get(cuidInfoobjectType);
+		}
+		else{
+			reqDispatcher.sendRequest(request);
+		}
+	}else{
+		actId="";
+	}
+
+    return actId;
+};
+
+
+
+com.sap.fioribi.components.actionpanel.ActionPanelController.prototype.getGlobalActionPanelList = function(){
+
+	
+
+	//This list has to retrieved form RWS Call using this.oCurrentObject context
+
+	//TODO: Need to have an new entru for icon details or create a js map for each caf action
+
+	$this = this;
+
+	var oActionList = null;
+
+	 var getCafFailedList = function (xhr, ajaxOptions, thrownError) {
+
+         sap.m.MessageBox.error(xhr.message);
+
+     };
+
+
+
+     var getCafSuccessList = function (response) {
+
+    	 oActionList = response;    	 
+
+     };
+
+     
+
+     //build the list of enties with object ids
+
+    var reqBody = {"entries":[]}; 
+
+    var request = {
+
+            "surl": BILaunchpadApp.getWebServiceBaseURL()+"/internal/v1/infoobjects/clientactions?application=bing&container="+$this.cafContainer,
+
+            "reqType": "POST",
+
+            "successHandler": getCafSuccessList,
+
+            "errorHandler": getCafFailedList,
+
+            "headers": {
+
+                "x-SAP-logonToken": BILaunchpadApp.getlogonToken(),
+
+		"X-SAP-PVL":BILaunchpadApp.getProductLocale(),
+
+                "Accept": "application/json",
+
+                "Content-Type": "application/json;odata=verbose",
+
+            }
+
+
+
+        }
+
+    
+
+    if($this.oCurrentObject instanceof Array ){
+
+	   	 for(var index = 0;index<$this.oCurrentObject.length;index++){
+
+	   		 var jsonItem = $this.oCurrentObject[index];
+
+	       		 reqBody['entries'].push({"id":jsonItem.id});    			 
+
+	   	 	}
+
+   	   	 request["data"] =	JSON.stringify(reqBody);   		 
+
+    }
+
+     
+
+
+
+     request.bAsync = false;
+
+     var reqDispatcher = new RequestDispatcher();
+
+     
+
+     if(BILaunchpadApp.getCopyMoveAction() != ""){
+
+         request["surl"] = request["surl"] + "&mcaction="+BILaunchpadApp.getCopyMoveAction();    		     	 
+
+     }
+
+     
+
+     reqDispatcher.sendRequest(request);
+
+     return oActionList;	
+
+};
+
+com.sap.fioribi.components.actionpanel.ActionPanelController.prototype.encodeURLQueryParameters = function(hyperlinkURL){
+	if(hyperlinkURL.indexOf("?") > 0){
+		let hyperlinkURI ;
+		var urlLength=hyperlinkURL.length;
+		let hyperlinkQueryString;
+		var finalurlQueryString="";
+		hyperlinkURI = hyperlinkURL.split("?")[0];
+		hyperlinkQueryString = hyperlinkURL.substring(hyperlinkURI.length+1);
+		if(hyperlinkQueryString != null && hyperlinkQueryString != "undefined"){
+			let params = hyperlinkQueryString.split("&");
+			for(var i=0;i<params.length;i++){
+				var name=params[i].split("=")[0];
+				var val=params[i].split("=")[1];
+				name=encodeURIComponent(decodeURIComponent(name));
+				val=encodeURIComponent(decodeURIComponent(val));
+				finalurlQueryString = finalurlQueryString.concat(name+"="+val+"&");
+			}
+		}
+		return hyperlinkURL = hyperlinkURI+"?"+finalurlQueryString;
+	}else{
+		return hyperlinkURL;
+	}
+	
+};
+
+
+com.sap.fioribi.components.actionpanel.ActionPanelController.prototype.peformHyperlinkAction = function(obj) {
+	var hyperlinkobject = null;
+    jQuery.sap.require("com.sap.fioribi.utils.HyperlinkUtil");
+    var hyperlinkUtil = new com.sap.fioribi.utils.HyperlinkUtil();
+    hyperlinkobject = hyperlinkUtil.getHyperlinkUrlSiId(obj);
+    if (hyperlinkobject != null && hyperlinkobject !="undefined") {
+        if (hyperlinkobject.externalurl != null && hyperlinkobject.externalurl != "") {
+            this.oCurrentObject.type = "ExternalHyperlink";
+            if(hyperlinkobject.externalurl != null && hyperlinkobject.externalurl != "undefined"){
+				if(hyperlinkobject.externalurl.indexOf("OpenDocument/opendoc/openDocument.jsp") > -1 ){
+					this.oCurrentObject.hyperlink = this.encodeURLQueryParameters(hyperlinkobject.externalurl);
+				}
+				else{
+					this.oCurrentObject.hyperlink = hyperlinkobject.externalurl;
+				}
+			}
+        } else if(hyperlinkobject.error_code) {
+					this.oCurrentObject.type = "ExternalHyperlink";
+					this.oCurrentObject.errormessage = hyperlinkobject.message;
+		} else {
+			if (hyperlinkobject.id != null) {
+				if(hyperlinkobject.hyperlinkParams.includes("sInstance"))
+					{
+						var instanceValue,param;
+						var externalparams=hyperlinkobject.hyperlinkParams.split("&");
+					externalparams.forEach(getInstanceValue);
+					function getInstanceValue(parameters) {
+					if(parameters.includes("sInstance"))
+					{
+					param= parameters.split("=");
+					instanceValue=param[1];
+					}
+						}
+					var objectId=hyperlinkUtil.getObjectCuId(hyperlinkobject.id,instanceValue);
+					if(objectId!=null)
+					{
+						hyperlinkobject.id=objectId;
+					}
+					}
+                var hyperlinkObjectContext = hyperlinkUtil.getHyperlinkUrlObject(hyperlinkobject.id);
+                if (hyperlinkObjectContext) {
+					hyperlinkObjectContext.name = this.oCurrentObject.name;
+					hyperlinkObjectContext.hyperlinkParams = hyperlinkobject.hyperlinkParams;
+					this.oCurrentObject = hyperlinkObjectContext;							
+                }
+            } 
+        }
+    }
+};
+
+com.sap.fioribi.components.actionpanel.ActionPanelController.prototype.peformShortcutAction = function(obj) {
+	var shortcutObject_TargetId = null;
+    jQuery.sap.require("com.sap.fioribi.utils.ShortcutUtil");
+    var shortcutUtil = new com.sap.fioribi.utils.ShortcutUtil();
+    shortcutObject_TargetId = shortcutUtil.getShortcutTargetID(obj.id);
+    if (shortcutObject_TargetId != null) {
+    	var shortcutTargetObjectContext = shortcutUtil.getShortcutTargetObject(shortcutObject_TargetId);
+    	if (shortcutTargetObjectContext) {
+    		this.oCurrentObject = shortcutTargetObjectContext;
+			this.oCurrentObject.isOneClick = obj.isOneClick;
+    	}
+    }
+};
+
+com.sap.fioribi.components.actionpanel.ActionPanelController.prototype.isDoclistedinDropdown = function(objData) {
+    var openedDocData = BILaunchpadApp.getOpenedDocumentsData();
+    for (var i = 0; i < openedDocData.length; i++) {
+        if (openedDocData[i].cuid == objData.cuid) {
+            return true;
+        }
+    }
+    return false;
+};
+
+com.sap.fioribi.components.actionpanel.ActionPanelController.prototype.getPageId = function(obj) {
+    if (obj.cuid == undefined || obj.cuid == "") {
+        return "";
+    } else {
+        var openedDocData = BILaunchpadApp.getOpenedDocumentsData();
+        var pageId = "";
+        for (var i = 0; i < openedDocData.length; i++) {
+            if (openedDocData[i].cuid == obj.cuid) {
+                pageId = openedDocData[i].pageId;
+                return pageId;
+            }
+        }
+       return pageId;
+    }
+};

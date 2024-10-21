@@ -1,0 +1,2472 @@
+/*
+�2010 - 2016 SAP SE or an SAP affiliate company.  All rights reserved.
+ 
+SAP and other SAP products and services mentioned herein as well as their respective logos are trademarks or registered trademarks of SAP SE in Germany and other countries.  Please see http://www.sap.com/corporate-en/legal/copyright/index.epx#trademark for additional trademark information and notices.
+*/
+
+/*
+©2010 - 2016 SAP SE or an SAP affiliate company.  All rights reserved.
+ 
+SAP and other SAP products and services mentioned herein as well as their respective logos are trademarks or registered trademarks of SAP SE in Germany and other countries.  Please see http://www.sap.com/corporate-en/legal/copyright/index.epx#trademark for additional trademark information and notices.
+*/
+jQuery.sap.declare({
+    modName: "com.sap.fioribi.modules.homepage.HomepageView",
+    type: "view"
+});
+jQuery.sap.require({
+    modName: "com.sap.fioribi.modules.common.BILPView",
+    type: "view"
+});
+jQuery.sap.require({
+    modName: "com.sap.fioribi.app.BILaunchpadController",
+    type: "controller"
+});
+jQuery.sap.require("sap.f.GridContainer");
+jQuery.sap.require("com.sap.fioribi.utils.ObjectTypeIcon2");
+sap.ui.getCore().loadLibrary("sap.uxap");
+var isHelpStateActive = false;
+com.sap.fioribi.modules.homepage.HomepageView = function() {
+    this.help_appname = BILaunchpadApp.gethelp_appname();
+    this.oUnifiedPageMap = [];
+    this.sCurrentDocumentCUID = "";
+    this.sCurrentPageId = "";
+  //this.mainPageHeader = new sap.m.Bar();
+    this.mainPageHeader = new sap.f.ShellBar();
+	this.isPinnedReportclicked=false;
+    com.sap.fioribi.modules.common.BILPView.apply(this, arguments);
+    var eventBus = sap.ui.getCore().getEventBus();
+    eventBus.subscribe(BILaunchpadApp.oConstants.PLATFORM_INTERNAL_CHANNEL, BILaunchpadApp.oConstants.VIEW_EVENT, this.toggleViewer, this);
+    eventBus.subscribe(BILaunchpadApp.oConstants.PLATFORM_INTERNAL_CHANNEL, BILaunchpadApp.oConstants.SEARCH_EVENT, this.toggleSearch, this);
+    eventBus.subscribe(BILaunchpadApp.oConstants.PLATFORM_EXTERNAL_CHANNEL, BILaunchpadApp.oConstants.DOCLOSE_EVENT, this.closeDocument, this);
+    eventBus.subscribe(BILaunchpadApp.oConstants.PLATFORM_EXTERNAL_CHANNEL, BILaunchpadApp.oConstants.UPDATE_TITLE_EVENT, this.updateDocumentTitle, this);
+    eventBus.subscribe(BILaunchpadApp.oConstants.PLATFORM_EXTERNAL_CHANNEL, BILaunchpadApp.oConstants.ADD_TITLE_EVENT, this.addDocumentTitle, this);
+    eventBus.subscribe(BILaunchpadApp.oConstants.PLATFORM_INTERNAL_CHANNEL, BILaunchpadApp.oConstants.APP_SERVICE_ERROR, this.appServiceError, this);
+    eventBus.subscribe(BILaunchpadApp.oConstants.PLATFORM_INTERNAL_CHANNEL, BILaunchpadApp.oConstants.OPEN_HISTORY, this.fnNavigateHistoryPage, this);
+	eventBus.subscribe(BILaunchpadApp.oConstants.PLATFORM_INTERNAL_CHANNEL, BILaunchpadApp.oConstants.OPEN_APPLICATION, this.openApplication, this);
+	eventBus.subscribe(BILaunchpadApp.oConstants.PLATFORM_EXTERNAL_CHANNEL,BILaunchpadApp.oConstants.TOOLBAR_EVENT, this.fnHideHeader, this);
+};
+com.sap.fioribi.modules.homepage.HomepageView.prototype = jQuery.sap.newObject(com.sap.fioribi.modules.common.BILPView.prototype);
+com.sap.fioribi.modules.homepage.HomepageView.prototype.getControllerName = function() {
+    return "com.sap.fioribi.modules.homepage.HomepageController";
+};
+com.sap.fioribi.modules.homepage.HomepageView.prototype.appServiceError = function(channel, event, data) {
+	jQuery.sap.require("sap.m.MessageBox");
+    sap.m.MessageBox.error(data.errorMsg);
+};
+com.sap.fioribi.modules.homepage.HomepageView.prototype.toggleViewer = function(channel, event, oPageMetaData) {
+        BILaunchpadApp.getNavContainer().addPage(oPageMetaData.page);
+        BILaunchpadApp.refreshIcon.setVisible(false);
+        BILaunchpadApp.editHomePageIcon.setVisible(false);
+        BILaunchpadApp.includeStyleSheet("com/sap/fioribi/css/Common.css");
+        if (BILaunchpadApp.getNavContainer().getCurrentPage().sId != "tabPage") {
+            BILaunchpadApp.getNavContainer().getCurrentPage().addStyleClass("BILP-nav-hidden");
+        }
+        BILaunchpadApp.getNavContainer().to(oPageMetaData.page.getId());
+         if (!(oPageMetaData.data.type=='AFDashboardPage' && oPageMetaData.data.actiontechname=='modify')) {
+            this.updateTitleBarList("add", oPageMetaData.data);
+        }
+		
+		if ((oPageMetaData.data.type == "AFDashboardPage" && oPageMetaData.data.actiontechname == "modify")) {
+            this.updateTitleBarList("add", oPageMetaData.data); // in add flow comparing with one flag if already present updating else adding new record
+        }
+		
+        this.oUnifiedPageMap[oPageMetaData.data.cuid] = oPageMetaData.page.getId();
+        this.sCurrentDocumentCUID = oPageMetaData.data.cuid;
+        this.sCurrentPageId = oPageMetaData.page.getId();      
+        if (oPageMetaData.data.type == "Webi") {         
+            try {
+                    Help4.getController().afterNavigate(BILaunchpadApp.oConstants.INTERACTIVEVIEWER_HELP);
+            } catch (e) {}
+        }
+		if (!(oPageMetaData.data.type == "ExternalHyperlink" && (oPageMetaData.data.hyperlink != undefined && oPageMetaData.data.hyperlink.substring(0, 5) == "https"))) {
+            BILaunchpadApp.getHomePage().oController.setHeaderLabel(oPageMetaData.data.name);
+        }
+};
+com.sap.fioribi.modules.homepage.HomepageView.prototype.toggleSearch = function(channel, event, oPageMetaData) {
+    this.mainPage.removeContent(this.searchGlassPane);
+    BILaunchpadApp.getNavContainer().addPage(oPageMetaData.page);
+    BILaunchpadApp.refreshIcon.setVisible(false);
+    BILaunchpadApp.editHomePageIcon.setVisible(false);
+    if (BILaunchpadApp.navPoints[BILaunchpadApp.navPoints.length - 1].level == 0) {
+        BILaunchpadApp.navPoints.push({
+            level: BILaunchpadApp.navPoints[BILaunchpadApp.navPoints.length - 1].level + 1,
+            curr: oPageMetaData.page.getId(),
+            prev: "tabPage",
+            backAction: "tabPage"
+        });
+    } else {
+        BILaunchpadApp.navPoints.push({
+            level: BILaunchpadApp.navPoints[BILaunchpadApp.navPoints.length - 1].level + 1,
+            curr: oPageMetaData.page.getId(),
+            prev: BILaunchpadApp.navPoints[BILaunchpadApp.navPoints.length - 1].curr,
+            backAction: BILaunchpadApp.navPoints[BILaunchpadApp.navPoints.length - 1].curr
+        });
+    }
+    BILaunchpadApp.getNavContainer().to(oPageMetaData.page.getId());
+};
+com.sap.fioribi.modules.homepage.HomepageView.prototype.fnNavigateHomePage = function(channel, event, oPageMetaData) {
+    if ($(".soShow").length != 0) {
+        $(".soShow").click();
+    }
+    this.sCurrentDocumentCUID = "";
+    this.sCurrentPageId = "";
+    $("#tilePage").width($(window).width() - 32);
+    $("#listPage").width($(window).width() - 32);
+    $(".BILP-ListingTable").css("margin-right", "32px");
+    BILaunchpadApp.getNavContainer().to("tabPage");
+    BILaunchpadApp.getNavContainer().getCurrentPage().removeStyleClass("BILP-nav-hidden");
+    BILaunchpadApp.backIcon.setVisible(false);
+    BILaunchpadApp.homeIcon.setVisible(false);
+    BILaunchpadApp.refreshIcon.setVisible(true);
+    BILaunchpadApp.editHomePageIcon.setVisible(true);
+    
+	while (BILaunchpadApp.navPoints.length>1) {
+		var popedPaged = BILaunchpadApp.navPoints.pop();   
+		if (popedPaged.curr.indexOf("AFDashboardPage") != -1 && popedPaged.currString != "BI Workspace") { 
+			if(popedPaged.customType==undefined) {
+				BILaunchpadApp.getNavContainer().getPage(popedPaged.curr).destroy();
+			}
+		} 
+		else if (popedPaged.curr == "historyPage")
+		{
+			sap.ui.getCore().byId("historyPage").destroyContent();
+		}
+		else {    
+			if (popedPaged.curr.indexOf("homepageViewEdit") != -1) {    
+				BILaunchpadApp.getNavContainer().getPage(popedPaged.curr).destroy();    
+			}   
+		}   
+	}
+    homePageInstance.oController.resetHeaderLabel();    
+};
+com.sap.fioribi.modules.homepage.HomepageView.prototype.fnNavigateHistoryPage = function(channel, event, oPageMetaData) {
+    BILaunchpadApp.getNavContainer().to("historyPage");
+    BILaunchpadApp.backIcon.setVisible(true);
+    BILaunchpadApp.homeIcon.setVisible(true);
+    BILaunchpadApp.refreshIcon.setVisible(false);
+    BILaunchpadApp.editHomePageIcon.setVisible(false);
+};
+com.sap.fioribi.modules.homepage.HomepageView.prototype.getTabPageContent = function() {
+    if (sap.ui.getCore().byId("tabPage") == undefined) {
+        var tabPage = new sap.m.Page({
+            id: "tabPage",
+            enableScrolling: false
+        });
+    } else {
+        var tabPage = sap.ui.getCore().byId("tabPage");
+    }
+    tabPage.setShowHeader(false);
+    jQuery.sap.require("com.sap.fioribi.widgets.TabBar");
+    var oTabBar = BILaunchpadApp.oTabBar = new com.sap.fioribi.widgets.TabBar();
+    jQuery.sap.require("com.sap.fioribi.components.overviewpage.DocumentsContainer");
+    var oDocContainer = new com.sap.fioribi.components.overviewpage.DocumentsContainer();
+    var oRightsObj = BILaunchpadApp.getRightsObject();
+    this.help_appname = BILaunchpadApp.gethelp_appname();
+    var docView = oDocContainer.getUI().addStyleClass("BILP-hmargin32");
+    var oTabContent = {
+        name: BILaunchpadApp.localized("tab_home_title"),
+        key: "home",
+        id: "xray_home",
+        content: docView
+    };
+    oTabBar.addTab(oTabContent);
+    jQuery.sap.require("com.sap.fioribi.modules.schedule.scheduleContainer");
+    var schedulePage = new com.sap.fioribi.modules.schedule.scheduleContainer().getUI();
+    oTabContent = {
+        name: BILaunchpadApp.localized("tab_schedule_title"),
+        key: "schedule",
+        id: "xray_schedule",
+        content: [schedulePage]
+    };
+    oTabBar.addTab(oTabContent);
+    if (oRightsObj.alertview || oRightsObj.inboxview) {
+        jQuery.sap.require("com.sap.fioribi.modules.inboxtab.InboxTabContentsContainer");
+        var inboxPage = new com.sap.fioribi.modules.inboxtab.InboxTabContentsContainer();
+        oTabContent = {
+            name: BILaunchpadApp.localized("tab_inbox_title"),
+            key: "inbox",
+            id: "xray_inbox",
+            content: [inboxPage.getUI()]
+        };
+        oTabBar.addTab(oTabContent);
+    }
+    if (oRightsObj.favoritefolderview || oRightsObj.folderview) {
+        jQuery.sap.require("com.sap.fioribi.modules.folders.foldersContainer");
+        var foldersPage = new com.sap.fioribi.modules.folders.foldersContainer().getUI();
+        oTabContent = {
+            name: BILaunchpadApp.localized("tab_folders_title"),
+            key: "folders",
+            id: "xray_folders",
+            content: [foldersPage]
+        };
+        oTabBar.addTab(oTabContent);
+    }
+    if (oRightsObj.recyclebinview) {
+        jQuery.sap.require("com.sap.fioribi.modules.recyclebin.recycleBinContainer");
+        var recycleBinPage = new com.sap.fioribi.modules.recyclebin.recycleBinContainer().getUI();
+        oTabContent = {
+            name: BILaunchpadApp.localized("tab_recyclebin_title"),
+            key: "recyclebin",
+            id: "xray_recyclebin",
+            content: [recycleBinPage]
+        };
+        oTabBar.addTab(oTabContent);
+    }
+    var homepageBar = oTabBar.getTabBar();
+    homepageBar.addStyleClass("BILP-HomepageTabBar");
+    tabPage.addContent(homepageBar);
+    homepageBar.attachSelect(null, function(oEvent) {
+        var selectedTab = oEvent.getParameters().selectedItem;
+        BILaunchpadApp.resetBackbutton();
+        if (selectedTab.getKey() == "recyclebin") {
+            if (typeof(recycleBinPage.getController().reloadPage) == "function") {
+                recycleBinPage.getController().reloadPage();
+                this.help_appname = BILaunchpadApp.oConstants.BILAUNCHPAD_RECYCLEBIN;
+                try {
+                    if (isHelpStateActive) {
+                        Help4.getController().afterNavigate(BILaunchpadApp.oConstants.BILAUNCHPAD_RECYCLEBIN);
+                    }
+                } catch (e) {}
+            }
+        } else {
+            if (selectedTab.getKey() == "inbox") {
+                if (typeof(inboxPage.oController.rebuildPage) == "function") {
+                    inboxPage.oController.rebuildPage();
+                    this.help_appname = BILaunchpadApp.oConstants.BILAUNCHPAD_INBOX;
+                    try {
+                            Help4.getController().afterNavigate(BILaunchpadApp.oConstants.BILAUNCHPAD_INBOX);
+                    } catch (e) {}
+                }
+            } else {
+                if (selectedTab.getKey() == "schedule") {
+                    if (typeof(schedulePage.oController.retrieveList) == "function") {
+                        schedulePage.oController.retrieveList();
+                        this.help_appname = BILaunchpadApp.oConstants.BILAUNCHPAD_SCHEDULE;
+                        try {
+                                Help4.getController().afterNavigate(BILaunchpadApp.oConstants.BILAUNCHPAD_SCHEDULE);
+                        } catch (e) {}
+                    }
+                } else {
+                    if (selectedTab.getKey() == "home") {
+                        var landingpage = BILaunchpadApp.getHomepageTab();
+                        this.help_appname = BILaunchpadApp.oConstants.BILAUNCHPAD_HELP;
+                        try {
+                                Help4.getController().afterNavigate(BILaunchpadApp.oConstants.BILAUNCHPAD_HELP);
+                        } catch (e) {}
+                        if (landingpage == "home") {
+                            var selectedfilter = BILaunchpadApp.getHomePageFilter();
+                            if (docView.oController.getView().oListBox.getSelectedKey() != 2) {
+                                if (docView.oController.getView().oTableWidget != null) {
+                                    docView.oController.getView().oTableWidget.clearFilters();
+                                }
+                            }
+                            switch (selectedfilter) {
+                                case "1":
+                                    if (typeof(docView.oController.getShowAll) == "function") {
+                                        docView.oController.getShowAll();
+                                    }
+                                    break;
+                                case "2":
+                                    if (typeof(docView.oController.getRecent) == "function") {
+                                        docView.oController.getRecent();
+                                    }
+                                    break;
+                                case "3":
+                                    if (typeof(docView.oController.getDocuments) == "function") {
+                                        docView.oController.getDocuments();
+                                    }
+                                    break;
+                                case "4":
+                                    if (typeof(docView.oController.getCategories) == "function") {
+                                        docView.oController.getCategories();
+                                    }
+                                    break;
+                                case "5":
+                                    if (typeof(docView.oController.getFavorites) == "function") {
+                                        docView.oController.getFavorites();
+                                    }
+                                    break;
+                                case "6":
+                                    if (typeof(docView.oController.getMyRecentlyRun) == "function") {
+                                        docView.oController.getMyRecentlyRun();
+                                    }
+                                    break;
+                            }
+                            docView.oController.getView().oListBox.setSelectedKey(selectedfilter);
+                        } else {
+                            if (docView.oController.getView().oListBox.getSelectedKey() != 2) {
+                                if (docView.oController.getView().oTableWidget != null) {
+                                    docView.oController.getView().oTableWidget.clearFilters();
+                                }
+                            }
+                            if (typeof(docView.oController.getRecent) == "function") {
+                                docView.oController.getRecent();
+                            }
+                            docView.oController.getView().oListBox.setSelectedKey("2");
+                        }
+                        docView.oController.model.removepageInfoList();
+                        docView.oController.getView().oLink.destroyContent();
+                    } else {
+                        if (selectedTab.getKey() == "folders") {
+                            this.help_appname = BILaunchpadApp.oConstants.BILAUNCHPAD_FOLDERS;
+                            try {
+                                    Help4.getController().afterNavigate(BILaunchpadApp.oConstants.BILAUNCHPAD_FOLDERS);
+                            } catch (e) {}
+                            if (typeof(foldersPage.getController().reloadPage) == "function") {}
+                        }
+                    }
+                }
+            }
+        }
+    }, this);
+    return tabPage;
+};
+com.sap.fioribi.modules.homepage.HomepageView.prototype.getUnifiedViewerContent = function() {
+    if (sap.ui.getCore().byId("unifiedViewer") == undefined) {
+        var unifiedViewerPage = new sap.m.Page({
+            id: "unifiedViewer",
+            enableScrolling: false
+        });
+    } else {
+        var unifiedViewerPage = sap.ui.getCore().byId("unifiedViewer");
+    }
+    unifiedViewerPage.setShowHeader(false);
+    return unifiedViewerPage;
+};
+com.sap.fioribi.modules.homepage.HomepageView.prototype.getHistoryContent = function() {
+    var $this = this;
+    var historyPageFooter = new sap.m.Bar();
+    var clsBtn = new sap.m.Button({
+        text: BILaunchpadApp.localized("history_close"),
+        press: function(oEvent) {
+        	com.sap.fioribi.modules.homepage.HomepageView.prototype.doBackButtonLogic();
+        }
+    });
+    historyPageFooter.addContentRight(clsBtn);
+    historyPageFooter.addStyleClass("BILP-HstyFooter");
+    if (sap.ui.getCore().byId("historyPage") == undefined) {
+        var historyPage = new sap.m.Page({
+            id: "historyPage",
+            footer: historyPageFooter,
+            enableScrolling: false
+        });
+    } else {
+        var historyPage = sap.ui.getCore().byId("historyPage");
+    }
+    historyPage.setShowHeader(false);
+    historyPage.setShowFooter(true);
+    return historyPage;
+};
+com.sap.fioribi.modules.homepage.HomepageView.prototype.getSearchPageContent = function() {
+    jQuery.sap.require("com.sap.fioribi.modules.search.searchContainer");
+    this.searchContainer = new com.sap.fioribi.modules.search.searchContainer().getUI();
+    return this.searchContainer;
+};
+com.sap.fioribi.modules.homepage.HomepageView.prototype.closeDocument = function(channel, event, objData) {
+    sap.ui.getCore().byId("helpBtn").setEnabled(true);
+    try {
+            Help4.getController().afterNavigate(BILaunchpadApp.gethelp_appname());
+    } catch (e) {}
+    var obj = this.oDocumentModel.getData();
+    for (var i = 0; i < obj.tableData.length; i++) {
+        if (obj.tableData[i].pageId == objData.pageId) {
+            obj.tableData.splice(i, 1);
+            break;
+        }
+    }
+    this.oDocumentModel.setData(obj);
+    objData.isCurrentPage = false;
+    BILaunchpadApp.getNavContainer().getPreviousPage().removeStyleClass("BILP-Opacity");
+    if (objData.pageId === this.sCurrentPageId) {
+        //Rather than performing "Goto home" logic for close document perform "Back" logic
+        //this.fnNavigateHomePage();
+        com.sap.fioribi.modules.homepage.HomepageView.prototype.doBackButtonLogic();
+    }
+    BILaunchpadApp.getNavContainer().getPage(objData.pageId).destroy();
+};
+com.sap.fioribi.modules.homepage.HomepageView.prototype.updateDocumentTitle = function(channel, event, objData) {
+    this.updateTitleBarList("update", objData);
+};
+com.sap.fioribi.modules.homepage.HomepageView.prototype.addDocumentTitle = function(channel, event, objData) {
+    this.updateTitleBarList("add", objData);
+};
+
+com.sap.fioribi.modules.homepage.HomepageView.prototype.updateTitleBarList = function(sAction, objData) {
+    if ((objData!=="") && (objData.id !== "Documents") && (objData.id !== "Schedules") && (objData.id !== "Categories") && (objData.id !== "Inbox") && (objData.id !==
+            "Folders") && (objData.id !== "RecycleBin") && (objData.actiontechname !== "mm_lineage") && (objData.actiontechname !== "icc_metapedia")) {
+        if (sAction == "close") {
+            if (objData.type != "Webi") {
+                var obj = this.oDocumentModel.getData();
+                var parameter="cuid";//By default we are comparing with cuid
+                if(objData.cuid=="") {
+                	parameter="pageId";//Since Applications do not have cuid at first,so we are using pageId in that scenario
+            	}
+                for (var i = 0; i < obj.tableData.length; i++) {
+                    if (obj.tableData[i][parameter] == objData[parameter] && obj.tableData[i].pageId == objData.pageId) {
+                        obj.tableData.splice(i, 1);
+                        break;
+                    }
+                }
+                this.oDocumentModel.setData(obj);
+                objData.isCurrentPage = false;
+				if(objData.pageId!="")
+				{
+                if (objData.pageId === this.sCurrentPageId) {
+                    com.sap.fioribi.modules.homepage.HomepageView.prototype.doBackButtonLogic();
+                }
+                BILaunchpadApp.getNavContainer().getPage(objData.pageId).destroy();
+				}
+            }
+            if (BILaunchpadApp.navPoints[BILaunchpadApp.navPoints.length - 1].curr != objData.pageId) {
+                for (var i = 0; i < BILaunchpadApp.navPoints.length; i++) {
+                    if (BILaunchpadApp.navPoints[i].curr == objData.pageId) {
+                        BILaunchpadApp.navPoints[i + 1].prev = BILaunchpadApp.navPoints[i].prev;
+                        BILaunchpadApp.navPoints[i + 1].backAction = BILaunchpadApp.navPoints[i].backAction;
+                        BILaunchpadApp.navPoints.splice(i, 1);
+                    }
+                }
+            }
+            if(objData.type == "Webi" && objData.pageId=="") {//For Pinned Reports and report is not opened in launchpad.TYpe is "Webi"
+            	var obj = this.oDocumentModel.getData();
+            	var parameter="cuid";//By default we are comparing with cuid
+            	if(objData.cuid=="") {
+            		parameter="pageId";//Since Applications do not have cuid at first,so we are using pageId in that scenario
+            	}
+            	for (var i = 0; i < obj.tableData.length; i++) {
+            		if (obj.tableData[i][parameter] == objData[parameter] && obj.tableData[i].pageId == objData.pageId) {
+            			obj.tableData.splice(i, 1);
+            			break;
+            		}
+            	}
+            	this.oDocumentModel.setData(obj);
+            }
+            var eventBus = sap.ui.getCore().getEventBus();
+            eventBus.publish(BILaunchpadApp.oConstants.PLATFORM_EXTERNAL_CHANNEL, BILaunchpadApp.oConstants.CLOSE_EVENT, objData);
+        } else {
+            if (sAction == "add") {
+            	if(!this.isPinnedReportclicked)
+            	{
+            		if(BILaunchpadApp.getHyperLinkFlag()) {
+            			hyperLinkObjData=BILaunchpadApp.getHyperLinkObject();
+            			var data = {
+                                cuid: hyperLinkObjData.cuid,
+            					id:hyperLinkObjData.id,
+                                title: objData.instancename != undefined ? objData.instancename : objData.title,
+                                pageId: objData.pageId,
+                                type: hyperLinkObjData.type,
+            					bpinned:false
+                            };
+            		}
+            		else {
+						//In case of hyperlink within report, only id is been sent to open document and cuid will be undefined here. In such case need to fetch the CUID based on the id.
+						if (objData.cuid === undefined && objData.id != undefined)
+						{
+							let query = "SELECT SI_CUID FROM CI_INFOOBJECTS,CI_APPOBJECTS,CI_SYSTEMOBJECTS WHERE SI_ID=" + objData.id;
+							let reqDispatcher = new RequestDispatcher();
+							let oResponseJson = null;
+							let dataPost = {
+								"query": query
+							};
+							dataPost = JSON.stringify(dataPost);
+							let fnSuccess = function (oResponse) {
+								oResponseJson = oResponse;
+								let data = oResponseJson.entries[0];
+								let cuid = data.SI_CUID;
+								objData.cuid = cuid;
+							};
+							let fnError = function (xhr, ajaxOptions, thrownError) {};
+							let urlCONS = BILaunchpadApp.getWebServiceBaseURL() + "/v1/cmsquery";
+							let request = {
+								surl: urlCONS,
+								reqType: "POST",
+								bAsync: false,
+								data: dataPost,
+								successHandler: function (data, textStatus, xhr) {
+									fnSuccess(data, textStatus, xhr);
+								},
+								errorHandler: function () {
+									fnError();
+								},
+								headers: {
+									Accept: "application/json",
+									"Content-Type": "application/json;odata=verbose",
+									"x-sap-logontoken": BILaunchpadApp.getlogonToken()
+								}
+							};
+							reqDispatcher.sendRequest(request);
+						}
+            			var data = {
+                                cuid: objData.cuid,
+            					id:objData.id,
+                                title: objData.instancename != undefined ? objData.instancename : objData.title,
+                                pageId: objData.pageId,
+                                type: objData.type,
+            					bpinned:false
+                            };
+            		}
+                
+                var flag = true;
+                var obj = this.oDocumentModel.getData();
+                var parameter="cuid";//By default we are comparing with cuid
+                if(data.cuid=="") {
+                	parameter="pageId";//Since Applications do not have cuid at first,so we are using pageId in that scenario
+            	}
+                for (var counter = 0; counter < obj.tableData.length; counter++) {
+                    if (data[parameter] == obj.tableData[counter][parameter]) {
+                        flag = false;
+                        break;
+                    }
+                }
+                 //Add entry to currently opened documents list if it is unpinned
+                if (flag || (!BILaunchpadApp.getReuseExistingDocumnentOpenBehaviorFlag() && ((objData.type == "AFDashboardPage" && (objData.actiontechname == "view" || (objData.actiontechname == "modify" && objData.editBIWfromViewMode == undefined))) || objData.type != "AFDashboardPage"))){
+                        obj.tableData.unshift(data);
+                        this.oDocumentModel.setData(obj);
+                        homePageInstance.setHeaderTitle(data.title);
+                }
+				}
+				else
+				{
+					 var obj = this.oDocumentModel.getData();
+					  for (var i = 0; i < obj.tableData.length; i++) {
+                        if (obj.tableData[i].cuid == objData.cuid ) {
+                            if(objData.actiontechname == "view" && obj.tableData[i].pageId==""){
+                                obj.tableData[i].pageId = objData.pageId;
+                            }
+                            homePageInstance.setHeaderTitle(objData.title);
+                        }
+                    }
+                    this.oDocumentModel.setData(obj);
+				}
+            } else {
+                if (sAction == "update") {
+                    var obj = this.oDocumentModel.getData();
+                    	if(objData.type == "AFDashboardPage"){
+						for (var i = 0; i < obj.tableData.length; i++) {
+							let pageId = obj.tableData[i].type+obj.tableData[i].cuid;
+							if( objData.pageId.indexOf(pageId) >= 0){
+								obj.tableData[i].pageId = objData.pageId;
+							}
+                            if(objData.pageId === obj.tableData[i].pageId) {
+                                obj.tableData[i].title = objData.title;
+                                obj.tableData[i].cuid = objData.cuid;
+                                homePageInstance.setHeaderTitle(objData.title);
+                            }
+						}
+					}else{
+						for (var i = 0; i < obj.tableData.length; i++) {
+							if (obj.tableData[i].pageId == objData.pageId) {
+								obj.tableData[i].title = objData.title;
+								homePageInstance.setHeaderTitle(objData.title);
+							}
+						}
+					}	
+                    this.oDocumentModel.setData(obj);
+                }
+            }
+        }
+    }
+};
+com.sap.fioribi.modules.homepage.HomepageView.prototype.doRecentlyViewedLogic = function(cuid, title, sPageId, type) {
+    homePageInstance.sCurrentDocumentCUID = cuid;
+    homePageInstance.sCurrentPageId = sPageId;
+    BILaunchpadApp.setPopupDocStatus(true);
+    BILaunchpadApp.getNavContainer().to(sPageId);
+    if(type=="AFDashboardPage") {
+    	BILaunchpadApp.navPoints.push({
+    		level: BILaunchpadApp.navPoints[BILaunchpadApp.navPoints.length - 1].level + 1,
+    		curr: sPageId,
+    		currString: title,
+    		customType:"bi_workspace",
+    		prev: BILaunchpadApp.navPoints[BILaunchpadApp.navPoints.length - 1].curr,
+    		backAction: BILaunchpadApp.navPoints[BILaunchpadApp.navPoints.length - 1].curr
+    	});
+    }
+    else{
+    	BILaunchpadApp.navPoints.push({
+    		level: BILaunchpadApp.navPoints[BILaunchpadApp.navPoints.length - 1].level + 1,
+    		curr: sPageId,
+    		currString: title,
+    		prev: BILaunchpadApp.navPoints[BILaunchpadApp.navPoints.length - 1].curr,
+    		backAction: BILaunchpadApp.navPoints[BILaunchpadApp.navPoints.length - 1].curr
+    	});
+    }
+     if (type == "Webi") {
+        try {
+                Help4.getController().afterNavigate(BILaunchpadApp.oConstants.INTERACTIVEVIEWER_HELP);
+        } catch (e) {}
+    }
+    if (!BILaunchpadApp.homeIcon.getVisible()) {
+        BILaunchpadApp.homeIcon.setVisible(true);
+    }
+    if (!BILaunchpadApp.backIcon.getVisible()) {
+        BILaunchpadApp.backIcon.setVisible(true);
+    }
+    if (BILaunchpadApp.refreshIcon.getVisible()) {
+        BILaunchpadApp.refreshIcon.setVisible(false);
+    }
+    if (BILaunchpadApp.editHomePageIcon.getVisible()) {
+        BILaunchpadApp.editHomePageIcon.setVisible(false);
+    }
+    homePageInstance.oDocPopup.close();
+    homePageInstance.setHeaderTitle(title);
+};
+com.sap.fioribi.modules.homepage.HomepageView.prototype.getDocumentListPopup = function() {
+    var fnOnDocumentListChange = function(oEvent) {
+        var src = oEvent.getSource();
+        var oContextPath = src.getBindingContextPath();
+        var cuid = src.getBindingContext().getModel().getProperty(oContextPath).cuid;
+        var title = src.getBindingContext().getModel().getProperty(oContextPath).title;
+        var sPageId = src.getBindingContext().getModel().getProperty(oContextPath).pageId;
+        var type = src.getBindingContext().getModel().getProperty(oContextPath).type;
+		if(sPageId=="")
+		{
+			this.isPinnedReportclicked=true;
+			var id = src.getBindingContext().getModel().getProperty(oContextPath).id;
+			var objData={
+				cuid:cuid,
+				id:id,
+				title:title,
+				type:type,
+				isOneClick: true,
+				actiontechname: "view",
+				docClickedFromDropdown:true
+			};
+			var oCafObject = {
+            techname: BILaunchpadApp.oConstants.VIEW
+        };
+			BILaunchpadApp.oActionPanel.performAction(objData,oCafObject);
+
+		}
+		else
+		{
+		this.isPinnedReportclicked=false;
+		if(type=="AFDashboardPage") {
+		sap.ui.getCore().setModel(cuid, "biwViewCuid");
+		sap.ui.getCore().setModel(title, "biwtitle");
+		}
+        //com.sap.fioribi.modules.homepage.HomepageView.prototype.saveOpenedBIWorkspacesIfAny("RecentlyVisited", cuid, title, sPageId, type);
+        com.sap.fioribi.modules.homepage.HomepageView.prototype.doRecentlyViewedLogic(cuid, title, sPageId, type);
+		}
+    };
+    homePageInstance.oDocPopup = new sap.m.Popover({
+        showHeader: false,
+        placement: "Bottom",
+        bounce: true,
+        enableScrolling: true,
+    });
+    this.oDocumentModel = new sap.ui.model.json.JSONModel();
+    var data = {
+        tableData: []
+    };
+    this.oDocumentModel.setData(data);
+    this.oPopupTable = new sap.m.Table({
+        columns: [new sap.m.Column({
+            header: new sap.m.Label({
+                text: BILaunchpadApp.localized("opened_documents"),
+                wrapping:true
+            }),
+            width: "160px"
+        }), new sap.m.Column({
+            width: "50px"
+        })]
+    }).addStyleClass("sapUiSizeCompact BILP-cellNoData BILP-popOverBox");
+    var template = new sap.m.ColumnListItem({
+        type: "Active",
+        press: $.proxy(fnOnDocumentListChange, this)
+    });
+    template.addCell(new sap.m.Label({
+        text: "{title}",
+        tooltip:{ 
+        	parts: [{path:'type'},{path:'title'}],
+        	formatter:function(type,title){
+        		return type+" - "+title;
+        	}
+        }
+    }));
+    var oCloseDocListIcon = new sap.m.Button({
+        icon: "sap-icon://sys-cancel",
+        tooltip: BILaunchpadApp.localized("Close_Warning_Title"),
+        press: $.proxy(function(oEvent) {
+            var src = oEvent.getSource();
+            var oContextPath = src.getBindingContext().getPath();
+            var objData = src.getBindingContext().getModel().getProperty(oContextPath);
+            this.sCurrentPageId = BILaunchpadApp.navPoints[BILaunchpadApp.navPoints.length - 1].curr;
+            if (this.sCurrentPageId === objData.pageId) {
+                homePageInstance.destroyOpenWebiReportContent();
+            }
+            if(objData.type == 'AFDashboardPage'){
+                com.sap.fioribi.modules.homepage.HomepageView.prototype.saveOpenedBIWorkspacesIfAny(undefined, undefined, objData.title);
+            }
+            this.updateTitleBarList("close", objData);
+            var headerId = this.oPopupTable._aNavSections[0];
+            headerId = "#" + headerId;
+            if (headerId) {
+                $(headerId).focus();
+            }
+        }, this)
+    }).addStyleClass("BILP-closeButton");
+	var oPinIcon = new sap.m.Button({
+        icon:{ 
+		path: "bpinned",
+		formatter:function(bpinned){
+						if(bpinned)
+						{
+							return "sap-icon://pushpin-on";
+						}
+						else
+						{
+							return "sap-icon://pushpin-off";
+						}
+		}
+		},
+        tooltip: 
+		{
+		path: "bpinned",
+		formatter:function(bpinned){
+						if(bpinned)
+						{
+							return BILaunchpadApp.localized("unpin_report");
+						}
+						else
+						{
+							return BILaunchpadApp.localized("pin_report");
+						}
+		}
+		},
+		enabled:{ 
+			path: "cuid",
+			formatter:function(cuid){
+				if(cuid=="")
+				{
+					return false;
+				}
+				else
+				{
+					return true;
+				}
+			}
+		},
+        press: $.proxy(function(oEvent) {
+		var src = oEvent.getSource();
+        var oContextPath = src.getBindingContext().sPath;
+        var cuid = src.getBindingContext().getModel().getProperty(oContextPath).cuid;
+		var id = src.getBindingContext().getModel().getProperty(oContextPath).id;
+        var title = src.getBindingContext().getModel().getProperty(oContextPath).title;
+        var sPageId = src.getBindingContext().getModel().getProperty(oContextPath).pageId;
+        var type = src.getBindingContext().getModel().getProperty(oContextPath).type;
+        var openedDocModel=this.oDocumentModel.getData();
+			if(oEvent.getSource().getIcon()=="sap-icon://pushpin-off") {
+					oEvent.getSource().setIcon("sap-icon://pushpin-on");
+					oEvent.getSource().setTooltip(BILaunchpadApp.localized("unpin_report"));
+					var obj={
+						cuid:cuid,
+						id:id,
+						title:title,
+						type:type,
+						sPageId:sPageId,
+						bPinned:true
+					}
+					for(var i=0;i<openedDocModel.tableData.length;i++) {
+						if(openedDocModel.tableData[i].id==obj.id){
+						openedDocModel.tableData[i].bpinned=obj.bPinned;
+						}
+					}
+					this.oDocumentModel.setData(openedDocModel);
+					this.oController.fnPinReport(obj);
+			}
+			else
+			{
+					if (BILaunchpadApp.oConstants.ALLOWED_VIEW_COUNT > BILaunchpadApp.getHomePage().oController.getCountofUnpinnedOpenedDocuments()) {
+						oEvent.getSource().setIcon("sap-icon://pushpin-off");
+						oEvent.getSource().setTooltip(BILaunchpadApp.localized("pin_report"));
+						var obj = {
+							id: id,
+							bPinned: false
+						}
+						for (var i = 0; i < openedDocModel.tableData.length; i++) {
+							if (openedDocModel.tableData[i].id == obj.id) {
+								openedDocModel.tableData[i].bpinned = obj.bPinned;
+							}
+						}
+						this.oDocumentModel.setData(openedDocModel);
+						this.oController.fnUnPinReport(obj);
+					} else {
+						jQuery.sap.require("sap.m.MessageBox");
+						sap.m.MessageBox.show(BILaunchpadApp.localized("viewer_limit_message"), {
+							icon: sap.m.MessageBox.Icon.INFORMATION,
+							title: BILaunchpadApp.localized("viewer_msg_title"),
+						});
+					}
+			}
+		
+        }, this)
+    }).addStyleClass("BILP-pinButton");
+	var hboxIcon = new sap.m.HBox({
+		justifyContent:sap.m.FlexJustifyContent.End,
+		items: [oPinIcon,oCloseDocListIcon]
+
+	});
+	template.addCell(hboxIcon); 
+    //template.addCell(oCloseDocListIcon);
+    this.oPopupTable.bindAggregation("items", {
+        path: "/tableData",
+        template: template,
+    });
+    this.oPopupTable.setModel(this.oDocumentModel);
+    var oScrollContainer = new sap.m.ScrollContainer({
+        width: "330px",
+        horizontal: false,
+        vertical: true,
+        content: [this.oPopupTable]
+    });
+    homePageInstance.oDocPopup.addContent(oScrollContainer);
+	BILaunchpadApp.setOpenedDocumentsData(this.oDocumentModel.getData().tableData);
+    return homePageInstance.oDocPopup;
+};
+com.sap.fioribi.modules.homepage.HomepageView.prototype.getObjectPageLayoutContent = function() {
+    if (sap.ui.getCore().byId("tabPage") == undefined) {
+        var oObjectLayoutPage = new sap.m.Page({
+            id: "tabPage",
+            enableScrolling: false
+        });
+    } else {
+        var oObjectLayoutPage = sap.ui.getCore().byId("tabPage");
+    }
+    oObjectLayoutPage.setShowHeader(false);
+    jQuery.sap.require("com.sap.fioribi.widgets.ObjectPageLayout");
+    var oObjectPageLayoutBar = BILaunchpadApp.oObjectPageLayoutBar = new com.sap.fioribi.widgets.ObjectPageLayout(BILaunchpadApp);
+    oObjectLayoutPage.addContent(oObjectPageLayoutBar.getObjectPageLayout());
+    return oObjectLayoutPage;
+};
+com.sap.fioribi.modules.homepage.HomepageView.prototype.createContent = function(oController) {
+    var $this = this;
+    homePageInstance = this;
+    BILaunchpadApp.navPoints = [];
+    BILaunchpadApp.navPoints.push({
+        level: 0,
+        curr: "tabPage",
+        prev: "",
+        backAction: ""
+    });
+    if (BILaunchpadApp.getRtlFlag() == "false") {
+        BILaunchpadApp.includeStyleSheet("com/sap/fioribi/css/Homepage.css");
+    } else {
+        BILaunchpadApp.includeStyleSheet("com/sap/fioribi/css/Homepage_rtl.css");
+    }
+    BILaunchpadApp.includeStyleSheet("com/sap/fioribi/css/CustomHeader.css");
+    BILaunchpadApp.includeStyleSheet("com/sap/fioribi/css/Common.css");
+    this.mainPage = new sap.m.Page({
+        id: "homePage",
+        enableScrolling: false
+    }).addStyleClass(`BILP-launchpadbackground BILP-top54 ${appBannerMessage? 'BILP-pagetop-Banner' : 'BILP-pageTop'}`);	
+    BILaunchpadApp.getNavContainer().attachNavigate(this.navigateListener.bind(this));
+    this.fioriLaunchPadContainer = new sap.m.ScrollContainer({
+        id: "FioriHomePage",
+        height: "100%",
+        horizontal: false
+    });
+    jQuery.sap.require("com.sap.fioribi.modules.UserSettings.UserSettingsContainer");
+    this.userSettingsPage = new sap.m.Page({
+        id: "userSettingsPage"
+    });
+    this.userSettingsPage.setShowHeader(false);
+    var userSettingsView = new com.sap.fioribi.modules.UserSettings.UserSettingsContainer();
+   /* this.userSettingsPage.addContent(userSettingsView.getUI());
+    this.fioriLaunchPadContainer.addContent(this.userSettingsPage); */
+    jQuery.sap.require("com.sap.fioribi.modules.notifications.NotificationContainer");
+    this.notificationPopover = new sap.m.Popover({
+        id: "notificationPopOver",
+        placement: sap.m.PlacementType.Bottom,
+        showHeader: false,
+        contentWidth: "600px",
+        contentHeight: "500px",
+        enableScrolling: true
+    });
+    this.notificationPopover.attachAfterOpen(function() {
+        $("#notificationPopOver").keydown(function(e) {
+            if (e.keyCode === 27) {
+                if ($this.notificationPopover.isOpen()) {
+                    $this.notificationPopover.close();
+                }
+            }
+        });
+    }.bind(this));
+    var notificationsView = new com.sap.fioribi.modules.notifications.NotificationContainer();
+    this.fioriLaunchPadContainer.addContent(BILaunchpadApp.getNavContainer());
+    var pagePrefModel = sap.ui.getCore().getModel("pagePrefModel");
+    var selectedHomeTab = pagePrefModel.selecthometab;
+    var isCatCallback = findCallback("callbackGetisCat");
+    if (isCatCallback != null) {
+        var isCat = isCatCallback();
+        if (isCat && isCat != "null") {
+            var startFolderCallback = findCallback("callbackGetStartFolder");
+            var startFolder;
+            if (startFolderCallback != null) {
+                startFolder = startFolderCallback();
+            }
+            if (!(startFolder || startFolder != "null" || isCat == "false" || isCat == "true")) {
+                if (selectedHomeTab == "documentsTab") {
+                    this.setHomePageContent();
+                }
+            }
+        } else {
+            if (selectedHomeTab == "documentsTab") {
+                this.setHomePageContent();
+            }
+        }
+    } else {
+        if (selectedHomeTab == "documentsTab") {
+            this.setHomePageContent();
+        }
+    }
+    BILaunchpadApp.getNavContainer().addPage(this.getObjectPageLayoutContent());
+    BILaunchpadApp.getNavContainer().addPage(this.getUnifiedViewerContent());
+    BILaunchpadApp.getNavContainer().addPage(this.getHistoryContent());
+    var titleLabel = new sap.m.Label({
+        text: BILaunchpadApp.localized("bi_launchpad"),
+        tooltip: BILaunchpadApp.localized("bi_launchpad")
+    }).addStyleClass("BILP-launchpadLabel  BILP-bordershadow1 LabelMiddle");
+    this.titleDropDown = new sap.m.Select({
+        text: BILaunchpadApp.localized("bi_launchpad"),
+        tooltip: BILaunchpadApp.localized("bi_launchpad")
+    }).addStyleClass("BILP-launchpadLabel");
+    var oItem = new sap.ui.core.ListItem();
+    oItem.setText(BILaunchpadApp.localized("bi_launchpad"));
+    oItem.setKey("bi_launchpad");
+    this.oUnifiedPageMap.bi_launchpad = "tabPage";
+    this.titleDropDown.addItem(oItem);
+    BILaunchpadApp.dropDownPopup = this.getDocumentListPopup();
+    this.oPopupDocListIcon = BILaunchpadApp.dropDownButton = new sap.m.Button({
+        text: BILaunchpadApp.localized("bi_launchpad"),
+        icon: "sap-icon://slim-arrow-down",
+        iconFirst: false,
+        press: function() {
+            if ($(".soShow").length != 0) {
+                $(".soShow").click();
+            }
+            BILaunchpadApp.dropDownPopup.openBy($this.oPopupDocListIcon);
+        }
+    }).addStyleClass("sapUiSizeCompact  BILP-docPopupIcon BILP-popOverBox  BILP-launchpadLabel  BILP-bordershadow1");
+    this.oPopupDocListIcon.setTooltip(BILaunchpadApp.localized("bi_launchpad"));
+    this.oPopupDocListIcon.setVisible(true);
+    var pressed = false;
+    var userSettingsView = null;
+  /*  var userIcon = new sap.m.MenuButton({
+           id: "user-icon",
+            icon: "sap-icon://person-placeholder",
+            menu: [new sap.m.Menu({
+                items: [new sap.m.MenuItem({
+                    icon: "sap-icon://action-settings",
+                    text: BILaunchpadApp.localized("UserSettings_Settings"),
+                    press: function() {         
+                        sap.ui.core.BusyIndicator.show(0);
+                        setTimeout(function(){ 
+                            BILaunchpadApp.settings.firePress();
+                            sap.ui.core.BusyIndicator.hide();
+                        }, 10);
+                    }
+                }),             
+                new sap.m.MenuItem({
+                    icon: "sap-icon://edit",
+                    text: BILaunchpadApp.localized("edit_home_page"),
+                    press: function() {
+                        sap.ui.core.BusyIndicator.show(0);
+                        setTimeout(function(){ 
+                            editHomePageIcon.firePress();
+                            sap.ui.core.BusyIndicator.hide();
+                        }, 10);
+                    }
+            }), new sap.m.MenuItem({
+                icon: "sap-icon://sys-help-2",
+                text: BILaunchpadApp.localized("UserSettings_Help"),
+				startsSection:true,
+                press: function() {
+                    sap.ui.core.BusyIndicator.show(0);
+                    setTimeout(function() {
+                        var locale = BILaunchpadApp.getProductLocale();
+                        locale = locale.replace(/_/g, "-");
+						var lang= locale.slice(0,2);
+						if(offlinehelpflag!=null && offlinehelpflag=="true")
+						var sResourceBundlePath=offlinehelpurl+"FBILP/"+lang+"/frameset.htm";
+					    else
+                        sResourceBundlePath = "https://help.sap.com/viewer/baaf5c869e824d07ab0109e7b093348e/4.3.1/" + locale;
+                        sap.ui.core.BusyIndicator.hide();
+                    }, 10);
+                }
+            }), new sap.m.MenuItem({
+                icon: "sap-icon://lightbulb",
+                text: BILaunchpadApp.localized("UserSettings_About"),
+                press: function() {
+                    sap.ui.core.BusyIndicator.show(0);
+                    setTimeout(function() {
+                        BILaunchpadApp.about.firePress();
+                        sap.ui.core.BusyIndicator.hide();
+                    }, 10);
+                }
+            }), new sap.m.MenuItem({
+                icon: "sap-icon://log",
+                text: BILaunchpadApp.localized("UserSettings_Logout"),
+				startsSection:true,
+                press: function() {
+                    sap.ui.core.BusyIndicator.show(0);
+                    setTimeout(function() {
+                        BILaunchpadApp.logout.firePress();
+                        sap.ui.core.BusyIndicator.hide();
+                    }, 10);
+                }
+            })]
+        })]
+    }).addStyleClass("BILP-floatLeft  BILP-searchIcon  BILP-iconHover BILP-homepageIcons"); */
+    //userIcon.getMenu().getItems()[0].setEnabled(false);
+    //userIcon.getMenu().getItems()[0].setText(sap.ui.getCore().getModel("username"));
+	var that=this;
+	
+	  if(sap.ui.getCore().byId("avatar") == undefined){
+		this.avatarIcon=new sap.m.Avatar({
+		id:"avatar",
+		backgroundColor:sap.m.AvatarColor.Accent6,
+		displaySize:"XS",
+							
+	press:function()
+	{
+	//that.oUploadDialog.open();
+	 if (!this.usersettingspopover) {
+        this.usersettingspopover = sap.ui.jsfragment("com.sap.fioribi.modules.homepage.SettingsPopUp",  homePageInstance.oController);
+		
+    }
+	this.usersettingspopover.openBy(that.avatarIcon);
+	}
+	});
+	  }
+	  else
+	  {
+		  	this.avatarIcon = sap.ui.getCore().byId("avatar");
+	  }
+	  homePageInstance.createAvatarInitial();
+   if (sap.ui.getCore().byId("notification-icon") == undefined) {
+    this.notificationIcon = new sap.m.Button({
+        id: "notification-icon",
+        icon: "sap-icon://bell",
+		customData:new sap.m.BadgeCustomData({
+				key:"badge",
+				visible:true
+		}),
+        press: function(oEvent, oData) {
+            $this.notificationPopover.addContent(notificationsView.oView.oNavContainer);
+            if ($this.notificationPopover.isOpen()) {
+                $this.notificationPopover.close();
+            } else {
+                $this.notificationPopover.openBy(oEvent.getSource());
+            }
+        }
+    }).addStyleClass("sapUiSizeCompact badgeStyle");
+	}
+	 else {
+        this.notificationIcon = sap.ui.getCore().byId("notification-icon");
+    }
+	this.notificationIcon.getBadgeCustomData().setValue("0");
+    this.notificationIcon.setTooltip(BILaunchpadApp.localized("Banner_Notifications_tooltip"));
+    var srcPath;
+    var invokeCallback = findCallback("callbackIsThemeEnabled");
+    var isThemeEnabled = null;
+    if (invokeCallback != null) {
+        isThemeEnabled = invokeCallback();
+    }
+    if (isThemeEnabled != null && isThemeEnabled.toLowerCase() == "custom") {
+        srcPath = "com/sap/fioribi/css/custom-css/Company_logo.png";
+    } else {
+        srcPath = "com/sap/fioribi/images/SAP_logo.png";
+    }
+    com.sap.fioribi.modules.homepage.HomepageView.prototype.saveOpenedBIWorkspacesIfAny = function(buttonClicked, cuid, title, spageID, type) {
+        var biwDirty = sap.ui.getCore().getModel("biwUnSaved");
+        if (biwDirty == undefined || biwDirty == false) {
+            if (buttonClicked == "Home") {
+                com.sap.fioribi.modules.homepage.HomepageView.prototype.doHomePageLogic();
+            } else {
+                if (buttonClicked == "Back") {
+                    com.sap.fioribi.modules.homepage.HomepageView.prototype.doBackButtonLogic();
+                } else {
+                    if (buttonClicked == "RecentlyVisited") {
+                        com.sap.fioribi.modules.homepage.HomepageView.prototype.doRecentlyViewedLogic(cuid, title, spageID, type);
+                    }
+                }
+            }
+        } else {
+            var Label = new sap.m.Label({
+                text: title ===  'BI Workspace' ? BILaunchpadApp.localized("BIW_SAVE_POPUP") : BILaunchpadApp.localized('BIW_EXISTING_SAVE_POPUP', [title])
+            });
+            var hbox = new sap.m.HBox({
+                justifyContent:sap.m.FlexJustifyContent.Center,
+                items: [Label]
+            });
+            renameTabDialog = new sap.m.Dialog({
+                contentWidth: '450px',
+                content: [hbox]
+            }).addStyleClass("BILP-Dialogfont");
+            renameTabDialog.setVerticalScrolling(true);
+            var assignBtn = new sap.m.Button({
+                text: BILaunchpadApp.localized("filter_ok"),
+                press: function(event) {
+                    this.oParent.close();
+                    var cuid = sap.ui.getCore().getModel("BIWID");
+                    if (cuid == "" || cuid == undefined) {
+                        com.sap.fioribi.modules.biworkspace.landingPage.biwLandingPageController.prototype.save(model);
+                    } else {
+                        com.sap.fioribi.modules.biworkspace.landingPage.biwLandingPageController.prototype.update(model);
+                    }
+                    com.sap.fioribi.modules.biworkspace.landingPage.biwLandingPageView.prototype.setDirty(false);
+                    if (buttonClicked == "Home") {
+                        com.sap.fioribi.modules.homepage.HomepageView.prototype.doHomePageLogic();
+                    } else {
+                        if (buttonClicked == "Back") {
+                            com.sap.fioribi.modules.homepage.HomepageView.prototype.doBackButtonLogic();
+                        } else {
+                            if (buttonClicked == "RecentlyVisited") {
+                                com.sap.fioribi.modules.homepage.HomepageView.prototype.doRecentlyViewedLogic(cuid, title, spageID, type);
+                            }
+                        }
+                    }
+                }
+            });
+            var clsBtn = new sap.m.Button({
+                text: BILaunchpadApp.localized("Recycle_Bin_Close"),
+                press: function() {
+                    this.oParent.close();
+                    var biwDirty = sap.ui.getCore().getModel("biwUnSaved");
+                    if (biwDirty == true) {
+                        com.sap.fioribi.modules.biworkspace.landingPage.biwLandingPageView.prototype.setDirty(false);
+                    }
+                    if (buttonClicked == "Home") {
+                        com.sap.fioribi.modules.homepage.HomepageView.prototype.doHomePageLogic();
+                    } else {
+                        if (buttonClicked == "Back") {
+                            com.sap.fioribi.modules.homepage.HomepageView.prototype.doBackButtonLogic();
+                        } else {
+                            if (buttonClicked == "RecentlyVisited") {
+                                com.sap.fioribi.modules.homepage.HomepageView.prototype.doRecentlyViewedLogic(cuid, title, spageID, type);
+                            }
+                        }
+                    }
+                }
+            }).addStyleClass(".BILP-Padding");
+            renameTabDialog.addButton(assignBtn);
+            renameTabDialog.addButton(clsBtn);
+            renameTabDialog.addStyleClass("sapUiSizeCompact BILP-DialogSize");
+            renameTabDialog.setTitle(BILaunchpadApp.localized("BIW_SAVE_POPUP_HEADER"));
+            renameTabDialog.open();
+        }
+    };
+    com.sap.fioribi.modules.homepage.HomepageView.prototype.doHomePageLogic = function() {
+        homePageInstance.updateColumnResizePreferences();
+        //homePageInstance.destroyOpenWebiReportContent();
+        if (typeof biwContInstance != "undefined" && biwContInstance != null) {
+            biwContInstance.CLcleanup();
+        }
+        this.fnNavigateHomePage();
+        BILaunchpadApp.homeIcon.setVisible(false);
+        BILaunchpadApp.refreshIcon.setVisible(true);
+        BILaunchpadApp.editHomePageIcon.setVisible(true);
+        sap.ui.getCore().byId("helpBtn").setEnabled(true);
+        try {
+                Help4.getController().afterNavigate(BILaunchpadApp.gethelp_appname());
+        } catch (e) {}
+    	
+        if (BILaunchpadApp.backIcon.getVisible()) {
+            BILaunchpadApp.resetBackbutton();
+        }
+        if (BILaunchpadApp.getFooterStatus()) {
+            BILaunchpadApp.setFooterStatus(false);
+        }
+    };
+    var company_logo = new sap.m.Image({
+        src: srcPath,
+        alt: "SAP",
+        decorative: false,
+        mode: sap.m.ImageMode.Image,
+    }).addStyleClass("BILP_logo");
+    var homeIcon = BILaunchpadApp.homeIcon = new sap.m.Button({
+        id: "home-icon",
+        text: undefined,
+        visible: false,
+        type: sap.m.ButtonType.Default,
+        icon: "sap-icon://home",
+        pressed: false,
+        press: $.proxy(function() {
+            this.isPinnedReportclicked = false; // fnOnDocumentListChange callback called only when we select the pinnedreport if we select other documents fnOnDocumentListChange will not be called and previously changed isPinnedReportclicked still persist same so on back button or home button selection variable isPinnedReportclicked changing  to default position
+            //com.sap.fioribi.modules.homepage.HomepageView.prototype.saveOpenedBIWorkspacesIfAny("Home");
+			com.sap.fioribi.modules.homepage.HomepageView.prototype.doHomePageLogic();
+            var eventBus = sap.ui.getCore().getEventBus();
+    		eventBus.publish(BILaunchpadApp.oConstants.PLATFORM_EXTERNAL_CHANNEL, BILaunchpadApp.oConstants.HOME_BUTTON_PRESSED_EVENT, null);
+        }, this)
+    }).addStyleClass("  BILP-homeIcon BILP-iconHover sapUiSizeCompact");
+    //company_logo.setTooltip(BILaunchpadApp.localized("SAP"));
+    homeIcon.setTooltip(BILaunchpadApp.localized("pagepreference_home"));
+    BILaunchpadApp.resetBackbutton = function() {
+        BILaunchpadApp.backIcon.setVisible(false);
+    };
+    com.sap.fioribi.modules.homepage.HomepageView.prototype.destroyOpenWebiReportContent = function() {
+        var webiInstances = BILaunchpadApp.getWebiInstances();
+        webiInstances.forEach(function(item, key) {
+            item.destroy();
+            BILaunchpadApp.deleteWebiInstance(key);
+        });
+        var webiContainers = BILaunchpadApp.getWebiContainerPanels();
+        webiContainers.forEach(function(item, key) {
+            BILaunchpadApp.deleteWebiContainer(key);
+        });
+    };
+    com.sap.fioribi.modules.homepage.HomepageView.prototype.updateColumnResizePreferences = function() {
+        if (sap.ui.getCore().getModel("columnWidth") && !sap.ui.getCore().getModel("pagePrefModel").useadministratorsettings) {
+            if (Object.keys(sap.ui.getCore().getModel("columnWidth").getData()).length > 0) {
+                homePageInstance.getController().saveColumnResizePreferences();
+            }
+        }
+    };
+    com.sap.fioribi.modules.homepage.HomepageView.prototype.doBackButtonLogic = function() {
+        homePageInstance.updateColumnResizePreferences();
+        //homePageInstance.destroyOpenWebiReportContent();
+        if (typeof biwContInstance != "undefined" && biwContInstance != null) {
+            biwContInstance.CLcleanup();
+        }
+        sap.ui.getCore().byId("helpBtn").setEnabled(true);
+        try {
+                Help4.getController().afterNavigate(BILaunchpadApp.gethelp_appname());
+        } catch (e) {}
+        if (!BILaunchpadApp.getPopupDocStatus()) {
+            if (BILaunchpadApp.navPoints[BILaunchpadApp.navPoints.length - 1].level > 0) {
+                if (BILaunchpadApp.navPoints[BILaunchpadApp.navPoints.length - 1].backAction === "tabPage") {
+                    BILaunchpadApp.getNavContainer().to(BILaunchpadApp.navPoints[BILaunchpadApp.navPoints.length - 1].backAction);
+                    BILaunchpadApp.refreshIcon.setVisible(false);
+                    BILaunchpadApp.editHomePageIcon.setVisible(false);
+                }
+                if (BILaunchpadApp.navPoints[BILaunchpadApp.navPoints.length - 1].backAction != "tabPage") {
+                    if (BILaunchpadApp.navPoints[BILaunchpadApp.navPoints.length - 1].backAction === "") {
+                        for (var i = BILaunchpadApp.navPoints.length - 1; i >= 0; i--) {
+                            if (BILaunchpadApp.navPoints[i].curr == "") {
+                                if(BILaunchpadApp.navPoints[i + 1]!=undefined)
+                                {
+                                BILaunchpadApp.navPoints[i + 1].backAction = BILaunchpadApp.navPoints[i].backAction;
+                                BILaunchpadApp.navPoints[i + 1].level = BILaunchpadApp.navPoints[i].level;
+                                }
+                                BILaunchpadApp.navPoints.splice(i, 1);
+                            }
+                        }
+                    }
+                    BILaunchpadApp.getNavContainer().to(BILaunchpadApp.navPoints[BILaunchpadApp.navPoints.length - 1].backAction);
+                    BILaunchpadApp.refreshIcon.setVisible(false);
+                    BILaunchpadApp.editHomePageIcon.setVisible(false);
+                    var popedPaged = BILaunchpadApp.navPoints.pop();
+                    if (popedPaged.curr.indexOf("AFDashboardPage") != -1) {
+                    	if(popedPaged.customType==undefined) {
+                    		BILaunchpadApp.getNavContainer().getPage(popedPaged.curr).destroy();
+                    	}
+                    }
+                    else if (popedPaged.curr == "historyPage")
+                    {
+                        sap.ui.getCore().byId("historyPage").destroyContent();
+                    }
+                    homePageInstance.oController.setHeaderLabel(BILaunchpadApp.navPoints[BILaunchpadApp.navPoints.length - 1].currString);
+                    if(BILaunchpadApp.navPoints[BILaunchpadApp.navPoints.length - 1].curr === 'tabPage') {
+                        BILaunchpadApp.backIcon.setVisible(false);
+                        BILaunchpadApp.homeIcon.setVisible(false);
+                        BILaunchpadApp.refreshIcon.setVisible(true);
+                        BILaunchpadApp.editHomePageIcon.setVisible(true);
+                        homePageInstance.oController.resetHeaderLabel(); 
+                    }
+                } else {
+                    homePageInstance.fnNavigateHomePage();
+                    if (BILaunchpadApp.getFooterStatus()) {
+                        BILaunchpadApp.setFooterStatus(false);
+                    }
+                }
+            }
+            else if(BILaunchpadApp.navPoints[BILaunchpadApp.navPoints.length - 1].curr === 'tabPage') {
+                homePageInstance.fnNavigateHomePage();
+            }
+        } else {
+            if (BILaunchpadApp.navPoints[BILaunchpadApp.navPoints.length - 1].curr == "tabPage") {
+                BILaunchpadApp.backIcon.setVisible(false);
+                BILaunchpadApp.homeIcon.setVisible(false);
+                BILaunchpadApp.refreshIcon.setVisible(true);
+                BILaunchpadApp.editHomePageIcon.setVisible(true);
+            } else {
+                BILaunchpadApp.refreshIcon.setVisible(false);
+                if (BILaunchpadApp.navPoints[BILaunchpadApp.navPoints.length - 2].currString) {
+                    var popedPaged = BILaunchpadApp.navPoints.pop();
+                    if (popedPaged.curr.indexOf("AFDashboardPage") != -1) {
+                    	if(popedPaged.customType==undefined) {
+                    		BILaunchpadApp.getNavContainer().getPage(popedPaged.curr).destroy();
+                    	}
+                    }
+                    BILaunchpadApp.getNavContainer().to(BILaunchpadApp.navPoints[BILaunchpadApp.navPoints.length - 1].curr);
+                    homePageInstance.oController.setHeaderLabel(BILaunchpadApp.navPoints[BILaunchpadApp.navPoints.length - 1].currString);
+                } else {
+                    homePageInstance.fnNavigateHomePage();
+                }
+            }
+            BILaunchpadApp.setPopupDocStatus(false);
+        }
+    };
+    var backIcon = BILaunchpadApp.backIcon = new sap.m.Button({
+        id: "back-icon",
+        text: undefined,
+        visible: false,
+        type: sap.m.ButtonType.Default,
+        icon: "sap-icon://nav-back",
+        tooltip: BILaunchpadApp.localized("pagepreference_navigate_back"),
+        pressed: true,
+        press: $.proxy(function() {
+            this.isPinnedReportclicked = false; // fnOnDocumentListChange callback called only when we select the pinnedreport if we select other documents fnOnDocumentListChange will not be called and previously changed isPinnedReportclicked still persist same so on back button or home button selection variable isPinnedReportclicked changing  to default position
+            //com.sap.fioribi.modules.homepage.HomepageView.prototype.saveOpenedBIWorkspacesIfAny("Back");
+            com.sap.fioribi.modules.homepage.HomepageView.prototype.doBackButtonLogic();
+	    var eventBus = sap.ui.getCore().getEventBus();
+    		eventBus.publish(BILaunchpadApp.oConstants.PLATFORM_EXTERNAL_CHANNEL, BILaunchpadApp.oConstants.BACK_BUTTON_PRESSED_EVENT, null);
+        }, this)
+    }).addStyleClass("  BILP-homeIcon BILP-iconHover sapUiSizeCompact");
+    
+    var refreshIcon = BILaunchpadApp.refreshIcon = new sap.m.Button({
+        id: "refresh_id",
+        text: undefined,
+        type: sap.m.ButtonType.Default,
+        icon: "sap-icon://refresh",
+        tooltip: BILaunchpadApp.localized("refresh"),
+        press: function(oEvent) {
+            BILaunchpadApp.setFooterStatus(false);
+            sap.ui.core.BusyIndicator.show(0);
+            var oldUI = sap.ui.getCore().byId("BILP_home_container");
+            var dataPages = oldUI.getPages();
+            if (dataPages.length > 0) {
+                var pages = oldUI.getPages().length;
+                for (var i = 0; i < pages; i++) {
+                    if (oldUI.getPages()[i].sId == "tabPage") {
+                        oldUI.getPage(oldUI.getPages()[i].sId).destroyContent();
+                    }
+                }
+            }
+            var updatedHomeLayout = $this.getObjectPageLayoutContent();
+            var updatedUnifiedViewerPage = $this.getUnifiedViewerContent();
+            var updatedHistoryPage = $this.getHistoryContent();
+            if (updatedHomeLayout != undefined) {
+                for (var i = 0; i < dataPages.length; i++) {
+                    if (dataPages[i].sId == "tabPage") {
+                        oldUI.addPage(updatedHomeLayout);
+                    } else {
+                        if (dataPages[i].sId == "unifiedViewer") {
+                            oldUI.addPage(updatedUnifiedViewerPage);
+                        } else {
+                            if (dataPages[i].sId == "historyPage") {
+                                oldUI.addPage(updatedHistoryPage);
+                            }
+                        }
+                    }
+                }
+            }
+            sap.ui.core.BusyIndicator.hide();
+        }
+    }).addStyleClass(" BILP-floatLeft  BILP-searchIcon  BILP-iconHover sapUiSizeCompact");
+    var edithomeIcon = BILaunchpadApp.editHomePageIconPressed = false;
+    var editHomePageIcon = BILaunchpadApp.editHomePageIcon = new sap.m.Button({
+        text: undefined,
+        type: sap.m.ButtonType.Default,
+        icon: "sap-icon://edit",
+        id: editHomePageIcon,
+        press: function(oEvent) {
+            $this.homeEditFlag = true;
+            BILaunchpadApp.editHomePageIconPressed = true;
+            BILaunchpadApp.setFooterStatus(false);
+            var overflowHomeEditPageId = Math.floor(Math.random() * 90000) + 10000;
+            var editHomePageFooter = new sap.m.Bar().addStyleClass("editTileFooter");
+            var editBtn = new sap.m.Button({
+                text: BILaunchpadApp.localized("Done"),
+                press: function(oEvent) {
+					if(!sap.ui.getCore().getModel("pagePrefModel").useadministratorsettings){
+                    var editHomePageTC = BILaunchpadApp.editHomePageTC;
+                   
+                    var ApplicationEditTileContainer = BILaunchpadApp.ApplicationEditTileContainer;                                    
+                   
+                    var appArr = [];
+                    for (var i = 0; i < BILaunchpadApp.ApplicationEditTileContainer.getItems().length; i++) {
+                        appArr.push(BILaunchpadApp.ApplicationEditTileContainer.getItems()[i].sId.split("__")[0]);
+                    }
+
+                    var FavouritesEditTileContainer = BILaunchpadApp.FavouritesEditTileContainer;
+                   
+                    var favouriteArr = [];
+                    for (var i = 0; i < BILaunchpadApp.FavouritesEditTileContainer.getItems().length; i++) {
+                        favouriteArr.push(BILaunchpadApp.FavouritesEditTileContainer.getItems()[i].sId.split("__")[0]);
+                    }
+
+                   
+                    var hometileArr = [];
+                    for (var i = 0; i < BILaunchpadApp.editHomePageTC.getItems().length; i++) {
+                        hometileArr.push(BILaunchpadApp.editHomePageTC.getItems()[i].sId.split("_")[1]);
+                    }
+                    var result = {};
+                    result = sap.ui.getCore().getModel("pagePrefModel");
+                    result.hometileOrderArray = hometileArr.toString();
+                    result.applicationTileOrder = appArr.toString();
+                    result.favouritesTileOrder = favouriteArr.toString();
+                    result.myfav=homePagePref.myfav;
+                    result.applications=homePagePref.applications;
+                    result.alldoc=homePagePref.alldoc;
+                    result.biinbox=homePagePref.biinbox;
+                    result.categories=homePagePref.categories;
+                    result.folders=homePagePref.folders;
+                    result.myhome=homePagePref.myhome;
+                    result.recdoc=homePagePref.recdoc;
+                    result.recrun=homePagePref.recrun;
+                    result.recyclebin=homePagePref.recyclebin;
+                    result.schedules=homePagePref.schedules;
+					result.productlocale=BILaunchpadApp.getProductLocaleNumber();
+                    if (result != null) {
+                        var successfulChange = function(response) {
+                        	sap.ui.getCore().setModel(response, "pagePrefModel");
+                            BILaunchpadApp.setHomePageTab(response.landingpageoption);
+                            BILaunchpadApp.setListingType(response.listdocumentas);
+                        };
+                        var failedChange = function(xhr, ajaxOptions, thrownError) {
+                            var clsBtn = new sap.m.Button({
+                                text: BILaunchpadApp.localized("Recycle_Bin_Close"),
+                                press: $.proxy(function() {
+                                    errDialog.close();
+                                }, this)
+                            });
+                            var errDialog = new sap.m.Dialog().addButton(clsBtn);
+                            errDialog.open();
+                            errDialog.setTitle(BILaunchpadApp.localized("Error"));
+                            BILaunchpadApp.oErrorHandler.showErrorMessage(xhr, errDialog);
+                        };
+                        var requestChange = {
+                            surl: BILaunchpadApp.getWebServiceBaseURL() + "/internal/v1/settings/userpreferences/preference",
+                            reqType: "POST",
+                            successHandler: successfulChange,
+                            errorHandler: failedChange,
+                            data: JSON.stringify(result),
+                            headers: {
+                                Accept: "application/json",
+                                "Content-Type": "application/json;odata=verbose",
+                                "x-sap-logontoken": BILaunchpadApp.getlogonToken()
+                            }
+                        };
+                        requestChange.bAsync = false;
+                        var reqDispatcher = new RequestDispatcher();
+                        reqDispatcher.sendRequest(requestChange);
+                    } else {
+                        console.log("Unable to get View object !");
+                    }
+					}else{
+						 sap.m.MessageToast.show(BILaunchpadApp.localized("Edit_message"), {
+								autoClose: true
+							});
+					}
+                    $this.fnNavigateHomePage();
+                    $this.refreshlandingpage();
+                }
+            });
+            editHomePageFooter.addContentRight(editBtn);
+            isTileClick = true;
+            BILaunchpadApp.includeStyleSheet("com/sap/fioribi/css/Common.css");
+            if (BILaunchpadApp.getRtlFlag() == false) {
+                BILaunchpadApp.includeStyleSheet("com/sap/fioribi/css/Homepage.css");
+            } else {
+                BILaunchpadApp.includeStyleSheet("com/sap/fioribi/css/Homepage_rtl.css");
+            }
+            this.editHomePage = new sap.m.Page("homepageViewEdit" + overflowHomeEditPageId, {
+                footer: editHomePageFooter,              
+                showHeader: false,
+                enableScrolling: true
+            }).addStyleClass("BILP-pageHeight BILP-transparent BILP-homeTabWidth BILP-TileLayout");
+
+           
+
+            this.HomePageEditTileContainer = BILaunchpadApp.editHomePageTC = new sap.f.GridContainer({
+                layout : new sap.f.GridContainerSettings({
+                    rowSize:"84px",
+                    columnSize:"84px",
+                    gap:"8px"
+                }),
+                layoutXS : new sap.f.GridContainerSettings({
+                    rowSize:"84px",
+                    columnSize:"84px",
+                    gap:"8px"
+                })
+            }).addStyleClass("sapUiTinyMarginBeginEnd sapUiSmallMarginBottom");
+            com.sap.fioribi.modules.homepage.HomepageController.prototype.attachDragandDrop(BILaunchpadApp.editHomePageTC);
+            BILaunchpadApp.oEditHomePageTCContainer = new sap.m.Panel({
+                headerToolbar : new sap.m.OverflowToolbar({
+                    content : new sap.m.Text({
+                        text: BILaunchpadApp.localized("tab_home_title"),
+                        tooltip: BILaunchpadApp.localized("tab_home_title")
+                    }).addStyleClass("tilesHeaderLbl sapUiTinyMarginBegin")
+                }).addStyleClass("favPageModuleBackground favPageModuleToolbar"),
+                content : [
+                    BILaunchpadApp.editHomePageTC
+                ]
+            }).addStyleClass("favPagePanel sapUiMediumMarginTopBottom");
+
+
+            this.ApplicationEditTileContainer = BILaunchpadApp.ApplicationEditTileContainer = new sap.f.GridContainer({
+                layout : new sap.f.GridContainerSettings({
+                    rowSize:"84px",
+                    columnSize:"84px",
+                    gap:"8px"
+                }),
+                layoutXS : new sap.f.GridContainerSettings({
+                    rowSize:"84px",
+                    columnSize:"84px",
+                    gap:"8px"
+                })
+            }).addStyleClass("sapUiTinyMarginBeginEnd sapUiSmallMarginBottom");
+            com.sap.fioribi.modules.homepage.HomepageController.prototype.attachDragandDrop(BILaunchpadApp.ApplicationEditTileContainer);
+            BILaunchpadApp.oAppEditTileContainer = new sap.m.Panel({
+                headerToolbar : new sap.m.OverflowToolbar({
+                    content : new sap.m.Text({
+                        text: BILaunchpadApp.localized("applications"),
+                        tooltip: BILaunchpadApp.localized("applications")
+                    }).addStyleClass("tilesHeaderLbl sapUiTinyMarginBegin")
+                }).addStyleClass("favPageModuleBackground favPageModuleToolbar"),
+                content : [
+                    BILaunchpadApp.ApplicationEditTileContainer
+                ]
+            }).addStyleClass("favPagePanel sapUiMediumMarginTopBottom");
+
+                      
+            BILaunchpadApp.FavouritesEditTileContainer = new sap.f.GridContainer({
+                layout : new sap.f.GridContainerSettings({
+                    rowSize:"84px",
+                    columnSize:"84px",
+                    gap:"8px"
+                }),
+                layoutXS : new sap.f.GridContainerSettings({
+                    rowSize:"84px",
+                    columnSize:"84px",
+                    gap:"8px"
+                })
+            }).addStyleClass("sapUiTinyMarginBeginEnd sapUiTinyMarginBottom");
+            com.sap.fioribi.modules.homepage.HomepageController.prototype.attachDragandDrop(BILaunchpadApp.FavouritesEditTileContainer);
+            BILaunchpadApp.oFavContainer = new sap.m.Panel({
+                headerToolbar : new sap.m.OverflowToolbar({
+                    content : [
+                        new sap.m.Text({
+                            text: BILaunchpadApp.localized("my_favourites"),
+                            tooltip: BILaunchpadApp.localized("my_favourites")
+                        }).addStyleClass("tilesHeaderLbl sapUiTinyMarginBegin"),
+                        new sap.m.ToolbarSpacer({}),
+                        new sap.m.Button({
+                            text: BILaunchpadApp.localized("edit_fav"),
+                            tooltip: BILaunchpadApp.localized("edit_fav"),
+                            press: function (event) {
+                                BILaunchpadApp.setListingType("editTileview");
+                                BILaunchpadApp.editHomePagefavView.handleFooterPress(event, BILaunchpadApp.oeditDocumentContainer.oController, "5");
+                            }
+                        }).addStyleClass("allFavEditBtn sapUiSizeCompact sapUiTinyMargin")
+                    ]
+                }).addStyleClass("favPageModuleBackground favPageModuleToolbar"),
+                content : [
+                    BILaunchpadApp.FavouritesEditTileContainer
+                ]
+            }).addStyleClass("favPagePanel sapUiMediumMarginTopBottom");
+
+            var homeTieJsonData = {
+                entries: [{
+                    icon: "sap-icon://folder",
+                    type: "AFDashboardPage",
+                    name: BILaunchpadApp.localized("tile_header_text_folders"),
+                    id: "Edit_Folders",
+                    footer: BILaunchpadApp.localized("tile_text_folder_listed")
+                }, {
+                    icon: "sap-icon://tag",
+                    type: "AFDashboardPage",
+                    name: BILaunchpadApp.localized("tile_header_text_categories"),
+                    id: "Edit_Categories",
+                    footer: BILaunchpadApp.localized("pagepreference_categories")
+                }, {
+                    icon: "sap-icon://document",
+                    type: "AFDashboardPage",
+                    name: BILaunchpadApp.localized("tile_header_text_documents"),
+                    id: "Edit_Documents",
+                    footer: BILaunchpadApp.localized("search_documents")
+                }, {
+                    icon: "sap-icon://email",
+                    type: "AFDashboardPage",
+                    name: BILaunchpadApp.localized("tile_header_text_inbox"),
+                    id: "Edit_Inbox",
+                    footer: BILaunchpadApp.localized("tile_text_unread_items")
+                }, {
+                    icon: "sap-icon://instance",
+                    type: "AFDashboardPage",
+                    name: BILaunchpadApp.localized("tile_header_text_schedules"),
+                    id: "Edit_Schedules",
+                    footer: BILaunchpadApp.localized("tile_text_items")
+                }, {
+                    icon: "sap-icon://delete",
+                    type: "AFDashboardPage",
+                    name: BILaunchpadApp.localized("tile_header_text_deleted"),
+                    id: "Edit_RecycleBin",
+                    footer: BILaunchpadApp.localized("tile_text_deleted_items")
+                }]
+            };
+            var homePagePref = sap.ui.getCore().getModel("homePagePrefModel");
+            var homepageTilesModel = sap.ui.getCore().getModel("docCount");
+            var modelRef = new sap.ui.model.json.JSONModel(homepageTilesModel);
+            BILaunchpadApp.setdocumentsCount(modelRef.oData.documentcount);
+            var oRightsObj = BILaunchpadApp.getRightsObject();
+            var homeTileMap = {};
+            var applicationTileMap = {};
+            var favouritesTileMap = {};
+            for (var i = 0; i < homeTieJsonData.entries.length; i++) {
+                var flag = false;
+                if (homeTieJsonData.entries[i].id == "Edit_Documents") {
+                    if (homePagePref.alldoc) {
+                        flag = true;
+                    }
+                }
+                if (homeTieJsonData.entries[i].id == "Edit_Schedules") {
+                    if (homePagePref.schedules) {
+                        flag = true;
+                    }
+                }
+                if (homeTieJsonData.entries[i].id == "Edit_Categories") {
+                    if (homePagePref.categories) {
+                        flag = true;
+                    }
+                }
+                if (homeTieJsonData.entries[i].id == "Edit_Inbox") {
+                    if (oRightsObj.alertview || oRightsObj.inboxview) {
+                        if (homePagePref.biinbox) {
+                            flag = true;
+                        }
+                    }
+                }
+                if (homeTieJsonData.entries[i].id == "Edit_Folders") {
+                    if (oRightsObj.favoritefolderview || oRightsObj.folderview) {
+                        if (homePagePref.folders) {
+                            flag = true;
+                        }
+                    }
+                }
+                if (homeTieJsonData.entries[i].id == "Edit_RecycleBin") {
+                    if (oRightsObj.recyclebinview) {
+                        if (homePagePref.recyclebin) {
+                            flag = true;
+                        }
+                    }
+                }
+                if (flag) {
+                    var tileContent = new sap.m.TileContent({
+                        content: [new sap.m.VBox({
+                            items: [new sap.ui.core.Icon({
+                                src: (function() {
+                                    switch (homeTieJsonData.entries[i].id) {
+                                        case "Edit_Documents":
+                                            return homeTieJsonData.entries[i].icon;
+                                            break;
+                                        case "Edit_Schedules":
+                                            return homeTieJsonData.entries[i].icon;
+                                            break;
+                                        case "Edit_Categories":
+                                            return homeTieJsonData.entries[i].icon;
+                                            break;
+                                        case "Edit_Inbox":
+                                            return homeTieJsonData.entries[i].icon;
+                                            break;
+                                        case "Edit_Folders":
+                                            return homeTieJsonData.entries[i].icon;
+                                            break;
+                                        case "Edit_RecycleBin":
+                                            return homeTieJsonData.entries[i].icon;
+                                    }
+                                })(),
+                                size: "2rem"
+                            }).addStyleClass("sapUiNoMargin BILP-TileRefreshIconcolor"), ],
+                            alignItems: sap.m.FlexAlignItems.End
+                        }).addStyleClass("BILP-VBox")]
+                    });
+                    var randPageId = Math.floor(Math.random() * 90000) + 10000;
+                    var standHomeTile = new sap.m.GenericTile({
+                        id: homeTieJsonData.entries[i].id+"_"+randPageId ,
+                        header: homeTieJsonData.entries[i].name,
+                        tileContent: tileContent,
+                        layoutData : new sap.f.GridContainerItemLayoutData({
+                            minRows:2,
+                            columns:2
+                        })
+                    }).addStyleClass("favPageTile");
+                    standHomeTile.data("module", "homemod");
+                    homeTileMap[homeTieJsonData.entries[i].id.split("_")[1]] = standHomeTile;
+                    if (homePagePref.hometileOrderArray == undefined || homePagePref.hometileOrderArray == null || homePagePref.hometileOrderArray == "") {
+                      
+                        this.HomePageEditTileContainer.addItem(standHomeTile);
+                    }
+                }
+            }
+            if (homePagePref.hometileOrderArray != undefined) {
+                var homeTileOrderArr = homePagePref.hometileOrderArray.split(",");
+                for (var i = 0; i < homeTileOrderArr.length; i++) {
+                    if (homeTileMap[homeTileOrderArr[i]] != undefined) {
+                       
+                        this.HomePageEditTileContainer.addItem(homeTileMap[homeTileOrderArr[i]]);
+                    }
+                }
+            }
+            this.editHomePage.addContent(BILaunchpadApp.oEditHomePageTCContainer);
+            jQuery.sap.require("com.sap.fioribi.components.overviewpage.DocumentsContainer");
+            BILaunchpadApp.setCurrentSection("5");
+            var oContainer = BILaunchpadApp.oeditDocumentContainer = new com.sap.fioribi.components.overviewpage.DocumentsContainer();
+            var favView = BILaunchpadApp.editHomePagefavView = oContainer.getUI();
+            this.oTileContainer = new sap.m.ScrollContainer({
+                vertical: false
+            }).addStyleClass("BILP-Height100Perc BILP-scrollMargin");
+            var container = favView.getContent()[0].mAggregations.content;
+             var nonOrderedTileArr = [];
+            for (var i = 0; i < container.length; i++) {
+                var tileName = container[i].mProperties.objectName;
+                var sDate = container[i].mProperties.lastRef || "";
+                var type = container[i].mProperties.kind;
+                var randPageId = Math.floor(Math.random() * 90000) + 10000;
+                var mapKey = container[i].mProperties.cuid;
+                var cuid = container[i].mProperties.cuid + "__" + randPageId;
+                var icon;
+                if (type == "Category" || type == "PersonalCategory") {
+                    icon = "sap-icon://dimension";
+                } else {
+                    icon = "com/sap/fioribi/images/icons-with-type.png";
+                }
+                var oIcon =  container[i].mProperties.icon;
+                if (tileName != undefined) {
+                    
+                jQuery.sap.require("com.sap.fioribi.utils.typeFormatter");
+                var displayType=updatedtypeFormat(type);
+                var oIcon = new com.sap.fioribi.utils.ObjectTypeIcon2(type);
+                    var oTileContent = new sap.m.TileContent({
+                        content : new sap.m.FlexBox({
+                            justifyContent:"SpaceBetween", 
+                            alignItems:"Start",
+                            items : [
+                                new sap.ui.core.Icon({
+                                    src : "sap-icon://favorite",
+                                    color : "#346187",
+                                    layoutData : new sap.m.FlexItemData({
+                                        baseSize:"40px",
+                                        minWidth:"40px"
+                                    })
+                                }).addStyleClass("sapUiMediumMarginTop"),
+                                new sap.m.VBox({
+                                    items : [
+                                        oIcon,
+                                        new sap.m.Text({
+                                            text:displayType
+                                        }).addStyleClass("favReportType")
+                                    ]
+                                })
+                            ]
+                        })
+                    }).addStyleClass("favTileContent");
+                    var standHomeTile = new sap.m.GenericTile({
+                        id: cuid,
+                        header:tileName,
+                        subheader: sDate,
+                        tileContent : oTileContent,
+                        layoutData : new sap.f.GridContainerItemLayoutData({
+                            minRows:2,
+                            columns:2
+                        })
+                    }).addStyleClass("favPageTile");
+                    standHomeTile.data("module", "favmod");
+                    favouritesTileMap[mapKey] = standHomeTile;
+
+                    
+                    if (homePagePref.favouritesTileOrder == undefined || homePagePref.favouritesTileOrder == null || homePagePref.favouritesTileOrder == "") {
+                     
+                        BILaunchpadApp.FavouritesEditTileContainer.addItem(standHomeTile);
+                    } else {
+                        if (!homePagePref.favouritesTileOrder.includes(mapKey)) {
+                            nonOrderedTileArr.push(mapKey);
+                        }
+                    }
+                }
+            }
+            if (homePagePref.favouritesTileOrder != undefined) {
+                var favouritesTileOrderArr = homePagePref.favouritesTileOrder.split(",");
+                for (var i = 0; i < favouritesTileOrderArr.length; i++) {
+                    if (favouritesTileMap[favouritesTileOrderArr[i].split("__")[0]] != undefined) {
+                        BILaunchpadApp.FavouritesEditTileContainer.addItem(favouritesTileMap[favouritesTileOrderArr[i].split("__")[0]]);
+                    }
+                }
+                for (var i = 0; i < nonOrderedTileArr.length; i++) {
+                if (favouritesTileMap[nonOrderedTileArr[i].split("__")[0]] != undefined) {
+                    BILaunchpadApp.FavouritesEditTileContainer.addItem(favouritesTileMap[nonOrderedTileArr[i].split("__")[0]]);
+                }                
+            }
+            }
+           
+
+            var totalTile = container.length;
+            this.tilePage = new sap.m.Page({
+                showFooter: false,
+                showHeader: false
+            }).addStyleClass("BILP-tileSpecificPadding");
+            
+           if (homePagePref.myfav && BILaunchpadApp.FavouritesEditTileContainer.getAggregation("items")!=undefined && BILaunchpadApp.FavouritesEditTileContainer.getAggregation("items").length > 0) {
+               
+                this.editHomePage.addContent(BILaunchpadApp.oFavContainer);
+                try {
+                    var oEditAllBtn = BILaunchpadApp.oFavContainer.getHeaderToolbar().getContent()[2];
+                    if (totalTile >= 5) {
+                        oEditAllBtn.setVisible(true);
+                       
+                    } else {
+                        oEditAllBtn.setVisible(false);
+                    }
+                } catch (err) { };
+            }
+            var applicationJonData = sap.ui.getCore().getModel("applications");
+            var titleKey = ["SAP_Analytics_Cloud_Properties", "Launch_WebIApplication", "CrystalReport_Create", "MDAnalysis_Create", "AFDashboardPage_Create", "MM_Explorer_Invoke", "Launch_Lumira", "Analytic_Create", "BExWeb_Create"];
+            var applicationJonData = sap.ui.getCore().getModel("applications");
+            var titleKey = ["SAP_Analytics_Cloud_Properties", "Launch_WebIApplication", "CrystalReport_Create", "MDAnalysis_Create", "AFDashboardPage_Create", "MM_Explorer_Invoke", "Launch_Lumira", "Analytic_Create", "BExWeb_Create"];
+            var oTileContainer = new sap.m.ScrollContainer({}).addStyleClass("BILP-Height100Perc");
+            for (var i = 0; i < titleKey.length; i++) {
+                Object.keys(applicationJonData.APPLICATIONS).forEach(function(tab) {
+                    var displayText = null;
+                    var actualText = tab;
+                    if (applicationJonData.APPLICATIONS[tab].TITLE == titleKey[i]) {
+                        if (applicationJonData.APPLICATIONS[tab].SI_IS_VISIBLE == "true" && applicationJonData.APPLICATIONS[tab].TITLE != "Analytic_Create") {
+                            var title = "";
+                            var icon = "";
+                            var id = "";
+                            if (applicationJonData.APPLICATIONS[tab].TITLE == "BExWeb_Create") {
+                                title = BILaunchpadApp.localized("BEx");
+                                id = "BEx";
+                                icon = "com/sap/fioribi/images/applications/bex_icon.gif";
+                            } else {
+                                if (applicationJonData.APPLICATIONS[tab].TITLE == "Analytic_Create") {
+                                    title = BILaunchpadApp.localized("Module");
+                                    id = "Module";
+                                    icon = "com/sap/fioribi/images/applications/analytic_48x48.gif";
+                                } else {
+                                    if (applicationJonData.APPLICATIONS[tab].TITLE == "MDAnalysis_Create") {
+                                        title = BILaunchpadApp.localized("Analysis_edition_for_OLAP");
+                                        id = "Analysis_edition_for_OLAP";
+                                        icon = "com/sap/fioribi/images/applications/pioneer_workspace_large.png";
+                                    } else {
+                                        if (applicationJonData.APPLICATIONS[tab].TITLE == "MM_Explorer_Invoke") {
+                                            title = BILaunchpadApp.localized("Information_Steward");
+                                            id = "Information_Steward";
+                                            icon = "com/sap/fioribi/images/applications/Information_Steward_48x48.png";
+                                        } else {
+                                            if (applicationJonData.APPLICATIONS[tab].TITLE == "CrystalReport_Create") {
+                                                title = BILaunchpadApp.localized("Crystal_Reports_for_Enterprise");
+                                                id = "Crystal_Reports_for_Enterprise";
+                                                icon = "com/sap/fioribi/images/applications/rpt_create_large.png";
+                                            } else {
+                                                if (applicationJonData.APPLICATIONS[tab].TITLE == "AFDashboardPage_Create") {
+                                                    title = BILaunchpadApp.localized("BI_Workspace");
+                                                    id = "BI_Workspace";
+                                                    icon = "com/sap/fioribi/images/applications/dashboard_48x48.gif";
+                                                } else {
+                                                    if (applicationJonData.APPLICATIONS[tab].TITLE == "Launch_WebIApplication") {
+                                                        title = BILaunchpadApp.localized("Web_Intelligence");
+                                                        id = "Web_Intelligence";
+                                                        icon = "com/sap/fioribi/images/applications/WebI_48x48.png";
+                                                    } else {
+                                                        if (applicationJonData.APPLICATIONS[tab].TITLE == "Launch_Lumira") {
+                                                            title = BILaunchpadApp.localized("Lumira_Discovery");
+                                                            id = "Lumira_Discovery";
+                                                            icon = "com/sap/fioribi/images/applications/lumira_logo-big.png";
+                                                        } else {
+                                                            if (applicationJonData.APPLICATIONS[tab].TITLE == "SAP_Analytics_Cloud_Properties") {
+                                                                title = BILaunchpadApp.localized("SAP_Analytics_Cloud");
+                                                                id = "SAP_Analytics_Cloud";
+                                                                icon = "com/sap/fioribi/images/applications/sap_analytics_cloud.png";
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                           
+
+                            
+                            var editTileRandomId = Math.floor(Math.random() * 90000) + 10000;
+                            var standApplicationTile = new sap.m.GenericTile({
+                                id:id+"__"+editTileRandomId,
+                                tooltip: com.sap.fioribi.app.BILaunchpadController.prototype.formatTooltipForAccessibility(title, 20),
+                                header:title,
+                                tileContent: new sap.m.TileContent({ 
+                                    content : new sap.m.FlexBox({
+                                        direction:"RowReverse", 
+                                        alignItems:"Start",
+                                        items : 
+                                        
+                                                    new sap.m.Image({ 
+                                                        width: "32px", 
+                                                        height: "32px", 
+                                                        src: icon 
+                                                    }).addStyleClass("sapUiSmallMarginTop")
+                                           
+                                    })
+                                }).addStyleClass("favTileContent"),
+                                layoutData : new sap.f.GridContainerItemLayoutData({
+                                    minRows:2,
+                                    columns:2
+                                })
+                            }).addStyleClass("favPageTile");
+                            standApplicationTile.data("module", "appmod");
+
+                            applicationTileMap[id] = standApplicationTile;
+                            if (homePagePref.applicationTileOrder == undefined || homePagePref.applicationTileOrder == null || homePagePref.applicationTileOrder == "") {
+                                
+                                BILaunchpadApp.ApplicationEditTileContainer.addItem(standApplicationTile);
+                            }
+                        }
+                    }
+                });
+            }
+            if (homePagePref.applicationTileOrder != undefined) {
+                var applicationTileOrderArr = homePagePref.applicationTileOrder.split(",");
+                for (var i = 0; i < applicationTileOrderArr.length; i++) {
+                    if (applicationTileMap[applicationTileOrderArr[i]] != undefined) {
+                       
+                        BILaunchpadApp.ApplicationEditTileContainer.addItem(applicationTileMap[applicationTileOrderArr[i]]);
+                    }
+                }
+            }
+            
+            if (homePagePref.applications) {
+               
+                this.editHomePage.addContent(BILaunchpadApp.oAppEditTileContainer);                
+            }
+            BILaunchpadApp.getNavContainer().addPage(this.editHomePage);
+            var eventBus = sap.ui.getCore().getEventBus();
+            var oPageInfo = {
+                data: "",
+                page: this.editHomePage
+            };
+            eventBus.publish(BILaunchpadApp.oConstants.PLATFORM_INTERNAL_CHANNEL, BILaunchpadApp.oConstants.VIEW_EVENT, oPageInfo);
+            if (BILaunchpadApp.navPoints[BILaunchpadApp.navPoints.length - 1].curr == "") {
+                BILaunchpadApp.navPoints[BILaunchpadApp.navPoints.length - 1].curr = this.editHomePage.sId;
+            } else {
+                if (BILaunchpadApp.navPoints[BILaunchpadApp.navPoints.length - 1].level == 0) {
+                    BILaunchpadApp.navPoints.push({
+                        level: BILaunchpadApp.navPoints[BILaunchpadApp.navPoints.length - 1].level + 1,
+                        curr: this.editHomePage.sId,
+                        currString: "",
+                        prev: "tabPage",
+                        backAction: "tabPage"
+                    });
+                } else {
+                    BILaunchpadApp.navPoints.push({
+                        level: BILaunchpadApp.navPoints[BILaunchpadApp.navPoints.length - 1].level + 1,
+                        curr: this.editHomePage.sId,
+                        currString: "",
+                        prev: BILaunchpadApp.navPoints[BILaunchpadApp.navPoints.length - 1].curr,
+                        backAction: BILaunchpadApp.navPoints[BILaunchpadApp.navPoints.length - 1].curr
+                    });
+                }
+            }
+            BILaunchpadApp.backIcon.setVisible(true);
+            BILaunchpadApp.homeIcon.setVisible(true);
+            BILaunchpadApp.editHomePageIcon.setVisible(false);
+            BILaunchpadApp.getNavContainer().to(this.editHomePage.sId);
+        }
+    }).addStyleClass(" BILP-floatLeft  BILP-searchIcon  BILP-iconHover BILP-homepageIcons");
+    com.sap.fioribi.modules.homepage.HomepageView.prototype.refreshlandingpage = function() {
+        BILaunchpadApp.setFooterStatus(false);
+        sap.ui.core.BusyIndicator.show(0);
+        var oldUI = sap.ui.getCore().byId("BILP_home_container");
+        var dataPages = oldUI.getPages();
+        if (dataPages.length > 0) {
+            var pages = oldUI.getPages().length;
+            for (var i = 0; i < pages; i++) {
+                if (oldUI.getPages()[i].sId == "tabPage") {
+                    oldUI.getPage(oldUI.getPages()[i].sId).destroyContent();
+                }
+            }
+        }
+        var updatedHomeLayout = $this.getObjectPageLayoutContent();
+        var updatedUnifiedViewerPage = $this.getUnifiedViewerContent();
+        var updatedHistoryPage = $this.getHistoryContent();
+        if (updatedHomeLayout != undefined) {
+            for (var i = 0; i < dataPages.length; i++) {
+                if (dataPages[i].sId == "tabPage") {
+                    oldUI.addPage(updatedHomeLayout);
+                } else {
+                    if (dataPages[i].sId == "unifiedViewer") {
+                        oldUI.addPage(updatedUnifiedViewerPage);
+                    } else {
+                        if (dataPages[i].sId == "historyPage") {
+                            oldUI.addPage(updatedHistoryPage);
+                        }
+                    }
+                }
+            }
+        }
+        sap.ui.core.BusyIndicator.hide();
+    };
+    this.searchIcon = new sap.m.Button({
+        id: "search_id",
+        text: undefined,
+        type: sap.m.ButtonType.Default,
+        icon: "sap-icon://search",
+        tooltip: BILaunchpadApp.localized("search"),
+        press: this.showSearchBar.bind(this)
+    }).addStyleClass(" BILP-floatLeft  BILP-searchIcon  BILP-iconHover sapUiSizeCompact");
+    jQuery.sap.require("com.sap.fioribi.modules.search.searchBarContainer");
+    this.searchBar = new com.sap.fioribi.modules.search.searchBarContainer();
+    this.searchBar.addSearchCallback(this.doSearch.bind(this));
+    this.searchBarUI = this.searchBar.getUI();
+    this.searchBarUI.onAfterRendering = function() {
+        this.searchBarUI.$().css("width", "auto");
+    }.bind(this);
+    this.searchBarUI.addStyleClass("BILP-homeSearchBar BILP-floatLeft");
+    this.searchBar.addFocusInCallback(function() {}.bind(this));
+    this.searchBar.addFocusOutCallback(function() {
+        if (BILaunchpadApp.getNavContainer().getCurrentPage().getId().indexOf("searchView") === -1) {
+            this.hideSearchBar();
+        }
+    }.bind(this));
+    var xRayloaded = false;
+    var xRayUrl = "resources/sap/dfa/help/";
+    var dataUrlUACP = "sap/dfa/help/odata.svc";
+    var mediaUrlUACP = "sap/dfa/help/d/preview";
+    var resourceUrl = "resources/sap/dfa/help";
+    var _XRayAdapter = null;
+    var helpButton = null;
+    var helpButtonId = "helpBtn";
+    var landingpage = BILaunchpadApp.getHomepageTab();
+    switch (landingpage) {
+        case BILaunchpadApp.oConstants.RECYCLE_BIN_CONTAINER:
+            $this.help_appname = BILaunchpadApp.oConstants.BILAUNCHPAD_RECYCLEBIN;
+            break;
+        case BILaunchpadApp.oConstants.INBOX_CONTAINER:
+            $this.help_appname = BILaunchpadApp.oConstants.BILAUNCHPAD_INBOX;
+            break;
+        case BILaunchpadApp.oConstants.SCHEDULE:
+            $this.help_appname = BILaunchpadApp.oConstants.BILAUNCHPAD_SCHEDULE;
+            break;
+        case BILaunchpadApp.oConstants.HOMEPAGE_TAB:
+            $this.help_appname = BILaunchpadApp.oConstants.BILAUNCHPAD_HELP;
+            break;
+        case BILaunchpadApp.oConstants.FOLDERS_TAB:
+            $this.help_appname = BILaunchpadApp.oConstants.BILAUNCHPAD_FOLDERS;
+            break;
+    }
+    var _setupXRay = function() {
+        try {
+            sap.ui.getCore().loadLibrary("sap.dfa.help", xRayUrl);
+            jQuery.sap.require("sap.dfa.help.wpb.Help4");
+            var ui5Config = sap.ui.getCore().getConfiguration();
+            var rtl = ui5Config.getRTL();
+            var product = "FIORIFIED_BI_LAUNCH_PAD";
+            var version = BILaunchpadApp.getBOEVersion();
+			jQuery.sap.require("sap.m.MessageToast");
+            if (version === undefined || version === null) {
+                sap.m.MessageToast.show("version : invalid version Number for Web Assistant");
+            } else {
+                let versionValue = version.trim();
+                if (versionValue !== undefined && versionValue !== null) {
+                    if (versionValue.length <= 0) {
+                        console.log("getting BOE version for Web Assistant");
+                        var getBOEVersion = function (response) {
+                            if (response != null && response.build != undefined) {
+                                var buildInfo = response.build.split(".");
+                                var BOEVersion = parseInt(buildInfo[0]) % 10;
+                                BOEVersion += "." + buildInfo[1] + "." + buildInfo[2];
+                                if (BOEVersion === undefined || BOEVersion === null) {
+                                    sap.m.MessageToast.show("version : invalid version Number for Web Assistant");
+                                } else {
+                                    let responseVersionValue = BOEVersion.trim();
+                                    if (responseVersionValue !== undefined && responseVersionValue !== null) {
+                                        if (responseVersionValue.length <= 0) {
+                                            sap.m.MessageToast.show("version : invalid version Number for Web Assistant");
+                                        }
+                                    }
+                                }
+                                version = BOEVersion;
+                            }
+                        };
+                        var versionReqDispatcher = new RequestDispatcher();
+                        versionReqDispatcher.sendRequest({
+                            surl: BILaunchpadApp.getWebServiceBaseURL() + "/v1/about",
+                            reqType: "GET",
+                            successHandler: getBOEVersion,
+                            bAsync: false,
+                            headers: {
+                                Accept: "application/json",
+                                "Content-Type": "application/json;odata=verbose",
+                                "x-SAP-logonToken": BILaunchpadApp.getlogonToken(),
+                            }
+                        });
+                    }
+
+                }
+            }
+            console.log("version : " + version);
+            var language = BILaunchpadApp.getProductLocale();
+			language=language.replace("_","-");
+            var XRayConfig = {
+                type: "ui5",
+                buttonId: helpButton.getId(),
+                dataUrlUACP: dataUrlUACP,
+                mediaUrlUACP: mediaUrlUACP,
+                resourceUrl: resourceUrl,
+                product: product,
+                version: version,
+                appName: $this.help_appname,
+                language: language,
+                showWhatsNew: true,
+                editor: false,
+                theme: 'sfsf',
+                onHelpRequireIndent: function (bIndent, indentWidth) {
+                console.log("help indent " + (bIndent ? "true" : "false"));
+                if (bIndent) {
+                document.documentElement.style.marginRight = indentWidth + "px";
+                } else {
+                  document.documentElement.style.marginRight = "0";
+                }
+            },
+                selector: {
+                    rules: ["IdSelectorUI5", "ClassSelector", "classMarkerSelector", "DomSelectorUI5"],
+                    selectors: {
+                        classMarkerSelector: {
+                            safe: true,
+                            getSelector: function(elem) {
+                                var c = elem.className.split(/\s+/);
+                                var markerPostFix = "^(.)+-marker$";
+                                for (var i = 0, l = c.length; i < l; i++) {
+                                    if (c[i].search(markerPostFix) >= 0) {
+                                        return c[i];
+                                    }
+                                }
+                                return null;
+                            },
+                            getElement: function(selector) {
+                                var elems = document.getElementsByClassName(selector);
+                                return elems && elems.length > 0 ? elems[0] : null;
+                            }
+                        }
+                    }
+                }
+            };
+			window.Help4.FORCE_SUBFRAME_INIT = true;			
+            _XRayAdapter = window.Help4.init(XRayConfig);
+            if (_XRayAdapter) {
+                helpButton.attachPress(_XRayAdapter.toggle, _XRayAdapter);
+            }
+        } catch (e) {
+            helpButton.attachPress(warnXRayNotAvailable);
+        }
+    };
+    var warnXRayNotAvailable = function() {
+        var dialog = new sap.m.Dialog({
+            title: BILaunchpadApp.localized("web_assistant_not_available"),
+            type: sap.m.DialogType.Message,
+            state: sap.ui.core.ValueState.Warning,
+            content: new sap.m.Text({
+                text: BILaunchpadApp.localized("Web_assistant_warning_msg")
+            }),
+            beginButton: new sap.m.Button({
+                text: BILaunchpadApp.localized("ok"),
+                press: function() {
+                    dialog.close();
+                }
+            }),
+            afterClose: function() {
+                dialog.destroy();
+            }
+        });
+        dialog.open();
+    };
+    var checkXRayAvailability = function() {
+        jQuery.ajax({
+            url: xRayUrl + "library.js",
+            dataType: "text",
+            success: function() {
+                helpButton.setEnabled(true);
+                _setupXRay();
+            },
+            error: function() {
+                helpButton.setEnabled(true);
+                helpButton.attachPress(warnXRayNotAvailable);
+            }
+        });
+    };
+    helpButton = new sap.m.ToggleButton(helpButtonId, {
+        tooltip: BILaunchpadApp.localized("web_assistant"),
+        icon: "sap-icon://sys-help",
+        enabled: false,
+        press: function() {
+            if (_XRayAdapter != null && _XRayAdapter != undefined) {
+				console.log("_XRayAdapter._helpState.active : " + _XRayAdapter._helpState.active);
+                console.log("_XRayAdapter._helpState.available: " + _XRayAdapter._helpState.available);
+                console.log("_XRayAdapter._helpState.carousel: " + _XRayAdapter._helpState.carousel);
+                if (_XRayAdapter._helpState.active) {
+                    isHelpStateActive = false;
+                    
+                    if (_XRayAdapter._helpState.minimized != null && _XRayAdapter._helpState.minimized != undefined && _XRayAdapter._helpState.minimized)  {
+                        _XRayAdapter.close();
+                    }
+                  
+                } else {
+                    isHelpStateActive = true;
+                }
+            }
+        }
+    }).addStyleClass("BILP-iconHover BILP-Allign sapUiSizeCompact");
+    helpButton.onAfterRendering = function() {
+        if (!xRayloaded) {
+            checkXRayAvailability();
+            xRayloaded = true;
+        }
+    };
+    this.mainPageHeader.addStyleClass("BILP-transparent BILP-headerShadow BILP-MBarAlignment");
+   // this.mainPageHeader.addContentLeft(userIcon);    
+    var middleContent = new sap.m.HBox({
+        items: [titleLabel]
+    });
+	   
+   var TitleMiddleButton = new sap.m.FlexBox({
+		justifyContent:sap.m.FlexJustifyContent.Start,
+		width:"50%",
+		items:[this.oPopupDocListIcon]
+	});
+	var LogoFlex = new sap.m.FlexBox({
+		justifyContent:sap.m.FlexJustifyContent.Start,
+		alignItems: sap.m.FlexAlignItems.Start,
+		width:"25%",
+		items:[backIcon, homeIcon, company_logo]
+	}).addStyleClass("BILPShellBarLeftItems");
+	this.mainPageHeader.addAdditionalContent(LogoFlex);
+	this.mainPageHeader.addAdditionalContent(TitleMiddleButton);
+	this.mainPageHeader.addAdditionalContent(this.searchBarUI);
+	this.mainPageHeader.addAdditionalContent(this.searchIcon);
+	this.mainPageHeader.addAdditionalContent(refreshIcon);
+	this.mainPageHeader.addAdditionalContent(this.notificationIcon);
+	this.mainPageHeader.addAdditionalContent(helpButton);
+	this.mainPageHeader.addAdditionalContent(this.avatarIcon);
+    this.mainPage.setCustomHeader(this.mainPageHeader);
+	if(appBannerMessage!=undefined && appBannerMessage.length>0)
+	{
+	this.mainPagesubHeader = new sap.m.Toolbar({
+        content : [
+            new sap.m.MessageStrip({
+                text: appBannerMessage,
+                showIcon: true,
+                showCloseButton: false
+            }).addStyleClass("appMsgStrip")
+        ]
+    }).addStyleClass("appMsgBar")
+    this.mainPage.setSubHeader(this.mainPagesubHeader);
+	}
+
+
+    this.mainPage.setSubHeader(this.mainPagesubHeader);
+    var clsBtn = new sap.m.Button({
+        text: BILaunchpadApp.localized("Recycle_Bin_Close"),
+        press: $.proxy(function() {
+            if (this.checkbox_content.getSelected()) {
+                $this.oController.updateUserMessage();
+                this.disclaimerDialog.close();
+            } else {
+                this.disclaimerDialog.close();
+            }
+        }, this)
+    });
+    this.disclaimerDialog = new sap.m.Dialog({
+        customHeader: new sap.m.Bar({
+            contentMiddle: new sap.m.Label({
+                text: BILaunchpadApp.localized("disclaimer")
+            })
+        }),
+    }).addButton(clsBtn);
+    this.checkbox_content = new sap.m.CheckBox({
+        text: BILaunchpadApp.localized("disclaimer_checkbox"),
+    });
+    var disclaimerContent = new sap.m.Text({
+        text: BILaunchpadApp.localized("disclaimer_message"),
+    }).addStyleClass("BILP-Disclaimer-Content");
+    var vBox = new sap.m.VBox();
+    vBox.addItem(disclaimerContent);
+    vBox.addItem(this.checkbox_content);
+    this.disclaimerDialog.addContent(vBox);
+    this.disclaimerDialog.addStyleClass("BILP-Disclaimer");
+    this.mainPage.addContent(this.fioriLaunchPadContainer);
+    this.oController.getUserMessage();
+	this.oController.getPinnedDocuments(this.oDocumentModel);
+    return this.mainPage;
+};
+com.sap.fioribi.modules.homepage.HomepageView.prototype.navigateListener = function(oEvent) {
+    if (oEvent.getParameter("toId").indexOf("searchView") === -1) {
+        this.hideSearchBar();
+    }
+};
+com.sap.fioribi.modules.homepage.HomepageView.prototype.showSearchBar = function() {
+    if ($(".soShow").length != 0) {
+        $(".soShow").click();
+    }
+    this.searchBarUI.$().css("display", "inline-block");
+    window.setTimeout(function() {
+        this.searchBar.focus();
+    }.bind(this), 0);
+    this.searchIcon.$().css("display", "none");
+};
+com.sap.fioribi.modules.homepage.HomepageView.prototype.hideSearchBar = function() {
+    this.searchBarUI.setSearchSuggestionStillValid(false);
+    this.searchBarUI.$().css("display", "none");
+    this.searchIcon.$().css("display", "inline-block");
+};
+com.sap.fioribi.modules.homepage.HomepageView.prototype.doSearch = function(searchText, fieldFilter, documentsFilter) {
+    var clientHandler = BILaunchpadApp.oClientActionHandler.getCAFHandler("search", "", null);
+    var BOEInfo = {
+        SAPLogonToken: BILaunchpadApp.getlogonToken(),
+        PVL: BILaunchpadApp.getPreferredViewingLocale(),
+        WebServiceURL: BILaunchpadApp.getWebServiceBaseURL(),
+        Language: BILaunchpadApp.getProductLocale()
+    };
+    var oCurrentObject = {
+        boe: BOEInfo,
+        type: "PlatformServices",
+        searchText: searchText,
+        fieldFilter: fieldFilter,
+        documentsFilter: documentsFilter
+    };
+    $(".BILP-CloseDialog").hide();
+    clientHandler.renderPage(oCurrentObject);
+};
+com.sap.fioribi.modules.homepage.HomepageView.prototype.setUsername = function(input) {
+    if (BILaunchpadApp.getRtlFlag() == false) {
+        BILaunchpadApp.includeStyleSheet("com/sap/fioribi/css/Homepage.css");
+    } else {
+        BILaunchpadApp.includeStyleSheet("com/sap/fioribi/css/Homepage_rtl.css");
+    }
+    var userWelcome = BILaunchpadApp.localized("welcome_user");
+    var finalUsername = userWelcome + ": " + input;
+    var userLabel = new sap.m.Label({
+        text: finalUsername,
+        tooltip: input
+    }).addStyleClass("BILP_WelcomeLabelcolor");
+    this.mainPageHeader.addAdditionalContent(userLabel);
+};
+com.sap.fioribi.modules.homepage.HomepageView.prototype.setHomePageContent = function() {
+    var pagePrefModel = sap.ui.getCore().getModel("pagePrefModel");
+    var selectedHomeTab = pagePrefModel.selecthometab;
+    var cuid = pagePrefModel.selecteddocumentcuid;
+    if (selectedHomeTab == "documentsTab") {
+        var getsidataSuccess = function(response) {
+            jQuery.sap.require("com.sap.fioribi.components.actionpanel.ActionPanelContainer");
+            var json = {
+                cuid: response.cuid,
+                displayname: "View",
+                techname: "view",
+                type: "ClientAction",
+                opendocurl: response.docLink,
+                actId: "4797",
+                actions: []
+            };
+            var objData = {
+                cuid: response.cuid,
+                ownerid: response.owner,
+                type: response.type,
+                parentid: response.parentid,
+                name: response.name,
+                id: response.id,
+                actId: "4797",
+                opendocurl: response.docLink,
+                publicationtype: response.publicationtype
+            };
+            var docController = new com.sap.fioribi.components.overviewpage.DocumentsController();
+            com.sap.fioribi.components.actionpanel.ActionPanelController.prototype.setCurrentObject(objData);
+            com.sap.fioribi.components.actionpanel.ActionPanelController.prototype.setParentController(docController);
+            com.sap.fioribi.components.actionpanel.ActionPanelController.prototype.peformAction(json);
+        };
+        var getsidataerror = function(response) {};
+        var request = {
+            surl: BILaunchpadApp.getWebServiceBaseURL() + "/v1/documents/" + cuid + "?details=true",
+            reqType: "GET",
+            successHandler: getsidataSuccess,
+            errorHandler: getsidataerror,
+            headers: {
+                "x-SAP-logonToken": BILaunchpadApp.getlogonToken(),
+                Accept: "application/json",
+                "Content-Type": "application/json;odata=verbose",
+            }
+        };
+        var reqDispatcher = new RequestDispatcher();
+        reqDispatcher.sendRequest(request);
+    }
+};
+com.sap.fioribi.modules.homepage.HomepageView.prototype.setHeaderTitle = function(newTitle) {
+    if (newTitle) {
+        newTitleFormated = (newTitle.length > 40 ? newTitle.substring(0, 37) + "..." : newTitle);
+        this.oPopupDocListIcon.setText(newTitleFormated);
+    }
+};
+
+com.sap.fioribi.modules.homepage.HomepageView.prototype.createAvatarInitial = function() {
+var name=sap.ui.getCore().getModel("username");
+if(name!=undefined)
+{
+	var splitedname=name.split(" ");
+	var avatarInitial="";
+	if(splitedname.length>1)
+	{
+		avatarInitial=splitedname[0].charAt(0) + splitedname[splitedname.length-1].charAt(0);
+	}
+	else
+	{
+		avatarInitial=splitedname[0].charAt(0);
+	}
+	
+	sap.ui.getCore().byId("avatar").setInitials(avatarInitial);
+	sap.ui.getCore().byId("avatar").setTooltip(name);
+	
+	BILaunchpadApp.setAvatarInitial(avatarInitial);
+}
+};
+
+com.sap.fioribi.modules.homepage.HomepageView.prototype.openApplication = function(channel, event, oPageMetaData) {
+  
+   if(applicationInstance.getContent()[0].getContent()!=undefined)
+   { 
+	   for(i=0;i<applicationInstance.getContent()[0].getContent().length;i++)
+	   {
+		   if(applicationInstance.getContent()[0].getContent()[i].sId==oPageMetaData.id)
+		   {
+			   applicationInstance.getContent()[0].getContent()[i].firePress();
+			   break;
+		   }
+	   }
+   }
+};
+com.sap.fioribi.modules.homepage.HomepageView.prototype.fnHideHeader = function(channel, event, oPageMetaData) {
+    var action = oPageMetaData.action;
+   if(action === "hide"){
+                this.mainPage.setShowHeader(false);  
+   }else{
+                this.mainPage.setShowHeader(true);  
+   }
+
+};
+
+com.sap.fioribi.modules.homepage.HomepageView.prototype.isBIWorDoc = function(objData) {
+    if ((objData !== "") && (objData.id !== "Documents") && (objData.id !== "Schedules") && (objData.id !== "Categories") && (objData.id !== "Inbox") && (objData.id !==
+            "Folders") && (objData.id !== "RecycleBin") && (objData.id !== "Web Intelligence") && this.isApplication(objData)) {
+        if (objData.type == "Webi" || objData.type == "AFDashboardPage" || objData.type == "CrystalReport" || objData.type == "ExternalHyperlink" || objData.type == "Hyperlink") {
+            return true;
+        }
+        return false;
+
+    }
+    return false;
+}
+
+com.sap.fioribi.modules.homepage.HomepageView.prototype.isApplication = function(objData) {
+    if ((objData !== "") && (objData.id !== "BEx Web Applications") && (objData.id !== "Module") && (objData.id !== "Analysis edition for OLAP") && (objData.id !== "Information Steward") && (objData.id !==
+            "Crystal Reports for Enterprise") && (objData.id !== "BI Workspace") && (objData.id !== "Web Intelligence")&& (objData.id !== "Lumira Discovery")&& (objData.id !== "SAP Analytics Cloud")) {
+     return true;
+			}
+    return false;
+}

@@ -1,0 +1,31 @@
+/*
+�2010 - 2016 SAP SE or an SAP affiliate company.  All rights reserved.
+ 
+SAP and other SAP products and services mentioned herein as well as their respective logos are trademarks or registered trademarks of SAP SE in Germany and other countries.  Please see http://www.sap.com/corporate-en/legal/copyright/index.epx#trademark for additional trademark information and notices.
+*/
+
+jQuery.sap.declare("com.sap.fioribi.modules.treetable.helper.TreeTableUtil");
+
+com.sap.fioribi.modules.treetable.helper.TreeTableUtil = function() {
+};
+
+com.sap.fioribi.modules.treetable.helper.TreeTableUtil.prototype.findInArray = function(array, searchElement){
+	//To find the searchElement in the given array with case insensitive
+	if(searchElement == null || searchElement == undefined){
+		return false;
+	}
+	const index = array.findIndex(element => {
+		return element.toLowerCase() === searchElement.toLowerCase();
+	});
+	return (index!=-1);
+};
+
+com.sap.fioribi.modules.treetable.helper.TreeTableUtil.prototype.getCustomType = function(columnId, reportEngineType){
+	var type = columnId;
+	if(columnId == "CrystalReport" && reportEngineType != undefined){
+		type = columnId+reportEngineType;
+	}
+	jQuery.sap.require("com.sap.fioribi.utils.typeFormatter");
+	var finalId = updatedtypeFormat(type);
+	return finalId;
+}

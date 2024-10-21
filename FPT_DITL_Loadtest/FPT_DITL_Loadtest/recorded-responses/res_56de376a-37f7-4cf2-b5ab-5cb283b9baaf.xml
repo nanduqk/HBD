@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<snippet_collection>
+<snippet id="sapbi_snippet_javascript" type="JAVASCRIPT"><![CDATA[var WINDOW_MODE= 'inplace';
+sapbi_page.m_required_sdk_versions = {};
+sapbi_page.m_required_biBundles = {};
+sapbi_addRequired([]);
+sapbi_page.loadInclude( "zen/mimes/combined_static_includes_1.js?version=20220923164746" );
+sapbi_page.loadInclude( "zen/mimes/combined_static_includes_FP.js?version=20220923164746" );
+sapbi_page.loadCssInclude( "zen.res/zen.rt.framework/resources/css/zen.css?version=20220923164746" );
+sap.zen.Dispatcher.instance.registerCustomCSS( "zen/mimes/global/Root+Folder/FPT+Reports/Veritas/Manage+Plans/Transport_People_Cost.css?version=Tue+Apr+04+08%3A07%3A03+EDT+2023" );
+sap.zen.Dispatcher.instance.registerCustomCSS( "zen/mimes/global/Root+Folder/FPT+Reports/Veritas/Manage+Authrorization/Firm_GFO_custom.css?version=Fri+Feb+03+09%3A12%3A45+EST+2023" );
+]]></snippet>
+<snippet id="sapbi_snippet_ROOT_DIALOG" type="JSON"><![CDATA[{"delta" : [{ "id" : "ROOT_DIALOG", "type" : "udialog", "pureId":"ROOT_DIALOG", "scope":"", "content" : {"control":{"type":"zendialog","id":"DLG_VARIABLE","loadingIndicatorDelay":1000,"variantMode":"VARIANT_NONE","displaytitle":true,"titletext":"Prompts","canmove":true,"canresize":true,"hookbrowserresize":false,"toplevelcssclass":"zenDialogInplaceMode","renderruntimeinitvarscreen":true,"initvardlgwidth":"960px","initvardlgheight":"640px","buttons":[{"button":{"enabled":true,"rendered":true,"statustodesigner":false,"command":"var\x20oDlg\x20\x3d\x20sap.ui.getCore\x28\x29.getControl\x28\x22DLG_VARIABLE_variablescreen\x22\x29\x3b\x0d\x0aoDlg.ZEN_submit_with_apply\x28\x29\x3b\x0d\x0asap.zen.request.zenSendCommandArrayWoEventWZenPVT\x28\x5b\x5b\x27BI_COMMAND_TYPE\x27,\x27OK\x27,0\x5d,\x5b\x27TARGET_DIALOG_REF\x27,\x27DLG_VARIABLE\x27,0\x5d\x5d\x29\x3b","text":"OK","name":"OK","okBtn":true}},{"button":{"name":"CANCEL","text":"Cancel","enabled":true,"cancelBtn":true,"rendered":true,"lumira":true}}],"content":[{"component":{"width":"100\x25","height":"100\x25","id":"DLG_VARIABLE_variablescreenc","type":"ZENDLGCONTENT_COMPONENT","content":{"control":{"type":"filterpanel","id":"DLG_VARIABLE_variablescreen","visible":true,"view":"DEFAULT","target":"","characteristics":[{"characteristic":{"name":"DS_1\x3aGFIMV_GFICOCTR_INP\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x200003","text":"Work\x20Cost\x20Center","type":"STRING","valuehelp":true}}],"filters":{"DS_1\x3aGFIMV_GFICOCTR_INP\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x200003":{"ranges":[{"key":"CS00031514\x2d","operation":"EQ","starSearchSignAssigned":true,"from":{"key":"CS00031514","displaykey":"CS00031514","text":"SAP\x20OPERATIONS\x20OH","inputstring":"CS00031514"}}]}}}}}},{"component":{"id":"DLG_VARIABLE_mic","type":"MESSAGEVIEW_COMPONENT","content":{"control":{"type":"messageview","id":"DLG_VARIABLE_mi_messageview1","log_command":"sap.zen.request.zenSendCommandArrayWoEventWZenPVT\x28\x5b\x5b\x27BI_COMMAND\x27,null,0,\x5b\x5b\x27BI_COMMAND_TYPE\x27,\x27LOG\x27,0\x5d,\x5b\x27LEVEL\x27,\x27__LEVEL__\x27,0\x5d,\x5b\x27LONGTEXT\x27,\x27__LONGTEXT__\x27,0\x5d,\x5b\x27SHORTTEXT\x27,\x27__SHORTTEXT__\x27,0\x5d,\x5b\x27SUB_TARGET\x27,\x27DLG_VARIABLE_mi\x27,0\x5d,\x5b\x27TARGET_DIALOG_REF\x27,\x27DLG_VARIABLE\x27,0\x5d\x5d\x5d\x5d\x29\x3b"}}}}]}}}]}]]></snippet>
+<snippet id="sapbi_snippet_javascript" type="JAVASCRIPT"><![CDATA[sapbi_page.m_WaitForPhase2 = false;
+sapbi_page.m_requestIdValue = "1";
+  sapbi_DoDialogReLoaded('inplace',false,false,false,[],false,[]);
+]]></snippet>
+</snippet_collection>

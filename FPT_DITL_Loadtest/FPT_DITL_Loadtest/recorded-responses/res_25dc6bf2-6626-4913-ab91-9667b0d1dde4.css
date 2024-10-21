@@ -1,0 +1,24 @@
+@font-face {
+    font-family: 'orca';
+    src: url('../assets/orca-icons/enriched-orca-icons.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'fpa-icons';
+    src: url('../assets/fpa-icons/FPA-icons.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+.sapBiVaConditionalFormattingManagerDialog .ruleset-actions .sapMFlexItem {
+    margin-left: .1em;
+    margin-right: .1em;
+}
+
+.sapBiVaConditionalFormattingManagerDialog .ruleset-actions .sapMFlexItem:first-child {
+    margin-left: 0;
+}
+
+.sapBiVaConditionalFormattingManagerDialog .ruleset-actions .sapMFlexItem:last-child {
+    margin-right: 0;
+}

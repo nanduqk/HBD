@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+
+
+<!-- template name: pg.prof.html.form.Fido2.template.html -->
+
+
+<html lang="en" dir="ltr">
+    <head>
+        <title>Sign On</title>
+        <base href="https://fedauth.pg.com/"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+        <meta http-equiv="x-ua-compatible" content="IE=edge" />
+        <!-- unsafe-eval and https://apps.pingone.com required for PingRisk -->
+        <meta http-equiv="Content-Security-Policy" content="script-src 'unsafe-eval' 'self' 'nonce-wyQYpw9iRQ3ahtcA'; style-src 'self' https://apps.pingone.com; img-src 'self'; font-src 'self';" />
+        <link rel="stylesheet" type="text/css" href="assets/css/pg.prof.main.fido_old.css"/>
+        
+        <!-- Required for PingOne Risk Profiling -->
+        <script type="text/javascript" src="assets/scripts/signals-sdk-5.2.1.js"></script> 
+        <script type="text/javascript" src="assets/scripts/pingone-risk-profiling-signals-sdk.js"></script> 
+        <script type="text/javascript" src="assets/scripts/pingone-risk-management-embedded.js"></script>
+        
+        <script src='assets/scripts/captcha/captcha-utils.js'></script>
+        <script src='assets/scripts/captcha/captcha-script-loader.js' defer></script>
+        <script src='assets/scripts/pf-general.js'></script>
+    </head>
+
+    <body>
+        <!-- CAPTCHA settings-->
+        <div id="captchaEnabled" hidden>false</div>
+        <div id="captchaScriptName" hidden>"$captchaScriptName"</div>
+        <div id="captchaAttributes" hidden>$captchaAttributes</div>
+        <div id="captchaCSPNonce" hidden>"wyQYpw9iRQ3ahtcA"</div>
+        <div class="top"></div>
+
+        <div class="pg-logo">
+            <img src="assets/images/pg_logo_u13.png" class="pg-logo" alt="P&G logo"/>
+        </div>
+
+        <div>
+            <div class="theme-switch-wrapper">
+                <label class="theme-switch" for="checkbox" tabindex="0">
+                    <input type="checkbox" id="checkbox" />
+                    <div class="slider round"></div>
+                </label>
+                <p>Dark Mode</p>
+            </div>
+        </div>
+
+        <div class="ping-container ping-signin login-template">
+            <div class="ping-body-container">
+                <div>
+                    <form method="POST" action="/idp/jU8P8/resumeSAML20/idp/SSO.ping" autocomplete="off">
+                        <div class="fido2AppName">
+                                                        
+                             HBD
+                                                    </div>
+
+                        <div class="columns-2" id ="content-columns">
+                            <div class="content-column column-1">
+                                <div class="ping-input-container">
+                                                                                                                                                    
+                                                                            <label>Username
+                                            <input id="username" type="text" autocomplete="username" size="36" name="pf.username" value="" autocorrect="off" autocapitalize="off" alt="Input username" tabindex="0" />
+                                            <div class="place-bottom type-alert tooltip-text" id="username-text">
+                                                <div class="icon">!</div>
+                                                Please fill out this field.
+                                            </div>                     
+                                        </label>
+                                                                    </div>
+
+                                <div class="ping-input-container password-container">
+                                    <label>Password
+                                        <input id="password" type="password" autocomplete="current-password" size="36" name="pf.pass" alt="Input password" tabindex="0" />
+                                        <div class="place-bottom type-alert tooltip-text" id="password-text">
+                                            <div class="icon">!</div>
+                                            Please fill out this field.
+                                        </div>
+                                    </label>
+                                </div>
+
+                                <div class="ping-messages">
+                                                                        
+                                    <p class="capsLock">Caps Lock Is On!</p>
+
+                                                                        
+                                </div>
+
+                                <div class="ping-buttons">
+                                    <input type="hidden" name="pf.ok" value="" />
+                                    <input type="hidden" name="pf.cancel" value="" />
+                                    <span id="signOnButtonSpan"  tabindex="0">
+                                        <a class="ping-button normal allow" id="signOnButton" title="Sign On" alt="Sign On">
+                                        Sign On
+                                        </a>
+                                    </span>
+                                </div>
+                                <div class="help">
+                                    <span>
+                                        <a href="https://itaccess.pg.com/identityiq/ui/external/desktopResetUsername.jsf" target="_blank" alt="Forgot Password" tabindex="0">Forgot Password?</a>
+                                    </span>
+                                    <!-- For future use
+                                    <span>|</span>
+
+                                    <span>
+                                        <a href="https://pgglobalenterprise.service-now.com/esc?id=ech_article_view&sys_id=ca8996051bf4d99c2c1b0e55cc4bcb6f" target="_blank" alt="Trouble Sigining In?" tabindex="0">Trouble Signing In?</a>
+                                    </span>-->
+                                </div>
+                            </div><!-- column-1 -->
+
+                            <!-- column-2 -->
+                        </div><!-- content-columns -->
+
+                        <div class="ping-footer">
+                            <!-- P&G DLP Disclaimer -->
+                            <br/>
+                            <div class="privacyPolicy">Procter & Gamble collects and processes your personal data in line with applicable laws and regulations and in accordance with <a href="https://pgone.sharepoint.com/sites/NewPrivacyCentral/SitePages/PGEmpPrivacyPolicy.aspx" target="_blank" alt="Procter & Gamble's Employee Privacy Policy" tabindex="0">Procter & Gamble's Employee Privacy Policy</a>. Consistent with and to the extent permitted by law, P&G will monitor user activity on P&G systems for security purposes. P&G employees should consult the Employee Privacy Policy for more information. If you are a non-employee, please review <a href="https://privacypolicy.pg.com/externalpartyprivacy/" target="_blank" alt="P&G’s External Party Resource Privacy Notice" tabindex="0">P&G’s External Party Resource Privacy Notice</a> and contact your employer about an alternative arrangement should you not wish to participate in P&G’s security monitoring program.</div>
+                            <br/>
+                            <div class="privacyPolicy">If you are located in the European Economic Area (EEA), United Kingdom (and Gibraltar) or Switzerland, please note that P&G is certified under the EU-U.S. Data Privacy Framework (EU-U.S. DPF), the UK Extension to the EU-U.S. DPF and the Swiss-U.S. Data Privacy Framework (Swiss-U.S. DPF) administered by the U.S. Department of Commerce [collectively, the “Data Privacy Framework”] developed by the U.S. Department of Commerce and the European Commission and Swiss Federal Data Protection and Information Commissioner, respectively regarding the transfer of personal information from the EEA, United Kingdom (and Gibraltar) or Switzerland to the U.S., Click <a href="https://privacypolicy.pg.com/DPF/WorkerPolicy" target="_blank" alt="Data Privacy Framework: Worker Privacy Policy" tabindex="0">here</a> to view our Data Privacy Framework: Worker Privacy Policy.</div>
+                                                    </div>
+
+                        <input type="hidden" name="pf.adapterId" id="pf.adapterId" value="EDAdapterID" />
+                    </form>
+                </div>
+                
+            </div><!-- .ping-body-container -->
+
+        </div><!-- .ping-container -->
+
+        <script type="text/javascript" nonce="wyQYpw9iRQ3ahtcA">
+            window.onload = function(){
+
+                                    setFocus('username');
+                
+                                    toggleMobile(false);
+                            }
+
+            handleReturnPress('username', postOk);
+            handleReturnPress('password', postOk);
+            registerEventHandler('signOnButton', 'click', postOk);
+            
+            document.addEventListener('keydown', function(event) {
+              if (event.key === 'Enter') {
+                event.preventDefault(); // Prevents CAPTCHA from bypassing postOk function when the enter key is pressed
+                postOk();
+              }
+            });            
+
+            var formSubmitted = false;
+
+            function postOk() {
+                if (formSubmitted)
+                    return true;
+
+                formSubmitted = true;
+                var hasError = false;
+
+                // remove error tips
+                if (document.forms[0]['pf.username'].value !== '') {
+                    document.getElementById('username-text').className = 'place-bottom type-alert tooltip-text';
+                }
+                if (document.forms[0]['pf.pass'].value !== '') {
+                    document.getElementById('password-text').className = 'place-bottom type-alert tooltip-text';
+                }
+                
+                // Remove @pg.com from username
+                var usernameField = document.getElementById('username');
+                usernameField.value = escape(usernameField.value.replace(/@pg.com/gi, ''));
+                
+                // Required for 3FA adapter to prevent login with same account twice
+                sessionStorage.sharedId = usernameField.value;
+                
+                // Add back
+                if (document.forms[0]['pf.username'].value === '') {
+                    document.getElementById('username-text').className += ' show';
+                    hasError = true;
+                } else if (document.forms[0]['pf.pass'].value === '') {
+                    document.getElementById('password-text').className += ' show';
+                    hasError = true;
+                } else {
+                    CaptchaManager.execute(function() {
+                        submitForm();
+                    });
+                }
+                if (hasError) {
+                    formSubmitted = false;
+                }
+            }
+
+            function submitForm() {
+                var signOnButtonSpan = document.getElementById('signOnButtonSpan');
+                signOnButtonSpan.style = "pointer-events: none;";
+
+                var signOnButton = document.getElementById('signOnButton');
+                signOnButton.innerHTML = 'Signing On...';
+
+                document.forms[0]['pf.ok'].value = 'clicked';
+                document.forms[0].submit();
+                CaptchaManager.cleanup();
+            }
+
+            const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
+            const currentTheme = localStorage.getItem('theme');
+
+            if (currentTheme) {
+                document.documentElement.setAttribute('data-theme', currentTheme);
+            
+                if (currentTheme === 'dark') {
+                    toggleSwitch.checked = true;
+                }
+            }
+
+            function switchTheme(e) {
+                if (e.target.checked) {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                    localStorage.setItem('theme', 'dark');
+                }
+                else {
+                    document.documentElement.setAttribute('data-theme', 'light');
+                    localStorage.setItem('theme', 'light');
+                }    
+            }
+
+            function detectCapsLock(event) {
+                var capsLockElement = document.getElementsByClassName("capsLock")[0];
+                if (event.getModifierState && event.getModifierState('CapsLock')) {
+                    capsLockElement.style.display = "block";
+                } else {
+                    capsLockElement.style.display = "none"
+                }
+            }
+
+            toggleSwitch.addEventListener('change', switchTheme, false);
+
+            // Alert user if caps lock is on
+            document.getElementById("username").addEventListener('keyup', detectCapsLock);
+            document.getElementById("username").addEventListener('mousedown', detectCapsLock);
+            document.getElementById("password").addEventListener('keyup', detectCapsLock);
+            document.getElementById("password").addEventListener('mousedown', detectCapsLock);
+        </script>
+    </body>
+</html>
+

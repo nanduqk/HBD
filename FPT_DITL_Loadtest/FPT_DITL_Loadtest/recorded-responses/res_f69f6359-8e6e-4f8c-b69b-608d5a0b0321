@@ -1,0 +1,1 @@
+define("zen.rt.components.valuehelpsettings/resources/js/valuehelpsettings_handler",["sap/zen/basehandler"],function(b){var a=function(){b.apply(this,arguments);this.create=function(d,c,f){var g=c.id;var e=this.createButton(g);e.setVisible(false);return e;};this.update=function(e,c,d){return e;};this.getType=function(){return"valuehelpsettings";};};return new a();});

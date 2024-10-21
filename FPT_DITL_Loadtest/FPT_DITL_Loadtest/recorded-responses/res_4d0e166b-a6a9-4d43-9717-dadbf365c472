@@ -1,0 +1,1214 @@
+/*
+�2010 - 2016 SAP SE or an SAP affiliate company.  All rights reserved.
+ 
+SAP and other SAP products and services mentioned herein as well as their respective logos are trademarks or registered trademarks of SAP SE in Germany and other countries.  Please see http://www.sap.com/corporate-en/legal/copyright/index.epx#trademark for additional trademark information and notices.
+*/
+
+﻿/*
+©2010 - 2016 SAP SE or an SAP affiliate company.  All rights reserved.
+ 
+SAP and other SAP products and services mentioned herein as well as their respective logos are trademarks or registered trademarks of SAP SE in Germany and other countries.  Please see http://www.sap.com/corporate-en/legal/copyright/index.epx#trademark for additional trademark information and notices.
+*/
+jQuery.sap.declare({
+    modName: "com.sap.fioribi.components.overviewpage.DocumentsController",
+    type: "controller"
+});
+jQuery.sap.require({
+    modName: "com.sap.fioribi.modules.common.BILPController",
+    type: "controller"
+});
+com.sap.fioribi.components.overviewpage.DocumentsController = function() {
+    com.sap.fioribi.modules.common.BILPController.apply(this, arguments);
+    jQuery.sap.require("com.sap.fioribi.components.overviewpage.DocumentsModel");
+    this.model = new myHomeModel();
+    this.tab = "homepage";
+    this.isLastPage = false;
+    this.isLastPageForList = false;
+    this.isScrollAllowed = true;
+    this.isScrollAllowedForList = true;
+    this.currentPageNumberForList = 1;
+    this.currentPageNumber = 1;
+    //this.PAGESIZE = 50;
+    this.flag = false;
+    this.cuid = null;
+};
+com.sap.fioribi.components.overviewpage.DocumentsController.prototype = jQuery.sap.newObject(com.sap.fioribi.modules.common.BILPController.prototype);
+com.sap.fioribi.components.overviewpage.DocumentsController.prototype.updateRowCount = function(count) {
+    var loadMoreBtn = sap.ui.getCore().byId("loadMoreBtn");
+    if (loadMoreBtn) {   
+        loadMoreBtn.setText("More " + "[" + count +  "+]");
+    }
+};
+com.sap.fioribi.components.overviewpage.DocumentsController.prototype.onInit = function() {};
+com.sap.fioribi.components.overviewpage.DocumentsController.prototype.updateTable = function(oCuid, oName, flag, oType) {
+    if(oType=="Folder"){
+    var sUrl = BILaunchpadApp.getWebServiceBaseURL() + "/internal/v1/folders/" + oCuid + "/children";   
+    }else{
+    var sUrl = BILaunchpadApp.getWebServiceBaseURL() + "/v1/categories/" + oCuid + "/children"; 
+    }
+    
+    this.flag = flag;
+    var iLevel = 7;
+    this.cuid = oCuid;
+    var oPageInfo = {
+        cuid: oCuid,
+        name: oName,
+        level: iLevel,
+        type: oType
+    };
+    var filter = BILaunchpadApp.oConstants.HOME_MYCATEGORIES;
+    if (oCuid != null) {
+        this.getDocumentList(sUrl, iLevel, oPageInfo, filter);
+    }
+};
+com.sap.fioribi.components.overviewpage.DocumentsController.prototype.getRecentBIW = function() {
+    if (BILaunchpadApp.getTableWidget() != undefined) {
+        BILaunchpadApp.getTableWidget().getController().isLastPageForList = false;
+        BILaunchpadApp.getTableWidget().getController().isScrollAllowedForList = true;
+        BILaunchpadApp.getTableWidget().getController().currentPageNumberForList = 1;
+    }
+    var sUrl = BILaunchpadApp.getWebServiceBaseURL() + "/internal/v1/recentlyviewed?type='AFDashboardPage'";
+    var iLevel = 8;
+    this.resetFlags(false, sUrl, true);
+    var filter = BILaunchpadApp.oConstants.HOME_RECENT_BIW;
+    var oPageInfo = null;
+    this.getDocumentList(sUrl, iLevel, oPageInfo, filter);
+     var $view = this.getView();
+    if($view != undefined){
+    if ($view.oTableWidget != null) {
+        for (i = 0; i < $view.oTableWidget.Columns.length; i++) {
+            if ($view.oTableWidget.Columns[i].getSortProperty() == "name") {
+                $view.oTableWidget.Columns[i].setSorted(true);
+                $view.oTableWidget.Columns[i].setSortOrder(sap.ui.table.SortOrder.Ascending);
+                $previous = $view.oTableWidget.Columns[i];
+            } else {
+                $view.oTableWidget.Columns[i].setSorted(false);
+            }
+        }
+        $view.oTableWidget.clearFilters();
+    }
+    }
+};
+com.sap.fioribi.components.overviewpage.DocumentsController.prototype.getShowAll = function() {
+    if (BILaunchpadApp.getTableWidget() != undefined) {
+        BILaunchpadApp.getTableWidget().getController().isLastPageForList = false;
+        BILaunchpadApp.getTableWidget().getController().isScrollAllowedForList = true;
+        BILaunchpadApp.getTableWidget().getController().currentPageNumberForList = 1;
+    }
+    var sUrl = BILaunchpadApp.getWebServiceBaseURL() + "/internal/v1/showalldocuments?sort=-updated";
+    var iLevel = 1;
+    this.resetFlags(false, sUrl, true);
+    var filter = BILaunchpadApp.oConstants.HOME_SHOWALL;
+    var oPageInfo = null;
+    this.getDocumentList(sUrl, iLevel, oPageInfo, filter);
+    var $view = this.getView();
+    if ($view.oTableWidget != null) {
+        for (i = 0; i < $view.oTableWidget.Columns.length; i++) {
+            if ($view.oTableWidget.Columns[i].getSortProperty() == "name") {
+                $view.oTableWidget.Columns[i].setSorted(true);
+                $view.oTableWidget.Columns[i].setSortOrder(sap.ui.table.SortOrder.Ascending);
+                $previous = $view.oTableWidget.Columns[i];
+            } else {
+                $view.oTableWidget.Columns[i].setSorted(false);
+            }
+        }
+        $view.oTableWidget.clearFilters();
+    }
+};
+com.sap.fioribi.components.overviewpage.DocumentsController.prototype.getRecent = function() {
+    if (BILaunchpadApp.getTableWidget() != undefined) {
+        BILaunchpadApp.getTableWidget().getController().isLastPageForList = false;
+        BILaunchpadApp.getTableWidget().getController().isScrollAllowedForList = true;
+        BILaunchpadApp.getTableWidget().getController().currentPageNumberForList = 1;
+    }
+    var sUrl = BILaunchpadApp.getWebServiceBaseURL() + "/internal/v1/recentlyviewed";
+    var iLevel = 2;
+    this.resetFlags(false, sUrl, true);
+    var filter = BILaunchpadApp.oConstants.HOME_RECENT;
+    var oPageInfo = null;
+    this.getDocumentList(sUrl, iLevel, oPageInfo, filter);
+    if ($previous != null) {
+        $previous.setSorted(false);
+    }
+    var $view = this.getView();
+    if ($view.oTableWidget != null) {
+        $view.oTableWidget.clearFilters();
+    }
+};
+com.sap.fioribi.components.overviewpage.DocumentsController.prototype.getDocuments = function() {
+    var sUrl = BILaunchpadApp.getWebServiceBaseURL() + "/internal/v1/personaldocuments";
+    var iLevel = 3;
+    var filter = BILaunchpadApp.oConstants.HOME_MYDOCUMENTS;
+    this.resetFlags(false, sUrl, true);
+    var oPageInfo = null;
+    this.getDocumentList(sUrl, iLevel, oPageInfo, filter);
+    var $view = this.getView();
+    if ($view.oTableWidget != null) {
+        for (i = 0; i < $view.oTableWidget.Columns.length; i++) {
+            if ($view.oTableWidget.Columns[i].getSortProperty() == "name") {
+                $view.oTableWidget.Columns[i].setSorted(true);
+                $view.oTableWidget.Columns[i].setSortOrder(sap.ui.table.SortOrder.Ascending);
+                $previous = $view.oTableWidget.Columns[i];
+            } else {
+                $view.oTableWidget.Columns[i].setSorted(false);
+            }
+        }
+        $view.oTableWidget.clearFilters();
+    }
+};
+com.sap.fioribi.components.overviewpage.DocumentsController.prototype.getCategories = function() {
+    this.cuid = null;
+    var sUrl = BILaunchpadApp.getWebServiceBaseURL() + "/v1/categories";
+    var iLevel = 4;
+    this.resetFlags(false, sUrl, true);
+    var filter = BILaunchpadApp.oConstants.HOME_MYCATEGORIES;
+    var oPageInfo = null;
+    this.getDocumentList(sUrl, iLevel, oPageInfo, filter);
+    var $view = this.getView();
+    if ($view.oTableWidget != null) {
+        for (i = 0; i < $view.oTableWidget.Columns.length; i++) {
+            if ($view.oTableWidget.Columns[i].getSortProperty() == "name") {
+                $view.oTableWidget.Columns[i].setSorted(true);
+                $view.oTableWidget.Columns[i].setSortOrder(sap.ui.table.SortOrder.Ascending);
+                $previous = $view.oTableWidget.Columns[i];
+            } else {
+                $view.oTableWidget.Columns[i].setSorted(false);
+            }
+        }
+        $view.oTableWidget.clearFilters();
+    }
+};
+com.sap.fioribi.components.overviewpage.DocumentsController.prototype.getFavorites = function() {
+    if (BILaunchpadApp.getTableWidget() != undefined) {
+        BILaunchpadApp.getTableWidget().getController().isLastPageForList = false;
+        BILaunchpadApp.getTableWidget().getController().isScrollAllowedForList = true;
+        BILaunchpadApp.getTableWidget().getController().currentPageNumberForList = 1;
+    }
+    var section = BILaunchpadApp.getCurrentSection();
+    var sUrl = BILaunchpadApp.getWebServiceBaseURL() + "/internal/v1/favorites";
+    if (section == "1") {
+        var pagesize = BILaunchpadApp.getdocumentsCount();
+        sUrl = BILaunchpadApp.getWebServiceBaseURL() + "/internal/v1/favorites?pagesize=" + pagesize;
+    }
+    var iLevel = 5;
+    this.resetFlags(false, sUrl, true);
+    var filter = BILaunchpadApp.oConstants.HOME_MYFAVORITES;
+    var oPageInfo = null;
+    this.getDocumentList(sUrl, iLevel, oPageInfo, filter);
+    var $view = this.getView();
+    if ($view.oTableWidget != null) {
+        for (i = 0; i < $view.oTableWidget.Columns.length; i++) {
+            if ($view.oTableWidget.Columns[i].getSortProperty() == "name") {
+                $view.oTableWidget.Columns[i].setSorted(true);
+                $view.oTableWidget.Columns[i].setSortOrder(sap.ui.table.SortOrder.Ascending);
+                $previous = $view.oTableWidget.Columns[i];
+            } else {
+                $view.oTableWidget.Columns[i].setSorted(false);
+            }
+        }
+        $view.oTableWidget.clearFilters();
+    }
+};
+com.sap.fioribi.components.overviewpage.DocumentsController.prototype.getMyRecentlyRun = function() {
+    if (BILaunchpadApp.getTableWidget() != undefined) {
+        BILaunchpadApp.getTableWidget().getController().isLastPageForList = false;
+        BILaunchpadApp.getTableWidget().getController().isScrollAllowedForList = true;
+        BILaunchpadApp.getTableWidget().getController().currentPageNumberForList = 1;
+    }
+    if (sap.ui.getCore().getModel("accountname") != undefined) {
+        var username = sap.ui.getCore().getModel("accountname");
+    } else {
+        this.getUserInfo();
+        var username = sap.ui.getCore().getModel("accountname");
+    }
+    var sUrl = BILaunchpadApp.getWebServiceBaseURL() + "/v1/scheduleinstances?type='Webi','Program','ObjectPackage','CrystalReport','VISILums','MDAnalysis','Pdf','Excel','Txt','Word','AO.Workbook','Rtf','LUMX','Publication'&sort=-updated&owner=" + encodeURIComponent(username);
+    sUrl = encodeURI(sUrl);
+    var iLevel = 6;
+    this.resetFlags(false, sUrl, true);
+    var filter = BILaunchpadApp.oConstants.HOME_MYRECENTLYRUN;
+    var oPageInfo = null;
+    this.getDocumentList(sUrl, iLevel, oPageInfo, filter);
+    if ($previous != null) {
+        $previous.setSorted(false);
+    }
+    var $view = this.getView();
+    if ($view.oTableWidget != null) {
+        $view.oTableWidget.clearFilters();
+    }
+};
+com.sap.fioribi.components.overviewpage.DocumentsController.prototype.getSortAndFilter = function(sortBy, sortType, filterQueryString) {
+    var sUrl;
+    var sortQueryString = "";
+    var sortAndFilterQueryString = "";
+    this.isLastPageForList = false;
+    var key =BILaunchpadApp.getCurrentSection();
+    //var key = this.getView().oListBox.getSelectedKey();
+    if (sortBy != "" && sortType != "") {
+        this.$sortBy = sortBy;
+        this.$sortHow = sortType;
+        sortQueryString += "?sort=" + sortType + sortBy;
+    } else {
+        if (this.$sortBy != null && this.$sortHow != null) {
+            sortQueryString += "?sort=" + this.$sortHow + this.$sortBy;
+        } else {
+            sortQueryString = "";
+        }
+    }
+    if (sortQueryString == "") {
+        filterQueryString = "?" + filterQueryString;
+    } else {
+        filterQueryString = "&" + filterQueryString;
+    }
+    sortAndFilterQueryString = sortQueryString + filterQueryString;
+    if (sortAndFilterQueryString[sortAndFilterQueryString.length - 1] == "&") {
+        sortAndFilterQueryString = sortAndFilterQueryString.substring(0, sortAndFilterQueryString.length - 1);
+    }
+    this.sortAndFilterQueryString = sortAndFilterQueryString;
+    switch (key) {
+        case "1":
+            sUrl = BILaunchpadApp.getWebServiceBaseURL() + "/internal/v1/showalldocuments" + sortAndFilterQueryString;
+            var iLevel = 1;
+            var filter = BILaunchpadApp.oConstants.HOME_SHOWALL;
+            var oPageInfo = null;
+            this.getDocumentList(sUrl, iLevel, oPageInfo, filter);
+            var totaltilelist = BILaunchpadApp.getPageTilelist();
+            break;
+        case "2":
+            sUrl = BILaunchpadApp.getWebServiceBaseURL() + "/internal/v1/recentlyviewed" + sortAndFilterQueryString;
+            var iLevel = 2;
+            var filter = BILaunchpadApp.oConstants.HOME_RECENT;
+            var oPageInfo = null;
+            this.getDocumentList(sUrl, iLevel, oPageInfo, filter);
+            break;
+        case "3":
+            sUrl = BILaunchpadApp.getWebServiceBaseURL() + "/internal/v1/personaldocuments" + sortAndFilterQueryString;
+            var iLevel = 3;
+            var filter = BILaunchpadApp.oConstants.HOME_MYDOCUMENTS;
+            var oPageInfo = null;
+            this.getDocumentList(sUrl, iLevel, oPageInfo, filter);
+            break;
+        case "4":
+            if (this.cuid != null) {
+                sUrl = BILaunchpadApp.getWebServiceBaseURL() + "/v1/categories/" + this.cuid + "/children" + sortAndFilterQueryString;
+            } else {
+                sUrl = BILaunchpadApp.getWebServiceBaseURL() + "/v1/categories" + sortAndFilterQueryString;
+            }
+            var iLevel = 4;
+            var filter = BILaunchpadApp.oConstants.HOME_MYCATEGORIES;
+            var oPageInfo = null;
+            this.getDocumentList(sUrl, iLevel, oPageInfo, filter);
+            break;
+        case "5":
+            sUrl = BILaunchpadApp.getWebServiceBaseURL() + "/internal/v1/favorites" + sortAndFilterQueryString;
+            var iLevel = 5;
+            var filter = BILaunchpadApp.oConstants.HOME_MYFAVORITES;
+            var oPageInfo = null;
+            this.getDocumentList(sUrl, iLevel, oPageInfo, filter);
+            break;
+        case "6":
+            sUrl = BILaunchpadApp.getWebServiceBaseURL() + "/v1/scheduleinstances" + sortAndFilterQueryString + "&type='Webi','Program','ObjectPackage','CrystalReport','VISILums','MDAnalysis','Pdf','Excel','Txt','Word','AO.Workbook','Rtf','LUMX'";
+            var iLevel = 6;
+            var filter = BILaunchpadApp.oConstants.HOME_MYRECENTLYRUN;
+            var oPageInfo = null;
+            this.getDocumentList(sUrl, iLevel, oPageInfo, filter);
+            break;
+    }
+};
+com.sap.fioribi.components.overviewpage.DocumentsController.prototype.getDocumentList = function(sUrl, iLevel, oPageInfo, filter) {
+    var setCategoryFilter = {
+        flag: 1
+    };
+    var setOtherFilter = {
+        flag: 0
+    };
+    var sUrl = sUrl;
+    var iLevel = iLevel;
+    this.oPageInfo = oPageInfo;
+    jQuery.sap.require("com.sap.fioribi.utils.RequestDispatcher");
+    var getDocAndCategoryListingError = function(xhr, ajaxOptions, thrownError) {
+        var clsBtn = new sap.m.Button({
+            text: BILaunchpadApp.localized("Recycle_Bin_Close"),
+            press: $.proxy(function() {
+                errDialog.close();
+            }, this)
+        });
+        var errDialog = new sap.m.Dialog().addButton(clsBtn);
+        errDialog.open();
+        errDialog.setTitle(BILaunchpadApp.localized("Error"));
+        BILaunchpadApp.oErrorHandler.showErrorMessage(xhr, errDialog);
+        bError = true;
+        sap.ui.core.BusyIndicator.hide();
+    };
+    var $this = this;
+    var getDocAndCategoryListingSuccess = function(response) {
+        if (iLevel == 5) {
+            sap.ui.getCore().setModel(response, "favInfo");
+        }
+        jQuery.sap.require("com.sap.fioribi.utils.ObjectTypeIcon");
+        jQuery.sap.require("com.sap.fioribi.utils.typeFormatter");
+        $this.$entries = response;
+        var section = "";
+        var level = BILaunchpadApp.getCurrentSection();
+        if (level == "5") {
+            section = BILaunchpadApp.localized("all_fav");
+        } else {
+            if (level == "2") {
+                section = BILaunchpadApp.localized("all_recent");
+            } else {
+                if (level == "6") {
+                    section = BILaunchpadApp.localized("all_recentlyrun");
+                } else {
+                    section = BILaunchpadApp.localized("tile_header_text_All_Documents");
+                }
+            }
+        }
+        section = section + " ";
+        if (BILaunchpadApp.getDocViewUIelementMap() != undefined && BILaunchpadApp.getDocViewUIelementMap().get("CountLabel") != undefined) {
+            if (BILaunchpadApp.getTableWidget() != undefined) {
+                var isLastPage = BILaunchpadApp.getTableWidget().getController().isLastPageForList;
+                if (isLastPage == true) {
+                    BILaunchpadApp.getDocViewUIelementMap().get("CountLabel").setText(section + "(" + response.entries.length + ")");
+                } else {
+                    if (response.entries.length < 50) {
+                        BILaunchpadApp.getDocViewUIelementMap().get("CountLabel").setText(section + "(" + response.entries.length + ")");
+                    } else {
+                        BILaunchpadApp.getDocViewUIelementMap().get("CountLabel").setText(section + "(" + response.entries.length + "+)");
+                    }
+                }
+            } else {
+                BILaunchpadApp.getDocViewUIelementMap().get("CountLabel").setText(section + "(" + response.entries.length + "+)");
+            }
+        }
+        for (i = 0; i < response.entries.length; i++) {
+           var responseType=response.entries[i].type;
+            if(response.entries[i].type=="CrystalReport"){
+            if (response.entries[i].reportenginetype == "1" || response.entries[i].reportenginetype == "0") {
+                responseType = responseType + response.entries[i].reportenginetype;
+            }               
+            }
+            response.entries[i].displaytype = updatedtypeFormat(responseType);
+            response.entries[i].contentImageSrc = response.entries[i].imagepath;
+            response.entries[i].lastRef = response.entries[i].updated;
+            response.entries[i].level = iLevel;
+            if (checkIsFavorite($this.model.getFavoriteDataList(), response.entries[i].cuid)) {
+                response.entries[i].fav = true;
+            } else {
+                response.entries[i].fav = false;
+            }
+        }
+        if (sap.ui.getCore().byId("homeTable") != null) {
+            var oModel = new sap.ui.model.json.JSONModel();
+            oModel.setData(response.entries);
+            sap.ui.getCore().byId("homeTable").setModel(oModel);
+            sap.ui.getCore().byId("homeTable").bindRows("/");
+            if($('#'+sap.ui.getCore().byId("homeTable").sId+'-vsb')[0]!=undefined)
+            {
+            $('#'+sap.ui.getCore().byId("homeTable").sId+'-vsb')[0].scrollTop=0;
+            sap.ui.getCore().byId("homeTable").setFirstVisibleRow(0);
+            }
+        }
+        var bLastPage = false;
+        jQuery.sap.require("com.sap.fioribi.utils.ObjectTypeIcon");
+        jQuery.sap.require("com.sap.fioribi.utils.typeFormatter");
+        var bLastPage = false;
+        if (response.entries.length < BILaunchpadApp.getPageSizeLimit() || iLevel >= 7) {
+            bLastPage = true;
+        }
+        $this.resetFlags(bLastPage, sUrl, false);
+        $this.isScrollAllowedForList = true;
+        $this.isLastPageForList = false;
+        $this.updateRowCount(response.entries.length);
+        sap.ui.core.BusyIndicator.hide();
+        $this.currentPageNumber = 1;
+        $this.getFavoritesInfo(response, sUrl, iLevel, oPageInfo, filter);
+    };
+    //Skipping Pagination for Favourites as per Internal incident 2270117205
+    if(iLevel != 5){
+    if (sUrl.indexOf("?") != -1) {
+        sUrl = sUrl + "&pagesize=" + BILaunchpadApp.getPageSizeLimit();
+    } else {
+        sUrl = sUrl + "?pagesize=" + BILaunchpadApp.getPageSizeLimit();
+    }
+    }
+    $paginate_url = sUrl;
+    var request = {
+        surl: sUrl,
+        bAsync: false,
+        reqType: "GET",
+        successHandler: getDocAndCategoryListingSuccess,
+        errorHandler: getDocAndCategoryListingError,
+        headers: {
+            "x-SAP-logonToken": BILaunchpadApp.getlogonToken(),
+            Accept: "application/json",
+            "Content-Type": "application/json;odata=verbose",
+        }
+    };
+    var reqDispatcher = new RequestDispatcher();
+    if (sUrl != null && sUrl != "") {
+        sap.ui.core.BusyIndicator.show(0);
+        reqDispatcher.sendRequest(request);
+    }
+};
+com.sap.fioribi.components.overviewpage.DocumentsController.prototype.paginate = function(oContainer, currentPosition, isList) {
+    var $this = this;
+    var key = BILaunchpadApp.getCurrentSection();
+    var updateTableError = function(xhr, ajaxOptions, thrownError) {
+        sap.ui.core.BusyIndicator.hide();
+    };
+    var startTime = new Date().getTime();
+    var updateTableSuccess = function(response) {
+        var $response = response;
+        jQuery.sap.require("com.sap.fioribi.utils.ObjectTypeIcon");
+        jQuery.sap.require("com.sap.fioribi.utils.typeFormatter");
+        var j = response.entries.length;
+        var tableList = [];
+        var j = response.entries.length;
+        var tileList = [];
+        for (i = 0; i < j; i++) {
+            var obj = response.entries[i];
+            var data = $this.model.getdocumentTile().getData();
+            data.count = j;
+            var objImageUrl, tileType;
+            if (obj.type === "PersonalCategory") {
+                objImageUrl = "com/sap/fioribi/images/personal-category.png";
+                tileType = "cat";
+            } else {
+                if (obj.type === "Category") {
+                    objImageUrl = "com/sap/fioribi/images/corporate-category.png";
+                    tileType = "cat";
+                } else {
+                    objImageUrl = "com/sap/fioribi/images/report.png";
+                    tileType = "doc";
+                }
+            }
+            obj.headerIconClass = "BILP-size32px BILP-Webi";
+            var oIcon = new com.sap.fioribi.utils.ObjectTypeIcon2(obj.type);
+        }
+        for (i = 0; i < response.entries.length; i++) {
+            var responseType=response.entries[i].type;
+            if(response.entries[i].type=="CrystalReport"){
+                if (response.entries[i].reportenginetype == "1" || response.entries[i].reportenginetype == "0") {
+                    responseType = responseType + response.entries[i].reportenginetype;
+                }               
+            }
+            response.entries[i].displaytype = updatedtypeFormat(responseType);
+            response.entries[i].contentImageSrc = response.entries[i].imagepath;
+            response.entries[i].tileType = tileType;
+            response.entries[i].icon = oIcon;
+            response.entries[i].lastRef = response.entries[i].updated;
+            if (BILaunchpadApp.getCurrentSection() == "5") {
+                response.entries[i].fav = true;
+            } else {
+                if (checkIsFavorite($this.model.getFavoriteDataList(), response.entries[i].cuid)) {
+                    response.entries[i].fav = true;
+                } else {
+                    response.entries[i].fav = false;
+                }
+            }
+        }
+        if (!isList) {
+            var newData = response;
+            if (response.entries.length < BILaunchpadApp.getPageSizeLimit()) {
+                $this.resetFlags(true, sUrl, false);
+            }
+            $this.model.getdocumentTileList().setSizeLimit(100000);
+            var oldData = $this.model.getdocumentTileList().getData();
+            newData.entries = oldData.entries.concat(newData.entries);
+            var tile = {
+                tile: newData
+            };
+            $this.model.setdocumentTileList(response);
+            var entries = new sap.ui.model.json.JSONModel([]);
+            entries.setSizeLimit(100000);
+            entries.setData(newData);
+            var oModel = new sap.ui.model.json.JSONModel();
+            oModel.setData(newData.entries);
+            if (sap.ui.getCore().byId("homeTable") != undefined)
+                sap.ui.getCore().byId("homeTable").setModel(oModel);
+            sap.ui.getCore().byId("tilePageContainer").setModel(entries);
+			BILaunchpadApp.setPageTilelist(newData);
+        }
+        if (isList) {
+            if (sap.ui.getCore().byId("homeTable") != null) {
+                var oModel = new sap.ui.model.json.JSONModel();
+                var oldList = sap.ui.getCore().byId("homeTable").getModel().oData;
+                var selectedIndicies =sap.ui.getCore().byId("homeTable").getSelectedIndices();
+                var newList = $response;
+                if (newList.entries.length < BILaunchpadApp.getPageSizeLimit()) {
+                    $this.resetFlags(true, sUrl, true);
+                }
+                newList.entries = oldList.concat(newList.entries);
+                oModel.setData(newList.entries);
+                $this.model.getdocumentTileList().setData(newList);
+                sap.ui.getCore().byId("homeTable").setModel(oModel);
+                sap.ui.getCore().byId("homeTable").bindRows("/");
+                $this.updateRowCount(newList.entries.length);
+            }
+			BILaunchpadApp.setPageTilelist(newList);
+        }
+        if(selectedIndicies!= undefined)
+        {
+            for(var i=0;i<selectedIndicies.length;i++)
+            { 
+                sap.ui.getCore().byId("homeTable").addSelectionInterval(selectedIndicies[i],selectedIndicies[i])
+            }
+        }       
+        sap.ui.core.BusyIndicator.hide();
+        var endTime = new Date().getTime();
+        var timeTaken = endTime - startTime;
+        var timeOut = timeTaken > 500 ? timeTaken : 500;
+        setTimeout(function() {
+            if (isList) {
+                $this.isScrollAllowedForList = true;
+                sap.ui.getCore().byId("homeTable").setFirstVisibleRow((BILaunchpadApp.getPageSizeLimit()* $this.pageNo) - BILaunchpadApp.getPageSizeLimit());
+            } else {
+                $this.isScrollAllowed = true;
+            }
+        }, 0);
+        
+        var section = "";
+        var level = BILaunchpadApp.getCurrentSection();
+        if (level == "5") {
+            section = BILaunchpadApp.localized("all_fav");
+        } else {
+            if (level == "2") {
+                section = BILaunchpadApp.localized("all_recent");
+            } else {
+                if (level == "6") {
+                    section = BILaunchpadApp.localized("all_recentlyrun");
+                } else {
+                    section = BILaunchpadApp.localized("tile_header_text_All_Documents");
+                }
+            }
+        }
+         section = section + " ";
+        if (BILaunchpadApp.getDocViewUIelementMap() != undefined && BILaunchpadApp.getDocViewUIelementMap().get("CountLabel") != undefined) {
+            if (BILaunchpadApp.getTableWidget() != undefined) {
+                var isLastPage = BILaunchpadApp.getTableWidget().getController().isLastPageForList;
+                if (!isList)
+                    isLastPage = BILaunchpadApp.getTableWidget().getController().isLastPage;
+
+                if (isLastPage == true) {
+                    BILaunchpadApp.getDocViewUIelementMap().get("CountLabel").setText(section + "(" + response.entries.length + ")");
+                } else {
+                    if (response.entries.length < 50) {
+                        BILaunchpadApp.getDocViewUIelementMap().get("CountLabel").setText(section + "(" + response.entries.length + ")");
+                    } else {
+                        BILaunchpadApp.getDocViewUIelementMap().get("CountLabel").setText(section + "(" + response.entries.length + "+)");
+                    }
+                }
+            } else {
+                BILaunchpadApp.getDocViewUIelementMap().get("CountLabel").setText(section + "(" + response.entries.length + "+)");
+            }
+        }
+    };
+    var reqDispatcher = new RequestDispatcher();
+    var oPageContainer = oContainer;
+    var pagePosition = currentPosition;
+    var setCategoryFilter = {
+        flag: 1
+    };
+    var setOtherFilter = {
+        flag: 0
+    };
+    var sUrl = "";
+    var iLevel = 1;
+    var cuid = this.currentParentID;
+    if (isList) {
+        this.currentPageNumberForList = this.currentPageNumberForList + 1;
+        this.pageNo = this.currentPageNumberForList;
+        this.currentPageNumber = this.currentPageNumberForList;
+    } else {
+        this.currentPageNumber = this.currentPageNumber + 1;
+        this.pageNo = this.currentPageNumber;
+        this.currentPageNumberForList = this.currentPageNumber;
+    }
+    if (BILaunchpadApp.getCurrentSection() == "1") {
+		if(this.sortAndFilterQueryString == undefined)
+			this.sCurrentPageUrl = BILaunchpadApp.getWebServiceBaseURL() + "/internal/v1/showalldocuments?sort=-updated";
+		else			
+			this.sCurrentPageUrl = this.sCurrentPageUrl.split('&pagesize=50')[0];
+    } else {
+        if (BILaunchpadApp.getCurrentSection() == "5") {
+			if(this.sortAndFilterQueryString == undefined)
+				this.sCurrentPageUrl = BILaunchpadApp.getWebServiceBaseURL() + "/internal/v1/favorites";
+			else
+				this.sCurrentPageUrl = this.sCurrentPageUrl.split('?&pagesize=50')[0];
+        } else {
+            if (BILaunchpadApp.getCurrentSection() == "2") {
+                this.sCurrentPageUrl = BILaunchpadApp.getWebServiceBaseURL() + "/internal/v1/recentlyviewed";
+            } else {
+                if (BILaunchpadApp.getCurrentSection() == "6") {
+                    this.sCurrentPageUrl = BILaunchpadApp.getWebServiceBaseURL() + "/v1/scheduleinstances?type='Webi','Program','ObjectPackage','CrystalReport','VISILums','MDAnalysis','Pdf','Excel','Txt','Word','AO.Workbook','Rtf','LUMX'&sort=-updated";
+                }
+            }
+        }
+    }
+  //Skipping Pagination for Favourites as per Internal incident 2270117205
+    if(iLevel != 5){
+    if (this.sCurrentPageUrl.indexOf("sort=") != -1 || this.sCurrentPageUrl.indexOf("?") != -1) {
+        surl = this.sCurrentPageUrl + "&page=" + this.pageNo + "&pagesize=" + BILaunchpadApp.getPageSizeLimit();
+    } else {
+        surl = this.sCurrentPageUrl + "?page=" + this.pageNo + "&pagesize=" + BILaunchpadApp.getPageSizeLimit();
+    }
+    }
+    var request = {
+        surl: surl,
+        reqType: "GET",
+        successHandler: $.proxy(updateTableSuccess, this),
+        errorHandler: updateTableError,
+        headers: {
+            "x-SAP-logonToken": BILaunchpadApp.getlogonToken(),
+            Accept: "application/json",
+            "Content-Type": "application/json;odata=verbose",
+        }
+    };
+    sap.ui.core.BusyIndicator.show(0);
+    reqDispatcher.sendRequest(request);
+};
+com.sap.fioribi.components.overviewpage.DocumentsController.prototype.resetFlags = function(bLastPage, sUrl, isList) {
+    this.sCurrentPageUrl = sUrl;
+    if (isList) {
+        this.isLastPageForList = bLastPage;
+        this.isScrollAllowedForList = true;
+        this.currentPageNumberForList = 1;
+    } else {
+        this.isLastPage = bLastPage;
+        this.isScrollAllowed = true;
+        this.currentPageNumber = 1;
+    }
+};
+com.sap.fioribi.components.overviewpage.DocumentsController.prototype.fnViewDocument = function(objContext) {
+    var objData = objContext.getProperty(objContext.getPath());
+    if (BILaunchpadApp.oBILaunchpadUtil.isViewSupported(objData.type)) {
+        var oCafObject = {
+            techname: BILaunchpadApp.oConstants.VIEW
+        };
+        objContext.getProperty(objContext.getPath()).isOneClick = true;
+        BILaunchpadApp.oActionPanel.performAction(objContext, oCafObject);
+    }
+};
+com.sap.fioribi.components.overviewpage.DocumentsController.prototype.markAsUnFav = function(objContext) {
+    var objData = objContext.getProperty(objContext.getPath());
+    if (BILaunchpadApp.oBILaunchpadUtil.isViewSupported(objData.fav)) {
+        var oCafObject = {
+            techname: BILaunchpadApp.oConstants.REMOVE_FROM_FAVORITE
+        };
+        objContext.getProperty(objContext.getPath()).isOneClick = true;
+        BILaunchpadApp.oActionPanel.performAction(objContext, oCafObject, this);
+    }
+};
+com.sap.fioribi.components.overviewpage.DocumentsController.prototype.processActions = function(oControl, objContext) {
+    oSideLayout = BILaunchpadApp.getDocViewUIelementMap().get("bilp-sidelayoutHome");
+    if (BILaunchpadApp.getDocViewUIelementMap().get("listIcon") != undefined) {
+        if (BILaunchpadApp.getDocViewUIelementMap().get("listIcon").getPressed()) {
+            BILaunchpadApp.oActionPanel.renderActionPanel(oControl, objContext, this, oSideLayout);
+        } else {
+            BILaunchpadApp.oActionPanel.renderActionPanel(oControl, objContext, this.oController, oSideLayout);
+        }
+    } else {
+        if (this.oController == undefined) {
+            BILaunchpadApp.oActionPanel.renderActionPanel(oControl, objContext, this, oSideLayout);
+        } else {
+            BILaunchpadApp.oActionPanel.renderActionPanel(oControl, objContext, this.oController, oSideLayout);
+        }
+    }
+};
+com.sap.fioribi.components.overviewpage.DocumentsController.prototype.processGlobalActions = function(oControl, objContext) {
+    if (BILaunchpadApp.getDocViewUIelementMap().get("listIcon").getPressed()) {
+        BILaunchpadApp.oActionPanel.renderGlobalActionPanel(oControl, objContext, this, null, "showall");
+    } else {
+        BILaunchpadApp.oActionPanel.renderGlobalActionPanel(oControl, objContext, this.oController, null, "showall");
+    }
+};
+com.sap.fioribi.components.overviewpage.DocumentsController.prototype.getFavoritesInfo = function(response, sUrl, iLevel, oPageInfo, filter) {
+    var $this = this;
+    var sUrl = BILaunchpadApp.getWebServiceBaseURL() + "/internal/v1/favorites";
+    jQuery.sap.require("com.sap.fioribi.utils.RequestDispatcher");
+    var getFavoriteDataListingError = function(xhr, ajaxOptions, thrownError) {
+        var clsBtn = new sap.m.Button({
+            text: BILaunchpadApp.localized("Recycle_Bin_Close"),
+            press: $.proxy(function() {
+                errDialog.close();
+            }, this)
+        });
+        var errDialog = new sap.m.Dialog().addButton(clsBtn);
+        errDialog.open();
+        errDialog.setTitle(BILaunchpadApp.localized("Error"));
+        BILaunchpadApp.oErrorHandler.showErrorMessage(xhr, errDialog);
+        bError = true;
+        sap.ui.core.BusyIndicator.hide();
+    };
+    var $this = this;
+    $this.model.clearFavoriteDataList();
+    var getFavoriteDataListingSuccess = function(data) {
+        sap.ui.getCore().setModel(data, "favInfo");
+        $this.processFavInfo($this, data, response, filter, iLevel, oPageInfo);
+    };
+  //Skipping Pagination for Favourites as per Internal incident 2270117205
+    if(iLevel != 5){
+    if (sUrl.indexOf("?") != -1) {
+        sUrl = sUrl + "&pagesize=" + BILaunchpadApp.getPageSizeLimit();
+    } else {
+        sUrl = sUrl + "?pagesize=" + BILaunchpadApp.getPageSizeLimit();
+    }
+    }
+    var request = {
+        surl: sUrl,
+        bAsync: false,
+        reqType: "GET",
+        successHandler: getFavoriteDataListingSuccess,
+        errorHandler: getFavoriteDataListingError,
+        headers: {
+            "x-SAP-logonToken": BILaunchpadApp.getlogonToken(),
+            Accept: "application/json",
+            "Content-Type": "application/json;odata=verbose",
+        }
+    };
+    var reqDispatcher = new RequestDispatcher();
+    sap.ui.core.BusyIndicator.show(0);
+    if (sap.ui.getCore().getModel("favInfo") == undefined || filter == "home_showall"||filter == "home_recent") {
+        reqDispatcher.sendRequest(request);
+    } else {
+        $this.processFavInfo($this, sap.ui.getCore().getModel("favInfo"), response, filter, iLevel, oPageInfo);
+    }
+};
+com.sap.fioribi.components.overviewpage.DocumentsController.prototype.processFavInfo = function($this, data, response, filter, iLevel, oPageInfo) {
+    sap.ui.core.BusyIndicator.hide();
+    for (i = 0; i < data.entries.length; i++) {
+        $this.model.getFavoriteDataList().push(data.entries[i].cuid);
+    }
+    sap.ui.core.BusyIndicator.hide();
+    jQuery.sap.require("com.sap.fioribi.utils.ObjectTypeIcon");
+    jQuery.sap.require("com.sap.fioribi.utils.typeFormatter");
+    sap.ui.core.BusyIndicator.hide();
+    $this.currentPageNumber = 1;
+    var j = response.entries.length;
+    var tileList = [];
+    for (i = 0; i < j; i++) {
+        var obj = response.entries[i];
+        var data = $this.model.getdocumentTile().getData();
+        data.count = j;
+        var objImageUrl, tileType;
+        if (obj.type === "PersonalCategory") {
+            objImageUrl = "com/sap/fioribi/images/personal-category.png";
+            tileType = "cat";
+        } else {
+            if (obj.type === "Category") {
+                objImageUrl = "com/sap/fioribi/images/corporate-category.png";
+                tileType = "cat";
+            } else {
+                objImageUrl = "com/sap/fioribi/images/report.png";
+                tileType = "doc";
+            }
+        }
+        obj.headerIconClass = "BILP-size32px BILP-Webi";
+        jQuery.sap.require("com.sap.fioribi.utils.ObjectTypeIcon2");
+        var oIcon = new com.sap.fioribi.utils.ObjectTypeIcon2(obj.type);
+    }
+    for (i = 0; i < response.entries.length; i++) {
+        var responseType=response.entries[i].type;
+            if(response.entries[i].type=="CrystalReport"){
+                if (response.entries[i].reportenginetype == "1" || response.entries[i].reportenginetype == "0") {
+                    responseType = responseType + response.entries[i].reportenginetype;
+                }               
+            }
+        response.entries[i].displaytype = updatedtypeFormat(responseType);
+        response.entries[i].contentImageSrc = response.entries[i].imagepath;
+        response.entries[i].tileType = tileType;
+        response.entries[i].icon = oIcon;
+        response.entries[i].lastRef = response.entries[i].updated;
+        response.entries[i].filter = filter;
+        if (checkIsFavorite($this.model.getFavoriteDataList(), response.entries[i].cuid)) {
+            response.entries[i].fav = true;
+        } else {
+            response.entries[i].fav = false;
+        }
+    }
+    $this.model.setdocumentTileList(response);
+    BILaunchpadApp.setPageTilelist(response);
+    var oListControl = sap.ui.getCore().byId("homeTable");
+    if (oListControl) {
+        var oModel = new sap.ui.model.json.JSONModel();
+        oModel.setData(response.entries);
+        sap.ui.getCore().byId("homeTable").setModel(oModel);
+        $this.updateRowCount(response.entries.length);
+    }
+    var oTileControl = sap.ui.getCore().byId("tilePageContainer");
+    if (oTileControl) {
+        var oModel = new sap.ui.model.json.JSONModel();
+        oModel.setData(response);
+        sap.ui.getCore().byId("tilePageContainer").setModel(oModel);
+    }
+    if (!$this.oPageInfo) {
+        var jsonPageInfo = {
+            cuid: null,
+            name: null,
+            level: iLevel,
+            type: null
+        };
+        $this.model.setpageInfo(jsonPageInfo);
+    } else {
+        if ($this.flag) {
+            $this.model.setpageInfo($this.oPageInfo);
+            $this.model.addpageInfoList($this.oPageInfo);
+            if (typeof $this.oView.addBreadCrumb === "function") { 
+                 $this.oView.addBreadCrumb();
+            }
+           
+        }
+    }
+    sap.ui.core.BusyIndicator.hide();
+};
+com.sap.fioribi.components.overviewpage.DocumentsController.prototype.getShowallFavoritesRecentOnAfterFavoriteSelectmodel = function() {
+    var markedAsfav = BILaunchpadApp.getMarkasfav();
+    var totaltilelist = BILaunchpadApp.getPageTilelist();
+    var Currentsection = BILaunchpadApp.getCurrentSection();
+    if (markedAsfav.constructor === Array) {
+        for (var j = 0; j < markedAsfav.length; j++) {
+            for (var i = 0; i < totaltilelist.entries.length; i++) {
+                if (markedAsfav[j].cuid === totaltilelist.entries[i].cuid) {
+                    totaltilelist.entries[i].fav = true;
+                }
+            }
+        }
+    } else {
+        for (var i = 0; i < totaltilelist.entries.length; i++) {
+            if (markedAsfav.cuid === totaltilelist.entries[i].cuid) {
+                totaltilelist.entries[i].fav = true;
+            }
+        }
+    }
+    var oListControl = sap.ui.getCore().byId("homeTable");
+    var oTileControl = sap.ui.getCore().byId("tilePageContainer");
+    if (oListControl) {
+        var oModel = new sap.ui.model.json.JSONModel();
+        oModel.setSizeLimit(100000);
+        oModel.setData(totaltilelist.entries);
+        oListControl.setModel(oModel);
+        oListControl.clearSelection();
+        this.updateRowCount(totaltilelist.entries.length);
+    }
+    if (oTileControl) {
+        var oModel = new sap.ui.model.json.JSONModel();
+        oModel.setSizeLimit(100000);
+        oModel.setData(totaltilelist);
+        oTileControl.setModel(oModel);
+    }
+    var section = "";
+    if (Currentsection == "1") {
+        section = BILaunchpadApp.localized("tile_header_text_All_Documents");
+    } else {
+        if (Currentsection == "5") {
+            section = BILaunchpadApp.localized("all_fav");
+        } else {
+            if (Currentsection == "2") {
+                section = BILaunchpadApp.localized("all_recent");
+            }
+        }
+    }
+     section = section + " ";
+    if (BILaunchpadApp.getDocViewUIelementMap() != undefined && BILaunchpadApp.getDocViewUIelementMap().get("CountLabel") != undefined) {
+        if (BILaunchpadApp.getTableWidget() != undefined) {
+            sap.ui.getCore().byId("showAllOverflowButton").setEnabled(false);
+            var isLastPage = BILaunchpadApp.getTableWidget().getController().isLastPageForList;
+            if (isLastPage == true) {
+                BILaunchpadApp.getDocViewUIelementMap().get("CountLabel").setText(section + "(" + totaltilelist.entries.length + ")");
+            } else {
+                if (totaltilelist.entries.length < 50) {
+                    BILaunchpadApp.getDocViewUIelementMap().get("CountLabel").setText(section + "(" + totaltilelist.entries.length + ")");
+                } else {
+                    BILaunchpadApp.getDocViewUIelementMap().get("CountLabel").setText(section + "(" + totaltilelist.entries.length + "+)");
+                }
+            }
+        } else {
+            BILaunchpadApp.getDocViewUIelementMap().get("CountLabel").setText(section + "(" + totaltilelist.entries.length + "+)");
+        }
+    }
+};
+com.sap.fioribi.components.overviewpage.DocumentsController.prototype.getShowallFavoritesRecentOnAfterRemoveFromFavoriteSelectmodel = function() {
+    var markedAsfav = BILaunchpadApp.getMarkasfav();
+    var totaltilelist = BILaunchpadApp.getPageTilelist();
+    var Currentsection = BILaunchpadApp.getCurrentSection();
+    if (markedAsfav.constructor === Array) {
+        for (var j = 0; j < markedAsfav.length; j++) {
+            for (var i = 0; i < totaltilelist.entries.length; i++) {
+                if (markedAsfav[j].cuid === totaltilelist.entries[i].cuid) {
+                    totaltilelist.entries[i].fav = false;
+                    if (BILaunchpadApp.getCurrentSection() == "5") {
+                        totaltilelist.entries.splice(i, 1);
+                    }
+                    break;
+                }
+              /*  var oListControl = sap.ui.getCore().byId("homeTable");
+                if (oListControl) {
+                    var oModel = new sap.ui.model.json.JSONModel();
+                    oModel.setData(totaltilelist.entries);
+                    sap.ui.getCore().byId("homeTable").setModel(oModel);
+                } */
+            }
+        }
+    } else {
+        for (var i = 0; i < totaltilelist.entries.length; i++) {
+            if (markedAsfav.cuid === totaltilelist.entries[i].cuid) {
+                totaltilelist.entries[i].fav = false;
+                if (BILaunchpadApp.getCurrentSection() == "5") {
+                    totaltilelist.entries.splice(i, 1);
+                }
+            }
+        }
+    }
+    var oListControl = sap.ui.getCore().byId("homeTable");
+    if (oListControl) {
+        var oModel = new sap.ui.model.json.JSONModel();
+        oModel.setData(totaltilelist.entries);
+        sap.ui.getCore().byId("homeTable").setModel(oModel);
+        this.updateRowCount(totaltilelist.entries.length);
+    }
+    var oTileControl = sap.ui.getCore().byId("tilePageContainer");
+    if (oTileControl) {
+        var oModel = new sap.ui.model.json.JSONModel();
+        oModel.setSizeLimit(100000);
+        oModel.setData(totaltilelist);
+        oTileControl.setModel(oModel);
+    }
+    if (Currentsection == "1") {
+        var section = BILaunchpadApp.localized("tile_header_text_All_Documents");
+        BILaunchpadApp.getDocViewUIelementMap().get("CountLabel").setText(section + " (" + totaltilelist.entries.length + ")");
+    } else {
+        if (Currentsection == "5") {
+            var section = BILaunchpadApp.localized("all_fav");
+            BILaunchpadApp.getDocViewUIelementMap().get("CountLabel").setText(section + " (" + totaltilelist.entries.length + ")");
+        } else {
+            if (Currentsection == "2") {
+                var section = BILaunchpadApp.localized("all_recent");
+                BILaunchpadApp.getDocViewUIelementMap().get("CountLabel").setText(section + " (" + totaltilelist.entries.length + ")");
+            }
+        }
+    }
+};
+com.sap.fioribi.components.overviewpage.DocumentsController.prototype.getShowallFavoritesRecentOnAfterDeleteSelectmodel = function() {
+    var deleteditem = BILaunchpadApp.getdeleteditem();
+    var totaltilelist = BILaunchpadApp.getPageTilelist();
+    var Currentsection = BILaunchpadApp.getCurrentSection();
+    if (deleteditem.constructor === Array) {
+        for (var j = 0; j < deleteditem.length; j++) {
+            for (var i = 0; i < totaltilelist.entries.length; i++) {
+                if (deleteditem[j].cuid === totaltilelist.entries[i].cuid) {
+                    totaltilelist.entries.splice(i, 1);
+                }
+            }
+        }
+    } else {
+        for (var i = 0; i < totaltilelist.entries.length; i++) {
+            if (deleteditem.cuid === totaltilelist.entries[i].cuid) {
+                totaltilelist.entries.splice(i, 1);
+            }
+        }
+    }
+    var oListControl = sap.ui.getCore().byId("homeTable");
+    if (oListControl) {
+        var oModel = new sap.ui.model.json.JSONModel();
+        oModel.setData(totaltilelist.entries);
+        sap.ui.getCore().byId("homeTable").setModel(oModel);
+        this.updateRowCount(totaltilelist.entries.length);
+    }
+    if (sap.ui.getCore().byId("tilePageContainer") != null) {
+        var oModel = new sap.ui.model.json.JSONModel();
+        oModel.setData(totaltilelist);
+        sap.ui.getCore().byId("tilePageContainer").setModel(oModel);
+    }
+    var section = "";
+    if (Currentsection == "1") {
+        section = BILaunchpadApp.localized("tile_header_text_All_Documents");
+    } else {
+        if (Currentsection == "5") {
+            section = BILaunchpadApp.localized("all_fav");
+        } else {
+            if (Currentsection == "2") {
+                section = BILaunchpadApp.localized("all_recent");
+            } else {
+                if (Currentsection == "6") {
+                    section = BILaunchpadApp.localized("all_recentlyrun");
+                }
+            }
+        }
+    }
+     section = section + " ";
+    if (BILaunchpadApp.getDocViewUIelementMap() != undefined && BILaunchpadApp.getDocViewUIelementMap().get("CountLabel") != undefined) {
+        if (BILaunchpadApp.getTableWidget() != undefined) {
+            var isLastPage = BILaunchpadApp.getTableWidget().getController().isLastPageForList;
+            if (isLastPage == true) {
+                BILaunchpadApp.getDocViewUIelementMap().get("CountLabel").setText(section + "(" + totaltilelist.entries.length + ")");
+            } else {
+                if (totaltilelist.entries.length < 50) {
+                    BILaunchpadApp.getDocViewUIelementMap().get("CountLabel").setText(section + "(" + totaltilelist.entries.length + ")");
+                } else {
+                    BILaunchpadApp.getDocViewUIelementMap().get("CountLabel").setText(section + "(" + totaltilelist.entries.length + "+)");
+                }
+            }
+        } else {
+            BILaunchpadApp.getDocViewUIelementMap().get("CountLabel").setText(section + "(" + totaltilelist.entries.length + "+)");
+        }
+    }
+    if (Currentsection == "1") {
+            this.getShowAll();
+    } else {
+        if (Currentsection == "5") {
+                this.getFavorites();
+        } else {
+            if (Currentsection == "2") {
+               this.getRecent();
+            } else {
+                if (Currentsection == "6") {
+                    this.getMyRecentlyRun();
+                }
+            }
+        }
+    }
+};
+
+function checkIsFavorite(favLst, cuid) {
+    var exists = false;
+    for (var i in favLst) {
+        if (favLst[i] == cuid) {
+            exists = true;
+            break;
+        }
+    }
+    return exists;
+}
+com.sap.fioribi.components.overviewpage.DocumentsController.prototype.getUserInfo = function() {
+    jQuery.sap.require("com.sap.fioribi.utils.RequestDispatcher");
+    var successUserName = function(response) {
+        sap.ui.getCore().setModel(response, "userSettingsMyInfo");
+        if (response.accountname != undefined) {
+            if (response.fullname != "" && response.fullname != undefined) {
+                sap.ui.getCore().setModel(response.fullname, "username");
+            } else {
+                sap.ui.getCore().setModel(response.accountname, "username");
+            }
+            sap.ui.getCore().setModel(response.accountname, "accountname");         
+        }
+        sap.ui.getCore().setModel(response, "myInfoCount");
+    };
+    var errorUserName = function(xhr, ajaxOptions, thrownError) {};
+    var request = {
+        surl: BILaunchpadApp.getWebServiceBaseURL() + "/internal/v1/settings/myinfo",
+        reqType: "GET",
+        bAsync: false,
+        successHandler: successUserName,
+        errorHandler: errorUserName,
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json;odata=verbose",
+            "x-sap-logontoken": BILaunchpadApp.getlogonToken()
+        }
+    };
+    var reqDispatcher = new RequestDispatcher();
+    var allSettingsModel = sap.ui.getCore().getModel("allSettingsModel");
+    if (!allSettingsModel) {
+        reqDispatcher.sendRequest(request);
+    } else {
+        successUserName(allSettingsModel.oData.entries[0]);
+    }
+};
+
+com.sap.fioribi.components.overviewpage.DocumentsController.prototype.exportTableAsExcel = function() {
+    sap.ui.require([
+        "sap/ui/export/Spreadsheet"
+    ], function(Spreadsheet) {
+        var excelColMapping = [];
+        var foldersTable = sap.ui.getCore().byId("homeTable");
+        var columns = foldersTable.getColumns();
+        for (var i = 0; i < columns.length - 1; i++) {
+            var colPrefKey = "";
+            if (columns[i].data().preferenceKey)
+                colPrefKey = columns[i].data().preferenceKey;
+            else if (columns[i].data().nonPreferenceKey)
+                colPrefKey = columns[i].data().nonPreferenceKey;
+            var columnParams = this.getExportColumnParams(colPrefKey);
+            excelColMapping.push({
+                label: columns[i].getLabel().getText(),
+                property: columnParams.key,
+                width: columnParams.width
+            });
+        }
+
+        var modelData = [];
+        if (Array.isArray(foldersTable.getModel().getData()))
+            modelData = JSON.parse(JSON.stringify(foldersTable.getModel().getData()));
+        else if (typeof foldersTable.getModel().getData() === "object" && foldersTable.getModel().getData().hasOwnProperty("entries"))
+            modelData = JSON.parse(JSON.stringify(foldersTable.getModel().getData().entries));
+        
+        var mSettings = {
+            workbook: {
+                columns: excelColMapping,
+                context: {
+                    sheetName: "Documents"
+                }
+            },
+            dataSource: modelData,
+            fileName: "Documents.xlsx"
+        };
+        var oSpreadsheet = new sap.ui.export.Spreadsheet(mSettings);
+        oSpreadsheet.onprogress = function (iValue) {
+            jQuery.sap.log.debug("Export: " + iValue + "% completed");
+        };
+        oSpreadsheet.build().then(function () { 
+            jQuery.sap.log.debug("Export is finished"); 
+        }).catch(function (sMessage) { 
+            jQuery.sap.log.error("Export error: " + sMessage); 
+        });
+    }.bind(this));
+};
+com.sap.fioribi.components.overviewpage.DocumentsController.prototype.getExportColumnParams = function(colPrefKey) {
+    var excelColParams = {
+        key: "",
+        width: 10,
+    };
+    switch (colPrefKey) {
+        case "name":
+            excelColParams.key = "name";
+            excelColParams.width = 35;
+            break;
+        case "myfavorites":
+            excelColParams.key = "fav";
+            break;
+        case "type":
+            excelColParams.key = "displaytype";
+            excelColParams.width = 20;
+            break;
+        case "lastrun":
+            excelColParams.key = "lastRun";
+            excelColParams.width = 20;
+            break;
+        case "instances":
+            excelColParams.key = "instances";
+            break;
+        case "description":
+            excelColParams.key = "description";
+            excelColParams.width = 25;
+            break;
+        case "createdby":
+            excelColParams.key = "owner";
+            excelColParams.width = 20;
+            break;
+        case "lastupdated":
+            excelColParams.key = "updated";
+            excelColParams.width = 20;
+            break;
+        case "createdon":
+            excelColParams.key = "created";
+            excelColParams.width = 20;
+            break;
+        case "locationcategories":
+            excelColParams.key = "path";
+            excelColParams.width = 30;
+            break;
+        default:
+            excelColParams.key = "unmapped_key";
+            excelColParams.width = 20;
+    }
+    return excelColParams;
+};
