@@ -1,0 +1,14 @@
+# Project description file
+
+project.name=OPAS
+project.version=8.7
+project.original.version=8.7
+product.name=NeoLoad
+product.original.name=NeoLoad
+product.original.version=9.1.3
+project.is-open-test-settings-after-upload=false
+project.id=36cb34e5-3198-416d-870f-8cd393d59662
+project.config.path=config.zip
+project.config.storage=ZIP
+team.server.enabled=false
+product.version=9.1.3
